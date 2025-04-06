@@ -50,7 +50,7 @@ class AppRoutes {
     ),
     GetPage(
       name: empDegrees,
-      page: () => EmpDegreesPage(),
+      page: () => const EmpDegreesPage(),
     ),
     GetPage(
       name: parts,

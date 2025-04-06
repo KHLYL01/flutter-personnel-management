@@ -14,8 +14,10 @@ class PartsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<PartsController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
+
     return Scaffold(
       body: BaseScreen(
         widget: Obx(
