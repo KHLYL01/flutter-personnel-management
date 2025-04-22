@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 
@@ -9,6 +11,20 @@ class JobsRepository {
   final ApiService _apiService;
 
   JobsRepository(this._apiService);
+
+  Future<Either<Failure, List<JobsModel>>> findJobs({
+    required int? id,
+    required String? name,
+  }) async {
+    try {
+      final httpResponse = await _apiService.findJobs(id, name);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 
   Future<Either<Failure, List<JobsModel>>> findAll() async {
     try {

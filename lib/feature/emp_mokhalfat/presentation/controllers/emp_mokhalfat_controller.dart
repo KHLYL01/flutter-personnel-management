@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_mokhalfat_model.dart';
 import '../../data/repository/emp_mokhalfat_repository.dart';
+import 'emp_mokhalfat_search_controller.dart';
 
 class EmpMokhalfatController extends GetxController {
   final EmpMokhalfatRepository _repository;
@@ -14,34 +15,39 @@ class EmpMokhalfatController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpMokhalfatSearchModel> empMokhalfats =
-      <EmpMokhalfatSearchModel>[].obs;
+  final TextEditingController id = TextEditingController();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
+  final TextEditingController description = TextEditingController();
+  RxString mokhalfaType = 'لفت نظر'.obs;
+  final List<String> mokhalfaTypes = ["لفت نظر", 'انذار', 'حسم جزاء'];
+  onChangedDissentType(value) {
+    mokhalfaType(value);
+  }
 
-  final TextEditingController name = TextEditingController();
-  final TextEditingController cardId = TextEditingController();
-
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(name: name.text, cardId: cardId.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empMokhalfats(r));
-    isLoading(false);
+  var isPicture = false.obs;
+  onChangedPicture() {
+    isPicture.value = !isPicture.value;
   }
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpMokhalfatModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ''
+            ? int.parse(id.text)
+            : await Get.find<EmpMokhalfatSearchController>().getId(),
+        startDateString: startDate.text,
+        endDateString: endDate.text,
+        description: description.text,
+        mokhalfaType: mokhalfaType.value,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpMokhalfatSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -54,21 +60,19 @@ class EmpMokhalfatController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<EmpMokhalfatSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
-    name.clear();
-    cardId.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    id.clear();
+    startDate.clear();
+    endDate.clear();
+    description.clear();
+    mokhalfaType('لفت نظر');
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -84,19 +88,11 @@ class EmpMokhalfatController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpMokhalfatModel m in empMokhalfats) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillControllers(EmpMokhalfatModel r) {
+    id.text = r.id.toString();
+    startDate.text = r.startDateString.toString();
+    endDate.text = r.endDateString.toString();
+    description.text = r.description.toString();
+    mokhalfaType('لفت نظر');
   }
 }

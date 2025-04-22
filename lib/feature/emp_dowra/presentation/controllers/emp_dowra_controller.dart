@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -14,33 +15,39 @@ class EmpDowraController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpDowraSearchModel> empDowras = <EmpDowraSearchModel>[].obs;
-
-  final TextEditingController name = TextEditingController();
-  final TextEditingController cardId = TextEditingController();
-
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(name: name.text, cardId: cardId.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empDowras(r));
-    isLoading(false);
-  }
+  final TextEditingController id = TextEditingController();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
+  final TextEditingController courseDays =
+      TextEditingController(text: 0.toString());
+  final TextEditingController extraDays = TextEditingController();
+  final TextEditingController decisionNumber = TextEditingController();
+  final TextEditingController decisionDate = TextEditingController();
+  final TextEditingController title = TextEditingController();
+  final TextEditingController footer = TextEditingController();
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpDowraModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ""
+            ? int.parse(id.text)
+            : await Get.find<EmpDowraSearchController>().getId(),
+        startDate: startDate.text,
+        endDate: endDate.text,
+        courseDays: int.parse(courseDays.text),
+        decisionDate: decisionDate.text,
+        decisionNumber: decisionNumber.text,
+        extraDays: int.parse(extraDays.text),
+        title: title.text,
+        footer: footer.text,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpDowraSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -53,21 +60,23 @@ class EmpDowraController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<EmpDowraSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
-    name.clear();
-    cardId.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    id.clear();
+    startDate.clear();
+    endDate.clear();
+    courseDays.text = 0.toString();
+    extraDays.text = 0.toString();
+    decisionNumber.clear();
+    decisionDate.clear();
+    title.clear();
+    footer.clear();
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -83,19 +92,15 @@ class EmpDowraController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpDowraModel m in empDowras) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillController(EmpDowraModel r) {
+    id.text = r.id.toString();
+    startDate.text = r.startDate.toString();
+    endDate.text = r.endDate.toString();
+    courseDays.text = r.courseDays.toString();
+    extraDays.text = r.extraDays.toString();
+    decisionNumber.text = r.decisionNumber.toString();
+    decisionDate.text = r.decisionDate.toString();
+    title.text = r.title.toString();
+    footer.text = r.footer.toString();
   }
 }

@@ -6,6 +6,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../../../../core/widgets/pluto_config.dart';
 import '../controllers/parts_controller.dart';
 
 class PartsPage extends StatelessWidget {
@@ -62,12 +63,7 @@ class PartsPage extends StatelessWidget {
                 SizedBox(
                   height: currentHeight - 100,
                   child: PlutoGrid(
-                    configuration: const PlutoGridConfiguration(
-                      // style: PlutoGridStyleConfig.dark()
-                      columnSize: PlutoGridColumnSizeConfig(
-                        autoSizeMode: PlutoAutoSizeMode.equal,
-                      ),
-                    ),
+                    configuration: getPlutoConfig(),
                     rows: controller.parts
                         .map(
                           (item) => PlutoRow(cells: {

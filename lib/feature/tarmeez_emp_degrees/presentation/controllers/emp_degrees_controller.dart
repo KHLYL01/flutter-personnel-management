@@ -17,11 +17,14 @@ class EmpDegreesController extends GetxController {
   RxList<EmpDegreesModel> empDegrees = <EmpDegreesModel>[].obs;
 
   final TextEditingController id = TextEditingController();
-  final TextEditingController martaba = TextEditingController();
   final TextEditingController type = TextEditingController();
+  final TextEditingController martaba = TextEditingController();
+  final TextEditingController draga = TextEditingController();
   final TextEditingController salary = TextEditingController();
   final TextEditingController elawa = TextEditingController();
   final TextEditingController naqlBadal = TextEditingController();
+  final TextEditingController inEntedabBadal = TextEditingController();
+  final TextEditingController outEntedabBadal = TextEditingController();
 
   Future<void> findAll() async {
     isLoading(true);
@@ -39,9 +42,12 @@ class EmpDegreesController extends GetxController {
         id: int.parse(id.text),
         type: double.parse(type.text),
         martaba: double.parse(martaba.text),
+        draga: double.parse(draga.text),
         elawa: double.parse(elawa.text),
         naqlBadal: double.parse(naqlBadal.text),
         salary: double.parse(salary.text),
+        inEntedabBadal: double.parse(inEntedabBadal.text),
+        outEntedabadal: double.parse(outEntedabBadal.text),
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
@@ -68,7 +74,14 @@ class EmpDegreesController extends GetxController {
 
   void clearControllers() {
     id.text = getId().toString();
-    // name.clear();
+    type.clear();
+    martaba.clear();
+    draga.clear();
+    salary.clear();
+    elawa.clear();
+    naqlBadal.clear();
+    inEntedabBadal.clear();
+    outEntedabBadal.clear();
   }
 
   @override

@@ -17,9 +17,14 @@ class CustomPopupMenuButton extends StatelessWidget {
     return PopupMenuButton<String>(
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => items,
+      color: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(buttonText),
+        child: Text(
+          buttonText,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

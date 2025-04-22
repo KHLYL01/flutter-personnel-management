@@ -27,6 +27,17 @@ class PartsController extends GetxController {
     isLoading(false);
   }
 
+  Future<void> findParts() async {
+    isLoading(true);
+    messageError("");
+    final data = await _repository.findParts(
+      id: id.text == "" ? null : int.parse(id.text),
+      name: name.text,
+    );
+    data.fold((l) => messageError(l.eerMessage), (r) => parts(r));
+    isLoading(false);
+  }
+
   Future<void> save() async {
     isLoading(true);
     messageError("");
@@ -96,5 +107,10 @@ class PartsController extends GetxController {
   void fillControllers(Map<String, PlutoCell> cells) {
     id.text = cells['id']!.value.toString();
     name.text = cells['name']!.value.toString();
+  }
+
+  clearControllersForSearch() {
+    id.clear();
+    name.clear();
   }
 }

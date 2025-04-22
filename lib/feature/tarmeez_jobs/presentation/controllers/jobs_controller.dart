@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -23,6 +25,18 @@ class JobsController extends GetxController {
     isLoading(true);
     messageError("");
     final data = await _repository.findAll();
+    data.fold((l) => messageError(l.eerMessage), (r) => jobs(r));
+    isLoading(false);
+  }
+
+  Future<void> findJobs() async {
+    isLoading(true);
+    messageError("");
+    log(id.text);
+    final data = await _repository.findJobs(
+      id: id.text == "" ? null : int.parse(id.text),
+      name: name.text,
+    );
     data.fold((l) => messageError(l.eerMessage), (r) => jobs(r));
     isLoading(false);
   }
@@ -96,5 +110,10 @@ class JobsController extends GetxController {
   void fillControllers(Map<String, PlutoCell> cells) {
     id.text = cells['id']!.value.toString();
     name.text = cells['name']!.value.toString();
+  }
+
+  void clearControllersForSearch() {
+    id.clear();
+    name.clear();
   }
 }

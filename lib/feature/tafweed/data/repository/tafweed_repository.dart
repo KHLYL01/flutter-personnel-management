@@ -11,7 +11,7 @@ class TafweedRepository {
   TafweedRepository(this._apiService);
 
   Future<Either<Failure, List<TafweedSearchModel>>> search({
-    required int empId,
+    required int? empId,
   }) async {
     try {
       final httpResponse = await _apiService.searchTafweed(empId);

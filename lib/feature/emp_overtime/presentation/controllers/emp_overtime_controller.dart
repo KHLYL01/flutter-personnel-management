@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_overtime_model.dart';
 import '../../data/repository/emp_overtime_repository.dart';
+import 'emp_overtime_search_controller.dart';
 
 class EmpOvertimeController extends GetxController {
   final EmpOvertimeRepository _repository;
@@ -14,35 +15,57 @@ class EmpOvertimeController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpOvertimeSearchModel> empOvertimes = <EmpOvertimeSearchModel>[].obs;
+  final TextEditingController id = TextEditingController();
+  final TextEditingController part = TextEditingController();
+  final TextEditingController qararId = TextEditingController();
+  final TextEditingController hijriQararDate = TextEditingController();
+  final TextEditingController geoQararDate = TextEditingController();
+  final TextEditingController mission = TextEditingController();
+  final TextEditingController khitamNum = TextEditingController();
+  final TextEditingController khitabDate = TextEditingController();
+  final TextEditingController geoKhitabDate = TextEditingController();
+  final TextEditingController hijriStartDateOvertime = TextEditingController();
+  final TextEditingController geoStartDateOvertime = TextEditingController();
+  final TextEditingController hijriEndDateOvertime = TextEditingController();
+  final TextEditingController geoEndDateOvertime = TextEditingController();
+  final TextEditingController dayNum = TextEditingController();
+  final TextEditingController hoursAvg = TextEditingController();
 
-  final TextEditingController name = TextEditingController();
-  final TextEditingController cardId = TextEditingController();
-  final TextEditingController place = TextEditingController();
+  final List<String> days = [
+    "السبت",
+    'الأحد',
+    "الأثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+  ];
+  RxString selectedDay = 'السبت'.obs;
 
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(
-        name: name.text, cardId: cardId.text, place: place.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empOvertimes(r));
-    isLoading(false);
+  onChangedDay(String? value) {
+    selectedDay(value!);
   }
+
+  var isEidFutur = false.obs; // if false => isEidAdhaa = true
+  var isPicture = false.obs;
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpOvertimeModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ""
+            ? int.parse(id.text)
+            : await Get.find<EmpOvertimeSearchController>().getId(),
+        day: selectedDay.value,
+        hoursAvg: double.tryParse(hoursAvg.text),
+        qrarId: qararId.text,
+        place: part.text,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpOvertimeSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -55,23 +78,13 @@ class EmpOvertimeController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpOvertimeSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    name.clear();
-    cardId.clear();
-    place.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
-  }
+  void clearControllers() {}
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
@@ -86,19 +99,5 @@ class EmpOvertimeController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpOvertimeModel m in empOvertimes) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
-  }
+  void fillControllers(EmpOvertimeModel r) {}
 }

@@ -27,6 +27,17 @@ class NationsController extends GetxController {
     isLoading(false);
   }
 
+  Future<void> findNations() async {
+    isLoading(true);
+    messageError("");
+    final data = await _repository.findNations(
+      id: id.text == "" ? null : int.parse(id.text),
+      name: name.text,
+    );
+    data.fold((l) => messageError(l.eerMessage), (r) => nations(r));
+    isLoading(false);
+  }
+
   Future<void> save() async {
     isLoading(true);
     messageError("");
@@ -96,5 +107,10 @@ class NationsController extends GetxController {
   void fillControllers(Map<String, PlutoCell> cells) {
     id.text = cells['id']!.value.toString();
     name.text = cells['name']!.value.toString();
+  }
+
+  void clearControllersForSearch() {
+    id.clear();
+    name.clear();
   }
 }

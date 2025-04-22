@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:personnel_management/feature/passport/presentation/controllers/passport_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/passport_model.dart';
@@ -14,34 +21,37 @@ class PassportController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<PassportSearchModel> empTarqeas = <PassportSearchModel>[].obs;
-
+  final TextEditingController id = TextEditingController();
+  final TextEditingController date = TextEditingController();
   final TextEditingController name = TextEditingController();
-  final TextEditingController passportNumber = TextEditingController();
-
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(
-        name: name.text, passportNumber: passportNumber.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empTarqeas(r));
-    isLoading(false);
-  }
+  final TextEditingController documentNumber = TextEditingController();
+  final TextEditingController exportFrom = TextEditingController();
+  final TextEditingController nationalId = TextEditingController();
+  final TextEditingController nationalName = TextEditingController();
+  final TextEditingController owner = TextEditingController();
+  final TextEditingController witness = TextEditingController();
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       PassportModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ""
+            ? int.parse(id.text)
+            : await Get.find<PassportSearchController>().getId(),
+        date: date.text,
+        name: name.text,
+        documentNumber: documentNumber.text,
+        exportFrom: exportFrom.text,
+        nationalId: int.parse(nationalId.text),
+        owner: owner.text,
+        witness: witness.text,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<PassportSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -54,21 +64,23 @@ class PassportController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<PassportSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
+    id.clear();
+    date.clear();
     name.clear();
-    passportNumber.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    documentNumber.clear();
+    exportFrom.clear();
+    nationalId.clear();
+    nationalName.clear();
+    owner.clear();
+    witness.clear();
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -84,19 +96,14 @@ class PassportController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (PassportModel m in empTarqeas) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillControllers(PassportModel r) {
+    id.text = r.id.toString();
+    date.text = r.date.toString();
+    name.text = r.name.toString();
+    documentNumber.text = r.documentNumber.toString();
+    exportFrom.text = r.exportFrom.toString();
+    nationalId.text = r.nationalId.toString();
+    owner.text = r.owner.toString();
+    witness.text = r.witness.toString();
   }
 }

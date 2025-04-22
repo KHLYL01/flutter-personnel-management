@@ -1,0 +1,172 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/widget_extension.dart';
+import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
+import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
+import 'package:personnel_management/feature/passport/presentation/controllers/passport_controller.dart';
+import 'package:personnel_management/feature/tarmeez_nations/presentation/controllers/nations_controller.dart';
+import 'package:personnel_management/feature/tarmeez_nations/presentation/pages/nations_find.dart';
+import 'package:pluto_grid/pluto_grid.dart';
+
+import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/widgets/base_screen.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_dropdown_button.dart';
+import '../../../../core/widgets/custom_text_feild.dart';
+import '../../../employee/presentation/controllers/employee_find_controller.dart';
+import '../../../employee/presentation/pages/employee_find.dart';
+
+class AddPassport extends StatelessWidget {
+  const AddPassport({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
+
+    final controller = Get.find<PassportController>();
+
+    HijriPicker date = HijriPicker(controller.date);
+
+    return Scaffold(body: BaseScreen(
+      widget: Obx(
+        () {
+          if (controller.isLoading.value) {
+            return const CustomProgressIndicator();
+          }
+          return ListView(shrinkWrap: true, children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CustomTextField(
+                      enabled: false,
+                      controller: controller.id,
+                      label: "مسلسل",
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                    CustomTextField(
+                      suffixIcon: const Icon(
+                        Icons.date_range_sharp,
+                        size: 15,
+                      ),
+                      onTap: () => date.pickHijriDate(context),
+                      controller: controller.date,
+                      label: "تاريخ الإقرار",
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                    CustomTextField(
+                      controller: controller.name,
+                      label: 'الاسم',
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                    Row(
+                      children: [
+                        CustomTextField(
+                          controller: controller.nationalId,
+                          label: 'الجنسية',
+                          customHeight: 35,
+                          customWidth: currentWidth * 0.1,
+                        ),
+                        CustomTextField(
+                          controller: controller.nationalName,
+                          label: '',
+                          customHeight: 35,
+                          customWidth: currentWidth * 0.23,
+                        ),
+                        CustomButton(
+                                text: "اختر",
+                                onPressed: () {
+                                  Get.find<NationsController>()
+                                      .clearControllersForSearch();
+                                  Get.dialog(
+                                    NationsFind(
+                                      onSelected: (event) {
+                                        Map<String, PlutoCell> cells =
+                                            event.row!.cells;
+                                        controller.nationalId.text =
+                                            cells['id']!.value.toString();
+                                        controller.nationalName.text =
+                                            cells['name']!.value.toString();
+                                        Get.back();
+                                      },
+                                    ),
+                                  );
+                                  Get.find<NationsController>().findNations();
+                                },
+                                height: 35,
+                                width: 75)
+                            .paddingOnly(top: 35)
+                      ],
+                    ),
+
+                    // Row(
+                    //   children: [
+                    // Obx(
+                    //   () => CustomCheckbox(
+                    //     label: "صورة",
+                    //     value: controller.isPicture.value,
+                    //     onChanged: (value) {
+                    //       controller.onChangedPicture();
+                    //     },
+                    //   ),
+                    // ).paddingOnly(top: 20),
+                    //   ],
+                    // ),
+                    CustomTextField(
+                      controller: controller.documentNumber,
+                      label: 'رقم الجواز',
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                    CustomTextField(
+                      controller: controller.exportFrom,
+                      label: 'صادر من',
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                    CustomTextField(
+                      controller: controller.witness,
+                      label: 'الشاهد',
+                      customHeight: 35,
+                      customWidth: currentWidth / 3,
+                    ),
+                  ],
+                ),
+              ],
+            ).paddingAll(5).scrollDirection(Axis.horizontal),
+            Row(
+              children: [
+                CustomButton(
+                  text: 'اقرار جديد',
+                  onPressed: () => controller.clearControllers(),
+                  height: 35,
+                  width: 150,
+                ),
+                // CustomButton(
+                //   text: 'طلب كشف طبي',
+                //   onPressed: () {},
+                //   height: 35,
+                //   width: 150,
+                // ),
+                CustomButton(
+                  text: 'حفظ',
+                  onPressed: () => controller.save(),
+                  height: 35,
+                  width: 150,
+                ),
+              ],
+            ).scrollDirection(Axis.horizontal).center(),
+          ]).paddingSymmetric(horizontal: 16);
+        },
+      ),
+    ));
+  }
+}

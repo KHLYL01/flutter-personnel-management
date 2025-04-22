@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/tafweed_model.dart';
@@ -14,32 +14,54 @@ class TafweedController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<TafweedSearchModel> empTaeens = <TafweedSearchModel>[].obs;
+  // for add
 
+  final TextEditingController id = TextEditingController();
   final TextEditingController empId = TextEditingController();
+  final TextEditingController empName = TextEditingController();
+  final TextEditingController subject = TextEditingController();
+  final TextEditingController note = TextEditingController();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
 
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(empId: int.parse(empId.text));
-    data.fold((l) => messageError(l.eerMessage), (r) => empTaeens(r));
-    isLoading(false);
+  RxString selectedDay = 'الأحد'.obs;
+
+  final List<String> dayList = [
+    'الأحد',
+    'الأثنين',
+    'الثلاثاء',
+    'الأربعاء',
+    'الخميس',
+  ];
+
+  void onChangedDay(String? value) {
+    selectedDay(value!);
   }
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       TafweedModel(
-          // id: int.parse(id.text),
-          // empId: empId.text,
-          ),
+        id: id.text != ""
+            ? int.parse(id.text)
+            : await Get.find<TafweedSearchController>().getId(),
+        day: selectedDay.value,
+        empId: empId.text == "" ? null : int.parse(empId.text),
+        endDate: endDate.text,
+        note: note.text,
+        startDate: startDate.text,
+        subject: subject.text,
+        // computerName: ,
+        // computerUser: ,
+        // inputDate: ,
+        // programUser: ,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<TafweedSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -52,20 +74,22 @@ class TafweedController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<TafweedSearchController>().findAll();
+      Get.back();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
+    id.clear();
     empId.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    empName.clear();
+    subject.clear();
+    selectedDay("الأحد");
+    note.clear();
+    startDate.clear();
+    endDate.clear();
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -81,19 +105,13 @@ class TafweedController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (TafweedModel m in empTaeens) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // empId.text = cells['empId']!.value.toString();
+  void fillControllers(TafweedModel model) {
+    id.text = model.id.toString();
+    empId.text = model.empId.toString();
+    subject.text = model.subject!;
+    // selectedDay(model.day);
+    startDate.text = model.startDate!;
+    endDate.text = model.endDate!;
+    note.text = model.note!;
   }
 }

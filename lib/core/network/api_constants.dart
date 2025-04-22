@@ -9,8 +9,9 @@ const String parts = "/emp-parts";
 const String jobs = "/emp-jobs";
 const String badal = "/emp-dowra-badals";
 const String badalCountries = "/emp-dowra-badal-countries";
-const String empDegrees = "/emp-degrees";
 const String dissents = "/emp-dissents";
+const String empDegrees = "/emp-degrees";
+const String empDegreesWorker = "/emp-degrees-workers";
 
 const String empDowra = "/emp-dowras";
 const String empEnd = "/emp-ends";
@@ -25,3 +26,6 @@ const String empTaeen = "/emp-taeens";
 const String empTarqea = "/emp-tarqeas";
 const String passport = "/passports";
 const String tafweed = "/tafweeds";
+const String employee = "/employees";
+const String empEqrar = "/emp-eqrars";
+const String empHolidayType = "/emp-holidays-type";

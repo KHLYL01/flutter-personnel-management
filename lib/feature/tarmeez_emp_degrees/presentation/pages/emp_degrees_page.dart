@@ -7,9 +7,8 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../../../../core/widgets/pluto_config.dart';
 import '../controllers/emp_degrees_controller.dart';
-
-// ToDo ==================================== check this
 
 class EmpDegreesPage extends StatelessWidget {
   const EmpDegreesPage({super.key});
@@ -39,8 +38,20 @@ class EmpDegreesPage extends StatelessWidget {
                       customWidth: currentWidth * 0.1,
                     ),
                     CustomTextField(
+                      controller: controller.type,
+                      label: "الفئة",
+                      customHeight: 30,
+                      customWidth: currentWidth * 0.1,
+                    ),
+                    CustomTextField(
                       controller: controller.martaba,
                       label: 'المرتبة',
+                      customHeight: 30,
+                      customWidth: currentWidth * 0.1,
+                    ),
+                    CustomTextField(
+                      controller: controller.draga,
+                      label: 'الدرجة',
                       customHeight: 30,
                       customWidth: currentWidth * 0.1,
                     ),
@@ -51,20 +62,26 @@ class EmpDegreesPage extends StatelessWidget {
                       customWidth: currentWidth * 0.1,
                     ),
                     CustomTextField(
-                      controller: controller.type,
-                      label: "الفئة",
-                      customHeight: 30,
-                      customWidth: currentWidth * 0.1,
-                    ),
-                    CustomTextField(
                       controller: controller.naqlBadal,
                       label: 'بدل النقل',
                       customHeight: 30,
                       customWidth: currentWidth * 0.1,
                     ),
+                  ],
+                )
+                    .scrollDirection(Axis.horizontal)
+                    .marginOnly(right: 100, left: 100),
+                Row(
+                  children: [
                     CustomTextField(
                       controller: controller.elawa,
-                      label: 'العلاوة',
+                      label: 'بدل انتداب داخلي',
+                      customHeight: 30,
+                      customWidth: currentWidth * 0.1,
+                    ),
+                    CustomTextField(
+                      controller: controller.elawa,
+                      label: 'بدل انتداب خارجي',
                       customHeight: 30,
                       customWidth: currentWidth * 0.1,
                     ),
@@ -93,21 +110,21 @@ class EmpDegreesPage extends StatelessWidget {
                 SizedBox(
                   height: currentHeight - 100,
                   child: PlutoGrid(
-                    configuration: const PlutoGridConfiguration(
-                      // style: PlutoGridStyleConfig.dark()
-                      columnSize: PlutoGridColumnSizeConfig(
-                        autoSizeMode: PlutoAutoSizeMode.equal,
-                      ),
-                    ),
+                    configuration: getPlutoConfig(),
                     rows: controller.empDegrees
                         .map(
                           (item) => PlutoRow(cells: {
                             "id": PlutoCell(value: item.id),
                             "type": PlutoCell(value: item.type),
                             "martaba": PlutoCell(value: item.martaba),
+                            "draga": PlutoCell(value: item.draga),
                             "salary": PlutoCell(value: item.salary),
                             "naqlBadal": PlutoCell(value: item.naqlBadal),
                             "elawa": PlutoCell(value: item.elawa),
+                            "inEntedabBadal":
+                                PlutoCell(value: item.inEntedabBadal),
+                            "outEntedabadal":
+                                PlutoCell(value: item.outEntedabadal),
                           }),
                         )
                         .toList(),
@@ -139,8 +156,13 @@ class EmpDegreesPage extends StatelessWidget {
                         type: PlutoColumnType.number(),
                       ),
                       PlutoColumn(
-                        title: 'الدرجة',
+                        title: 'المرتبة',
                         field: 'martaba',
+                        type: PlutoColumnType.number(),
+                      ),
+                      PlutoColumn(
+                        title: 'الدرجة',
+                        field: 'draga',
                         type: PlutoColumnType.number(),
                       ),
                       PlutoColumn(
@@ -149,13 +171,23 @@ class EmpDegreesPage extends StatelessWidget {
                         type: PlutoColumnType.number(),
                       ),
                       PlutoColumn(
-                        title: 'العلاوة',
+                        title: 'بدل النقل',
+                        field: 'naqlBadal',
+                        type: PlutoColumnType.number(),
+                      ),
+                      PlutoColumn(
+                        title: 'علاوة',
                         field: 'elawa',
                         type: PlutoColumnType.number(),
                       ),
                       PlutoColumn(
-                        title: 'بدل النقل',
-                        field: 'naqlBadal',
+                        title: 'بدل انتداب داخلي',
+                        field: 'inEntedabBadal',
+                        type: PlutoColumnType.number(),
+                      ),
+                      PlutoColumn(
+                        title: 'بدل انتداب خارجي',
+                        field: 'outEntedabadal',
                         type: PlutoColumnType.number(),
                       ),
                     ],

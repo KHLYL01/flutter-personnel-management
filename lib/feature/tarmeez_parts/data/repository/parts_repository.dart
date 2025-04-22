@@ -10,6 +10,20 @@ class PartsRepository {
 
   PartsRepository(this._apiService);
 
+  Future<Either<Failure, List<PartsModel>>> findParts({
+    required int? id,
+    required String? name,
+  }) async {
+    try {
+      final httpResponse = await _apiService.findParts(id, name);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, List<PartsModel>>> findAll() async {
     try {
       final httpResponse = await _apiService.findAllParts();

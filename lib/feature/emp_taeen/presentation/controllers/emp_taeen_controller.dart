@@ -5,6 +5,7 @@ import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_taeen_model.dart';
 import '../../data/repository/emp_taeen_repository.dart';
+import 'emp_taeen_search_controller.dart';
 
 class EmpTaeenController extends GetxController {
   final EmpTaeenRepository _repository;
@@ -14,32 +15,78 @@ class EmpTaeenController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpTaeenSearchModel> empTaeens = <EmpTaeenSearchModel>[].obs;
+  late final TextEditingController id = TextEditingController();
+  late final TextEditingController qrarId = TextEditingController();
+  late final TextEditingController qrarDate = TextEditingController();
+  late final TextEditingController empId = TextEditingController();
+  late final TextEditingController empName = TextEditingController();
+  late final TextEditingController draga = TextEditingController();
+  late final TextEditingController salary = TextEditingController();
+  late final TextEditingController empPart = TextEditingController();
+  late final TextEditingController empType = TextEditingController();
+  late final TextEditingController mrtaba = TextEditingController();
+  late final TextEditingController naqelBadal = TextEditingController();
+  late final TextEditingController cardId = TextEditingController();
+  late final TextEditingController socialNumber = TextEditingController();
+  late final TextEditingController khetabId = TextEditingController();
+  late final TextEditingController khetabDate = TextEditingController();
+  late final TextEditingController khetabName = TextEditingController();
+  late final TextEditingController mKhetabDate = TextEditingController();
+  late final TextEditingController birthDate = TextEditingController();
+  var isPicture = false.obs;
+  RxString mDay = 'السبت'.obs;
+  final List<String> mobasharahDays = [
+    'السبت',
+    'الأحد',
+    'الأثنين',
+    'الثلاثاء',
+    'الأربعاء',
+    'الخميس',
+  ];
+  onChangePicture() {
+    isPicture.value = !isPicture.value;
+  }
 
-  final TextEditingController name = TextEditingController();
+  onChangeMobasharahDay(value) {
+    mDay(value);
+  }
 
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(name: name.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empTaeens(r));
-    isLoading(false);
+  var state = 'متزوج'.obs;
+  updateSocialStatues(value) {
+    state.value = value;
+  }
+
+  var gender = 'ذكر'.obs;
+  updateGender(value) {
+    gender.value = value;
   }
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpTaeenModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ''
+            ? int.parse(id.text)
+            : await Get.find<EmpTaeenSearchController>().getId(),
+        qrarId: qrarId.text,
+        qrarDate: qrarDate.text,
+        khetabId: khetabId.text,
+        khetabName: khetabName.text,
+        khetabDate: khetabDate.text,
+        mKhetabDate: mKhetabDate.text,
+        empId: empId.text == '' ? null : int.parse(empId.text),
+        birthDate: birthDate.text,
+        socialNumber: socialNumber.text,
+        mDay: mDay.value,
+        state: state.value == "متزوج" ? 1 : 0,
+        gender: gender.value == "ذكر" ? 1 : 0,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpTaeenSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -52,20 +99,35 @@ class EmpTaeenController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<EmpTaeenSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
-    name.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    id.clear();
+    qrarId.clear();
+    qrarDate.clear();
+    empId.clear();
+    empName.clear();
+    draga.clear();
+    salary.clear();
+    empPart.clear();
+    empType.clear();
+    mrtaba.clear();
+    naqelBadal.clear();
+    cardId.clear();
+    socialNumber.clear();
+    khetabId.clear();
+    khetabDate.clear();
+    khetabName.clear();
+    mKhetabDate.clear();
+    birthDate.clear();
+    mDay('السبت');
+    state("متزوج");
+    gender("ذكر");
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -81,19 +143,19 @@ class EmpTaeenController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpTaeenModel m in empTaeens) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillControllers(EmpTaeenModel r) {
+    id.text = r.id.toString();
+    qrarId.text = r.qrarId.toString();
+    qrarDate.text = r.qrarDate.toString();
+    empId.text = r.empId.toString();
+    socialNumber.text = r.socialNumber.toString();
+    khetabId.text = r.khetabId.toString();
+    khetabDate.text = r.khetabDate.toString();
+    khetabName.text = r.khetabName.toString();
+    mKhetabDate.text = r.mKhetabDate.toString();
+    birthDate.text = r.birthDate.toString();
+    mDay('السبت');
+    state(r.state == 1 ? "متزوج" : 'أعزب');
+    gender(r.gender == 1 ? "ذكر" : 'أنثى');
   }
 }

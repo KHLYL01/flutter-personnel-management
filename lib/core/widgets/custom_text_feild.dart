@@ -46,6 +46,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           Container(
+            color: AppColors.greyLight,
             constraints:
                 BoxConstraints(maxHeight: customHeight, maxWidth: customWidth),
             width: customWidth,
@@ -55,7 +56,7 @@ class CustomTextField extends StatelessWidget {
               controller: controller,
               enabled: enabled,
               maxLines: null,
-              style: const TextStyle(fontSize: 10, color: AppColors.black),
+              style: const TextStyle(fontSize: 14, color: AppColors.greyDark),
               obscureText: obscureText,
               decoration: InputDecoration(
                 prefixIcon: prefixIcon,
@@ -64,10 +65,11 @@ class CustomTextField extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.all(5),
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                  borderSide: BorderSide(color: AppColors.greyDark, width: 2.0),
                 ),
                 enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                  borderSide:
+                      BorderSide(color: AppColors.greyLight, width: 2.0),
                 ),
                 disabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 2.0),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'emp_end_model.dart';
+part of '../../../emp_end/data/model/emp_end_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

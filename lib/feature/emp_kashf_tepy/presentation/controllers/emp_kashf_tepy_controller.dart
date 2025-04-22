@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -14,39 +15,56 @@ class EmpKashfTepyController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpKashfTepySearchModel> empKashfTepys =
-      <EmpKashfTepySearchModel>[].obs;
+  final TextEditingController id = TextEditingController();
+  final TextEditingController empId = TextEditingController();
+  final TextEditingController empName = TextEditingController();
+  final TextEditingController wehdaName = TextEditingController();
+  final TextEditingController notes = TextEditingController();
+  final TextEditingController requestDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
+  final List<String> units = ['مستشفى', 'مستوصف'];
+  final List<String> statesOfEmployee = [
+    'قائم بالعمل حتى تاريخه',
+    'انقطع عن العمل من تاريخ',
+  ];
+  RxString wehdaType = "مستشفى".obs;
+  RxString employeeStatus = "قائم بالعمل حتى تاريخه".obs;
 
-  final TextEditingController name = TextEditingController();
-  final TextEditingController cardId = TextEditingController();
-  final TextEditingController empType = TextEditingController();
+  onChangedUnitType(value) {
+    wehdaType(value);
+  }
 
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(
-      name: name.text,
-      cardId: cardId.text,
-      empType: empType.text,
-    );
-    data.fold((l) => messageError(l.eerMessage), (r) => empKashfTepys(r));
-    isLoading(false);
+  onChangedEmployeeState(value) {
+    employeeStatus(value);
+  }
+
+  var isPicture = false.obs;
+
+  void onChangedPicture() {
+    isPicture.value = !isPicture.value;
   }
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpKashfTepyModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ''
+            ? int.parse(id.text)
+            : await Get.find<EmpKashfTepySearchController>().getId(),
+        empId: empId.text == "" ? null : int.parse(empId.text),
+        notes: notes.text,
+        employeeStatus: employeeStatus.value,
+        wehdaName: wehdaName.text,
+        wehdaType: wehdaType.value,
+        requestDateString: requestDate.text,
+        endDateString: endDate.text,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpKashfTepySearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -59,21 +77,23 @@ class EmpKashfTepyController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<EmpKashfTepySearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
-    name.clear();
-    cardId.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    id.clear();
+    empId.clear();
+    empName.clear();
+    wehdaName.clear();
+    notes.clear();
+    requestDate.clear();
+    endDate.clear();
+    wehdaType("مستشفى");
+    employeeStatus("قائم بالعمل حتى تاريخه");
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -89,19 +109,15 @@ class EmpKashfTepyController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpKashfTepyModel m in empKashfTepys) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillControllers(EmpKashfTepyModel r) {
+    id.text = r.id.toString();
+    empId.text = r.empId.toString();
+    // empName.text = r..toString();
+    wehdaName.text = r.wehdaName.toString();
+    notes.text = r.notes.toString();
+    requestDate.text = r.requestDateString.toString();
+    endDate.text = r.endDateString.toString();
+    wehdaType("مستشفى");
+    employeeStatus("قائم بالعمل حتى تاريخه");
   }
 }

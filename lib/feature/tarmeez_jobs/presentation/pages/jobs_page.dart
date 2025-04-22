@@ -6,6 +6,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../../../../core/widgets/pluto_config.dart';
 import '../controllers/jobs_controller.dart';
 
 class JobsPage extends StatelessWidget {
@@ -68,12 +69,7 @@ class JobsPage extends StatelessWidget {
                 SizedBox(
                   height: currentHeight - 100,
                   child: PlutoGrid(
-                    configuration: const PlutoGridConfiguration(
-                      // style: PlutoGridStyleConfig.dark()
-                      columnSize: PlutoGridColumnSizeConfig(
-                        autoSizeMode: PlutoAutoSizeMode.equal,
-                      ),
-                    ),
+                    configuration: getPlutoConfig(),
                     rows: controller.jobs
                         .map(
                           (item) => PlutoRow(cells: {

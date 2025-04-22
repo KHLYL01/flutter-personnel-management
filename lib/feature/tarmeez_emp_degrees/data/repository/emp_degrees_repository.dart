@@ -10,6 +10,20 @@ class EmpDegreesRepository {
 
   EmpDegreesRepository(this._apiService);
 
+  Future<Either<Failure, List<EmpDegreesModel>>> find({
+    required double? martaba,
+    required double? draga,
+  }) async {
+    try {
+      final httpResponse = await _apiService.findDegrees(martaba, draga);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, List<EmpDegreesModel>>> findAll() async {
     try {
       final httpResponse = await _apiService.findAllEmpDegrees();

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -14,33 +15,50 @@ class EmpHasmiatController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpHasmiatSearchModel> empHasmiats = <EmpHasmiatSearchModel>[].obs;
+  final TextEditingController id = TextEditingController();
+  final TextEditingController datBegin = TextEditingController();
+  final TextEditingController datEnd = TextEditingController();
+  final TextEditingController qrarId = TextEditingController();
+  final TextEditingController datQrar = TextEditingController();
+  final TextEditingController month1 = TextEditingController();
+  final TextEditingController year1 = TextEditingController();
+  final TextEditingController month2 = TextEditingController();
+  final TextEditingController year2 = TextEditingController();
+  final TextEditingController dependOn = TextEditingController();
+  var isPicture = false.obs;
+  var hasmType = 'حسم عن غياب'.obs;
+  onChangedPicture() {
+    isPicture.value = !isPicture.value;
+  }
 
-  final TextEditingController name = TextEditingController();
-  final TextEditingController cardId = TextEditingController();
-
-  Future<void> findAll() async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.search(name: name.text, cardId: cardId.text);
-    data.fold((l) => messageError(l.eerMessage), (r) => empHasmiats(r));
-    isLoading(false);
+  updateRadioListTileValue(value) {
+    hasmType.value = value;
   }
 
   Future<void> save() async {
     isLoading(true);
     messageError("");
-    // TODO add text field
     final data = await _repository.save(
       EmpHasmiatModel(
-          // id: int.parse(id.text),
-          // name: name.text,
-          ),
+        id: id.text != ""
+            ? int.parse(id.text)
+            : await Get.find<EmpHasmiatSearchController>().getId(),
+        datBegin: datBegin.text,
+        datEnd: datEnd.text,
+        qrarId: qrarId.text,
+        datQrar: datQrar.text,
+        hasmType: hasmType.value,
+        month1: month1.text,
+        year1: year1.text,
+        month2: month2.text,
+        year2: year2.text,
+        dependOn: dependOn.text,
+      ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.find<EmpHasmiatSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -53,21 +71,25 @@ class EmpHasmiatController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      findAll();
+      Get.back();
+      Get.find<EmpHasmiatSearchController>().findAll();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
   void clearControllers() {
-    name.clear();
-    cardId.clear();
-  }
-
-  @override
-  void onInit() {
-    // findAll();
-    super.onInit();
+    id.clear();
+    datBegin.clear();
+    datEnd.clear();
+    qrarId.clear();
+    datQrar.clear();
+    month1.clear();
+    year1.clear();
+    month2.clear();
+    year2.clear();
+    dependOn.clear();
+    hasmType('حسم عن غياب');
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -83,19 +105,17 @@ class EmpHasmiatController extends GetxController {
     );
   }
 
-  // حل مبدأي
-  // int getId() {
-  //   int max = 0;
-  //   for (EmpHasmiatModel m in empHasmiats) {
-  //     if (m.id! > max) {
-  //       max = m.id!;
-  //     }
-  //   }
-  //   return max + 1;
-  // }
-
-  void fillControllers(Map<String, PlutoCell> cells) {
-    // id.text = cells['id']!.value.toString();
-    // name.text = cells['name']!.value.toString();
+  void fillControllers(EmpHasmiatModel r) {
+    id.text = r.id.toString();
+    datBegin.text = r.datBegin.toString();
+    datEnd.text = r.datEnd.toString();
+    qrarId.text = r.qrarId.toString();
+    datQrar.text = r.datQrar.toString();
+    month1.text = r.month1.toString();
+    year1.text = r.year1.toString();
+    month2.text = r.month2.toString();
+    year2.text = r.year2.toString();
+    dependOn.text = r.dependOn.toString();
+    hasmType('حسم عن غياب');
   }
 }

@@ -1,23 +1,29 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../feature/emp_dowra/data/model/emp_dowra_model.dart';
 import '../../feature/emp_end/data/model/emp_end_model.dart';
 import '../../feature/emp_entedab/data/model/emp_entedab_model.dart';
+import '../../feature/emp_eqrar/data/model/emp_eqrar_model.dart';
 import '../../feature/emp_hasmiat/data/model/emp_hasmiat_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_model.dart';
+import '../../feature/emp_holiday/data/model/emp_holiday_type_model.dart';
 import '../../feature/emp_kashf_tepy/data/model/emp_kashf_tepy_model.dart';
 import '../../feature/emp_mobashra/data/model/emp_mobashra_model.dart';
 import '../../feature/emp_mokhalfat/data/model/emp_mokhalfat_model.dart';
 import '../../feature/emp_overtime/data/model/emp_overtime_model.dart';
 import '../../feature/emp_taeen/data/model/emp_taeen_model.dart';
 import '../../feature/emp_tarqea/data/model/emp_tarqea_model.dart';
+import '../../feature/employee/data/model/employee_model.dart';
 import '../../feature/passport/data/model/passport_model.dart';
 import '../../feature/tafweed/data/model/tafweed_model.dart';
 import '../../feature/tarmeez_badal/data/model/badal_model.dart';
 import '../../feature/tarmeez_badal_countries/data/model/badal_countries_model.dart';
 import '../../feature/tarmeez_dissent/data/model/dissent_model.dart';
 import '../../feature/tarmeez_emp_degrees/data/model/emp_degrees_model.dart';
+import '../../feature/tarmeez_emp_degrees_worker/data/model/emp_degrees_worker_model.dart';
 import '../../feature/tarmeez_jobs/data/model/jobs_model.dart';
 import '../../feature/tarmeez_nations/data/model/nations_model.dart';
 import '../../feature/tarmeez_parts/data/model/parts_model.dart';
@@ -46,6 +52,12 @@ abstract class ApiService {
   @GET(nations)
   Future<HttpResponse<List<NationsModel>>> findAllNations();
 
+  @GET("$nations/find")
+  Future<HttpResponse<List<NationsModel>>> findNations(
+    @Query("id") int? id,
+    @Query("name") String? name,
+  );
+
   @POST(nations)
   Future<HttpResponse<NationsModel>> saveNations(
       @Body(nullToAbsent: true) NationsModel nationsModel);
@@ -63,6 +75,12 @@ abstract class ApiService {
   @GET(parts)
   Future<HttpResponse<List<PartsModel>>> findAllParts();
 
+  @GET("$parts/find")
+  Future<HttpResponse<List<PartsModel>>> findParts(
+    @Query("id") int? id,
+    @Query("name") String? name,
+  );
+
   @POST(parts)
   Future<HttpResponse<PartsModel>> saveParts(
       @Body(nullToAbsent: true) PartsModel partsModel);
@@ -79,6 +97,12 @@ abstract class ApiService {
   //*
   @GET(jobs)
   Future<HttpResponse<List<JobsModel>>> findAllJobs();
+
+  @GET("$jobs/find")
+  Future<HttpResponse<List<JobsModel>>> findJobs(
+    @Query("id") int? id,
+    @Query("name") String? name,
+  );
 
   @POST(jobs)
   Future<HttpResponse<JobsModel>> saveJobs(
@@ -132,6 +156,12 @@ abstract class ApiService {
   @GET(empDegrees)
   Future<HttpResponse<List<EmpDegreesModel>>> findAllEmpDegrees();
 
+  @GET("$empDegrees/find")
+  Future<HttpResponse<List<EmpDegreesModel>>> findDegrees(
+    @Query("martaba") double? martaba,
+    @Query("draga") double? draga,
+  );
+
   @POST(empDegrees)
   Future<HttpResponse<EmpDegreesModel>> saveEmpDegrees(
       @Body(nullToAbsent: true) EmpDegreesModel empDegreesModel);
@@ -142,6 +172,24 @@ abstract class ApiService {
 
   @DELETE("$empDegrees/{id}")
   Future<HttpResponse<void>> deleteEmpDegrees(@Path("id") int id);
+
+  //*
+  //* Emp DegreesWorker api
+  //*
+  @GET(empDegreesWorker)
+  Future<HttpResponse<List<EmpDegreesWorkerModel>>> findAllEmpDegreesWorker();
+
+  @POST(empDegreesWorker)
+  Future<HttpResponse<EmpDegreesWorkerModel>> saveEmpDegreesWorker(
+      @Body(nullToAbsent: true) EmpDegreesWorkerModel empDegreesWorkerModel);
+
+  @PUT("$empDegreesWorker/{id}")
+  Future<HttpResponse<EmpDegreesWorkerModel>> updateEmpDegreesWorker(
+      @Path("id") int id,
+      @Body(nullToAbsent: true) EmpDegreesWorkerModel empDegreesWorkerModel);
+
+  @DELETE("$empDegreesWorker/{id}")
+  Future<HttpResponse<void>> deleteEmpDegreesWorker(@Path("id") int id);
 
   //*
   //* Dissent api
@@ -465,4 +513,81 @@ abstract class ApiService {
 
   @DELETE("$tafweed/{id}")
   Future<HttpResponse<void>> deleteTafweed(@Path("id") int id);
+
+  //*
+  //* Employee api
+  //*
+  @GET("$employee/search")
+  Future<HttpResponse<List<EmployeeSearchModel>>> searchEmployee(
+    @Query("id") int? id,
+    @Query("name") String? name,
+    @Query("cardId") String? cardId,
+    @Query("jobId") int? jobId,
+    @Query("partId") int? partId,
+    @Query("fia") String? fia,
+    @Query("draga") double? draga,
+    @Query("jobState") String? jobState,
+    @Query("empType") String? empType,
+  );
+
+  @GET("$employee/find")
+  Future<HttpResponse<List<EmployeeFindModel>>> findEmployee(
+    @Query("id") int? id,
+    @Query("name") String? name,
+    @Query("cardId") String? cardId,
+    @Query("empType") String? empType,
+  );
+
+  @GET("$employee/{id}")
+  Future<HttpResponse<EmployeeModel>> findEmployeeById(@Path("id") int id);
+
+  @POST(employee)
+  Future<HttpResponse<EmployeeModel>> saveEmployee(
+      @Body(nullToAbsent: true) EmployeeModel dissentModel);
+
+  @PUT("$employee/{id}")
+  Future<HttpResponse<EmployeeModel>> updateEmployee(
+      @Path("id") int id, @Body(nullToAbsent: true) EmployeeModel dissentModel);
+
+  @DELETE("$employee/{id}")
+  Future<HttpResponse<void>> deleteEmployee(@Path("id") int id);
+
+  //*
+  //* Emp Eqrar api
+  //*
+  @GET("$empEqrar/search")
+  Future<HttpResponse<List<EmpEqrarSearchModel>>> searchEmpEqrar(
+      @Query("name") String? name);
+
+  @GET("$empEqrar/{id}")
+  Future<HttpResponse<EmpEqrarModel>> findEmpEqrarById(@Path("id") int id);
+
+  @POST(empEqrar)
+  Future<HttpResponse<EmpEqrarModel>> saveEmpEqrar(
+      @Body(nullToAbsent: true) EmpEqrarModel dissentModel);
+
+  @PUT("$empEqrar/{id}")
+  Future<HttpResponse<EmpEqrarModel>> updateEmpEqrar(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpEqrarModel dissentModel);
+
+  @DELETE("$empEqrar/{id}")
+  Future<HttpResponse<void>> deleteEmpEqrar(@Path("id") int id);
+
+  //*
+  //* EmpHolidayType api
+  //*
+  @GET(empHolidayType)
+  Future<HttpResponse<List<EmpHolidayTypeModel>>> findAllEmpHolidayType();
+
+  @POST(empHolidayType)
+  Future<HttpResponse<EmpHolidayTypeModel>> saveEmpHolidayType(
+      @Body(nullToAbsent: true) EmpHolidayTypeModel empHolidayTypeModel);
+
+  @PUT("$empHolidayType/{id}")
+  Future<HttpResponse<EmpHolidayTypeModel>> updateEmpHolidayType(
+      @Path("id") int id,
+      @Body(nullToAbsent: true) EmpHolidayTypeModel empHolidayTypeModel);
+
+  @DELETE("$empHolidayType/{id}")
+  Future<HttpResponse<void>> deleteEmpHolidayType(@Path("id") int id);
 }

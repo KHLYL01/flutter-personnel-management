@@ -11,11 +11,11 @@ class EmpHolidayRepository {
   EmpHolidayRepository(this._apiService);
 
   Future<Either<Failure, List<EmpHolidaySearchModel>>> search({
-    required int empId,
+    required int? empId,
     required String name,
     required String cardId,
     required String empType,
-    required int holidayType,
+    required int? holidayType,
   }) async {
     try {
       final httpResponse = await _apiService.searchEmpHoliday(
