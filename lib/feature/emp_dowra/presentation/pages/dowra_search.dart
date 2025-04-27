@@ -26,7 +26,7 @@ class DowraSearch extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
+              Row(
                 children: [
                   CustomTextField(
                     controller: controller.name,
