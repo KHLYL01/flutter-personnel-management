@@ -28,38 +28,32 @@ class TaeenSearch extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Column(
-                    children: [
-                      CustomTextField(
-                        controller: controller.name,
-                        label: 'الاسم',
-                        customHeight: 35,
-                        customWidth: 300,
-                      ),
-                    ],
+                  CustomTextField(
+                    controller: controller.name,
+                    label: 'الاسم',
+                    customHeight: 25,
+                    customWidth: 300,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).paddingAll(15),
-
-              const SizedBox(height: 20), // Add spacing
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
                     text: "بحث ",
                     onPressed: () => controller.findAll(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   ),
                   CustomButton(
                     text: "بحث جديد",
                     onPressed: () => controller.clearControllers(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   )
                 ],
               ),
-              const SizedBox(height: 20), // Add spacing
+              const SizedBox(height: 16), // Add spacing
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -69,8 +63,7 @@ class TaeenSearch extends StatelessWidget {
                       return const CustomProgressIndicator();
                     }
                     return PlutoGrid(
-                      configuration:getPlutoConfig(),
-
+                      configuration: getPlutoConfig(),
                       rows: controller.empTaeens
                           .map((item) => PlutoRow(
                                 cells: {

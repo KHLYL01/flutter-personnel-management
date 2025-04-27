@@ -9,7 +9,6 @@ import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
-import '../controllers/emp_mokhalfat_controller.dart';
 import '../controllers/emp_mokhalfat_search_controller.dart';
 
 class MokhalfatSearch extends StatelessWidget {
@@ -29,44 +28,38 @@ class MokhalfatSearch extends StatelessWidget {
           children: [
             Row(
               children: [
-                Column(
-                  children: [
-                    CustomTextField(
-                      controller: controller.name,
-                      label: 'الاسم',
-                      customHeight: 35,
-                      customWidth: 300,
-                    ),
-                    CustomTextField(
-                      controller: controller.cardId,
-                      label: 'رقم السجل المدني',
-                      customHeight: 35,
-                      customWidth: 300,
-                    ),
-                  ],
+                CustomTextField(
+                  controller: controller.name,
+                  label: 'الاسم',
+                  customHeight: 25,
+                  customWidth: 300,
+                ),
+                CustomTextField(
+                  controller: controller.cardId,
+                  label: 'رقم السجل المدني',
+                  customHeight: 25,
+                  customWidth: 300,
                 ),
               ],
             ).scrollDirection(Axis.horizontal).paddingAll(15),
-
-            const SizedBox(height: 20), // Add spacing
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButton(
                   text: "بحث ",
                   onPressed: () => controller.findAll(),
-                  height: 35,
+                  height: 25,
                   width: 100,
                 ),
                 CustomButton(
                   text: "بحث جديد",
                   onPressed: () => controller.clearControllers(),
-                  height: 35,
+                  height: 25,
                   width: 100,
                 )
               ],
             ),
-            const SizedBox(height: 20), // Add spacing
+            const SizedBox(height: 16), // Add spacing
             SizedBox(
               height: currentHeight - 100, // Define fixed height
               // width: currentWidth * 0.95, // Define fixed width
@@ -76,8 +69,7 @@ class MokhalfatSearch extends StatelessWidget {
                     return const CustomProgressIndicator();
                   }
                   return PlutoGrid(
-                    configuration:getPlutoConfig(),
-
+                    configuration: getPlutoConfig(),
                     rows: controller.empMokhalfats
                         .map((item) => PlutoRow(
                               cells: {

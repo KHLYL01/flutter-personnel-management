@@ -9,7 +9,7 @@ PlutoGridConfiguration getPlutoConfig() {
       autoSizeMode: PlutoAutoSizeMode.scale,
     ),
     style: PlutoGridStyleConfig(
-      rowHeight: 30,
+      rowHeight: 20,
       columnHeight: 30,
       activatedBorderColor: AppColors.greyLight,
       gridBackgroundColor: Colors.white,

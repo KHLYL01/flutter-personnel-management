@@ -34,20 +34,20 @@ class EmployeesFind extends StatelessWidget {
           children: [
             CustomTextField(
               label: "رقم الموظف",
-              customHeight: 35,
+              customHeight: 25,
               controller: controller.id,
               customWidth: 200,
             ).paddingSymmetric(horizontal: 40),
             CustomTextField(
               label: "اسم الموظف",
               controller: controller.name,
-              customHeight: 35,
+              customHeight: 25,
               customWidth: 200,
             ).paddingSymmetric(horizontal: 40),
             CustomTextField(
               label: "رقم السجل المدني",
               controller: controller.cardId,
-              customHeight: 35,
+              customHeight: 25,
               customWidth: 200,
             ).paddingSymmetric(horizontal: 40),
             CustomDropdownButton(
@@ -64,13 +64,13 @@ class EmployeesFind extends StatelessWidget {
                 CustomButton(
                   text: "بحث ",
                   onPressed: () => controller.findEmployee(),
-                  height: 35,
+                  height: 25,
                   width: 100,
                 ),
                 CustomButton(
                   text: "بحث جديد",
                   onPressed: () => controller.clearControllers(),
-                  height: 35,
+                  height: 25,
                   width: 200,
                 ),
               ],
@@ -85,8 +85,7 @@ class EmployeesFind extends StatelessWidget {
                     return const CustomProgressIndicator();
                   }
                   return PlutoGrid(
-                    configuration:getPlutoConfig(),
-
+                    configuration: getPlutoConfig(),
                     rows: controller.findEmployees
                         .map((item) => PlutoRow(
                               cells: {

@@ -30,25 +30,21 @@ class MobashraSearch extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Column(
-                    children: [
-                      CustomTextField(
-                          controller: controller.name,
-                          label: 'الاسم',
-                          customHeight: 35,
-                          customWidth: 300),
-                      CustomTextField(
-                          controller: controller.cardId,
-                          label: 'رقم السجل المدني',
-                          customHeight: 35,
-                          customWidth: 300),
-                      CustomDropdownButton(
-                        label: 'نوع الوظيفة',
-                        item: controller.empType,
-                        list: controller.empTypeList,
-                        onChanged: controller.onChangedEmpType,
-                      ),
-                    ],
+                  CustomTextField(
+                      controller: controller.name,
+                      label: 'الاسم',
+                      customHeight: 25,
+                      customWidth: 300),
+                  CustomTextField(
+                      controller: controller.cardId,
+                      label: 'رقم السجل المدني',
+                      customHeight: 25,
+                      customWidth: 300),
+                  CustomDropdownButton(
+                    label: 'نوع الوظيفة',
+                    item: controller.empType,
+                    list: controller.empTypeList,
+                    onChanged: controller.onChangedEmpType,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).paddingAll(15),
@@ -60,13 +56,13 @@ class MobashraSearch extends StatelessWidget {
                   CustomButton(
                     text: "بحث ",
                     onPressed: () => controller.findAll(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   ),
                   CustomButton(
                     text: "بحث جديد",
                     onPressed: () => controller.clearControllers(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   )
                 ],

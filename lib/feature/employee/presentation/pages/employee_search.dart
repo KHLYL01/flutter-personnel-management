@@ -46,14 +46,14 @@ class EmployeesSearch extends StatelessWidget {
                             enabled: false,
                             controller: controller.id,
                             label: 'الموظف',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 70,
                           ),
                           CustomTextField(
                             enabled: false,
                             controller: controller.empName,
                             label: '',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 240,
                           ),
                           CustomButton(
@@ -75,7 +75,7 @@ class EmployeesSearch extends StatelessWidget {
                               );
                               findController.findEmployee();
                             },
-                            height: 35,
+                            height: 25,
                             width: 100,
                           )
                         ],
@@ -87,14 +87,14 @@ class EmployeesSearch extends StatelessWidget {
                             enabled: false,
                             controller: controller.jobId,
                             label: 'الوظيفة',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 70,
                           ),
                           CustomTextField(
                             enabled: false,
                             controller: controller.jobName,
                             label: '',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 240,
                           ),
                           CustomButton(
@@ -117,7 +117,7 @@ class EmployeesSearch extends StatelessWidget {
                               );
                               Get.find<JobsController>().findAll();
                             },
-                            height: 35,
+                            height: 25,
                             width: 100,
                           )
                         ],
@@ -129,14 +129,14 @@ class EmployeesSearch extends StatelessWidget {
                             enabled: false,
                             controller: controller.partId,
                             label: 'القسم',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 70,
                           ),
                           CustomTextField(
                             enabled: false,
                             controller: controller.partName,
                             label: '',
-                            customHeight: 35,
+                            customHeight: 25,
                             customWidth: 240,
                           ),
                           CustomButton(
@@ -159,7 +159,7 @@ class EmployeesSearch extends StatelessWidget {
                               );
                               Get.find<PartsController>().findAll();
                             },
-                            height: 35,
+                            height: 25,
                             width: 100,
                           )
                         ],
@@ -167,7 +167,7 @@ class EmployeesSearch extends StatelessWidget {
                       CustomTextField(
                         controller: controller.draga,
                         label: 'الدرجة',
-                        customHeight: 35,
+                        customHeight: 25,
                         customWidth: 200,
                       ),
                       CustomDropdownButton(
@@ -184,19 +184,19 @@ class EmployeesSearch extends StatelessWidget {
                       CustomTextField(
                         controller: controller.name,
                         label: 'الاسم',
-                        customHeight: 35,
+                        customHeight: 25,
                         customWidth: 200,
                       ),
                       CustomTextField(
                         controller: controller.cardId,
                         label: 'رقم السجل المدني',
-                        customHeight: 35,
+                        customHeight: 25,
                         customWidth: 200,
                       ),
                       CustomTextField(
                         controller: controller.fia,
                         label: 'المرتبة',
-                        customHeight: 35,
+                        customHeight: 25,
                         customWidth: 200,
                       ),
                       CustomDropdownButton(
@@ -206,26 +206,24 @@ class EmployeesSearch extends StatelessWidget {
                         onChanged: controller.onChangedJobWork,
                       ),
                       const SizedBox(height: 16),
-                      CustomButton(
-                        text: "بحث جديد",
-                        onPressed: () => controller.clearControllers(),
-                        height: 35,
-                        width: 200,
+                      Row(
+                        children: [
+                          CustomButton(
+                            text: "بحث جديد",
+                            onPressed: () => controller.clearControllers(),
+                            height: 25,
+                            width: 200,
+                          ),
+                          CustomButton(
+                            text: "بحث ",
+                            onPressed: () => controller.findAll(),
+                            height: 25,
+                            width: 100,
+                          ),
+                        ],
                       )
                     ],
                   )
-                ],
-              ),
-              const SizedBox(height: 20), // Add spacing
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomButton(
-                    text: "بحث ",
-                    onPressed: () => controller.findAll(),
-                    height: 35,
-                    width: 100,
-                  ),
                 ],
               ),
               const SizedBox(height: 20), // Add spacing

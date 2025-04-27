@@ -29,44 +29,38 @@ class TarqeaSearch extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Column(
-                    children: [
-                      CustomTextField(
-                        controller: controller.name,
-                        label: 'اسم الموظف',
-                        customHeight: 35,
-                        customWidth: 300,
-                      ),
-                      CustomTextField(
-                        controller: controller.qrarId,
-                        label: 'رقم القرار',
-                        customHeight: 35,
-                        customWidth: 300,
-                      ),
-                    ],
+                  CustomTextField(
+                    controller: controller.name,
+                    label: 'اسم الموظف',
+                    customHeight: 25,
+                    customWidth: 300,
+                  ),
+                  CustomTextField(
+                    controller: controller.qrarId,
+                    label: 'رقم القرار',
+                    customHeight: 25,
+                    customWidth: 300,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).paddingAll(15),
-
-              const SizedBox(height: 20), // Add spacing
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
                     text: "بحث ",
                     onPressed: () => controller.findAll(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   ),
                   CustomButton(
                     text: "بحث جديد",
                     onPressed: () => controller.clearControllers(),
-                    height: 35,
+                    height: 25,
                     width: 100,
                   )
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               SizedBox(
                 height: currentHeight - 100,
                 // width: currentWidth * 0.95,
@@ -76,8 +70,7 @@ class TarqeaSearch extends StatelessWidget {
                       return const CustomProgressIndicator();
                     }
                     return PlutoGrid(
-                      configuration:getPlutoConfig(),
-
+                      configuration: getPlutoConfig(),
                       rows: controller.empTarqeas
                           .map((item) => PlutoRow(
                                 cells: {
