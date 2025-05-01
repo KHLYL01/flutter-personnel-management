@@ -118,7 +118,7 @@ class EmpTarqeaController extends GetxController {
         percent: int.parse(percent.text),
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpTarqeaSearchController>().findAll();
@@ -134,7 +134,6 @@ class EmpTarqeaController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpTarqeaSearchController>().findAll();
       return;
     }
@@ -227,6 +226,6 @@ class EmpTarqeaController extends GetxController {
     mKhetabId.text = r.mKhetabId.toString();
     mKhetabDate.text = r.mKhetabDate.toString();
     percent.text = "0";
-    mobasharaDay("السبت");
+    mobasharaDay(r.mobasharaDay);
   }
 }

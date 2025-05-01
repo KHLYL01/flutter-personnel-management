@@ -44,7 +44,7 @@ class EmpMokhalfatController extends GetxController {
         mokhalfaType: mokhalfaType.value,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpMokhalfatSearchController>().findAll();
@@ -60,7 +60,6 @@ class EmpMokhalfatController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpMokhalfatSearchController>().findAll();
       return;
     }
@@ -93,6 +92,6 @@ class EmpMokhalfatController extends GetxController {
     startDate.text = r.startDateString.toString();
     endDate.text = r.endDateString.toString();
     description.text = r.description.toString();
-    mokhalfaType('لفت نظر');
+    mokhalfaType(r.mokhalfaType);
   }
 }

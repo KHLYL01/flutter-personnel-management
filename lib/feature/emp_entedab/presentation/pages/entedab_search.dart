@@ -8,6 +8,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/emp_entedab_det_controller.dart';
 import '../controllers/emp_entedab_search_controller.dart';
 import 'update_entedab.dart';
 
@@ -17,6 +18,7 @@ class EntedabSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpEntedabSearchController>();
+    final controllerDet = Get.find<EmpEntedabDetController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -67,6 +69,9 @@ class EntedabSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -131,8 +136,10 @@ class EntedabSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) async {
+                        int entedabId = event.row.cells['id']!.value;
+                        await controller.findById(entedabId);
+                        await controllerDet.getEntedabDetByEntedabId(entedabId);
                         Get.dialog(const UpdateEntedab());
                       },
                     );

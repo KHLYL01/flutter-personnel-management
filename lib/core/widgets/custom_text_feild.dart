@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Function()? onTap;
   final bool enabled;
+  final bool withLable;
 
   const CustomTextField({
     Key? key,
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.onTap,
     this.enabled = true,
+    this.withLable = true,
   }) : super(key: key);
 
   @override
@@ -35,16 +37,17 @@ class CustomTextField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
+          if (withLable)
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
           Container(
             color: AppColors.greyLight,
             constraints:

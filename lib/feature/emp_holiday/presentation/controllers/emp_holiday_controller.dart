@@ -49,7 +49,7 @@ class EmpHolidayController extends GetxController {
   RxString sarf = 'لا أرغب بصرف راتبها مقدما'.obs;
   final List<String> sarfRatebIgazat = [
     'لا أرغب بصرف راتبها مقدما',
-    ' أرغب بصرف راتبها مقدما'
+    'أرغب بصرف راتبها مقدما'
   ];
   var isPicture = false.obs;
 
@@ -142,7 +142,7 @@ class EmpHolidayController extends GetxController {
         prev: tamdeedIgazahAccept.value ? 1 : 0,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpHolidaySearchController>().findAll();
@@ -158,7 +158,6 @@ class EmpHolidayController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpHolidaySearchController>().findAll();
       return;
     }
@@ -248,7 +247,7 @@ class EmpHolidayController extends GetxController {
     inputDate.text = r.inputDate.toString();
     separationDate.text = r.separationDate.toString();
     edara.text = r.edara.toString();
-    sarf('لا أرغب بصرف راتبها مقدما');
+    sarf(r.sarf == 0 ? 'لا أرغب بصرف راتبها مقدما' : 'أرغب بصرف راتبها مقدما');
     etemad(r.etemad == 1);
     cancel(r.cancel == 1);
     mostahaka(r.mostahaka == 1);

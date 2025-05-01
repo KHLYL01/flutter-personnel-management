@@ -87,7 +87,7 @@ class AddEmployee extends StatelessWidget {
                                 .clearControllers();
                             Get.dialog(
                               EmpDegreesFindPage(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.fia.text =
@@ -207,7 +207,7 @@ class AddEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               JobsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.jobId.text =
@@ -248,7 +248,7 @@ class AddEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               PartsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.partId.text =
@@ -331,7 +331,7 @@ class AddEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               NationsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.nationId.text =

@@ -17,6 +17,8 @@ class EmpTarqeaSearchController extends GetxController {
 
   RxList<EmpTarqeaSearchModel> empTarqeas = <EmpTarqeaSearchModel>[].obs;
 
+  get length => empTarqeas.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController qrarId = TextEditingController();
 

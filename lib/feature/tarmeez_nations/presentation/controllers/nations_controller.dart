@@ -16,6 +16,8 @@ class NationsController extends GetxController {
 
   RxList<NationsModel> nations = <NationsModel>[].obs;
 
+  get length => nations.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
 

@@ -17,6 +17,8 @@ class EmpEqrarSearchController extends GetxController {
 
   RxList<EmpEqrarSearchModel> empEqrars = <EmpEqrarSearchModel>[].obs;
 
+  get length => empEqrars.length;
+
   final TextEditingController name = TextEditingController();
 
   Future<void> findAll() async {

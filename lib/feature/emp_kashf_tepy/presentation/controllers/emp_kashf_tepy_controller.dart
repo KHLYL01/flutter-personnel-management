@@ -61,7 +61,7 @@ class EmpKashfTepyController extends GetxController {
         endDateString: endDate.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpKashfTepySearchController>().findAll();
@@ -77,7 +77,6 @@ class EmpKashfTepyController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpKashfTepySearchController>().findAll();
       return;
     }
@@ -117,7 +116,7 @@ class EmpKashfTepyController extends GetxController {
     notes.text = r.notes.toString();
     requestDate.text = r.requestDateString.toString();
     endDate.text = r.endDateString.toString();
-    wehdaType("مستشفى");
-    employeeStatus("قائم بالعمل حتى تاريخه");
+    wehdaType(r.wehdaType);
+    employeeStatus(r.employeeStatus);
   }
 }

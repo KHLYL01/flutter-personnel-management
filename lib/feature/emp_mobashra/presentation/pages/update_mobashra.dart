@@ -31,6 +31,8 @@ class UpdateMobashra extends StatelessWidget {
     HijriPicker mobasharahDateUntilEndMonth = HijriPicker(controller.endDate);
 
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -71,7 +73,7 @@ class UpdateMobashra extends StatelessWidget {
                                 .clearControllers();
                             Get.dialog(
                               EmployeesFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.empId.text =
@@ -291,6 +293,12 @@ class UpdateMobashra extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
+                    height: 35,
+                    width: 150,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),

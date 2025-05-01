@@ -25,6 +25,8 @@ class UpdateKashfTepy extends StatelessWidget {
     HijriPicker endDate = HijriPicker(controller.endDate);
 
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -69,7 +71,7 @@ class UpdateKashfTepy extends StatelessWidget {
                                         .clearControllers();
                                     Get.dialog(
                                       EmployeesFind(
-                                        onSelected: (event) {
+                                        onRowDoubleTap: (event) {
                                           Map<String, PlutoCell> cells =
                                               event.row!.cells;
                                           controller.empId.text =
@@ -177,6 +179,12 @@ class UpdateKashfTepy extends StatelessWidget {
                       int.parse(controller.id.text),
                       withGoBack: true,
                     ),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
                     height: 35,
                     width: 150,
                   ),

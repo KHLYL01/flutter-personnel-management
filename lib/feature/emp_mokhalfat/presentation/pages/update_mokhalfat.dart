@@ -24,6 +24,8 @@ class UpdateMokhalfat extends StatelessWidget {
     HijriPicker startDate = HijriPicker(controller.startDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -112,14 +114,19 @@ class UpdateMokhalfat extends StatelessWidget {
                     height: 35,
                     width: 150,
                   ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
+                    height: 35,
+                    width: 150,
+                  ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
               SizedBox(
                 height: currentHeight / 1.5,
                 width: currentWidth - 140,
                 child: PlutoGrid(
-                  configuration:getPlutoConfig(),
-
+                  configuration: getPlutoConfig(),
                   rows: [],
                   columns: [
                     PlutoColumn(

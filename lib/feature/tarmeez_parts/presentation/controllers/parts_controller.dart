@@ -16,6 +16,8 @@ class PartsController extends GetxController {
 
   RxList<PartsModel> parts = <PartsModel>[].obs;
 
+  get length => parts.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
 

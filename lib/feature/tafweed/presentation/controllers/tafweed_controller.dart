@@ -58,7 +58,7 @@ class TafweedController extends GetxController {
         // programUser: ,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<TafweedSearchController>().findAll();
@@ -75,7 +75,6 @@ class TafweedController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<TafweedSearchController>().findAll();
-      Get.back();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

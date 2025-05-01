@@ -12,6 +12,10 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_radio_list_tile.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../../../employee/presentation/controllers/employee_find_controller.dart';
+import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_hasmiat_det_controller.dart';
+import '../controllers/emp_hasmiat_search_controller.dart';
 
 class AddHasmiat extends StatelessWidget {
   const AddHasmiat({super.key});
@@ -19,6 +23,8 @@ class AddHasmiat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHasmiatController>();
+    final controllerDet = Get.find<EmpHasmiatDetController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -44,13 +50,27 @@ class AddHasmiat extends StatelessWidget {
                       controller: controller.id,
                       label: 'مسلسل',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.3,
+                      customWidth: 200,
                     ),
                     CustomTextField(
                       controller: controller.qrarId,
                       label: 'رقم القرار',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.3,
+                      customWidth: 200,
+                    ),
+                    CustomTextField(
+                      suffixIcon: const Icon(Icons.date_range_sharp, size: 15),
+                      onTap: () => decisionDatePicker.pickHijriDate(context),
+                      controller: controller.datQrar,
+                      label: 'تاريخ القرار',
+                      customHeight: 25,
+                      customWidth: 200,
+                    ),
+                    CustomTextField(
+                      controller: controller.dependOn,
+                      label: 'بناءً على خطاب',
+                      customHeight: 25,
+                      customWidth: 200,
                     ),
                     Obx(
                       () => SizedBox(
@@ -85,47 +105,25 @@ class AddHasmiat extends StatelessWidget {
                       controller: controller.month1,
                       label: 'خلاصة الشهر',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.3,
+                      customWidth: 200,
                     ),
                     CustomTextField(
-                      controller: controller.year2,
+                      controller: controller.year1,
                       label: 'عام',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.3,
+                      customWidth: 200,
                     ),
-                  ],
-                ).scrollDirection(Axis.horizontal),
-                Row(
-                  children: [
                     CustomTextField(
                       controller: controller.month2,
                       label: 'شهر الحسم',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.25,
+                      customWidth: 200,
                     ),
                     CustomTextField(
                       controller: controller.year2,
                       label: 'عام',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.25,
-                    ),
-                    CustomTextField(
-                      controller: controller.dependOn,
-                      label: 'بناءً على خطاب',
-                      customHeight: 25,
-                      customWidth: currentWidth * 0.25,
-                    ),
-                  ],
-                ).scrollDirection(Axis.horizontal),
-                Row(
-                  children: [
-                    CustomTextField(
-                      suffixIcon: const Icon(Icons.date_range_sharp, size: 15),
-                      onTap: () => decisionDatePicker.pickHijriDate(context),
-                      controller: controller.datQrar,
-                      label: 'تاريخ القرار',
-                      customHeight: 25,
-                      customWidth: currentWidth * 0.25,
+                      customWidth: 200,
                     ),
                     CustomTextField(
                       suffixIcon: const Icon(Icons.date_range_sharp, size: 15),
@@ -133,7 +131,7 @@ class AddHasmiat extends StatelessWidget {
                       controller: controller.datBegin,
                       label: 'تاريخ بداية الحسم',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.25,
+                      customWidth: 200,
                     ),
                     CustomTextField(
                       suffixIcon: const Icon(Icons.date_range_sharp, size: 15),
@@ -141,7 +139,7 @@ class AddHasmiat extends StatelessWidget {
                       controller: controller.datEnd,
                       label: 'تاريخ نهاية الحسم',
                       customHeight: 25,
-                      customWidth: currentWidth * 0.25,
+                      customWidth: 200,
                     ),
                     Obx(
                       () => CustomCheckbox(
@@ -154,14 +152,9 @@ class AddHasmiat extends StatelessWidget {
                     ),
                   ],
                 ).scrollDirection(Axis.horizontal),
+                const SizedBox(height: 16),
                 Row(
                   children: [
-                    CustomButton(
-                      text: "إضافة جديد",
-                      onPressed: () => controller.clearControllers(),
-                      height: 35,
-                      width: 120,
-                    ),
                     // CustomButton(
                     //   text: "طباعة قرار حسم",
                     //   onPressed: () {},
@@ -170,16 +163,266 @@ class AddHasmiat extends StatelessWidget {
                     // ),
                     CustomButton(
                       text: "إضافة موظف",
-                      onPressed: () {},
+                      onPressed: () {
+                        controllerDet.clearControllers();
+                        Get.dialog(
+                          Dialog(
+                            child: SizedBox(
+                              width: 900,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "المسلسل",
+                                        controller: controllerDet.maxId,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "مسلسل الحسم",
+                                        controller: controllerDet.hasmId,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "الموظف",
+                                        controller: controllerDet.empId,
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "",
+                                        controller: controllerDet.empName,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "الراتب",
+                                        controller: controllerDet.salary,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        label: "بدل النقل",
+                                        controller: controllerDet.naqlBadal,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomButton(
+                                        text: "اختر",
+                                        onPressed: () {
+                                          Get.find<EmployeeFindController>()
+                                              .clearControllers();
+                                          Get.dialog(
+                                            EmployeesFind(
+                                              onRowDoubleTap: (event) {
+                                                Map<String, PlutoCell> cells =
+                                                    event.row.cells;
+                                                controllerDet.empId.text =
+                                                    cells['id']!
+                                                        .value
+                                                        .toString();
+                                                controllerDet.empName.text =
+                                                    cells['name']!
+                                                        .value
+                                                        .toString();
+                                                controllerDet.salary.text =
+                                                    cells['salary']!
+                                                        .value
+                                                        .toString();
+                                                controllerDet.naqlBadal.text =
+                                                    cells['naqlBadal']!
+                                                        .value
+                                                        .toString();
+                                                Get.back();
+                                              },
+                                            ),
+                                          );
+                                          Get.find<EmployeeFindController>()
+                                              .findEmployee();
+                                        },
+                                        height: 35,
+                                        width: 50,
+                                      ).paddingOnly(top: 20),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomTextField(
+                                        label: "الغياب - عدم المباشرة",
+                                        controller: controllerDet.ghyab,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        label: "ساعات التجميع",
+                                        controller: controllerDet.tagmee3,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        label: "الدقائق",
+                                        controller: controllerDet.min,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                      CustomTextField(
+                                        label: "الجزاء",
+                                        controller: controllerDet.gza,
+                                        customHeight: 25,
+                                        customWidth: 200,
+                                      ),
+                                    ],
+                                  ),
+                                  CustomTextField(
+                                    label: "الملاحظات",
+                                    controller: controllerDet.notes,
+                                    customHeight: 25,
+                                    customWidth: 820,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CustomButton(
+                                        text: "إضافة",
+                                        onPressed: () {
+                                          controllerDet.beforeSaveDet();
+                                        },
+                                        height: 35,
+                                        width: 100,
+                                      ),
+                                      CustomButton(
+                                        text: "عودة",
+                                        onPressed: () => Get.back(),
+                                        height: 35,
+                                        width: 100,
+                                      ),
+                                    ],
+                                  ).center()
+                                ],
+                              ).paddingAll(16),
+                            ),
+                          ),
+                        );
+                      },
                       height: 35,
                       width: 120,
                     ),
                     CustomButton(
                       text: "حذف موظف",
-                      onPressed: () {},
+                      onPressed: () =>
+                          controllerDet.confirmDelete(withGoBack: true),
                       height: 35,
                       width: 120,
                     ),
+                  ],
+                ).scrollDirection(Axis.horizontal).center(),
+                SizedBox(
+                  height: currentHeight / 2.5,
+                  width: currentWidth - 100,
+                  child: Obx(
+                    () {
+                      if (controllerDet.isLoading.value) {
+                        return const CustomProgressIndicator();
+                      }
+                      return PlutoGrid(
+                        configuration: getPlutoConfig(),
+                        rows: controllerDet.hasmialDets
+                            .map(
+                              (item) => PlutoRow(
+                                cells: {
+                                  "id": PlutoCell(value: item.id),
+                                  "employeeName":
+                                      PlutoCell(value: item.employeeName),
+                                  "salary": PlutoCell(value: item.salary),
+                                  "naqlBadal": PlutoCell(value: item.naqlBadal),
+                                  "ghyab": PlutoCell(value: item.ghyab),
+                                  "tagmee3": PlutoCell(value: item.tagmee3),
+                                  "min": PlutoCell(value: item.min),
+                                  "gza": PlutoCell(value: item.gza),
+                                  "notes": PlutoCell(value: item.notes),
+                                },
+                              ),
+                            )
+                            .toList(),
+                        columns: [
+                          PlutoColumn(
+                            title: 'الرمز',
+                            field: 'id',
+                            type: PlutoColumnType.text(),
+                            hide: true,
+                          ),
+                          PlutoColumn(
+                            title: 'الاسم',
+                            field: 'employeeName',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'الراتب',
+                            field: 'salary',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'بدل النقل',
+                            field: 'naqlBadal',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'الغياب - عدم المباشرة',
+                            field: 'ghyab',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'ساعات التجميع',
+                            field: 'tagmee3',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'الدقائق',
+                            field: 'min',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'الجزاء',
+                            field: 'gza',
+                            type: PlutoColumnType.text(),
+                          ),
+                          PlutoColumn(
+                            title: 'ملاحظات',
+                            field: 'notes',
+                            type: PlutoColumnType.text(),
+                          ),
+                        ],
+                        mode: PlutoGridMode.selectWithOneTap,
+                        onSelected: (event) {
+                          controllerDet.selectedDetId =
+                              event.row!.cells['id']!.value;
+                        },
+                      );
+                    },
+                  ),
+                ).paddingAll(15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     CustomButton(
                       text: "حفظ",
                       onPressed: () => controller.save(),
@@ -187,64 +430,11 @@ class AddHasmiat extends StatelessWidget {
                       width: 120,
                     ),
                   ],
-                ).scrollDirection(Axis.horizontal).center(),
-                SizedBox(
-                  height: currentHeight / 1.5,
-                  width: currentWidth * 0.95,
-                  child: PlutoGrid(
-                    configuration:getPlutoConfig(),
-
-                    rows: [],
-                    columns: [
-                      PlutoColumn(
-                        title: 'الاسم',
-                        field: 'name',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'الراتب',
-                        field: 'salary',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'بدل النقل',
-                        field: 'badal_naqel',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'الغياب - عدم المباشرة',
-                        field: '  ',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'ساعات التجميع',
-                        field: ' ',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'الدقائق',
-                        field: '',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'الجزاء',
-                        field: '      ',
-                        type: PlutoColumnType.text(),
-                      ),
-                      PlutoColumn(
-                        title: 'ملاحظات',
-                        field: '    ',
-                        type: PlutoColumnType.text(),
-                      ),
-                    ],
-                    mode: PlutoGridMode.selectWithOneTap,
-                    onSelected: (event) {},
-                  ),
-                ).paddingAll(15),
+                ),
               ],
             ).scrollDirection(Axis.vertical);
           },
-        ),
+        ).paddingSymmetric(horizontal: 16),
       ),
     );
   }

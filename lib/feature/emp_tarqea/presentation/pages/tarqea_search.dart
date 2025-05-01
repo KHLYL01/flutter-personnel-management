@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
-import 'package:personnel_management/feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.dart';
 import 'package:personnel_management/feature/emp_tarqea/presentation/pages/update_tarqea.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -61,6 +60,9 @@ class TarqeaSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100,
                 // width: currentWidth * 0.95,
@@ -117,8 +119,8 @@ class TarqeaSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']!.value);
                         Get.dialog(const UpdateTarqea());
                       },
                     );

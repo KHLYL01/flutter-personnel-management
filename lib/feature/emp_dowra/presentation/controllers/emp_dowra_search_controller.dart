@@ -18,6 +18,8 @@ class EmpDowraSearchController extends GetxController {
 
   RxList<EmpDowraSearchModel> empDowras = <EmpDowraSearchModel>[].obs;
 
+  get length => empDowras.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();
 
@@ -34,7 +36,7 @@ class EmpDowraSearchController extends GetxController {
     messageError("");
     final data = await _repository.findById(id);
     data.fold((l) => messageError(l.eerMessage),
-        (r) => Get.find<EmpDowraController>().fillController(r));
+        (r) => Get.find<EmpDowraController>().fillControllers(r));
     isLoading(false);
   }
 

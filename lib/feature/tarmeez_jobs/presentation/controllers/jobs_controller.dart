@@ -18,6 +18,8 @@ class JobsController extends GetxController {
 
   RxList<JobsModel> jobs = <JobsModel>[].obs;
 
+  get length => jobs.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
 

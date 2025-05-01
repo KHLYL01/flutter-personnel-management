@@ -17,6 +17,8 @@ class EmpMobashraSearchController extends GetxController {
 
   RxList<EmpMobashraSearchModel> empMobashras = <EmpMobashraSearchModel>[].obs;
 
+  get length => empMobashras.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();
 

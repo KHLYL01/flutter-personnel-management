@@ -28,6 +28,8 @@ class UpdateEnd extends StatelessWidget {
     HijriPicker endDate = HijriPicker(controller.endDate);
 
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -88,7 +90,7 @@ class UpdateEnd extends StatelessWidget {
                       Get.find<EmployeeFindController>().clearControllers();
                       Get.dialog(
                         EmployeesFind(
-                          onSelected: (event) {
+                          onRowDoubleTap: (event) {
                             Map<String, PlutoCell> cells = event.row!.cells;
                             controller.empId.text =
                                 cells['id']!.value.toString();
@@ -336,6 +338,12 @@ class UpdateEnd extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
+                    height: 35,
+                    width: 150,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),

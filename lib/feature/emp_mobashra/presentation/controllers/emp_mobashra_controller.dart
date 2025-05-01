@@ -81,7 +81,7 @@ class EmpMobashraController extends GetxController {
         notes: notes.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpMobashraSearchController>().findAll();
@@ -97,7 +97,6 @@ class EmpMobashraController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpMobashraSearchController>().findAll();
       return;
     }
@@ -158,6 +157,6 @@ class EmpMobashraController extends GetxController {
 
     days.text = r.days.toString();
     period.text = r.period.toString();
-    day('السبت');
+    day(r.day);
   }
 }

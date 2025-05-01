@@ -88,7 +88,7 @@ class AddPassport extends StatelessWidget {
                                       .clearControllersForSearch();
                                   Get.dialog(
                                     NationsFind(
-                                      onSelected: (event) {
+                                      onRowDoubleTap: (event) {
                                         Map<String, PlutoCell> cells =
                                             event.row!.cells;
                                         controller.nationalId.text =

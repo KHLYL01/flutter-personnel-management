@@ -38,6 +38,8 @@ class UpdateHoliday extends StatelessWidget {
     HijriPicker serviceStartDate = HijriPicker(controller.separationDate);
 
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -94,7 +96,7 @@ class UpdateHoliday extends StatelessWidget {
                                   .clearControllers();
                               Get.dialog(
                                 EmployeesFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.empId.text =
@@ -169,7 +171,7 @@ class UpdateHoliday extends StatelessWidget {
                       onPressed: () {
                         Get.dialog(
                           HolidayTypeFind(
-                            onSelected: (event) {
+                            onRowDoubleTap: (event) {
                               Map<String, PlutoCell> cells = event.row!.cells;
                               controller.holidayType.text =
                                   cells['id']!.value.toString();
@@ -504,6 +506,12 @@ class UpdateHoliday extends StatelessWidget {
                       ),
                       height: 35,
                       width: 120,
+                    ),
+                    CustomButton(
+                      text: "عودة",
+                      onPressed: () => Get.back(),
+                      height: 35,
+                      width: 150,
                     ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),

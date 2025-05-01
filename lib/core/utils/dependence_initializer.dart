@@ -7,14 +7,18 @@ import '../../feature/emp_dowra/presentation/controllers/emp_dowra_search_contro
 import '../../feature/emp_end/data/repository/emp_end_repository.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_controller.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
+import '../../feature/emp_entedab/data/repository/emp_entedab_det_repository.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_repository.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
+import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
 import '../../feature/emp_eqrar/data/repository/emp_eqrar_repository.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
+import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_det_repository.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_repository.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
+import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
@@ -128,10 +132,16 @@ class DependenceInitializer {
     Get.put(EmpEntedabController(Get.find()));
     Get.put(EmpEntedabSearchController(Get.find()));
 
+    Get.lazyPut(() => EmpEntedabDetRepository(Get.find()));
+    Get.put(EmpEntedabDetController(Get.find()));
+
     // EmpHasmiat DI
     Get.lazyPut(() => EmpHasmiatRepository(Get.find()));
     Get.put(EmpHasmiatController(Get.find()));
     Get.put(EmpHasmiatSearchController(Get.find()));
+
+    Get.lazyPut(() => EmpHasmiatDetRepository(Get.find()));
+    Get.put(EmpHasmiatDetController(Get.find()));
 
     // EmpHoliday DI
     Get.lazyPut(() => EmpHolidayRepository(Get.find()));

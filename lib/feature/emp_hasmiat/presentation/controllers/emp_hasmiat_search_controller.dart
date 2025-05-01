@@ -17,6 +17,8 @@ class EmpHasmiatSearchController extends GetxController {
 
   RxList<EmpHasmiatSearchModel> empHasmiats = <EmpHasmiatSearchModel>[].obs;
 
+  get length => empHasmiats.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();
 

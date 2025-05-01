@@ -62,7 +62,7 @@ class EmpOvertimeController extends GetxController {
         place: part.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpOvertimeSearchController>().findAll();

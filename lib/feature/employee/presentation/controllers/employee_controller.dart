@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/number_symbols_data.dart';
@@ -192,7 +194,7 @@ class EmployeeController extends GetxController {
         bokPlace: bokPlace.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmployeeSearchController>().findAll();
@@ -208,7 +210,6 @@ class EmployeeController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmployeeSearchController>().findAll();
       return;
     }

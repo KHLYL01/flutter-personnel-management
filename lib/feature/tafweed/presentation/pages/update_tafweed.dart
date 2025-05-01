@@ -6,7 +6,6 @@ import 'package:personnel_management/core/widgets/custom_progress_indicator.dart
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
@@ -26,6 +25,8 @@ class UpdateTafweed extends StatelessWidget {
     late HijriPicker startDate = HijriPicker(controller.startDate);
     late HijriPicker endDate = HijriPicker(controller.endDate);
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -88,7 +89,7 @@ class UpdateTafweed extends StatelessWidget {
                                   .clearControllers();
                               Get.dialog(
                                 EmployeesFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.empId.text =
@@ -154,11 +155,17 @@ class UpdateTafweed extends StatelessWidget {
                     width: 150,
                   ),
                   CustomButton(
-                    text: 'التقرير',
-                    onPressed: () {},
+                    text: "عودة",
+                    onPressed: () => Get.back(),
                     height: 35,
                     width: 150,
                   ),
+                  // CustomButton(
+                  //   text: 'التقرير',
+                  //   onPressed: () {},
+                  //   height: 35,
+                  //   width: 150,
+                  // ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
             ],

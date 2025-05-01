@@ -150,7 +150,7 @@ class AddTarqea extends StatelessWidget {
                                   .clearControllers();
                               Get.dialog(
                                 EmployeesFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.empId.text =
@@ -256,7 +256,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllersForSearch();
                                         Get.dialog(
                                           JobsFind(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.oldJobId.text =
@@ -292,7 +292,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllers();
                                         Get.dialog(
                                           EmpDegreesFindPage(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.oldFia.text =
@@ -382,7 +382,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllersForSearch();
                                         Get.dialog(
                                           PartsFind(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.oldPartId.text =
@@ -435,7 +435,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllersForSearch();
                                         Get.dialog(
                                           JobsFind(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.newJobId.text =
@@ -471,7 +471,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllers();
                                         Get.dialog(
                                           EmpDegreesFindPage(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.newFia.text =
@@ -561,7 +561,7 @@ class AddTarqea extends StatelessWidget {
                                             .clearControllersForSearch();
                                         Get.dialog(
                                           PartsFind(
-                                            onSelected: (event) {
+                                            onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
                                                   event.row!.cells;
                                               controller.newPartId.text =

@@ -17,6 +17,8 @@ class EmpEntedabSearchController extends GetxController {
 
   RxList<EmpEntedabSearchModel> empEntedabs = <EmpEntedabSearchModel>[].obs;
 
+  get length => empEntedabs.length;
+
   final TextEditingController employeeName = TextEditingController();
   final TextEditingController cardId = TextEditingController();
   final TextEditingController entedabPlace = TextEditingController();

@@ -16,6 +16,8 @@ class BadalController extends GetxController {
 
   RxList<BadalModel> badals = <BadalModel>[].obs;
 
+  get length => badals.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController martaba = TextEditingController();
   final TextEditingController internal = TextEditingController();

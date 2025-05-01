@@ -13,6 +13,8 @@ class EmpDegreesFindController extends GetxController {
 
   RxList<EmpDegreesModel> empDegreess = <EmpDegreesModel>[].obs;
 
+  get length => empDegreess.length;
+
   final TextEditingController martaba = TextEditingController();
   final TextEditingController draga = TextEditingController();
 

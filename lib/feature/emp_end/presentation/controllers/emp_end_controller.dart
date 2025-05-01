@@ -84,7 +84,7 @@ class EmpEndController extends GetxController {
                 : 2,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpEndSearchController>().findAll();
@@ -100,7 +100,6 @@ class EmpEndController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpEndSearchController>().findAll();
       return;
     }

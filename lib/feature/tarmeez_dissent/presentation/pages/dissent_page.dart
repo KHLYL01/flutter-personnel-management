@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -58,6 +59,10 @@ class DissentPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height: 16),
+                Obx(
+                  () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+                ).center(),
                 SizedBox(
                   height: currentHeight - 100,
                   child: PlutoGrid(
@@ -99,11 +104,11 @@ class DissentPage extends StatelessWidget {
                       ),
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
-                    onSelected: (event) {
-                      controller.fillControllers(event.row!.cells);
+                    onRowDoubleTap: (event) {
+                      controller.fillControllers(event.row.cells);
                     },
                   ),
-                ).paddingAll(20)
+                ).paddingAll(16)
               ],
             );
           },

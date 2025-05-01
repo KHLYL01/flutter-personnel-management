@@ -52,7 +52,7 @@ class TafweedSearch extends StatelessWidget {
                       Get.find<EmployeeFindController>().clearControllers();
                       Get.dialog(
                         EmployeesFind(
-                          onSelected: (event) {
+                          onRowDoubleTap: (event) {
                             Map<String, PlutoCell> cells = event.row!.cells;
                             controller.empId.text =
                                 cells['id']!.value.toString();
@@ -87,6 +87,9 @@ class TafweedSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -147,8 +150,8 @@ class TafweedSearch extends StatelessWidget {
                         // ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row?.cells['id']?.value);
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']?.value);
                         Get.dialog(const UpdateTafweed());
                       },
                     );

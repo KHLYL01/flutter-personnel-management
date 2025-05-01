@@ -43,7 +43,7 @@ class EmpEqrarController extends GetxController {
         decisionPlace: decisionPlace.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpEqrarSearchController>().findAll();
@@ -59,7 +59,6 @@ class EmpEqrarController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpEqrarSearchController>().findAll();
       return;
     }

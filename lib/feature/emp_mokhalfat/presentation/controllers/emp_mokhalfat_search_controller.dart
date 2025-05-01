@@ -18,6 +18,8 @@ class EmpMokhalfatSearchController extends GetxController {
   RxList<EmpMokhalfatSearchModel> empMokhalfats =
       <EmpMokhalfatSearchModel>[].obs;
 
+  get length => empMokhalfats.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();
 

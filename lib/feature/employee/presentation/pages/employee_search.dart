@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_dropdown_button.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
@@ -62,7 +63,7 @@ class EmployeesSearch extends StatelessWidget {
                               findController.clearControllers();
                               Get.dialog(
                                 EmployeesFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.id.text =
@@ -104,7 +105,7 @@ class EmployeesSearch extends StatelessWidget {
                                   .clearControllersForSearch();
                               Get.dialog(
                                 JobsFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.jobId.text =
@@ -146,7 +147,7 @@ class EmployeesSearch extends StatelessWidget {
                                   .clearControllersForSearch();
                               Get.dialog(
                                 PartsFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.partId.text =
@@ -227,6 +228,9 @@ class EmployeesSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 width: currentWidth - 40, // Define fixed width
@@ -306,8 +310,8 @@ class EmployeesSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']!.value);
                         Get.dialog(const UpdateEmployee());
                       },
                     );

@@ -17,6 +17,8 @@ class EmpOvertimeSearchController extends GetxController {
 
   RxList<EmpOvertimeSearchModel> empOvertimes = <EmpOvertimeSearchModel>[].obs;
 
+  get length => empOvertimes.length;
+
   // search
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();

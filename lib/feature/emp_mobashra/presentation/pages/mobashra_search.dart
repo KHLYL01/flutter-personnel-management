@@ -68,6 +68,9 @@ class MobashraSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -135,18 +138,18 @@ class MobashraSearch extends StatelessWidget {
                       ),
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
-                    onSelected: (event) {
-                      controller.findById(event.row!.cells['id']!.value);
+                    onRowDoubleTap: (event) {
+                      controller.findById(event.row.cells['id']!.value);
                       Get.find<EmpMobashraController>().empName.text =
-                          event.row!.cells['employeeName']!.value.toString();
+                          event.row.cells['employeeName']!.value.toString();
                       Get.find<EmpMobashraController>().salary.text =
-                          event.row!.cells['salary']!.value.toString();
+                          event.row.cells['salary']!.value.toString();
                       Get.find<EmpMobashraController>().draga.text =
-                          event.row!.cells['draga']!.value.toString();
+                          event.row.cells['draga']!.value.toString();
                       Get.find<EmpMobashraController>().naqlBadal.text =
-                          event.row!.cells['naqlBadal']!.value.toString();
+                          event.row.cells['naqlBadal']!.value.toString();
                       Get.find<EmpMobashraController>().mrtaba.text =
-                          event.row!.cells['fia']!.value.toString();
+                          event.row.cells['fia']!.value.toString();
                       Get.dialog(const UpdateMobashra());
                     },
                   );

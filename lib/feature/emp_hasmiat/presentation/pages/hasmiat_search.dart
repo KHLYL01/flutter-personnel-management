@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
-import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/widgets/base_screen.dart';
@@ -9,6 +8,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/emp_hasmiat_det_controller.dart';
 import '../controllers/emp_hasmiat_search_controller.dart';
 import 'update_hasmiat.dart';
 
@@ -18,6 +18,7 @@ class HasmiatSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHasmiatSearchController>();
+    final controllerDet = Get.find<EmpHasmiatDetController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -61,6 +62,9 @@ class HasmiatSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -120,8 +124,11 @@ class HasmiatSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) async {
+                        int hasmiatId = event.row.cells['id']!.value;
+                        await controller.findById(hasmiatId);
+                        await controllerDet.getHasmiatDetByHasmiatId(hasmiatId);
+                        controllerDet.resetSelectedRow();
                         Get.dialog(const UpdateHasmiat());
                       },
                     );

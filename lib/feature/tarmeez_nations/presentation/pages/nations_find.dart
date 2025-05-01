@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -11,10 +12,10 @@ import '../controllers/nations_controller.dart';
 class NationsFind extends StatelessWidget {
   const NationsFind({
     super.key,
-    required this.onSelected,
+    required this.onRowDoubleTap,
   });
 
-  final PlutoOnSelectedEventCallback onSelected;
+  final PlutoOnRowDoubleTapEventCallback onRowDoubleTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,8 @@ class NationsFind extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: ListView(
         children: [
           Row(
@@ -62,6 +65,10 @@ class NationsFind extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 16),
+          Obx(
+            () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+          ).center(),
           SizedBox(
             height: currentHeight - 100,
             width: currentWidth - 140,
@@ -71,8 +78,7 @@ class NationsFind extends StatelessWidget {
                   return const CustomProgressIndicator();
                 }
                 return PlutoGrid(
-                  configuration:getPlutoConfig(),
-
+                  configuration: getPlutoConfig(),
                   rows: controller.nations
                       .map(
                         (item) => PlutoRow(cells: {
@@ -95,11 +101,11 @@ class NationsFind extends StatelessWidget {
                     ),
                   ],
                   mode: PlutoGridMode.selectWithOneTap,
-                  onSelected: onSelected,
+                  onRowDoubleTap: onRowDoubleTap,
                 );
               },
             ),
-          ).paddingAll(20)
+          ).paddingAll(16)
         ],
       ),
     );

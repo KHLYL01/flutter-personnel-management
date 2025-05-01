@@ -62,7 +62,7 @@ class HolidaySearch extends StatelessWidget {
                                   .clearControllers();
                               Get.dialog(
                                 EmployeesFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.empId.text =
@@ -97,7 +97,7 @@ class HolidaySearch extends StatelessWidget {
                             onPressed: () {
                               Get.dialog(
                                 HolidayTypeFind(
-                                  onSelected: (event) {
+                                  onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
                                         event.row!.cells;
                                     controller.holidayTypeId.text =
@@ -160,6 +160,9 @@ class HolidaySearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -246,12 +249,12 @@ class HolidaySearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']!.value);
                         Get.find<EmpHolidayController>().empName.text =
-                            event.row!.cells['employeeName']!.value.toString();
+                            event.row.cells['employeeName']!.value.toString();
                         Get.find<EmpHolidayController>().holidayTypeName.text =
-                            event.row!.cells['holidayType']!.value.toString();
+                            event.row.cells['holidayType']!.value.toString();
                         Get.dialog(const UpdateHoliday());
                       },
                     );

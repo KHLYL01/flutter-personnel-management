@@ -67,7 +67,7 @@ class AddKashfTepy extends StatelessWidget {
                                       .clearControllers();
                                   Get.dialog(
                                     EmployeesFind(
-                                      onSelected: (event) {
+                                      onRowDoubleTap: (event) {
                                         Map<String, PlutoCell> cells =
                                             event.row!.cells;
                                         controller.empId.text =

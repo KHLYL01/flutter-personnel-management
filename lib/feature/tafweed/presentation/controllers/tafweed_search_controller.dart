@@ -16,6 +16,8 @@ class TafweedSearchController extends GetxController {
 
   RxList<TafweedSearchModel> tafweeds = <TafweedSearchModel>[].obs;
 
+  get length => tafweeds.length;
+
   // for search
   final TextEditingController empId = TextEditingController();
   final TextEditingController empName = TextEditingController();

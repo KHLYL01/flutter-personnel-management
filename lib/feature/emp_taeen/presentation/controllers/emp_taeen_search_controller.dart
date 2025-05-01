@@ -17,6 +17,8 @@ class EmpTaeenSearchController extends GetxController {
 
   RxList<EmpTaeenSearchModel> empTaeens = <EmpTaeenSearchModel>[].obs;
 
+  get length => empTaeens.length;
+
   final TextEditingController name = TextEditingController();
 
   Future<void> findAll() async {

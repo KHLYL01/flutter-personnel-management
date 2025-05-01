@@ -39,6 +39,8 @@ class UpdateEmployee extends StatelessWidget {
     HijriPicker cardSodorDate = HijriPicker(controller.cardStart);
     HijriPicker shaghlWazefaDate = HijriPicker(controller.datJob);
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -87,7 +89,7 @@ class UpdateEmployee extends StatelessWidget {
                                 .clearControllers();
                             Get.dialog(
                               EmpDegreesFindPage(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.fia.text =
@@ -207,7 +209,7 @@ class UpdateEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               JobsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.jobId.text =
@@ -248,7 +250,7 @@ class UpdateEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               PartsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.partId.text =
@@ -331,7 +333,7 @@ class UpdateEmployee extends StatelessWidget {
                                 .clearControllersForSearch();
                             Get.dialog(
                               NationsFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.nationId.text =
@@ -761,6 +763,12 @@ class UpdateEmployee extends StatelessWidget {
                           controller.delete(int.parse(controller.id.text)),
                       height: 30,
                       width: 80,
+                    ),
+                    CustomButton(
+                      text: "عودة",
+                      onPressed: () => Get.back(),
+                      height: 35,
+                      width: 150,
                     ),
                   ],
                 ),

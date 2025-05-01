@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../feature/emp_dowra/data/model/emp_dowra_model.dart';
 import '../../feature/emp_end/data/model/emp_end_model.dart';
+import '../../feature/emp_entedab/data/model/emp_entedab_det_model.dart';
 import '../../feature/emp_entedab/data/model/emp_entedab_model.dart';
 import '../../feature/emp_eqrar/data/model/emp_eqrar_model.dart';
+import '../../feature/emp_hasmiat/data/model/emp_hasmiat_det_model.dart';
 import '../../feature/emp_hasmiat/data/model/emp_hasmiat_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_type_model.dart';
@@ -222,11 +222,11 @@ abstract class ApiService {
 
   @POST(empDowra)
   Future<HttpResponse<EmpDowraModel>> saveEmpDowra(
-      @Body(nullToAbsent: true) EmpDowraModel dissentModel);
+      @Body(nullToAbsent: true) EmpDowraModel dowraModel);
 
   @PUT("$empDowra/{id}")
   Future<HttpResponse<EmpDowraModel>> updateEmpDowra(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpDowraModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpDowraModel dowraModel);
 
   @DELETE("$empDowra/{id}")
   Future<HttpResponse<void>> deleteEmpDowra(@Path("id") int id);
@@ -243,11 +243,11 @@ abstract class ApiService {
 
   @POST(empEnd)
   Future<HttpResponse<EmpEndModel>> saveEmpEnd(
-      @Body(nullToAbsent: true) EmpEndModel dissentModel);
+      @Body(nullToAbsent: true) EmpEndModel empEndModel);
 
   @PUT("$empEnd/{id}")
   Future<HttpResponse<EmpEndModel>> updateEmpEnd(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpEndModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpEndModel empEndModel);
 
   @DELETE("$empEnd/{id}")
   Future<HttpResponse<void>> deleteEmpEnd(@Path("id") int id);
@@ -267,18 +267,37 @@ abstract class ApiService {
 
   @POST(empEntedab)
   Future<HttpResponse<EmpEntedabModel>> saveEmpEntedab(
-      @Body(nullToAbsent: true) EmpEntedabModel dissentModel);
+      @Body(nullToAbsent: true) EmpEntedabModel empEntedabModel);
 
   @PUT("$empEntedab/{id}")
   Future<HttpResponse<EmpEntedabModel>> updateEmpEntedab(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpEntedabModel dissentModel);
+      @Body(nullToAbsent: true) EmpEntedabModel empEntedabModel);
 
   @DELETE("$empEntedab/{id}")
   Future<HttpResponse<void>> deleteEmpEntedab(@Path("id") int id);
 
+  ///
+  /// Hasmiat Det
+  ///
+
+  @GET("$empEntedab/det/nextId")
+  Future<HttpResponse<int>> getNextEntedabDetId();
+
+  @GET("$empEntedab/{id}/det")
+  Future<HttpResponse<List<EmpEntedabDetModel>>> findEmpEntedabDetById(
+      @Path("id") int id);
+
+  @POST("$empEntedab/det")
+  Future<HttpResponse<void>> saveEmpEntedabDet(
+      @Body(nullToAbsent: true) EmpEntedabDetModel entedabDetModel);
+
+  @DELETE("$empEntedab/det/{id}")
+  Future<HttpResponse<void>> deleteEmpEntedabDet(@Path("id") int id);
+
   //*
   //* Emp Hasmiat api
   //*
+
   @GET("$empHasmiat/search")
   Future<HttpResponse<List<EmpHasmiatSearchModel>>> searchEmpHasmiat(
     @Query("name") String? name,
@@ -290,14 +309,32 @@ abstract class ApiService {
 
   @POST(empHasmiat)
   Future<HttpResponse<EmpHasmiatModel>> saveEmpHasmiat(
-      @Body(nullToAbsent: true) EmpHasmiatModel dissentModel);
+      @Body(nullToAbsent: true) EmpHasmiatModel hasmiatModel);
 
   @PUT("$empHasmiat/{id}")
   Future<HttpResponse<EmpHasmiatModel>> updateEmpHasmiat(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpHasmiatModel dissentModel);
+      @Body(nullToAbsent: true) EmpHasmiatModel hasmiatModel);
 
   @DELETE("$empHasmiat/{id}")
   Future<HttpResponse<void>> deleteEmpHasmiat(@Path("id") int id);
+
+  ///
+  /// Hasmiat Det
+  ///
+
+  @GET("$empHasmiat/det/nextId")
+  Future<HttpResponse<int>> getNextHasmiatDetId();
+
+  @GET("$empHasmiat/{id}/det")
+  Future<HttpResponse<List<EmpHasmiatDetModel>>> findEmpHasmiatDetById(
+      @Path("id") int id);
+
+  @POST("$empHasmiat/det")
+  Future<HttpResponse<void>> saveEmpHasmiatDet(
+      @Body(nullToAbsent: true) EmpHasmiatDetModel hasmiatModel);
+
+  @DELETE("$empHasmiat/det/{id}")
+  Future<HttpResponse<void>> deleteEmpHasmiatDet(@Path("id") int id);
 
   //*
   //* Emp Holiday api

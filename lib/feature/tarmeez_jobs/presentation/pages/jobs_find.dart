@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
@@ -12,10 +12,10 @@ import '../controllers/jobs_controller.dart';
 class JobsFind extends StatelessWidget {
   const JobsFind({
     super.key,
-    required this.onSelected,
+    required this.onRowDoubleTap,
   });
 
-  final PlutoOnSelectedEventCallback onSelected;
+  final PlutoOnRowDoubleTapEventCallback onRowDoubleTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,8 @@ class JobsFind extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: ListView(
         children: [
           Row(
@@ -63,6 +65,10 @@ class JobsFind extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 16),
+          Obx(
+            () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+          ).center(),
           SizedBox(
             height: currentHeight - 100,
             width: currentWidth - 140,
@@ -95,11 +101,11 @@ class JobsFind extends StatelessWidget {
                     ),
                   ],
                   mode: PlutoGridMode.selectWithOneTap,
-                  onSelected: onSelected,
+                  onRowDoubleTap: onRowDoubleTap,
                 );
               },
             ),
-          ).paddingAll(20)
+          ).paddingAll(16)
         ],
       ),
     );

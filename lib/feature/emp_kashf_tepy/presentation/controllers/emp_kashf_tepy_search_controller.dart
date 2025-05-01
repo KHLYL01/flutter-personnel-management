@@ -18,6 +18,8 @@ class EmpKashfTepySearchController extends GetxController {
   RxList<EmpKashfTepySearchModel> empKashfTepys =
       <EmpKashfTepySearchModel>[].obs;
 
+  get length => empKashfTepys.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController cardId = TextEditingController();
 

@@ -1,11 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
-import '../../data/model/emp_holiday_model.dart';
 import '../../data/model/emp_holiday_type_model.dart';
-import '../../data/repository/emp_holiday_repository.dart';
 import '../../data/repository/emp_holiday_type_repository.dart';
 
 class EmpHolidayTypeController extends GetxController {
@@ -17,6 +11,8 @@ class EmpHolidayTypeController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxList<EmpHolidayTypeModel> empHolidaysType = <EmpHolidayTypeModel>[].obs;
+
+  get length => empHolidaysType.length;
 
   Future<void> findAll() async {
     isLoading(true);

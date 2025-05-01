@@ -16,6 +16,8 @@ class EmpDegreesController extends GetxController {
 
   RxList<EmpDegreesModel> empDegrees = <EmpDegreesModel>[].obs;
 
+  get length => empDegrees.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController type = TextEditingController();
   final TextEditingController martaba = TextEditingController();

@@ -6,7 +6,6 @@ import 'package:personnel_management/feature/emp_taeen/presentation/controllers/
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
@@ -29,6 +28,8 @@ class UpdateTaeen extends StatelessWidget {
     HijriPicker litterDate = HijriPicker(controller.khetabDate);
     HijriPicker dateOfBirth = HijriPicker(controller.birthDate);
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -97,7 +98,7 @@ class UpdateTaeen extends StatelessWidget {
                       Get.find<EmployeeFindController>().clearControllers();
                       Get.dialog(
                         EmployeesFind(
-                          onSelected: (event) {
+                          onRowDoubleTap: (event) {
                             Map<String, PlutoCell> cells = event.row!.cells;
                             controller.empId.text =
                                 cells['id']!.value.toString();
@@ -327,6 +328,12 @@ class UpdateTaeen extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
+                    height: 35,
+                    width: 150,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),

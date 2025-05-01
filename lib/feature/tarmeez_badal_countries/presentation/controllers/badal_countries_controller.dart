@@ -16,6 +16,8 @@ class BadalCountriesController extends GetxController {
 
   RxList<BadalCountriesModel> badalCountries = <BadalCountriesModel>[].obs;
 
+  get length => badalCountries.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
   final TextEditingController countryClass = TextEditingController();

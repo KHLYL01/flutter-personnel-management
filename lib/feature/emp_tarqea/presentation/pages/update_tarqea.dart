@@ -37,6 +37,8 @@ class UpdateTarqea extends StatelessWidget {
     HijriPicker mobasharahLitterDate = HijriPicker(controller.mKhetabDate);
 
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -148,7 +150,7 @@ class UpdateTarqea extends StatelessWidget {
                                 .clearControllers();
                             Get.dialog(
                               EmployeesFind(
-                                onSelected: (event) {
+                                onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
                                       event.row!.cells;
                                   controller.empId.text =
@@ -254,7 +256,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllersForSearch();
                                       Get.dialog(
                                         JobsFind(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.oldJobId.text =
@@ -288,7 +290,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllers();
                                       Get.dialog(
                                         EmpDegreesFindPage(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.oldFia.text =
@@ -378,7 +380,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllersForSearch();
                                       Get.dialog(
                                         PartsFind(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.oldPartId.text =
@@ -429,7 +431,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllersForSearch();
                                       Get.dialog(
                                         JobsFind(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.newJobId.text =
@@ -463,7 +465,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllers();
                                       Get.dialog(
                                         EmpDegreesFindPage(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.newFia.text =
@@ -553,7 +555,7 @@ class UpdateTarqea extends StatelessWidget {
                                           .clearControllersForSearch();
                                       Get.dialog(
                                         PartsFind(
-                                          onSelected: (event) {
+                                          onRowDoubleTap: (event) {
                                             Map<String, PlutoCell> cells =
                                                 event.row!.cells;
                                             controller.newPartId.text =
@@ -616,6 +618,12 @@ class UpdateTarqea extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
+                    height: 35,
+                    width: 150,
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),

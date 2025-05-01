@@ -21,6 +21,8 @@ class UpdateEqrar extends StatelessWidget {
     HijriPicker iqrarDate = HijriPicker(controller.decisionDate);
     HijriPicker khitabDate = HijriPicker(controller.letterDate);
     return Dialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       child: Obx(
         () {
           if (controller.isLoading.value) {
@@ -106,12 +108,6 @@ class UpdateEqrar extends StatelessWidget {
               ).paddingAll(5).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  CustomButton(
-                    text: 'إقرار جديد',
-                    onPressed: () => controller.clearControllers(),
-                    height: 35,
-                    width: 150,
-                  ),
                   // CustomButton(
                   //   text: 'التقرير',
                   //   onPressed: () {},
@@ -130,6 +126,12 @@ class UpdateEqrar extends StatelessWidget {
                       int.parse(controller.id.text),
                       withGoBack: true,
                     ),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: "عودة",
+                    onPressed: () => Get.back(),
                     height: 35,
                     width: 150,
                   ),

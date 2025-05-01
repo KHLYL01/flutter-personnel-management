@@ -17,6 +17,8 @@ class EmployeeSearchController extends GetxController {
 
   RxList<EmployeeSearchModel> employees = <EmployeeSearchModel>[].obs;
 
+  get length => employees.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController empName = TextEditingController();
   final TextEditingController cardId = TextEditingController();

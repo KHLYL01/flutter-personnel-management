@@ -30,7 +30,7 @@ class CustomRadioListTile<T> extends StatelessWidget {
           ),
           Text(title),
         ],
-      ).paddingAll(10),
+      ).paddingSymmetric(horizontal: 10),
     );
   }
 }

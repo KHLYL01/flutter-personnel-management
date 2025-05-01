@@ -16,6 +16,8 @@ class DissentController extends GetxController {
 
   RxList<DissentModel> dissents = <DissentModel>[].obs;
 
+  get length => dissents.length;
+
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();
 

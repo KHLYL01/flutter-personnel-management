@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/employee_model.dart';
 import '../../data/repository/employee_repository.dart';
 
@@ -15,6 +12,8 @@ class EmployeeFindController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxList<EmployeeFindModel> findEmployees = <EmployeeFindModel>[].obs;
+
+  get length => findEmployees.length;
 
   final TextEditingController id = TextEditingController();
   final TextEditingController name = TextEditingController();

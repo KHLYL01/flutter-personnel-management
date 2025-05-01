@@ -14,6 +14,8 @@ class PassportSearchController extends GetxController {
 
   RxList<PassportSearchModel> passports = <PassportSearchModel>[].obs;
 
+  get length => passports.length;
+
   final TextEditingController name = TextEditingController();
   final TextEditingController passportNumber = TextEditingController();
 

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_hasmiat_model.dart';
@@ -55,7 +54,7 @@ class EmpHasmiatController extends GetxController {
         dependOn: dependOn.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpHasmiatSearchController>().findAll();
@@ -71,7 +70,6 @@ class EmpHasmiatController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpHasmiatSearchController>().findAll();
       return;
     }
@@ -116,6 +114,6 @@ class EmpHasmiatController extends GetxController {
     month2.text = r.month2.toString();
     year2.text = r.year2.toString();
     dependOn.text = r.dependOn.toString();
-    hasmType('حسم عن غياب');
+    hasmType(r.hasmType);
   }
 }

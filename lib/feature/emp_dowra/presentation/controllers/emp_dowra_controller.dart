@@ -44,7 +44,7 @@ class EmpDowraController extends GetxController {
         footer: footer.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpDowraSearchController>().findAll();
@@ -60,7 +60,6 @@ class EmpDowraController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpDowraSearchController>().findAll();
       return;
     }
@@ -92,7 +91,7 @@ class EmpDowraController extends GetxController {
     );
   }
 
-  void fillController(EmpDowraModel r) {
+  void fillControllers(EmpDowraModel r) {
     id.text = r.id.toString();
     startDate.text = r.startDate.toString();
     endDate.text = r.endDate.toString();

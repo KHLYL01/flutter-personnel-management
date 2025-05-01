@@ -64,6 +64,9 @@ class EqrarSearch extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16), // Add spacing
+              Obx(
+                () => Text("عدد السجلات المسترجعة: ${controller.length}"),
+              ).center(),
               SizedBox(
                 height: currentHeight - 100, // Define fixed height
                 // width: currentWidth * 0.95, // Define fixed width
@@ -129,8 +132,8 @@ class EqrarSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onSelected: (event) {
-                        controller.findById(event.row!.cells['id']!.value);
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']!.value);
                         Get.dialog(const UpdateEqrar());
                       },
                     );

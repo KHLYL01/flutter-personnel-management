@@ -1460,12 +1460,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpDowraModel>> saveEmpDowra(
-      EmpDowraModel dissentModel) async {
+      EmpDowraModel dowraModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(dowraModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDowraModel>>(Options(
       method: 'POST',
@@ -1498,13 +1498,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpDowraModel>> updateEmpDowra(
     int id,
-    EmpDowraModel dissentModel,
+    EmpDowraModel dowraModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(dowraModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDowraModel>>(Options(
       method: 'PUT',
@@ -1636,12 +1636,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpEndModel>> saveEmpEnd(EmpEndModel dissentModel) async {
+  Future<HttpResponse<EmpEndModel>> saveEmpEnd(EmpEndModel empEndModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(empEndModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEndModel>>(Options(
       method: 'POST',
@@ -1674,13 +1674,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpEndModel>> updateEmpEnd(
     int id,
-    EmpEndModel dissentModel,
+    EmpEndModel empEndModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(empEndModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEndModel>>(Options(
       method: 'PUT',
@@ -1820,12 +1820,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpEntedabModel>> saveEmpEntedab(
-      EmpEntedabModel dissentModel) async {
+      EmpEntedabModel empEntedabModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(empEntedabModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEntedabModel>>(Options(
       method: 'POST',
@@ -1858,13 +1858,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpEntedabModel>> updateEmpEntedab(
     int id,
-    EmpEntedabModel dissentModel,
+    EmpEntedabModel empEntedabModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(empEntedabModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEntedabModel>>(Options(
       method: 'PUT',
@@ -1908,6 +1908,136 @@ class _ApiService implements ApiService {
         .compose(
           _dio.options,
           '/emp-entedabs/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<int>> getNextEntedabDetId() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-entedabs/det/nextId',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<int>(_options);
+    late int _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpEntedabDetModel>>> findEmpEntedabDetById(
+      int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpEntedabDetModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-entedabs/${id}/det',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpEntedabDetModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpEntedabDetModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> saveEmpEntedabDet(
+      EmpEntedabDetModel entedabDetModel) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(entedabDetModel.toJson());
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-entedabs/det',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteEmpEntedabDet(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-entedabs/det/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -2002,12 +2132,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpHasmiatModel>> saveEmpHasmiat(
-      EmpHasmiatModel dissentModel) async {
+      EmpHasmiatModel hasmiatModel) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(hasmiatModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHasmiatModel>>(Options(
       method: 'POST',
@@ -2040,13 +2170,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpHasmiatModel>> updateEmpHasmiat(
     int id,
-    EmpHasmiatModel dissentModel,
+    EmpHasmiatModel hasmiatModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(hasmiatModel.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHasmiatModel>>(Options(
       method: 'PUT',
@@ -2090,6 +2220,136 @@ class _ApiService implements ApiService {
         .compose(
           _dio.options,
           '/emp-hasmiats/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<int>> getNextHasmiatDetId() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-hasmiats/det/nextId',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<int>(_options);
+    late int _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpHasmiatDetModel>>> findEmpHasmiatDetById(
+      int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpHasmiatDetModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-hasmiats/${id}/det',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpHasmiatDetModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpHasmiatDetModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> saveEmpHasmiatDet(
+      EmpHasmiatDetModel hasmiatModel) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(hasmiatModel.toJson());
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-hasmiats/det',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteEmpHasmiatDet(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-hasmiats/det/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

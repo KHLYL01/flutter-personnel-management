@@ -161,7 +161,7 @@ class EmpEntedabController extends GetxController {
                 : 1,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpEndSearchController>().findAll();
@@ -177,7 +177,6 @@ class EmpEntedabController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpEndSearchController>().findAll();
       return;
     }
@@ -257,9 +256,9 @@ class EmpEntedabController extends GetxController {
     taskRa.value = r.taskRa == 0
         ? ' لا يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه'
         : 'يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه';
-    day('الأحد');
-    waselTsafar('الطائرة');
-    type('داخلي');
-    fia('أ');
+    day(r.day);
+    waselTsafar(r.waselTsafar);
+    type(r.type);
+    fia(r.fia);
   }
 }

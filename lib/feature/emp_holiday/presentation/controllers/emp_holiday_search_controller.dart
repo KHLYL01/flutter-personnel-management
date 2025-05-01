@@ -17,6 +17,8 @@ class EmpHolidaySearchController extends GetxController {
 
   RxList<EmpHolidaySearchModel> empHolidays = <EmpHolidaySearchModel>[].obs;
 
+  get length => empHolidays.length;
+
   final TextEditingController empId = TextEditingController();
   final TextEditingController empName = TextEditingController();
   final TextEditingController cardId = TextEditingController();

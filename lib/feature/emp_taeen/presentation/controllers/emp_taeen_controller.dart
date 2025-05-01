@@ -83,7 +83,7 @@ class EmpTaeenController extends GetxController {
         gender: gender.value == "ذكر" ? 1 : 0,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpTaeenSearchController>().findAll();
@@ -99,7 +99,6 @@ class EmpTaeenController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      Get.back();
       Get.find<EmpTaeenSearchController>().findAll();
       return;
     }
@@ -154,7 +153,7 @@ class EmpTaeenController extends GetxController {
     khetabName.text = r.khetabName.toString();
     mKhetabDate.text = r.mKhetabDate.toString();
     birthDate.text = r.birthDate.toString();
-    mDay('السبت');
+    mDay(r.mDay);
     state(r.state == 1 ? "متزوج" : 'أعزب');
     gender(r.gender == 1 ? "ذكر" : 'أنثى');
   }
