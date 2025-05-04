@@ -9,6 +9,7 @@ import '../../feature/emp_eqrar/data/model/emp_eqrar_model.dart';
 import '../../feature/emp_hasmiat/data/model/emp_hasmiat_det_model.dart';
 import '../../feature/emp_hasmiat/data/model/emp_hasmiat_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_model.dart';
+import '../../feature/emp_holiday/data/model/emp_holiday_tamdeed_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_type_model.dart';
 import '../../feature/emp_kashf_tepy/data/model/emp_kashf_tepy_model.dart';
 import '../../feature/emp_mobashra/data/model/emp_mobashra_model.dart';
@@ -361,6 +362,28 @@ abstract class ApiService {
 
   @DELETE("$empHoliday/{id}")
   Future<HttpResponse<void>> deleteEmpHoliday(@Path("id") int id);
+
+  //*
+  //* Emp Holiday Tamdeed api
+  //*
+
+  @GET(empHolidayTamdeed)
+  Future<HttpResponse<List<EmpHolidayTamdeedModel>>> findAllHolidayTamdeed();
+
+  @GET("$empHolidayTamdeed/holiday/{id}")
+  Future<HttpResponse<List<EmpHolidayTamdeedModel>>>
+      findEmpHolidayTamdeedByHolidaysId(@Path("id") int id);
+
+  // @GET("$empHolidayTamdeed/{id}")
+  // Future<HttpResponse<EmpHolidayTamdeedModel>> findEmpHolidayTamdeedById(
+  //     @Path("id") int id);
+
+  @POST(empHolidayTamdeed)
+  Future<HttpResponse<EmpHolidayTamdeedModel>> saveEmpHolidayTamdeed(
+      @Body(nullToAbsent: true) EmpHolidayTamdeedModel model);
+
+  @DELETE("$empHolidayTamdeed/{id}")
+  Future<HttpResponse<void>> deleteEmpHolidayTamdeed(@Path("id") int id);
 
   //*
   //* Emp Kashf Tepy api

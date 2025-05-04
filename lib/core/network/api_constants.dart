@@ -18,6 +18,7 @@ const String empEnd = "/emp-ends";
 const String empEntedab = "/emp-entedabs";
 const String empHasmiat = "/emp-hasmiats";
 const String empHoliday = "/emp-holidays";
+const String empHolidayTamdeed = "/emp-holidays-tamdeeds";
 const String empKashfTepy = "/emp-kashf-tepy";
 const String empMobashra = "/emp-mobashra";
 const String empMokhalfat = "/emp-mokhalfats";

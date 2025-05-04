@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 
 import '../../feature/emp_dowra/data/repository/emp_dowra_repository.dart';
 import '../../feature/emp_dowra/presentation/controllers/emp_dowra_controller.dart';
@@ -21,7 +22,9 @@ import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controlle
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_repository.dart';
+import '../../feature/emp_holiday/data/repository/emp_holiday_tamdeed_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
+import '../../feature/emp_holiday/presentation/controllers/emp_holiday__report_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
@@ -117,6 +120,12 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpDegreesWorkerRepository(Get.find()));
     Get.put(EmpDegreesWorkerController(Get.find()));
 
+    // Employee DI
+    Get.lazyPut(() => EmployeeRepository(Get.find()));
+    Get.put(EmployeeController(Get.find()));
+    Get.put(EmployeeSearchController(Get.find()));
+    Get.put(EmployeeFindController(Get.find()));
+
     // EmpDowra DI
     Get.lazyPut(() => EmpDowraRepository(Get.find()));
     Get.put(EmpDowraController(Get.find()));
@@ -147,6 +156,10 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpHolidayRepository(Get.find()));
     Get.put(EmpHolidayController(Get.find()));
     Get.put(EmpHolidaySearchController(Get.find()));
+    Get.put(EmpHolidayReportController(Get.find()));
+
+    Get.lazyPut(() => EmpHolidayTamdeedRepository(Get.find()));
+    Get.put(EmpHolidayTamdeedController(Get.find()));
 
     // EmpKashfTepy DI
     Get.lazyPut(() => EmpKashfTepyRepository(Get.find()));
@@ -187,12 +200,6 @@ class DependenceInitializer {
     Get.lazyPut(() => TafweedRepository(Get.find()));
     Get.put(TafweedController(Get.find()));
     Get.put(TafweedSearchController(Get.find()));
-
-    // Employee DI
-    Get.lazyPut(() => EmployeeRepository(Get.find()));
-    Get.put(EmployeeController(Get.find()));
-    Get.put(EmployeeSearchController(Get.find()));
-    Get.put(EmployeeFindController(Get.find()));
 
     // EmpEqrar DI
     Get.lazyPut(() => EmpEqrarRepository(Get.find()));

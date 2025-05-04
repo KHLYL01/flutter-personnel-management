@@ -3,17 +3,19 @@ import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_holiday__report_controller.dart';
 import '../controllers/emp_holiday_type_controller.dart';
+import 'holiday_tamdeed.dart';
 import 'holiday_type_find.dart';
 
 class UpdateHoliday extends StatelessWidget {
@@ -22,6 +24,8 @@ class UpdateHoliday extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHolidayController>();
+    final controllerReport = Get.find<EmpHolidayReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -468,30 +472,42 @@ class UpdateHoliday extends StatelessWidget {
                 ).scrollDirection(Axis.horizontal),
                 Row(
                   children: [
-                    // CustomButton(
-                    //   text: "إضافة جديد",
-                    //   onPressed: () => controller.clearControllers(),
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: " قرار إجازة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
+                    CustomButton(
+                      text: "تمديد بيانات الاجازة",
+                      onPressed: () async {
+                        await Get.find<EmpHolidayTamdeedController>()
+                            .clearControllers();
+                        await Get.find<EmpHolidayTamdeedController>()
+                            .findAllByHolidaysId(
+                          int.parse(
+                            controller.id.text,
+                          ),
+                        );
+                        Get.dialog(const HolidayTamdeed());
+                      },
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: " قرار إجازة",
+                      onPressed: () =>
+                          controllerReport.createQrarHolidayReport(),
+                      height: 35,
+                      width: 120,
+                    ),
                     // CustomButton(
                     //   text: "طلب إجازة",
                     //   onPressed: () {},
                     //   height: 35,
                     //   width: 150,
                     // ),
-                    // CustomButton(
-                    //   text: "طباعة مسير",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
+                    CustomButton(
+                      text: "طباعة مسير",
+                      onPressed: () =>
+                          controllerReport.createMoserHolidayReport(),
+                      height: 35,
+                      width: 120,
+                    ),
                     CustomButton(
                       text: "تعديل",
                       onPressed: () => controller.save(),
