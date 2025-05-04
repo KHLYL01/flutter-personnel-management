@@ -1,50 +1,45 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
-import '../../data/model/emp_entedab_det_model.dart';
-import '../../data/repository/emp_entedab_det_repository.dart';
+import '../../data/model/emp_takleef_det_model.dart';
+import '../../data/repository/emp_takleef_det_repository.dart';
 
-class EmpEntedabDetController extends GetxController {
-  final EmpEntedabDetRepository _repository;
+class EmpTakleefDetController extends GetxController {
+  final EmpTakleefDetRepository _repository;
 
-  EmpEntedabDetController(this._repository);
+  EmpTakleefDetController(this._repository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpEntedabDetModel> entedabDets = RxList([]);
+  RxList<EmpTakleefDetModel> takleefDets = RxList([]);
 
-  final TextEditingController maxId = TextEditingController();
-  final TextEditingController entedabId = TextEditingController();
+  final TextEditingController id = TextEditingController();
+  final TextEditingController takleefId = TextEditingController();
   final TextEditingController empId = TextEditingController();
   final TextEditingController empName = TextEditingController();
-  final TextEditingController fia = TextEditingController();
   final TextEditingController salary = TextEditingController(text: "0");
-  final TextEditingController draga = TextEditingController(text: "0");
   final TextEditingController naqlBadal = TextEditingController(text: "0");
-  final TextEditingController entedabBadal = TextEditingController(text: "0");
-  final TextEditingController prev = TextEditingController(text: "0");
-  final TextEditingController externalEntedab =
-      TextEditingController(text: "0");
+  final TextEditingController period = TextEditingController(text: "0");
+  final TextEditingController datBegin = TextEditingController();
+  final TextEditingController datEnd = TextEditingController();
+  final TextEditingController empWork = TextEditingController();
 
   int selectedDetId = 0;
 
-  Future<void> getEntedabDetNextId() async {
+  Future<void> getTakleefDetNextId() async {
     messageError('');
     final data = await _repository.getNextId();
-    data.fold(
-        (l) => messageError(l.eerMessage), (r) => maxId.text = r.toString());
+    data.fold((l) => messageError(l.eerMessage), (r) => id.text = r.toString());
   }
 
-  Future<void> getEntedabDetByEntedabId(int entedabId) async {
+  Future<void> getTakleefDetByTakleefId(int takleefId) async {
     isLoading(true);
     messageError('');
-    this.entedabId.text = entedabId.toString();
-    final data = await _repository.findEmpEntedabDetById(entedabId);
-    data.fold((l) => messageError(l.eerMessage), (r) => entedabDets(r));
+    this.takleefId.text = takleefId.toString();
+    final data = await _repository.findEmpTakleefDetById(takleefId);
+    data.fold((l) => messageError(l.eerMessage), (r) => takleefDets(r));
     isLoading(false);
   }
 
@@ -52,19 +47,21 @@ class EmpEntedabDetController extends GetxController {
     isLoading(true);
     messageError("");
     final data = await _repository.save(
-      EmpEntedabDetModel(
-        maxId: int.parse(maxId.text),
-        entedabId: int.parse(entedabId.text),
+      EmpTakleefDetModel(
+        maxId: int.parse(id.text),
         empId: int.parse(empId.text),
-        prev: int.parse(prev.text),
-        externalEntedab: double.parse(externalEntedab.text),
+        takleefId: int.parse(takleefId.text),
+        datBegin: datBegin.text,
+        datEnd: datEnd.text,
+        period: double.parse(period.text),
+        empWork: empWork.text,
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getEntedabDetByEntedabId(int.parse(entedabId.text));
-      getEntedabDetNextId();
+      getTakleefDetByTakleefId(int.parse(takleefId.text));
+      getTakleefDetNextId();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -85,7 +82,7 @@ class EmpEntedabDetController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getEntedabDetByEntedabId(int.parse(entedabId.text));
+      getTakleefDetByTakleefId(int.parse(takleefId.text));
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -109,21 +106,20 @@ class EmpEntedabDetController extends GetxController {
   }
 
   void clearControllers() async {
-    await getEntedabDetNextId();
+    await getTakleefDetNextId();
     empId.clear();
     empName.clear();
-    fia.clear();
     salary.text = "0";
-    draga.text = "0";
     naqlBadal.text = "0";
-    entedabBadal.text = "0";
-    prev.text = "0";
-    externalEntedab.text = "0";
+    period.text = "0";
+    datBegin.clear();
+    datEnd.clear();
+    empWork.clear();
   }
 
   void resetSelectedRow() {
     selectedDetId = 0;
   }
 
-  // void fillControllers(EmpEntedabDetResponseModel r) {}
+  // void fillControllers(EmpTakleefDetResponseModel r) {}
 }

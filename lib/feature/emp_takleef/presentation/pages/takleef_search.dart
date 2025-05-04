@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
+import 'package:personnel_management/feature/emp_takleef/presentation/pages/update_takleef.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
-import '../controllers/emp_overtime_search_controller.dart';
+import '../controllers/emp_takleef_search_controller.dart';
 
-class OvertimeSearch extends StatelessWidget {
-  const OvertimeSearch({super.key});
+class TakleefSearch extends StatelessWidget {
+  const TakleefSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<EmpOvertimeSearchController>();
+    final controller = Get.find<EmpTakleefSearchController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -78,7 +79,7 @@ class OvertimeSearch extends StatelessWidget {
                     }
                     return PlutoGrid(
                       configuration: getPlutoConfig(),
-                      rows: controller.empOvertimes
+                      rows: controller.empTakleefs
                           .map((item) => PlutoRow(
                                 cells: {
                                   "id": PlutoCell(value: item.id),
@@ -136,7 +137,10 @@ class OvertimeSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onRowDoubleTap: (event) {},
+                      onRowDoubleTap: (event) {
+                        controller.findById(event.row.cells['id']!.value);
+                        Get.dialog(const UpdateTakleef());
+                      },
                     );
                   },
                 ),

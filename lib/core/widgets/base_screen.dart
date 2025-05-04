@@ -9,7 +9,6 @@ import 'package:personnel_management/feature/emp_holiday/presentation/controller
 import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
 import 'package:personnel_management/feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
-import 'package:personnel_management/feature/emp_overtime/presentation/controllers/emp_overtime_search_controller.dart';
 import 'package:personnel_management/feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
 import 'package:personnel_management/feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
@@ -23,6 +22,7 @@ import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_contr
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
 import '../widgets/custom_pop_up_menu_button.dart';
 
 class BaseController extends GetxController {
@@ -151,7 +151,7 @@ class BaseScreen extends StatelessWidget {
                                 child: Text('الاستعلام عن انتداب'),
                               ),
                               PopupMenuItem(
-                                value: AppRoutes.overtimeSearch,
+                                value: AppRoutes.takleefSearch,
                                 child: Text('الاستعلام عن خارج الدوام'),
                               ),
                               PopupMenuItem(
@@ -216,10 +216,10 @@ class BaseScreen extends StatelessWidget {
                                   Get.find<EmpEntedabSearchController>()
                                       .findAll();
                                   break;
-                                case AppRoutes.overtimeSearch:
+                                case AppRoutes.takleefSearch:
                                   controller
                                       .setPage('الاستعلام عن خارج الدوام');
-                                  Get.find<EmpOvertimeSearchController>()
+                                  Get.find<EmpTakleefSearchController>()
                                       .findAll();
                                   break;
                                 case AppRoutes.hasmiatSearch:
@@ -295,7 +295,7 @@ class BaseScreen extends StatelessWidget {
                               child: Text("بيانات الانتداب"),
                             ),
                             PopupMenuItem(
-                              value: AppRoutes.employeesKharijD,
+                              value: AppRoutes.addTakleef,
                               child: Text("خارج الدوام"),
                             ),
                             PopupMenuItem(
@@ -364,7 +364,7 @@ class BaseScreen extends StatelessWidget {
                                 Get.find<EmpEntedabController>().id.text =
                                     nextId.toString();
                                 break;
-                              case AppRoutes.employeesKharijD:
+                              case AppRoutes.addTakleef:
                                 controller.setPage("خارج الدوام");
                                 break;
                               case AppRoutes.addHasmiat:

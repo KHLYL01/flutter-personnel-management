@@ -1,5 +1,4 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:personnel_management/feature/tafweed/presentation/pages/add_tafweed.dart';
 
 import '../../feature/emp_dowra/presentation/pages/add_dowra.dart';
 import '../../feature/emp_dowra/presentation/pages/dowra_search.dart';
@@ -19,15 +18,17 @@ import '../../feature/emp_mobashra/presentation/pages/add_mobashra.dart';
 import '../../feature/emp_mobashra/presentation/pages/mobashra_search.dart';
 import '../../feature/emp_mokhalfat/presentation/pages/add_mokhalfat.dart';
 import '../../feature/emp_mokhalfat/presentation/pages/mokhalfat_search.dart';
-import '../../feature/emp_overtime/presentation/pages/overtime_search.dart';
 import '../../feature/emp_taeen/presentation/pages/add_taeen.dart';
 import '../../feature/emp_taeen/presentation/pages/taeen_search.dart';
+import '../../feature/emp_takleef/presentation/pages/add_takleef.dart';
+import '../../feature/emp_takleef/presentation/pages/takleef_search.dart';
 import '../../feature/emp_tarqea/presentation/pages/add_tarqea.dart';
 import '../../feature/emp_tarqea/presentation/pages/tarqea_search.dart';
 import '../../feature/employee/presentation/pages/add_employee.dart';
 import '../../feature/employee/presentation/pages/employee_search.dart';
 import '../../feature/passport/presentation/pages/add_passport.dart';
 import '../../feature/passport/presentation/pages/passport_search.dart';
+import '../../feature/tafweed/presentation/pages/add_tafweed.dart';
 import '../../feature/tafweed/presentation/pages/tafweed_search.dart';
 import '../../feature/tarmeez_badal/presentation/pages/badal_page.dart';
 import '../../feature/tarmeez_badal_countries/presentation/pages/badal_countries_page.dart';
@@ -59,7 +60,7 @@ class AppRoutes {
   static const String kashfTepySearch = '/kashf_tepy_search';
   static const String mobashraSearch = '/mobashra_search';
   static const String mokhalfatSearch = '/mokhalfat_search';
-  static const String overtimeSearch = '/overtime_search';
+  static const String takleefSearch = '/takleef_search';
   static const String taeenSearch = '/taeen_search';
   static const String tarqeaSearch = '/Tarqea_search';
   static const String passportSearch = '/passport_search';
@@ -83,7 +84,7 @@ class AppRoutes {
   static const String addPassport = '/add_passport';
   static const String addEmployee = '/add_employee';
 
-  static const String employeesKharijD = '/employees_kharijD';
+  static const String addTakleef = '/add_takleef';
 
   static List<GetPage> routes = [
     GetPage(name: baladiaInfo, page: () => const BladiaInfo()),
@@ -106,7 +107,7 @@ class AppRoutes {
     GetPage(name: AppRoutes.mobashraSearch, page: () => const MobashraSearch()),
     GetPage(
         name: AppRoutes.mokhalfatSearch, page: () => const MokhalfatSearch()),
-    GetPage(name: AppRoutes.overtimeSearch, page: () => const OvertimeSearch()),
+    GetPage(name: AppRoutes.takleefSearch, page: () => const TakleefSearch()),
     GetPage(name: AppRoutes.taeenSearch, page: () => const TaeenSearch()),
     GetPage(name: AppRoutes.tarqeaSearch, page: () => const TarqeaSearch()),
     GetPage(name: AppRoutes.passportSearch, page: () => const PassportSearch()),
@@ -128,5 +129,6 @@ class AppRoutes {
     GetPage(name: AppRoutes.addTarqea, page: () => const AddTarqea()),
     GetPage(name: AppRoutes.addPassport, page: () => const AddPassport()),
     GetPage(name: AppRoutes.addEmployee, page: () => const AddEmployee()),
+    GetPage(name: AppRoutes.addTakleef, page: () => const AddTakleef()),
   ];
 }

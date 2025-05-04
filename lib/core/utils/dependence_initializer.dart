@@ -37,12 +37,14 @@ import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_search_
 import '../../feature/emp_mokhalfat/data/repository/emp_mokhalfat_repository.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
-import '../../feature/emp_overtime/data/repository/emp_overtime_repository.dart';
-import '../../feature/emp_overtime/presentation/controllers/emp_overtime_controller.dart';
-import '../../feature/emp_overtime/presentation/controllers/emp_overtime_search_controller.dart';
 import '../../feature/emp_taeen/data/repository/emp_taeen_repository.dart';
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_controller.dart';
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
+import '../../feature/emp_takleef/data/repository/emp_takleef_det_repository.dart';
+import '../../feature/emp_takleef/data/repository/emp_takleef_repository.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_controller.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
 import '../../feature/emp_tarqea/data/repository/emp_tarqea_repository.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
@@ -176,10 +178,13 @@ class DependenceInitializer {
     Get.put(EmpMokhalfatController(Get.find()));
     Get.put(EmpMokhalfatSearchController(Get.find()));
 
-    // EmpOvertime DI
-    Get.lazyPut(() => EmpOvertimeRepository(Get.find()));
-    Get.put(EmpOvertimeController(Get.find()));
-    Get.put(EmpOvertimeSearchController(Get.find()));
+    // EmpTakleef DI
+    Get.lazyPut(() => EmpTakleefRepository(Get.find()));
+    Get.put(EmpTakleefController(Get.find()));
+    Get.put(EmpTakleefSearchController(Get.find()));
+
+    Get.lazyPut(() => EmpTakleefDetRepository(Get.find()));
+    Get.put(EmpTakleefDetController(Get.find()));
 
     // EmpTaeen DI
     Get.lazyPut(() => EmpTaeenRepository(Get.find()));

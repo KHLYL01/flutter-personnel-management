@@ -58,12 +58,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<void>> saveBladia(BladiaInfoModel baladeaModel) async {
+  Future<HttpResponse<void>> saveBladia(BladiaInfoModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(baladeaModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
@@ -166,13 +166,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<NationsModel>> saveNations(
-      NationsModel nationsModel) async {
+  Future<HttpResponse<NationsModel>> saveNations(NationsModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(nationsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<NationsModel>>(Options(
       method: 'POST',
@@ -205,13 +204,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<NationsModel>> updateNations(
     int id,
-    NationsModel nationsModel,
+    NationsModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(nationsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<NationsModel>>(Options(
       method: 'PUT',
@@ -348,12 +347,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<PartsModel>> saveParts(PartsModel partsModel) async {
+  Future<HttpResponse<PartsModel>> saveParts(PartsModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(partsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<PartsModel>>(Options(
       method: 'POST',
@@ -386,13 +385,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<PartsModel>> updateParts(
     int id,
-    PartsModel partsModel,
+    PartsModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(partsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<PartsModel>>(Options(
       method: 'PUT',
@@ -529,12 +528,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<JobsModel>> saveJobs(JobsModel jobsModel) async {
+  Future<HttpResponse<JobsModel>> saveJobs(JobsModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(jobsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<JobsModel>>(Options(
       method: 'POST',
@@ -567,13 +566,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<JobsModel>> updateJobs(
     int id,
-    JobsModel jobsModel,
+    JobsModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(jobsModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<JobsModel>>(Options(
       method: 'PUT',
@@ -667,12 +666,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<BadalModel>> saveBadal(BadalModel badalModel) async {
+  Future<HttpResponse<BadalModel>> saveBadal(BadalModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(badalModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<BadalModel>>(Options(
       method: 'POST',
@@ -705,13 +704,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<BadalModel>> updateBadal(
     int id,
-    BadalModel badalModel,
+    BadalModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(badalModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<BadalModel>>(Options(
       method: 'PUT',
@@ -809,12 +808,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<BadalCountriesModel>> saveBadalCountries(
-      BadalCountriesModel badalCountriesModel) async {
+      BadalCountriesModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(badalCountriesModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<BadalCountriesModel>>(Options(
       method: 'POST',
@@ -847,13 +846,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<BadalCountriesModel>> updateBadalCountries(
     int id,
-    BadalCountriesModel badalCountriesModel,
+    BadalCountriesModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(badalCountriesModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<BadalCountriesModel>>(Options(
       method: 'PUT',
@@ -995,12 +994,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpDegreesModel>> saveEmpDegrees(
-      EmpDegreesModel empDegreesModel) async {
+      EmpDegreesModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empDegreesModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDegreesModel>>(Options(
       method: 'POST',
@@ -1033,13 +1032,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpDegreesModel>> updateEmpDegrees(
     int id,
-    EmpDegreesModel empDegreesModel,
+    EmpDegreesModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empDegreesModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDegreesModel>>(Options(
       method: 'PUT',
@@ -1137,12 +1136,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpDegreesWorkerModel>> saveEmpDegreesWorker(
-      EmpDegreesWorkerModel empDegreesWorkerModel) async {
+      EmpDegreesWorkerModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empDegreesWorkerModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options =
         _setStreamType<HttpResponse<EmpDegreesWorkerModel>>(Options(
@@ -1176,13 +1175,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpDegreesWorkerModel>> updateEmpDegreesWorker(
     int id,
-    EmpDegreesWorkerModel empDegreesWorkerModel,
+    EmpDegreesWorkerModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empDegreesWorkerModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options =
         _setStreamType<HttpResponse<EmpDegreesWorkerModel>>(Options(
@@ -1277,13 +1276,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<DissentModel>> saveDissent(
-      DissentModel dissentModel) async {
+  Future<HttpResponse<DissentModel>> saveDissent(DissentModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<DissentModel>>(Options(
       method: 'POST',
@@ -1316,13 +1314,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<DissentModel>> updateDissent(
     int id,
-    DissentModel dissentModel,
+    DissentModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<DissentModel>>(Options(
       method: 'PUT',
@@ -1459,13 +1457,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpDowraModel>> saveEmpDowra(
-      EmpDowraModel dowraModel) async {
+  Future<HttpResponse<EmpDowraModel>> saveEmpDowra(EmpDowraModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dowraModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDowraModel>>(Options(
       method: 'POST',
@@ -1498,13 +1495,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpDowraModel>> updateEmpDowra(
     int id,
-    EmpDowraModel dowraModel,
+    EmpDowraModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dowraModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpDowraModel>>(Options(
       method: 'PUT',
@@ -1636,12 +1633,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpEndModel>> saveEmpEnd(EmpEndModel empEndModel) async {
+  Future<HttpResponse<EmpEndModel>> saveEmpEnd(EmpEndModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empEndModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEndModel>>(Options(
       method: 'POST',
@@ -1674,13 +1671,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpEndModel>> updateEmpEnd(
     int id,
-    EmpEndModel empEndModel,
+    EmpEndModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empEndModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEndModel>>(Options(
       method: 'PUT',
@@ -1820,12 +1817,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpEntedabModel>> saveEmpEntedab(
-      EmpEntedabModel empEntedabModel) async {
+      EmpEntedabModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empEntedabModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEntedabModel>>(Options(
       method: 'POST',
@@ -1858,13 +1855,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpEntedabModel>> updateEmpEntedab(
     int id,
-    EmpEntedabModel empEntedabModel,
+    EmpEntedabModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empEntedabModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEntedabModel>>(Options(
       method: 'PUT',
@@ -1995,13 +1992,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<void>> saveEmpEntedabDet(
-      EmpEntedabDetModel entedabDetModel) async {
+  Future<HttpResponse<void>> saveEmpEntedabDet(EmpEntedabDetModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(entedabDetModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
@@ -2132,12 +2128,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpHasmiatModel>> saveEmpHasmiat(
-      EmpHasmiatModel hasmiatModel) async {
+      EmpHasmiatModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(hasmiatModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHasmiatModel>>(Options(
       method: 'POST',
@@ -2170,13 +2166,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpHasmiatModel>> updateEmpHasmiat(
     int id,
-    EmpHasmiatModel hasmiatModel,
+    EmpHasmiatModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(hasmiatModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHasmiatModel>>(Options(
       method: 'PUT',
@@ -2307,13 +2303,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<void>> saveEmpHasmiatDet(
-      EmpHasmiatDetModel hasmiatModel) async {
+  Future<HttpResponse<void>> saveEmpHasmiatDet(EmpHasmiatDetModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(hasmiatModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
@@ -2450,12 +2445,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpHolidayModel>> saveEmpHoliday(
-      EmpHolidayModel dissentModel) async {
+      EmpHolidayModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHolidayModel>>(Options(
       method: 'POST',
@@ -2488,13 +2483,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpHolidayModel>> updateEmpHoliday(
     int id,
-    EmpHolidayModel dissentModel,
+    EmpHolidayModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHolidayModel>>(Options(
       method: 'PUT',
@@ -2777,12 +2772,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpKashfTepyModel>> saveEmpKashfTepy(
-      EmpKashfTepyModel dissentModel) async {
+      EmpKashfTepyModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpKashfTepyModel>>(Options(
       method: 'POST',
@@ -2815,13 +2810,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpKashfTepyModel>> updateEmpKashfTepy(
     int id,
-    EmpKashfTepyModel dissentModel,
+    EmpKashfTepyModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpKashfTepyModel>>(Options(
       method: 'PUT',
@@ -2961,12 +2956,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpMobashraModel>> saveEmpMobashra(
-      EmpMobashraModel dissentModel) async {
+      EmpMobashraModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpMobashraModel>>(Options(
       method: 'POST',
@@ -2999,13 +2994,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpMobashraModel>> updateEmpMobashra(
     int id,
-    EmpMobashraModel dissentModel,
+    EmpMobashraModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpMobashraModel>>(Options(
       method: 'PUT',
@@ -3143,12 +3138,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpMokhalfatModel>> saveEmpMokhalfat(
-      EmpMokhalfatModel dissentModel) async {
+      EmpMokhalfatModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpMokhalfatModel>>(Options(
       method: 'POST',
@@ -3181,13 +3176,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpMokhalfatModel>> updateEmpMokhalfat(
     int id,
-    EmpMokhalfatModel dissentModel,
+    EmpMokhalfatModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpMokhalfatModel>>(Options(
       method: 'PUT',
@@ -3245,7 +3240,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<List<EmpOvertimeSearchModel>>> searchEmpOvertime(
+  Future<HttpResponse<List<EmpTakleefSearchModel>>> searchEmpTakleef(
     String? name,
     String? cardId,
     String? place,
@@ -3260,14 +3255,14 @@ class _ApiService implements ApiService {
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options =
-        _setStreamType<HttpResponse<List<EmpOvertimeSearchModel>>>(Options(
+        _setStreamType<HttpResponse<List<EmpTakleefSearchModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/emp-overtimes/search',
+              '/emp-takleefs/search',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -3277,11 +3272,11 @@ class _ApiService implements ApiService {
               baseUrl,
             )));
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<EmpOvertimeSearchModel> _value;
+    late List<EmpTakleefSearchModel> _value;
     try {
       _value = _result.data!
           .map((dynamic i) =>
-              EmpOvertimeSearchModel.fromJson(i as Map<String, dynamic>))
+              EmpTakleefSearchModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -3292,19 +3287,19 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpOvertimeModel>> findEmpOvertimeById(int id) async {
+  Future<HttpResponse<EmpTakleefModel>> findEmpTakleefById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<EmpOvertimeModel>>(Options(
+    final _options = _setStreamType<HttpResponse<EmpTakleefModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/emp-overtimes/${id}',
+          '/emp-takleefs/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -3314,9 +3309,9 @@ class _ApiService implements ApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late EmpOvertimeModel _value;
+    late EmpTakleefModel _value;
     try {
-      _value = EmpOvertimeModel.fromJson(_result.data!);
+      _value = EmpTakleefModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -3326,22 +3321,22 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpOvertimeModel>> saveEmpOvertime(
-      EmpOvertimeModel dissentModel) async {
+  Future<HttpResponse<EmpTakleefModel>> saveEmpTakleef(
+      EmpTakleefModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
-    final _options = _setStreamType<HttpResponse<EmpOvertimeModel>>(Options(
+    final _options = _setStreamType<HttpResponse<EmpTakleefModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/emp-overtimes',
+          '/emp-takleefs',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -3351,9 +3346,9 @@ class _ApiService implements ApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late EmpOvertimeModel _value;
+    late EmpTakleefModel _value;
     try {
-      _value = EmpOvertimeModel.fromJson(_result.data!);
+      _value = EmpTakleefModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -3363,24 +3358,24 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpOvertimeModel>> updateEmpOvertime(
+  Future<HttpResponse<EmpTakleefModel>> updateEmpTakleef(
     int id,
-    EmpOvertimeModel dissentModel,
+    EmpTakleefModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
-    final _options = _setStreamType<HttpResponse<EmpOvertimeModel>>(Options(
+    final _options = _setStreamType<HttpResponse<EmpTakleefModel>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/emp-overtimes/${id}',
+          '/emp-takleefs/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -3390,9 +3385,9 @@ class _ApiService implements ApiService {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late EmpOvertimeModel _value;
+    late EmpTakleefModel _value;
     try {
-      _value = EmpOvertimeModel.fromJson(_result.data!);
+      _value = EmpTakleefModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -3402,7 +3397,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<void>> deleteEmpOvertime(int id) async {
+  Future<HttpResponse<void>> deleteEmpTakleef(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -3414,7 +3409,136 @@ class _ApiService implements ApiService {
     )
         .compose(
           _dio.options,
-          '/emp-overtimes/${id}',
+          '/emp-takleefs/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<int>> getNextTakleefDetId() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<int>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-takleefs/det/nextId',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<int>(_options);
+    late int _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpTakleefDetModel>>> findEmpTakleefDetById(
+      int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpTakleefDetModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-takleefs/${id}/det',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpTakleefDetModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpTakleefDetModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> saveEmpTakleefDet(EmpTakleefDetModel model) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(model.toJson());
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-takleefs/det',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteEmpTakleefDet(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-takleefs/det/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -3503,13 +3627,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpTaeenModel>> saveEmpTaeen(
-      EmpTaeenModel dissentModel) async {
+  Future<HttpResponse<EmpTaeenModel>> saveEmpTaeen(EmpTaeenModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpTaeenModel>>(Options(
       method: 'POST',
@@ -3542,13 +3665,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpTaeenModel>> updateEmpTaeen(
     int id,
-    EmpTaeenModel dissentModel,
+    EmpTaeenModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpTaeenModel>>(Options(
       method: 'PUT',
@@ -3686,12 +3809,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpTarqeaModel>> saveEmpTarqea(
-      EmpTarqeaModel dissentModel) async {
+      EmpTarqeaModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpTarqeaModel>>(Options(
       method: 'POST',
@@ -3724,13 +3847,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpTarqeaModel>> updateEmpTarqea(
     int id,
-    EmpTarqeaModel dissentModel,
+    EmpTarqeaModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpTarqeaModel>>(Options(
       method: 'PUT',
@@ -3867,13 +3990,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<PassportModel>> savePassport(
-      PassportModel dissentModel) async {
+  Future<HttpResponse<PassportModel>> savePassport(PassportModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<PassportModel>>(Options(
       method: 'POST',
@@ -3906,13 +4028,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<PassportModel>> updatePassport(
     int id,
-    PassportModel dissentModel,
+    PassportModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<PassportModel>>(Options(
       method: 'PUT',
@@ -4044,13 +4166,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<TafweedModel>> saveTafweed(
-      TafweedModel dissentModel) async {
+  Future<HttpResponse<TafweedModel>> saveTafweed(TafweedModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<TafweedModel>>(Options(
       method: 'POST',
@@ -4083,13 +4204,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<TafweedModel>> updateTafweed(
     int id,
-    TafweedModel dissentModel,
+    TafweedModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<TafweedModel>>(Options(
       method: 'PUT',
@@ -4289,13 +4410,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmployeeModel>> saveEmployee(
-      EmployeeModel dissentModel) async {
+  Future<HttpResponse<EmployeeModel>> saveEmployee(EmployeeModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmployeeModel>>(Options(
       method: 'POST',
@@ -4328,13 +4448,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmployeeModel>> updateEmployee(
     int id,
-    EmployeeModel dissentModel,
+    EmployeeModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmployeeModel>>(Options(
       method: 'PUT',
@@ -4466,13 +4586,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<EmpEqrarModel>> saveEmpEqrar(
-      EmpEqrarModel dissentModel) async {
+  Future<HttpResponse<EmpEqrarModel>> saveEmpEqrar(EmpEqrarModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEqrarModel>>(Options(
       method: 'POST',
@@ -4505,13 +4624,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpEqrarModel>> updateEmpEqrar(
     int id,
-    EmpEqrarModel dissentModel,
+    EmpEqrarModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(dissentModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpEqrarModel>>(Options(
       method: 'PUT',
@@ -4609,12 +4728,12 @@ class _ApiService implements ApiService {
 
   @override
   Future<HttpResponse<EmpHolidayTypeModel>> saveEmpHolidayType(
-      EmpHolidayTypeModel empHolidayTypeModel) async {
+      EmpHolidayTypeModel model) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empHolidayTypeModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHolidayTypeModel>>(Options(
       method: 'POST',
@@ -4647,13 +4766,13 @@ class _ApiService implements ApiService {
   @override
   Future<HttpResponse<EmpHolidayTypeModel>> updateEmpHolidayType(
     int id,
-    EmpHolidayTypeModel empHolidayTypeModel,
+    EmpHolidayTypeModel model,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(empHolidayTypeModel.toJson());
+    _data.addAll(model.toJson());
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<HttpResponse<EmpHolidayTypeModel>>(Options(
       method: 'PUT',

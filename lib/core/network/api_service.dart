@@ -14,8 +14,9 @@ import '../../feature/emp_holiday/data/model/emp_holiday_type_model.dart';
 import '../../feature/emp_kashf_tepy/data/model/emp_kashf_tepy_model.dart';
 import '../../feature/emp_mobashra/data/model/emp_mobashra_model.dart';
 import '../../feature/emp_mokhalfat/data/model/emp_mokhalfat_model.dart';
-import '../../feature/emp_overtime/data/model/emp_overtime_model.dart';
 import '../../feature/emp_taeen/data/model/emp_taeen_model.dart';
+import '../../feature/emp_takleef/data/model/emp_takleef_det_model.dart';
+import '../../feature/emp_takleef/data/model/emp_takleef_model.dart';
 import '../../feature/emp_tarqea/data/model/emp_tarqea_model.dart';
 import '../../feature/employee/data/model/employee_model.dart';
 import '../../feature/passport/data/model/passport_model.dart';
@@ -45,7 +46,7 @@ abstract class ApiService {
 
   @POST(bladias)
   Future<HttpResponse<void>> saveBladia(
-      @Body(nullToAbsent: true) BladiaInfoModel baladeaModel);
+      @Body(nullToAbsent: true) BladiaInfoModel model);
 
   //*
   //* Nations api
@@ -61,11 +62,11 @@ abstract class ApiService {
 
   @POST(nations)
   Future<HttpResponse<NationsModel>> saveNations(
-      @Body(nullToAbsent: true) NationsModel nationsModel);
+      @Body(nullToAbsent: true) NationsModel model);
 
   @PUT("$nations/{id}")
   Future<HttpResponse<NationsModel>> updateNations(
-      @Path("id") int id, @Body(nullToAbsent: true) NationsModel nationsModel);
+      @Path("id") int id, @Body(nullToAbsent: true) NationsModel model);
 
   @DELETE("$nations/{id}")
   Future<HttpResponse<void>> deleteNations(@Path("id") int id);
@@ -84,11 +85,11 @@ abstract class ApiService {
 
   @POST(parts)
   Future<HttpResponse<PartsModel>> saveParts(
-      @Body(nullToAbsent: true) PartsModel partsModel);
+      @Body(nullToAbsent: true) PartsModel model);
 
   @PUT("$parts/{id}")
   Future<HttpResponse<PartsModel>> updateParts(
-      @Path("id") int id, @Body(nullToAbsent: true) PartsModel partsModel);
+      @Path("id") int id, @Body(nullToAbsent: true) PartsModel model);
 
   @DELETE("$parts/{id}")
   Future<HttpResponse<void>> deleteParts(@Path("id") int id);
@@ -107,11 +108,11 @@ abstract class ApiService {
 
   @POST(jobs)
   Future<HttpResponse<JobsModel>> saveJobs(
-      @Body(nullToAbsent: true) JobsModel jobsModel);
+      @Body(nullToAbsent: true) JobsModel model);
 
   @PUT("$jobs/{id}")
   Future<HttpResponse<JobsModel>> updateJobs(
-      @Path("id") int id, @Body(nullToAbsent: true) JobsModel jobsModel);
+      @Path("id") int id, @Body(nullToAbsent: true) JobsModel model);
 
   @DELETE("$jobs/{id}")
   Future<HttpResponse<void>> deleteJobs(@Path("id") int id);
@@ -124,11 +125,11 @@ abstract class ApiService {
 
   @POST(badal)
   Future<HttpResponse<BadalModel>> saveBadal(
-      @Body(nullToAbsent: true) BadalModel badalModel);
+      @Body(nullToAbsent: true) BadalModel model);
 
   @PUT("$badal/{id}")
   Future<HttpResponse<BadalModel>> updateBadal(
-      @Path("id") int id, @Body(nullToAbsent: true) BadalModel badalModel);
+      @Path("id") int id, @Body(nullToAbsent: true) BadalModel model);
 
   @DELETE("$badal/{id}")
   Future<HttpResponse<void>> deleteBadal(@Path("id") int id);
@@ -141,12 +142,11 @@ abstract class ApiService {
 
   @POST(badalCountries)
   Future<HttpResponse<BadalCountriesModel>> saveBadalCountries(
-      @Body(nullToAbsent: true) BadalCountriesModel badalCountriesModel);
+      @Body(nullToAbsent: true) BadalCountriesModel model);
 
   @PUT("$badalCountries/{id}")
   Future<HttpResponse<BadalCountriesModel>> updateBadalCountries(
-      @Path("id") int id,
-      @Body(nullToAbsent: true) BadalCountriesModel badalCountriesModel);
+      @Path("id") int id, @Body(nullToAbsent: true) BadalCountriesModel model);
 
   @DELETE("$badalCountries/{id}")
   Future<HttpResponse<void>> deleteBadalCountries(@Path("id") int id);
@@ -165,11 +165,11 @@ abstract class ApiService {
 
   @POST(empDegrees)
   Future<HttpResponse<EmpDegreesModel>> saveEmpDegrees(
-      @Body(nullToAbsent: true) EmpDegreesModel empDegreesModel);
+      @Body(nullToAbsent: true) EmpDegreesModel model);
 
   @PUT("$empDegrees/{id}")
-  Future<HttpResponse<EmpDegreesModel>> updateEmpDegrees(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpDegreesModel empDegreesModel);
+  Future<HttpResponse<EmpDegreesModel>> updateEmpDegrees(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpDegreesModel model);
 
   @DELETE("$empDegrees/{id}")
   Future<HttpResponse<void>> deleteEmpDegrees(@Path("id") int id);
@@ -182,12 +182,12 @@ abstract class ApiService {
 
   @POST(empDegreesWorker)
   Future<HttpResponse<EmpDegreesWorkerModel>> saveEmpDegreesWorker(
-      @Body(nullToAbsent: true) EmpDegreesWorkerModel empDegreesWorkerModel);
+      @Body(nullToAbsent: true) EmpDegreesWorkerModel model);
 
   @PUT("$empDegreesWorker/{id}")
   Future<HttpResponse<EmpDegreesWorkerModel>> updateEmpDegreesWorker(
       @Path("id") int id,
-      @Body(nullToAbsent: true) EmpDegreesWorkerModel empDegreesWorkerModel);
+      @Body(nullToAbsent: true) EmpDegreesWorkerModel model);
 
   @DELETE("$empDegreesWorker/{id}")
   Future<HttpResponse<void>> deleteEmpDegreesWorker(@Path("id") int id);
@@ -200,11 +200,11 @@ abstract class ApiService {
 
   @POST(dissents)
   Future<HttpResponse<DissentModel>> saveDissent(
-      @Body(nullToAbsent: true) DissentModel dissentModel);
+      @Body(nullToAbsent: true) DissentModel model);
 
   @PUT("$dissents/{id}")
   Future<HttpResponse<DissentModel>> updateDissent(
-      @Path("id") int id, @Body(nullToAbsent: true) DissentModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) DissentModel model);
 
   @DELETE("$dissents/{id}")
   Future<HttpResponse<void>> deleteDissent(@Path("id") int id);
@@ -223,11 +223,11 @@ abstract class ApiService {
 
   @POST(empDowra)
   Future<HttpResponse<EmpDowraModel>> saveEmpDowra(
-      @Body(nullToAbsent: true) EmpDowraModel dowraModel);
+      @Body(nullToAbsent: true) EmpDowraModel model);
 
   @PUT("$empDowra/{id}")
   Future<HttpResponse<EmpDowraModel>> updateEmpDowra(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpDowraModel dowraModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpDowraModel model);
 
   @DELETE("$empDowra/{id}")
   Future<HttpResponse<void>> deleteEmpDowra(@Path("id") int id);
@@ -244,11 +244,11 @@ abstract class ApiService {
 
   @POST(empEnd)
   Future<HttpResponse<EmpEndModel>> saveEmpEnd(
-      @Body(nullToAbsent: true) EmpEndModel empEndModel);
+      @Body(nullToAbsent: true) EmpEndModel model);
 
   @PUT("$empEnd/{id}")
   Future<HttpResponse<EmpEndModel>> updateEmpEnd(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpEndModel empEndModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpEndModel model);
 
   @DELETE("$empEnd/{id}")
   Future<HttpResponse<void>> deleteEmpEnd(@Path("id") int id);
@@ -268,17 +268,17 @@ abstract class ApiService {
 
   @POST(empEntedab)
   Future<HttpResponse<EmpEntedabModel>> saveEmpEntedab(
-      @Body(nullToAbsent: true) EmpEntedabModel empEntedabModel);
+      @Body(nullToAbsent: true) EmpEntedabModel model);
 
   @PUT("$empEntedab/{id}")
-  Future<HttpResponse<EmpEntedabModel>> updateEmpEntedab(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpEntedabModel empEntedabModel);
+  Future<HttpResponse<EmpEntedabModel>> updateEmpEntedab(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpEntedabModel model);
 
   @DELETE("$empEntedab/{id}")
   Future<HttpResponse<void>> deleteEmpEntedab(@Path("id") int id);
 
   ///
-  /// Hasmiat Det
+  /// Entedab Det
   ///
 
   @GET("$empEntedab/det/nextId")
@@ -290,7 +290,7 @@ abstract class ApiService {
 
   @POST("$empEntedab/det")
   Future<HttpResponse<void>> saveEmpEntedabDet(
-      @Body(nullToAbsent: true) EmpEntedabDetModel entedabDetModel);
+      @Body(nullToAbsent: true) EmpEntedabDetModel model);
 
   @DELETE("$empEntedab/det/{id}")
   Future<HttpResponse<void>> deleteEmpEntedabDet(@Path("id") int id);
@@ -310,11 +310,11 @@ abstract class ApiService {
 
   @POST(empHasmiat)
   Future<HttpResponse<EmpHasmiatModel>> saveEmpHasmiat(
-      @Body(nullToAbsent: true) EmpHasmiatModel hasmiatModel);
+      @Body(nullToAbsent: true) EmpHasmiatModel model);
 
   @PUT("$empHasmiat/{id}")
-  Future<HttpResponse<EmpHasmiatModel>> updateEmpHasmiat(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpHasmiatModel hasmiatModel);
+  Future<HttpResponse<EmpHasmiatModel>> updateEmpHasmiat(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpHasmiatModel model);
 
   @DELETE("$empHasmiat/{id}")
   Future<HttpResponse<void>> deleteEmpHasmiat(@Path("id") int id);
@@ -332,7 +332,7 @@ abstract class ApiService {
 
   @POST("$empHasmiat/det")
   Future<HttpResponse<void>> saveEmpHasmiatDet(
-      @Body(nullToAbsent: true) EmpHasmiatDetModel hasmiatModel);
+      @Body(nullToAbsent: true) EmpHasmiatDetModel model);
 
   @DELETE("$empHasmiat/det/{id}")
   Future<HttpResponse<void>> deleteEmpHasmiatDet(@Path("id") int id);
@@ -354,11 +354,11 @@ abstract class ApiService {
 
   @POST(empHoliday)
   Future<HttpResponse<EmpHolidayModel>> saveEmpHoliday(
-      @Body(nullToAbsent: true) EmpHolidayModel dissentModel);
+      @Body(nullToAbsent: true) EmpHolidayModel model);
 
   @PUT("$empHoliday/{id}")
-  Future<HttpResponse<EmpHolidayModel>> updateEmpHoliday(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpHolidayModel dissentModel);
+  Future<HttpResponse<EmpHolidayModel>> updateEmpHoliday(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpHolidayModel model);
 
   @DELETE("$empHoliday/{id}")
   Future<HttpResponse<void>> deleteEmpHoliday(@Path("id") int id);
@@ -401,11 +401,11 @@ abstract class ApiService {
 
   @POST(empKashfTepy)
   Future<HttpResponse<EmpKashfTepyModel>> saveEmpKashfTepy(
-      @Body(nullToAbsent: true) EmpKashfTepyModel dissentModel);
+      @Body(nullToAbsent: true) EmpKashfTepyModel model);
 
   @PUT("$empKashfTepy/{id}")
-  Future<HttpResponse<EmpKashfTepyModel>> updateEmpKashfTepy(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpKashfTepyModel dissentModel);
+  Future<HttpResponse<EmpKashfTepyModel>> updateEmpKashfTepy(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpKashfTepyModel model);
 
   @DELETE("$empKashfTepy/{id}")
   Future<HttpResponse<void>> deleteEmpKashfTepy(@Path("id") int id);
@@ -426,11 +426,11 @@ abstract class ApiService {
 
   @POST(empMobashra)
   Future<HttpResponse<EmpMobashraModel>> saveEmpMobashra(
-      @Body(nullToAbsent: true) EmpMobashraModel dissentModel);
+      @Body(nullToAbsent: true) EmpMobashraModel model);
 
   @PUT("$empMobashra/{id}")
-  Future<HttpResponse<EmpMobashraModel>> updateEmpMobashra(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpMobashraModel dissentModel);
+  Future<HttpResponse<EmpMobashraModel>> updateEmpMobashra(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpMobashraModel model);
 
   @DELETE("$empMobashra/{id}")
   Future<HttpResponse<void>> deleteEmpMobashra(@Path("id") int id);
@@ -450,39 +450,56 @@ abstract class ApiService {
 
   @POST(empMokhalfat)
   Future<HttpResponse<EmpMokhalfatModel>> saveEmpMokhalfat(
-      @Body(nullToAbsent: true) EmpMokhalfatModel dissentModel);
+      @Body(nullToAbsent: true) EmpMokhalfatModel model);
 
   @PUT("$empMokhalfat/{id}")
-  Future<HttpResponse<EmpMokhalfatModel>> updateEmpMokhalfat(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpMokhalfatModel dissentModel);
+  Future<HttpResponse<EmpMokhalfatModel>> updateEmpMokhalfat(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpMokhalfatModel model);
 
   @DELETE("$empMokhalfat/{id}")
   Future<HttpResponse<void>> deleteEmpMokhalfat(@Path("id") int id);
 
   //*
-  //* Emp Overtime api
+  //* Emp Takleef api
   //*
-  @GET("$empOvertime/search")
-  Future<HttpResponse<List<EmpOvertimeSearchModel>>> searchEmpOvertime(
+  @GET("$empTakleef/search")
+  Future<HttpResponse<List<EmpTakleefSearchModel>>> searchEmpTakleef(
     @Query("name") String? name,
     @Query("cardId") String? cardId,
     @Query("place") String? place,
   );
 
-  @GET("$empOvertime/{id}")
-  Future<HttpResponse<EmpOvertimeModel>> findEmpOvertimeById(
+  @GET("$empTakleef/{id}")
+  Future<HttpResponse<EmpTakleefModel>> findEmpTakleefById(@Path("id") int id);
+
+  @POST(empTakleef)
+  Future<HttpResponse<EmpTakleefModel>> saveEmpTakleef(
+      @Body(nullToAbsent: true) EmpTakleefModel model);
+
+  @PUT("$empTakleef/{id}")
+  Future<HttpResponse<EmpTakleefModel>> updateEmpTakleef(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpTakleefModel model);
+
+  @DELETE("$empTakleef/{id}")
+  Future<HttpResponse<void>> deleteEmpTakleef(@Path("id") int id);
+
+  ///
+  /// Emp Takleef Det api
+  ///
+
+  @GET("$empTakleef/det/nextId")
+  Future<HttpResponse<int>> getNextTakleefDetId();
+
+  @GET("$empTakleef/{id}/det")
+  Future<HttpResponse<List<EmpTakleefDetModel>>> findEmpTakleefDetById(
       @Path("id") int id);
 
-  @POST(empOvertime)
-  Future<HttpResponse<EmpOvertimeModel>> saveEmpOvertime(
-      @Body(nullToAbsent: true) EmpOvertimeModel dissentModel);
+  @POST("$empTakleef/det")
+  Future<HttpResponse<void>> saveEmpTakleefDet(
+      @Body(nullToAbsent: true) EmpTakleefDetModel model);
 
-  @PUT("$empOvertime/{id}")
-  Future<HttpResponse<EmpOvertimeModel>> updateEmpOvertime(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpOvertimeModel dissentModel);
-
-  @DELETE("$empOvertime/{id}")
-  Future<HttpResponse<void>> deleteEmpOvertime(@Path("id") int id);
+  @DELETE("$empTakleef/det/{id}")
+  Future<HttpResponse<void>> deleteEmpTakleefDet(@Path("id") int id);
 
   //*
   //* Emp Taeen api
@@ -497,11 +514,11 @@ abstract class ApiService {
 
   @POST(empTaeen)
   Future<HttpResponse<EmpTaeenModel>> saveEmpTaeen(
-      @Body(nullToAbsent: true) EmpTaeenModel dissentModel);
+      @Body(nullToAbsent: true) EmpTaeenModel model);
 
   @PUT("$empTaeen/{id}")
   Future<HttpResponse<EmpTaeenModel>> updateEmpTaeen(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpTaeenModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpTaeenModel model);
 
   @DELETE("$empTaeen/{id}")
   Future<HttpResponse<void>> deleteEmpTaeen(@Path("id") int id);
@@ -520,11 +537,11 @@ abstract class ApiService {
 
   @POST(empTarqea)
   Future<HttpResponse<EmpTarqeaModel>> saveEmpTarqea(
-      @Body(nullToAbsent: true) EmpTarqeaModel dissentModel);
+      @Body(nullToAbsent: true) EmpTarqeaModel model);
 
   @PUT("$empTarqea/{id}")
-  Future<HttpResponse<EmpTarqeaModel>> updateEmpTarqea(@Path("id") int id,
-      @Body(nullToAbsent: true) EmpTarqeaModel dissentModel);
+  Future<HttpResponse<EmpTarqeaModel>> updateEmpTarqea(
+      @Path("id") int id, @Body(nullToAbsent: true) EmpTarqeaModel model);
 
   @DELETE("$empTarqea/{id}")
   Future<HttpResponse<void>> deleteEmpTarqea(@Path("id") int id);
@@ -543,11 +560,11 @@ abstract class ApiService {
 
   @POST(passport)
   Future<HttpResponse<PassportModel>> savePassport(
-      @Body(nullToAbsent: true) PassportModel dissentModel);
+      @Body(nullToAbsent: true) PassportModel model);
 
   @PUT("$passport/{id}")
   Future<HttpResponse<PassportModel>> updatePassport(
-      @Path("id") int id, @Body(nullToAbsent: true) PassportModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) PassportModel model);
 
   @DELETE("$passport/{id}")
   Future<HttpResponse<void>> deletePassport(@Path("id") int id);
@@ -565,11 +582,11 @@ abstract class ApiService {
 
   @POST(tafweed)
   Future<HttpResponse<TafweedModel>> saveTafweed(
-      @Body(nullToAbsent: true) TafweedModel dissentModel);
+      @Body(nullToAbsent: true) TafweedModel model);
 
   @PUT("$tafweed/{id}")
   Future<HttpResponse<TafweedModel>> updateTafweed(
-      @Path("id") int id, @Body(nullToAbsent: true) TafweedModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) TafweedModel model);
 
   @DELETE("$tafweed/{id}")
   Future<HttpResponse<void>> deleteTafweed(@Path("id") int id);
@@ -603,11 +620,11 @@ abstract class ApiService {
 
   @POST(employee)
   Future<HttpResponse<EmployeeModel>> saveEmployee(
-      @Body(nullToAbsent: true) EmployeeModel dissentModel);
+      @Body(nullToAbsent: true) EmployeeModel model);
 
   @PUT("$employee/{id}")
   Future<HttpResponse<EmployeeModel>> updateEmployee(
-      @Path("id") int id, @Body(nullToAbsent: true) EmployeeModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmployeeModel model);
 
   @DELETE("$employee/{id}")
   Future<HttpResponse<void>> deleteEmployee(@Path("id") int id);
@@ -624,11 +641,11 @@ abstract class ApiService {
 
   @POST(empEqrar)
   Future<HttpResponse<EmpEqrarModel>> saveEmpEqrar(
-      @Body(nullToAbsent: true) EmpEqrarModel dissentModel);
+      @Body(nullToAbsent: true) EmpEqrarModel model);
 
   @PUT("$empEqrar/{id}")
   Future<HttpResponse<EmpEqrarModel>> updateEmpEqrar(
-      @Path("id") int id, @Body(nullToAbsent: true) EmpEqrarModel dissentModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpEqrarModel model);
 
   @DELETE("$empEqrar/{id}")
   Future<HttpResponse<void>> deleteEmpEqrar(@Path("id") int id);
@@ -641,12 +658,11 @@ abstract class ApiService {
 
   @POST(empHolidayType)
   Future<HttpResponse<EmpHolidayTypeModel>> saveEmpHolidayType(
-      @Body(nullToAbsent: true) EmpHolidayTypeModel empHolidayTypeModel);
+      @Body(nullToAbsent: true) EmpHolidayTypeModel model);
 
   @PUT("$empHolidayType/{id}")
   Future<HttpResponse<EmpHolidayTypeModel>> updateEmpHolidayType(
-      @Path("id") int id,
-      @Body(nullToAbsent: true) EmpHolidayTypeModel empHolidayTypeModel);
+      @Path("id") int id, @Body(nullToAbsent: true) EmpHolidayTypeModel model);
 
   @DELETE("$empHolidayType/{id}")
   Future<HttpResponse<void>> deleteEmpHolidayType(@Path("id") int id);

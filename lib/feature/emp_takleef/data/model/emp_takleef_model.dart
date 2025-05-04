@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'emp_overtime_model.g.dart';
+part 'emp_takleef_model.g.dart';
 
 @JsonSerializable()
-class EmpOvertimeModel {
+class EmpTakleefModel {
   final int? id;
   final String? qrarId;
   final String? datQrar;
@@ -32,7 +32,7 @@ class EmpOvertimeModel {
   final double? hoursAvgOthersDay;
   final String? datEndGo;
 
-  EmpOvertimeModel({
+  EmpTakleefModel({
     this.id,
     this.qrarId,
     this.datQrar,
@@ -62,15 +62,15 @@ class EmpOvertimeModel {
     this.datEndGo,
   });
 
-  factory EmpOvertimeModel.fromJson(Map<String, dynamic> json) =>
-      _$EmpOvertimeModelFromJson(json);
+  factory EmpTakleefModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpTakleefModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EmpOvertimeModelToJson(this);
+  Map<String, dynamic> toJson() => _$EmpTakleefModelToJson(this);
 }
 
 @JsonSerializable()
-class EmpOvertimeSearchModel {
-  final int? id; // EMP_OVERTIME.ID
+class EmpTakleefSearchModel {
+  final int? id; // EMP_TAKLEEF.ID
   final String? cardId; // رقم السجل المدني
   final String? employeeName; // الاسم
   final String? jobName; // مسمى الوظيفة
@@ -79,7 +79,7 @@ class EmpOvertimeSearchModel {
   final String? dateBegin; // تاريخ بداية الخارج الدوام
   final String? place; // مكان العمل (added for filtering)
 
-  EmpOvertimeSearchModel({
+  EmpTakleefSearchModel({
     this.id,
     this.cardId,
     this.employeeName,
@@ -90,8 +90,8 @@ class EmpOvertimeSearchModel {
     this.place,
   });
 
-  factory EmpOvertimeSearchModel.fromJson(Map<String, dynamic> json) =>
-      _$EmpOvertimeSearchModelFromJson(json);
+  factory EmpTakleefSearchModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpTakleefSearchModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EmpOvertimeSearchModelToJson(this);
+  Map<String, dynamic> toJson() => _$EmpTakleefSearchModelToJson(this);
 }

@@ -3,21 +3,21 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/utils/failures.dart';
 import '../../../../core/network/api_service.dart';
-import '../model/emp_overtime_model.dart';
+import '../model/emp_takleef_model.dart';
 
-class EmpOvertimeRepository {
+class EmpTakleefRepository {
   final ApiService _apiService;
 
-  EmpOvertimeRepository(this._apiService);
+  EmpTakleefRepository(this._apiService);
 
-  Future<Either<Failure, List<EmpOvertimeSearchModel>>> search({
+  Future<Either<Failure, List<EmpTakleefSearchModel>>> search({
     required String name,
     required String cardId,
     required String place,
   }) async {
     try {
       final httpResponse =
-          await _apiService.searchEmpOvertime(name, cardId, place);
+          await _apiService.searchEmpTakleef(name, cardId, place);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -26,9 +26,9 @@ class EmpOvertimeRepository {
     }
   }
 
-  Future<Either<Failure, EmpOvertimeModel>> findById(int id) async {
+  Future<Either<Failure, EmpTakleefModel>> findById(int id) async {
     try {
-      final httpResponse = await _apiService.findEmpOvertimeById(id);
+      final httpResponse = await _apiService.findEmpTakleefById(id);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -37,9 +37,9 @@ class EmpOvertimeRepository {
     }
   }
 
-  Future<Either<Failure, EmpOvertimeModel>> save(EmpOvertimeModel model) async {
+  Future<Either<Failure, EmpTakleefModel>> save(EmpTakleefModel model) async {
     try {
-      final httpResponse = await _apiService.saveEmpOvertime(model);
+      final httpResponse = await _apiService.saveEmpTakleef(model);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -48,10 +48,10 @@ class EmpOvertimeRepository {
     }
   }
 
-  Future<Either<Failure, EmpOvertimeModel>> update(
-      int id, EmpOvertimeModel model) async {
+  Future<Either<Failure, EmpTakleefModel>> update(
+      int id, EmpTakleefModel model) async {
     try {
-      final httpResponse = await _apiService.updateEmpOvertime(id, model);
+      final httpResponse = await _apiService.updateEmpTakleef(id, model);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -62,7 +62,7 @@ class EmpOvertimeRepository {
 
   Future<Either<Failure, void>> delete(int id) async {
     try {
-      final httpResponse = await _apiService.deleteEmpOvertime(id);
+      final httpResponse = await _apiService.deleteEmpTakleef(id);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));

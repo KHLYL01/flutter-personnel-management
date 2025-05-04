@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'emp_overtime_model.dart';
+part of 'emp_takleef_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmpOvertimeModel _$EmpOvertimeModelFromJson(Map<String, dynamic> json) =>
-    EmpOvertimeModel(
+EmpTakleefModel _$EmpTakleefModelFromJson(Map<String, dynamic> json) =>
+    EmpTakleefModel(
       id: (json['id'] as num?)?.toInt(),
       qrarId: json['qrarId'] as String?,
       datQrar: json['datQrar'] as String?,
@@ -37,7 +37,7 @@ EmpOvertimeModel _$EmpOvertimeModelFromJson(Map<String, dynamic> json) =>
       datEndGo: json['datEndGo'] as String?,
     );
 
-Map<String, dynamic> _$EmpOvertimeModelToJson(EmpOvertimeModel instance) =>
+Map<String, dynamic> _$EmpTakleefModelToJson(EmpTakleefModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'qrarId': instance.qrarId,
@@ -68,9 +68,9 @@ Map<String, dynamic> _$EmpOvertimeModelToJson(EmpOvertimeModel instance) =>
       'datEndGo': instance.datEndGo,
     };
 
-EmpOvertimeSearchModel _$EmpOvertimeSearchModelFromJson(
+EmpTakleefSearchModel _$EmpTakleefSearchModelFromJson(
         Map<String, dynamic> json) =>
-    EmpOvertimeSearchModel(
+    EmpTakleefSearchModel(
       id: (json['id'] as num?)?.toInt(),
       cardId: json['cardId'] as String?,
       employeeName: json['employeeName'] as String?,
@@ -81,8 +81,8 @@ EmpOvertimeSearchModel _$EmpOvertimeSearchModelFromJson(
       place: json['place'] as String?,
     );
 
-Map<String, dynamic> _$EmpOvertimeSearchModelToJson(
-        EmpOvertimeSearchModel instance) =>
+Map<String, dynamic> _$EmpTakleefSearchModelToJson(
+        EmpTakleefSearchModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'cardId': instance.cardId,
