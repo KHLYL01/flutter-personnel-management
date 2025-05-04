@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
+import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
+import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
+import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
+import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
+import 'package:personnel_management/feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
+import 'package:personnel_management/feature/emp_overtime/presentation/controllers/emp_overtime_search_controller.dart';
+import 'package:personnel_management/feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
+import 'package:personnel_management/feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
+import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
+import 'package:personnel_management/feature/passport/presentation/controllers/passport_search_controller.dart';
+import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_routes.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
+import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import '../widgets/custom_pop_up_menu_button.dart';
 
@@ -195,50 +208,78 @@ class BaseScreen extends StatelessWidget {
                               switch (page) {
                                 case AppRoutes.employeeSearch:
                                   controller.setPage('الاستعلام عن موظف');
+                                  Get.find<EmployeeSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.entedabSearch:
                                   controller.setPage('الاستعلام عن انتداب');
+                                  Get.find<EmpEntedabSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.overtimeSearch:
                                   controller
                                       .setPage('الاستعلام عن خارج الدوام');
+                                  Get.find<EmpOvertimeSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.hasmiatSearch:
                                   controller.setPage('الاستعلام عن الحسميات');
+                                  Get.find<EmpHasmiatSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.mokhalfatSearch:
                                   controller.setPage('الاستعلام عن المخالفات');
+                                  Get.find<EmpMokhalfatSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.holidaySearch:
                                   controller.setPage('الاستعلام عن إجازة');
+                                  Get.find<EmpHolidaySearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.dowraSearch:
                                   controller.setPage('الاستعلام عن الدورات');
+                                  Get.find<EmpDowraSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.kashfTepySearch:
                                   controller.setPage('الاستعلام عن كشف طبي');
+                                  Get.find<EmpKashfTepySearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.mobashraSearch:
                                   controller.setPage('الاستعلام عن مباشرة');
+                                  Get.find<EmpMobashraSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.eqrarSearch:
                                   controller.setPage('الاستعلام عن إقرار');
+                                  Get.find<EmpEqrarSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.tarqeaSearch:
                                   controller.setPage('الاستعلام عن ترقية');
+                                  Get.find<EmpTarqeaSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.endSearch:
                                   controller.setPage('الاستعلام عن إنهاء خدمة');
+                                  Get.find<EmpEndSearchController>().findAll();
                                   break;
                                 case AppRoutes.taeenSearch:
                                   controller.setPage('الاستعلام عن قرار تعيين');
+                                  Get.find<EmpTaeenSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.passportSearch:
                                   controller
                                       .setPage('الاستعلام عن إقرار جواز سفر');
+                                  Get.find<PassportSearchController>()
+                                      .findAll();
                                   break;
                                 case AppRoutes.tafweedSearch:
                                   controller.setPage('الاستعلام عن تفويض');
+                                  Get.find<TafweedSearchController>().findAll();
                                   break;
                               }
                             }),
