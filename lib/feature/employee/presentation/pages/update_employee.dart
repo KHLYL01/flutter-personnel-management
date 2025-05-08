@@ -7,7 +7,6 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
@@ -21,6 +20,7 @@ import '../../../tarmeez_nations/presentation/controllers/nations_controller.dar
 import '../../../tarmeez_nations/presentation/pages/nations_find.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
+import '../controllers/employee__report_controller.dart';
 
 class UpdateEmployee extends StatelessWidget {
   const UpdateEmployee({super.key});
@@ -30,6 +30,7 @@ class UpdateEmployee extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     final controller = Get.find<EmployeeController>();
+    final controllerReport = Get.find<EmployeeReportController>();
     HijriPicker graduationDate = HijriPicker(controller.datEducation);
     HijriPicker sodorDate = HijriPicker(controller.sodorDate);
     HijriPicker dateOfBirth = HijriPicker(controller.dateOfBirth);
@@ -629,23 +630,6 @@ class UpdateEmployee extends StatelessWidget {
                         ).paddingOnly(top: 20),
                       ],
                     ).scrollDirection(Axis.horizontal),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // CustomButton(
-                        //   text: 'حذف',
-                        //   onPressed: () => {},
-                        //   height: 30,
-                        //   width: 80,
-                        // ),
-                        // CustomButton(
-                        //   text: 'عودة',
-                        //   onPressed: () => {},
-                        //   height: 30,
-                        //   width: 80,
-                        // ),
-                      ],
-                    ).scrollDirection(Axis.horizontal).center(),
                   ],
                 ).paddingAll(10).scrollDirection(Axis.vertical),
                 Column(
@@ -685,13 +669,15 @@ class UpdateEmployee extends StatelessWidget {
                       children: [
                         CustomButton(
                           text: 'بيان خدمات موظف',
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createBeanKhedmhEmployeeReport(),
                           height: 30,
                           width: 120,
                         ),
                         CustomButton(
                             text: 'طباعة مكافئة عن الاجازات',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createMokafaaHolidayReport(),
                             height: 30,
                             width: 120),
                       ],
@@ -703,6 +689,13 @@ class UpdateEmployee extends StatelessWidget {
                             onPressed: () {},
                             height: 30,
                             width: 120),
+                        CustomButton(
+                          text: 'عقد عامل',
+                          onPressed: () =>
+                              controllerReport.createAkdEmployeeReport(),
+                          height: 30,
+                          width: 120,
+                        ),
                       ],
                     ),
                     CustomTextField(

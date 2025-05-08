@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/number_symbols_data.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/functions/image_picker.dart';
@@ -306,7 +302,7 @@ class EmployeeController extends GetxController {
     nationId.text = r.nationId.toString();
     birthPlace.text = r.birthPlace.toString();
     datBirth.text = r.datBirth.toString();
-    inDate.text = r.inDate.toString();
+    inDate.text = r.inDate.toString().substring(0, 10);
     educationName.text = r.educationName.toString();
     education.text = r.education.toString();
     datEducation.text = r.datEducation.toString();

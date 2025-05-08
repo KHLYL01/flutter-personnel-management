@@ -10,6 +10,7 @@ import '../../feature/emp_end/presentation/controllers/emp_end_controller.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_det_repository.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_repository.dart';
+import '../../feature/emp_entedab/presentation/controllers/emp_entedab__report_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
@@ -18,6 +19,7 @@ import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_controller.da
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_det_repository.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_repository.dart';
+import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat__report_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
@@ -42,6 +44,7 @@ import '../../feature/emp_taeen/presentation/controllers/emp_taeen_controller.da
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
 import '../../feature/emp_takleef/data/repository/emp_takleef_det_repository.dart';
 import '../../feature/emp_takleef/data/repository/emp_takleef_repository.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef__report_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
@@ -49,6 +52,7 @@ import '../../feature/emp_tarqea/data/repository/emp_tarqea_repository.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
 import '../../feature/employee/data/repository/employee_repository.dart';
+import '../../feature/employee/presentation/controllers/employee__report_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_find_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_search_controller.dart';
@@ -127,6 +131,7 @@ class DependenceInitializer {
     Get.put(EmployeeController(Get.find()));
     Get.put(EmployeeSearchController(Get.find()));
     Get.put(EmployeeFindController(Get.find()));
+    Get.put(EmployeeReportController());
 
     // EmpDowra DI
     Get.lazyPut(() => EmpDowraRepository(Get.find()));
@@ -142,6 +147,7 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpEntedabRepository(Get.find()));
     Get.put(EmpEntedabController(Get.find()));
     Get.put(EmpEntedabSearchController(Get.find()));
+    Get.put(EmpEntedabReportController());
 
     Get.lazyPut(() => EmpEntedabDetRepository(Get.find()));
     Get.put(EmpEntedabDetController(Get.find()));
@@ -153,6 +159,8 @@ class DependenceInitializer {
 
     Get.lazyPut(() => EmpHasmiatDetRepository(Get.find()));
     Get.put(EmpHasmiatDetController(Get.find()));
+
+    Get.put(EmpHasmiatReportController());
 
     // EmpHoliday DI
     Get.lazyPut(() => EmpHolidayRepository(Get.find()));
@@ -185,6 +193,7 @@ class DependenceInitializer {
 
     Get.lazyPut(() => EmpTakleefDetRepository(Get.find()));
     Get.put(EmpTakleefDetController(Get.find()));
+    Get.put(EmpTakleefReportController());
 
     // EmpTaeen DI
     Get.lazyPut(() => EmpTaeenRepository(Get.find()));

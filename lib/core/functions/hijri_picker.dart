@@ -11,7 +11,7 @@ class HijriPicker {
   HijriPicker(this.pickedDate, [this.pickedGregorianDate]);
 
   String _formatHijriDate(HijriCalendar date) {
-    return "${date.hDay} / ${date.hMonth} / ${date.hYear} هـ";
+    return "${date.hYear.toString().padLeft(4, "0")}/${date.hMonth.toString().padLeft(2, "0")}/${date.hDay.toString().padLeft(2, "0")}";
   }
 
   void pickHijriDate(BuildContext context) {
@@ -107,7 +107,7 @@ class HijriPicker {
 
                       final formattedHijri = _formatHijriDate(hijriDate);
                       final formattedGregorian =
-                          "${gregorianDate.year}-${gregorianDate.month.toString().padLeft(2, "0")}-${gregorianDate.day.toString().padLeft(2, "0")}";
+                          "${gregorianDate.year}/${gregorianDate.month.toString().padLeft(2, "0")}/${gregorianDate.day.toString().padLeft(2, "0")}";
 
                       pickedDate.text = formattedHijri;
 

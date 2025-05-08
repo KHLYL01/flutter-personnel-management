@@ -13,6 +13,7 @@ import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_entedab__report_controller.dart';
 import '../controllers/emp_entedab_controller.dart';
 import '../controllers/emp_entedab_det_controller.dart';
 
@@ -23,6 +24,7 @@ class UpdateEntedab extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpEntedabController>();
     final controllerDet = Get.find<EmpEntedabDetController>();
+    final controllerReport = Get.find<EmpEntedabReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -511,30 +513,32 @@ class UpdateEntedab extends StatelessWidget {
                     height: 35,
                     width: 120,
                   ),
-                  // CustomButton(
-                  //   text: "طباعة أمر إركاب ",
-                  //   onPressed: () {},
-                  //   height: 30,
-                  //   width: 120,
-                  // ),
-                  // CustomButton(
-                  //   text: "طباعة أمر إنتداب",
-                  //   onPressed: () {},
-                  //   height: 30,
-                  //   width: 120,
-                  // ),
-                  // CustomButton(
-                  //   text: "طباعة قرار إنتداب",
-                  //   onPressed: () {},
-                  //   height: 30,
-                  //   width: 120,
-                  // ),
-                  // CustomButton(
-                  //   text: "استحقاق الراتب",
-                  //   onPressed: () {},
-                  //   height: 30,
-                  //   width: 100,
-                  // ),
+                  CustomButton(
+                    text: "طباعة أمر إركاب ",
+                    onPressed: () => controllerReport.createAmrErkabReport(),
+                    height: 30,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة أمر إنتداب",
+                    onPressed: () =>
+                        controllerReport.createEntedabEmployeeReport(),
+                    height: 30,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة قرار إنتداب",
+                    onPressed: () => controllerReport.createQrarEntedabReport(),
+                    height: 30,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "استحقاق الراتب",
+                    onPressed: () =>
+                        controllerReport.createEsthqaqRatebReport(),
+                    height: 30,
+                    width: 100,
+                  ),
                   CustomButton(
                     text: "تعديل",
                     onPressed: () => controller.save(),

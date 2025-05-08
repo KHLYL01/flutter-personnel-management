@@ -231,13 +231,13 @@ class EmpEntedabController extends GetxController {
     id.text = r.id.toString();
     qrarId.text = r.qrarId.toString();
     datBegin.text = r.datBegin.toString();
-    datBeginGo.text = r.datBeginGo.toString();
+    datBeginGo.text = r.datBeginGo.toString().substring(0, 10);
     datEnd.text = r.datEnd.toString();
-    datEndGo.text = r.datEndGo.toString();
+    datEndGo.text = r.datEndGo.toString().substring(0, 10);
     datKhrtab.text = r.datKhetab.toString();
-    datKhetabGo.text = r.datKhetabGo.toString();
+    datKhetabGo.text = r.datKhetabGo.toString().substring(0, 10);
     datQrar.text = r.datQrar.toString();
-    datQrarGo.text = r.datQrarGo.toString();
+    datQrarGo.text = r.datQrarGo.toString().substring(0, 10);
     fiaMony.text = r.fiaMony.toString();
     task.text = r.task.toString();
     place.text = r.place.toString();

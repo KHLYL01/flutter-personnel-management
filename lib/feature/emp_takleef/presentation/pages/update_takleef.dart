@@ -10,6 +10,7 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../controllers/emp_takleef__report_controller.dart';
 import '../controllers/emp_takleef_controller.dart';
 
 class UpdateTakleef extends StatelessWidget {
@@ -21,6 +22,7 @@ class UpdateTakleef extends StatelessWidget {
     double currentHeight = Get.height;
     final controller = Get.find<EmpTakleefController>();
     final controllerDet = Get.find<EmpTakleefDetController>();
+    final controllerReport = Get.find<EmpTakleefReportController>();
 
     late HijriPicker qararDate =
         HijriPicker(controller.datQrar, controller.datQrarGo);
@@ -251,7 +253,7 @@ class UpdateTakleef extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButton(
-                          text: 'بيانات اصناف محضر الاستلام',
+                          text: 'بيانات موظفي التكليف',
                           onPressed: () {
                             controllerDet.clearControllers();
                             controllerDet.getTakleefDetByTakleefId(
@@ -281,19 +283,22 @@ class UpdateTakleef extends StatelessWidget {
                         ),
                         CustomButton(
                           text: 'طباعة قرار خارج الدوام',
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createQrarTakleefReport(),
                           height: 30,
                           width: 150,
                         ),
                         CustomButton(
                           text: 'مسير خارج الدوام',
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createMoserTakleefReport(),
                           height: 30,
                           width: 120,
                         ),
                         CustomButton(
                           text: 'قرار صرف خارج ',
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createQrarSrfTakleefReport(),
                           height: 30,
                           width: 120,
                         ),

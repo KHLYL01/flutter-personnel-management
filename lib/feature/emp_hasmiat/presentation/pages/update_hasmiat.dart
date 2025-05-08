@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
+import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat__report_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -22,6 +23,7 @@ class UpdateHasmiat extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHasmiatController>();
     final controllerDet = Get.find<EmpHasmiatDetController>();
+    final controllerReport = Get.find<EmpHasmiatReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -153,12 +155,12 @@ class UpdateHasmiat extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: "طباعة قرار حسم",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 120,
-                  // ),
+                  CustomButton(
+                    text: "طباعة قرار حسم",
+                    onPressed: () => controllerReport.createQrarHasmiatReport(),
+                    height: 35,
+                    width: 120,
+                  ),
                   CustomButton(
                     text: "إضافة موظف",
                     onPressed: () {
