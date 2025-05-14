@@ -1,7 +1,7 @@
+import 'dart:html' as html;
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:printing/printing.dart';
-
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -9,7 +9,7 @@ class EmpEntedabReportController extends GetxController {
   // امر اركاب
   Future<void> createAmrErkabReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document();
+    final pdf = pw.Document(title: "امر اركاب");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -530,17 +530,26 @@ class EmpEntedabReportController extends GetxController {
         },
       ),
     );
-    // حفظ أو مشاركة الملف
-    await Printing.sharePdf(
-      bytes: await pdf.save(),
-      filename: 'اركاب موظف.pdf',
-    );
+
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'اركاب موظف.pdf',
+    // );
   }
 
   // انتداب موظف
   Future<void> createEntedabEmployeeReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document();
+    final pdf = pw.Document(title: "انتداب موظف");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -707,17 +716,26 @@ class EmpEntedabReportController extends GetxController {
         },
       ),
     );
-    // حفظ أو مشاركة الملف
-    await Printing.sharePdf(
-      bytes: await pdf.save(),
-      filename: 'انتداب موظف.pdf',
-    );
+
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'انتداب موظف.pdf',
+    // );
   }
 
   // قرار إنتداب
   Future<void> createQrarEntedabReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document();
+    final pdf = pw.Document(title: "قرار إنتداب");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -981,17 +999,25 @@ class EmpEntedabReportController extends GetxController {
         },
       ),
     );
-    // حفظ أو مشاركة الملف
-    await Printing.sharePdf(
-      bytes: await pdf.save(),
-      filename: 'قرار انتداب موظف.pdf',
-    );
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'قرار انتداب موظف.pdf',
+    // );
   }
 
   // استحقاق راتب
   Future<void> createEsthqaqRatebReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document();
+    final pdf = pw.Document(title: "استحقاق راتب");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -1279,10 +1305,19 @@ class EmpEntedabReportController extends GetxController {
         },
       ),
     );
-    // حفظ أو مشاركة الملف
-    await Printing.sharePdf(
-      bytes: await pdf.save(),
-      filename: 'استحقاق راتب.pdf',
-    );
+
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'استحقاق راتب.pdf',
+    // );
   }
 }

@@ -2,32 +2,14 @@ import 'dart:html' as html;
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
-import 'package:personnel_management/feature/employee/data/model/employee_model.dart';
-import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
-import 'package:printing/printing.dart';
-
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:intl/intl.dart';
 
-class EmpHolidayReportController extends GetxController {
-  final EmployeeRepository _empRepository;
-
-  EmpHolidayReportController(this._empRepository);
-
-  // قرار إجازة
-  Future<void> createQrarHolidayReport() async {
-    final holidayController = Get.find<EmpHolidayController>();
-    EmployeeModel? employeeModel;
-    final data = await _empRepository.findById(
-      int.parse(holidayController.empId.text),
-    );
-
-    data.fold((l) => l, (r) => employeeModel = r);
-
+class EmpMobashraReportController extends GetxController {
+  // قرار مباشرة
+  Future<void> createQrarMobashraReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document(title: 'قرار إجازة');
+    final pdf = pw.Document(title: "قرار مباشرة");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -38,6 +20,7 @@ class EmpHolidayReportController extends GetxController {
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
+        // orientation: pw.PageOrientation.landscape,
         build: (pw.Context context) {
           return pw.Directionality(
             textDirection: pw.TextDirection.rtl, // للغة العربية
@@ -54,18 +37,22 @@ class EmpHolidayReportController extends GetxController {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       pw.Text(
-                        'إدارة الموارد البشرية',
+                        "إدارة الموارد البشرية",
+                        textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
                           fontSize: 11,
+                          lineSpacing: 10,
                           fontWeight: pw.FontWeight.bold,
                         ),
                       ),
                       pw.Text(
-                        'الموضوع: إجازة موظف',
+                        "الموضوع: قرار مباشرة",
+                        textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
                           fontSize: 11,
+                          lineSpacing: 10,
                           fontWeight: pw.FontWeight.bold,
                         ),
                       ),
@@ -73,94 +60,91 @@ class EmpHolidayReportController extends GetxController {
                   ),
                 ),
                 pw.SizedBox(height: 10),
-
                 // جدول البيانات
                 pw.TableHelper.fromTextArray(
-                    context: context,
-                    border: pw.TableBorder.all(color: PdfColors.grey400),
-                    tableDirection: pw.TextDirection.rtl,
-                    headerStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontWeight: pw.FontWeight.bold,
-                      color: PdfColors.white,
-                      fontSize: 11,
-                    ),
-                    headerDecoration: const pw.BoxDecoration(
-                      color: PdfColors.grey600,
-                    ),
-                    cellStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                    ),
-                    cellAlignment: pw.Alignment.center,
-                    headerAlignment: pw.Alignment.center,
-                    columnWidths: {
-                      0: const pw.FixedColumnWidth(130),
-                      1: const pw.FixedColumnWidth(130),
-                      2: const pw.FixedColumnWidth(130),
-                      3: const pw.FixedColumnWidth(130),
-                      4: const pw.FixedColumnWidth(120),
-                      5: const pw.FixedColumnWidth(250),
-                      6: const pw.FixedColumnWidth(300),
-                    },
-                    headers: [
-                      'بدل النقل',
-                      'الراتب',
-                      'الدرجة',
-                      'المرتبة',
-                      'الوظيفة',
-                      'رقم السجل المدني',
-                      'الاسم',
+                  context: context,
+                  border: pw.TableBorder.all(color: PdfColors.grey400),
+                  tableDirection: pw.TextDirection.rtl,
+                  headerStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.white,
+                    fontSize: 6,
+                  ),
+                  headerDecoration: const pw.BoxDecoration(
+                    color: PdfColors.grey600,
+                  ),
+                  cellStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 6,
+                  ),
+                  cellAlignment: pw.Alignment.center,
+                  headerAlignment: pw.Alignment.center,
+                  columnWidths: {
+                    0: const pw.FixedColumnWidth(300),
+                    1: const pw.FixedColumnWidth(200),
+                    2: const pw.FixedColumnWidth(200),
+                    3: const pw.FixedColumnWidth(200),
+                    4: const pw.FixedColumnWidth(300),
+                    5: const pw.FixedColumnWidth(400),
+                    6: const pw.FixedColumnWidth(400),
+                  },
+                  headers: [
+                    'بدل النقل',
+                    'الراتب',
+                    'الدرجة',
+                    'المرتبة',
+                    'الوظيفة',
+                    'رقم السجل المدني',
+                    'الاسم',
+                  ],
+                  data: [
+                    [
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
                     ],
-                    data: [
-                      [
-                        employeeModel!.naqlBadal,
-                        employeeModel!.salary,
-                        employeeModel!.draga,
-                        employeeModel!.fia,
-                        employeeModel!.workJob,
-                        employeeModel!.cardId,
-                        employeeModel!.name,
-                      ]
-                    ]),
-
-                pw.SizedBox(height: 30),
-
-                // نص ختامي
-                pw.Text(
-                  """إن مساعد رئيس بلدية محافظة تيماء
-بناءً على الصلاحيات الممنوحة لة بالقرار الاداري رقم (4400619615) وتاريخ 7 / 8/ 1444 هـ .
-و إشارة إلى طلب الإجازة المرفق من الموضح اسمه و بياناته أعلاه وبناء على
-المادة (130) من اللائحة التنفيذية للموارد البشرية بنظام الخدمة المدنية, يقرر ما يلي:
-
-1- الموافقة على تمتع الموظف أعلاه منحة إجازة إعتيادي مرحل لمدة تسعة عشر  يوماً / أيام
-اعتباراً من: 8 / 04 / 1441 هـ إلى 29 / 04 / 1441 هـ
-2- لا يصرف راتبه/ها مقدما
-3- يبلغ هذا القرار لمن يلزم لإنفاذه
-
-""",
-                  style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
+                  ],
                 ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  """المكرم مدير الموارد البشرية                                                 المحترم
+السلام عليكم ورحمة الله و بركاته ,
+إلحاقا لقرارنا الإداري رقم / و تاريخ 14 / 9 / 1436هـ القاضي بمنح الموضح اسمه اعلاه إجازة أعتيادية من 14 / 09 / 1436هـ إلى 14 / 09 / 1436 ولمدة ثلثون يوما و بناء على ما رفعه لنا 0 بتاريخ 14 / 9 / 1436هـ والذي أفاد فيه عن مباشرة المذكور عمله لدى القسم اعتبارا من يوم السبت الموافق 14 / 9 / 1436هـ
 
-                pw.Center(
-                  child: pw.Text(
-                    "والسلام عليكم ورحمة الله و بركاته ....",
-                    style: pw.TextStyle(
-                        font: arabicFont, fontSize: 11, lineSpacing: 10),
+لذا اعتمدوا التأشير لموجبه
+والسلام عليكم ورحمة الله وبركاته ,""",
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    lineSpacing: 10,
+                    fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 20),
+                pw.SizedBox(height: 10),
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
-                    pw.Text(
-                      """مساعد رئيس بلدية محافظة تيماء
-
-المهندس / ماجد خلف الدوشان""",
-                      textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(
-                          font: arabicFont, fontSize: 11, lineSpacing: 10),
+                    pw.Column(
+                      children: [
+                        pw.Text(
+                          "رئيس بلدية محافظة تيماء",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                              font: arabicFont, fontSize: 8, lineSpacing: 10),
+                        ),
+                        pw.SizedBox(height: 20),
+                        pw.Text(
+                          "المهندس / حسن بن عبدالرحيم الغبان",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                              font: arabicFont, fontSize: 10, lineSpacing: 10),
+                        ),
+                      ],
                     ),
                   ],
                 )
@@ -181,22 +165,14 @@ class EmpHolidayReportController extends GetxController {
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
-    //   filename: 'قرار إجازة.pdf',
+    //   filename: 'قرار حسم.pdf',
     // );
   }
 
-  // مسير إجازة
-  Future<void> createMoserHolidayReport() async {
-    final holidayController = Get.find<EmpHolidayController>();
-    EmployeeModel? employeeModel;
-    final data = await _empRepository.findById(
-      int.parse(holidayController.empId.text),
-    );
-
-    data.fold((l) => l, (r) => employeeModel = r);
-
+  // مسير راتب افرادي
+  Future<void> createMoserRatebEfradyReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document(title: "مسير إجازة");
+    final pdf = pw.Document(title: "مسير راتب افرادي");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -225,7 +201,6 @@ class EmpHolidayReportController extends GetxController {
                       pw.Text(
                         """المملكة العربية السعودية
 وزارة الشئون البلدية و القروية
-
 بلدية محافظة تيماء
 إدارة الموارد البشرية
 """,
@@ -237,13 +212,9 @@ class EmpHolidayReportController extends GetxController {
                           fontWeight: pw.FontWeight.bold,
                         ),
                       ),
-                      pw.SizedBox(width: 150),
+                      pw.SizedBox(width: 190),
                       pw.Text(
-                        """بسم الله الرحمن الرحيم
-
-سند إفرادي يوضح استحقاق الموضح ادناه لقاء
-عن المدة من 8 / 04 / 1441 هـ وتاريخ انتهاء الإجازة إعتباراٌ 29 / 8 / 1441 هـ
-بموجب القرار رقم 387 وتاريخ 0 / 1441""",
+                        "سند إفرادي يوضح استحقاق الموضح ادناه",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
@@ -254,6 +225,24 @@ class EmpHolidayReportController extends GetxController {
                       ),
                     ],
                   ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.center,
+                  children: [
+                    pw.Text(
+                      """عن المدة من:      2020/11/2      الى      2020/12/2
+بموجب قرار رقم      1230213465      و تاريخ      2019/2/11
+""",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                        font: arabicFont,
+                        fontSize: 8,
+                        lineSpacing: 10,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
                 pw.SizedBox(height: 10),
                 // جدول البيانات
@@ -312,7 +301,7 @@ class EmpHolidayReportController extends GetxController {
                       'بدل طبيعة العمل',
                       'بدل النقل',
                       'الراتب الاساسي',
-                      'الرقم',
+                      'الدرجة',
                       'المرتبة',
                       'الوظيفة',
                       'الاسم',
@@ -321,33 +310,24 @@ class EmpHolidayReportController extends GetxController {
                     data: [
                       [
                         "",
-                        (employeeModel!.salary1 ?? 0.0) +
-                            0 +
-                            0 -
-                            ((employeeModel!.hasm2 ?? 0) +
-                                (employeeModel!.hasm1 ?? 0) +
-                                (employeeModel!.taka3odM ?? 0)),
-                        ((employeeModel!.hasm2 ?? 0) +
-                            (employeeModel!.hasm1 ?? 0) +
-                            (employeeModel!.taka3odM ?? 0)),
-                        employeeModel!.hasm2 ?? 0,
-                        employeeModel!.hasm1 ?? 0,
-                        employeeModel!.taka3odM ?? 0,
-                        (employeeModel!.salary1 ?? 0) + 0 + 0,
                         "",
                         "",
-                        employeeModel!.salary1 ?? 0.0,
-                        (employeeModel!.naqlBadal ?? 0.0) +
-                            (employeeModel!.salary ?? 0.0) +
-                            0,
                         "",
-                        employeeModel!.naqlBadal ?? 0.0,
-                        employeeModel!.salary ?? 0.0,
-                        employeeModel!.id ?? 0,
-                        employeeModel!.fia,
-                        employeeModel!.workJob,
-                        employeeModel!.name,
-                        "1",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
                       ]
                     ]),
 
@@ -388,7 +368,7 @@ class EmpHolidayReportController extends GetxController {
                     14: const pw.FixedColumnWidth(850),
                   },
                   headers: [
-                    '0.0',
+                    '',
                     '0.0',
                     '0.0',
                     '0.0',
@@ -503,6 +483,7 @@ class EmpHolidayReportController extends GetxController {
         },
       ),
     );
+
     // Generate the PDF bytes
     final pdfBytes = await pdf.save();
 
@@ -514,7 +495,7 @@ class EmpHolidayReportController extends GetxController {
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
-    //   filename: 'مسير إجازة.pdf',
+    //   filename: 'استحقاق راتب.pdf',
     // );
   }
 }

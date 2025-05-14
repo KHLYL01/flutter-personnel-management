@@ -2,16 +2,14 @@ import 'dart:html' as html;
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:printing/printing.dart';
-
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class EmpHasmiatReportController extends GetxController {
-  // قرار حسم
-  Future<void> createQrarHasmiatReport() async {
+class TafweedReportController extends GetxController {
+  // التقرير
+  Future<void> createReport() async {
     // إنشاء مستند PDF جديد
-    final pdf = pw.Document(title: "قرار حسم");
+    final pdf = pw.Document(title: "التقرير");
 
     // تحميل خط عربي (اختياري)
     final arabicFont = pw.Font.ttf(
@@ -49,7 +47,7 @@ class EmpHasmiatReportController extends GetxController {
                         ),
                       ),
                       pw.Text(
-                        "الموضوع: قرار حسم",
+                        "الموضوع: تفويض",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
@@ -59,19 +57,6 @@ class EmpHasmiatReportController extends GetxController {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                pw.SizedBox(height: 5),
-                pw.Center(
-                  child: pw.Text(
-                    "قرار حسم الغياب و التأخير",
-                    textAlign: pw.TextAlign.center,
-                    style: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                      lineSpacing: 10,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
                   ),
                 ),
                 pw.SizedBox(height: 10),
@@ -96,40 +81,19 @@ class EmpHasmiatReportController extends GetxController {
                   cellAlignment: pw.Alignment.center,
                   headerAlignment: pw.Alignment.center,
                   columnWidths: {
-                    0: const pw.FixedColumnWidth(250),
-                    1: const pw.FixedColumnWidth(250),
-                    2: const pw.FixedColumnWidth(300),
-                    3: const pw.FixedColumnWidth(300),
-                    4: const pw.FixedColumnWidth(300),
-                    5: const pw.FixedColumnWidth(250),
-                    6: const pw.FixedColumnWidth(200),
-                    7: const pw.FixedColumnWidth(200),
-                    8: const pw.FixedColumnWidth(300),
-                    9: const pw.FixedColumnWidth(400),
-                    10: const pw.FixedColumnWidth(200),
+                    0: const pw.FixedColumnWidth(200),
+                    1: const pw.FixedColumnWidth(200),
+                    2: const pw.FixedColumnWidth(200),
+                    3: const pw.FixedColumnWidth(200),
                   },
                   headers: [
-                    'ملاحظات',
-                    'مقدار الحسم بالريال',
-                    'مدة الغياب و التأخير يوم',
-                    'مدة الغياب و التأخير س',
-                    'مدة الغياب و التأخير د',
-                    'بدل النقل',
-                    'الراتب',
-                    'المرتبة',
+                    'الجنسية',
                     'الوظيفة',
+                    'رقم السجل المدني',
                     'الاسم',
-                    ' م ',
                   ],
                   data: [
                     [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
                       "",
                       "",
                       "",
@@ -139,12 +103,8 @@ class EmpHasmiatReportController extends GetxController {
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  """إن رئيس بلدية محافظة تيماء
-بناء على خطاب مدير عام شؤون الموظفين بالوزارة رقم )2962( و تاريخ 1435/02/14 هـ و المتضمنة تأخر و
-تغيب الموظف الموضح اسمه أعلاه خلال خلاصة لشهر سبتمبر عام 2024 هو استنادا للمادة رقم )21( من نظام
-الخدمة المدنية فقد تقرر ما يلي:
-1:- يحسم من راتب الموظف الموضح اسمه أعله راتب و بدلت مدة الغياب و التأخير المحددة أمام اسمه من راتب شهر اكتوبر لعام 2024
-2:- يبلغ قرارنا هذا من يلزم لنفاذه .""",
+                  """تشهد بلدية محافظة تيماء بأن الموضح اسمه و بياناته اعلاه هو أحد منسوبيها و لازال على رأس عمله حتى تاريخه و يرغب اعتبارا من يوم الموافق                            هـ و حتى                            هـ و حيث ل مانع لدينا من تفويضه آمل تسهيل مروره.
+ """,
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -155,7 +115,7 @@ class EmpHasmiatReportController extends GetxController {
                 pw.SizedBox(height: 10),
                 pw.Center(
                   child: pw.Text(
-                    "و السلام عليكم و رحمه الله و بركاته ,,,,,",
+                    "والله الموفق ....",
                     style: pw.TextStyle(
                       font: arabicFont,
                       fontSize: 11,

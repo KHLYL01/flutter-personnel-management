@@ -12,6 +12,7 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_kashf_tepy_report_controller.dart';
 
 class UpdateKashfTepy extends StatelessWidget {
   const UpdateKashfTepy({super.key});
@@ -21,6 +22,7 @@ class UpdateKashfTepy extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     final controller = Get.find<EmpKashfTepyController>();
+    final controllerReport = Get.find<EmpKashfTepyReportController>();
     HijriPicker requestDate = HijriPicker(controller.requestDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
 
@@ -161,12 +163,13 @@ class UpdateKashfTepy extends StatelessWidget {
               ).paddingAll(5).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: 'طلب كشف طبي',
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: 'طلب كشف طبي',
+                    onPressed: () =>
+                        controllerReport.createOrderKashfTepyReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                   CustomButton(
                     text: 'تعديل',
                     onPressed: () => controller.save(),
@@ -190,6 +193,7 @@ class UpdateKashfTepy extends StatelessWidget {
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
+              const SizedBox(height: 16),
             ],
           ).paddingSymmetric(horizontal: 16);
         },

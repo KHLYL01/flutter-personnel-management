@@ -11,6 +11,7 @@ import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/tafweed_controller.dart';
+import '../controllers/tafweed_report_controller.dart';
 
 class UpdateTafweed extends StatelessWidget {
   const UpdateTafweed({super.key});
@@ -21,6 +22,7 @@ class UpdateTafweed extends StatelessWidget {
     double currentHeight = Get.height;
 
     final controller = Get.find<TafweedController>();
+    final controllerReport = Get.find<TafweedReportController>();
 
     late HijriPicker startDate = HijriPicker(controller.startDate);
     late HijriPicker endDate = HijriPicker(controller.endDate);
@@ -160,12 +162,12 @@ class UpdateTafweed extends StatelessWidget {
                     height: 35,
                     width: 150,
                   ),
-                  // CustomButton(
-                  //   text: 'التقرير',
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
             ],

@@ -10,6 +10,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
 import '../controllers/emp_dowra_controller.dart';
+import '../controllers/emp_dowra_report_controller.dart';
 
 class UpdateDowra extends StatelessWidget {
   const UpdateDowra({super.key});
@@ -17,6 +18,7 @@ class UpdateDowra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpDowraController>();
+    final controllerReport = Get.find<EmpDowraReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     HijriPicker startCycleDate = HijriPicker(controller.startDate);
@@ -126,20 +128,24 @@ class UpdateDowra extends StatelessWidget {
                       height: 35,
                       width: 150,
                     ),
-                    // CustomButton(
-                    //   text: "طباعة بيان مخالفة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 150,
-                    // ),
-
+                    CustomButton(
+                      text: "طباعة قرار الدورة",
+                      onPressed: () => controllerReport.createQrarDowraReport(),
+                      height: 35,
+                      width: 150,
+                    ),
+                    CustomButton(
+                      text: "طباعة بيان الدورة",
+                      onPressed: () => controllerReport.createBeanDowraReport(),
+                      height: 35,
+                      width: 150,
+                    ),
                     CustomButton(
                       text: "تعديل",
                       onPressed: () => controller.save(),
                       height: 35,
                       width: 150,
                     ),
-
                     CustomButton(
                       text: "حذف",
                       onPressed: () => controller.confirmDelete(

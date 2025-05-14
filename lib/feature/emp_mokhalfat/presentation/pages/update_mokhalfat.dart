@@ -12,6 +12,7 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/emp_mokhalfat_report_controller.dart';
 
 class UpdateMokhalfat extends StatelessWidget {
   const UpdateMokhalfat({super.key});
@@ -19,6 +20,7 @@ class UpdateMokhalfat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMokhalfatController>();
+    final controllerReport = Get.find<EmpMokhalfatReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     HijriPicker startDate = HijriPicker(controller.startDate);
@@ -87,12 +89,13 @@ class UpdateMokhalfat extends StatelessWidget {
               ).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: "طباعة بيان مخالفة",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: "طباعة بيان مخالفة",
+                    onPressed: () =>
+                        controllerReport.createBeanMokhalfatReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                   CustomButton(
                     text: "إضافة موظف",
                     onPressed: () {},

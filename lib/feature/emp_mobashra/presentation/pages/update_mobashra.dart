@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
+import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_report_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
@@ -20,6 +21,7 @@ class UpdateMobashra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMobashraController>();
+    final controllerReport = Get.find<EmpMobashraReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -267,18 +269,20 @@ class UpdateMobashra extends StatelessWidget {
               ).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: "طباعة قرار مباشرة",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 120,
-                  // ),
-                  // CustomButton(
-                  //   text: "طباعة مسير راتب إفرادي",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: "طباعة قرار مباشرة",
+                    onPressed: () =>
+                        controllerReport.createQrarMobashraReport(),
+                    height: 35,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة مسير راتب إفرادي",
+                    onPressed: () =>
+                        controllerReport.createMoserRatebEfradyReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                   CustomButton(
                     text: "تعديل",
                     onPressed: () => controller.save(),

@@ -13,6 +13,7 @@ import '../../../../core/widgets/custom_radio_list_tile.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_taeen_report_controller.dart';
 
 class UpdateTaeen extends StatelessWidget {
   const UpdateTaeen({super.key});
@@ -20,6 +21,7 @@ class UpdateTaeen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpTaeenController>();
+    final controllerReport = Get.find<EmpTaeenReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -308,12 +310,12 @@ class UpdateTaeen extends StatelessWidget {
               ).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: "طباعة قرار تعيين على بند الأجور",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 200,
-                  // ),
+                  CustomButton(
+                    text: "طباعة قرار تعيين على بند الأجور",
+                    onPressed: () => controllerReport.createQrarTaeenReport(),
+                    height: 35,
+                    width: 200,
+                  ),
                   CustomButton(
                     text: "تعديل",
                     onPressed: () => controller.save(),
@@ -337,6 +339,7 @@ class UpdateTaeen extends StatelessWidget {
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
+              const SizedBox(height: 16),
             ],
           ).scrollDirection(Axis.vertical).paddingSymmetric(horizontal: 16);
         },

@@ -19,6 +19,7 @@ import '../../../tarmeez_emp_degrees/presentation/pages/emp_degrees_find_page.da
 import '../../../tarmeez_jobs/presentation/controllers/jobs_controller.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
+import '../controllers/emp_tarqea_report_controller.dart';
 
 class UpdateTarqea extends StatelessWidget {
   const UpdateTarqea({super.key});
@@ -26,6 +27,7 @@ class UpdateTarqea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpTarqeaController>();
+    final controllerReport = Get.find<EmpTarqeaReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -586,24 +588,27 @@ class UpdateTarqea extends StatelessWidget {
                   //   height: 35,
                   //   width: 120,
                   // ),
-                  // CustomButton(
-                  //   text: "طباعة قرار ترقية",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
-                  // CustomButton(
-                  //   text: "طباعة قرار ترقية بنسبة طباعة عمل",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 200,
-                  // ),
-                  // CustomButton(
-                  //   text: "طباعة مباشرة",
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 120,
-                  // ),
+                  CustomButton(
+                    text: "طباعة قرار ترقية",
+                    onPressed: () =>
+                        controllerReport.createQrarTarqeaReport(false),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: "طباعة قرار ترقية بنسبة طباعة عمل",
+                    onPressed: () =>
+                        controllerReport.createQrarTarqeaReport(true),
+                    height: 35,
+                    width: 200,
+                  ),
+                  CustomButton(
+                    text: "طباعة مباشرة",
+                    onPressed: () =>
+                        controllerReport.createQrarMobashraReport(),
+                    height: 35,
+                    width: 120,
+                  ),
 
                   CustomButton(
                     text: "تعديل",

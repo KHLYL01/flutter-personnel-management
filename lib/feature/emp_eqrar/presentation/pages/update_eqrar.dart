@@ -9,6 +9,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../controllers/emp_eqrar_controller.dart';
+import '../controllers/emp_eqrar_report_controller.dart';
 
 class UpdateEqrar extends StatelessWidget {
   const UpdateEqrar({super.key});
@@ -18,6 +19,7 @@ class UpdateEqrar extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
     final controller = Get.find<EmpEqrarController>();
+    final controllerReport = Get.find<EmpEqrarReportController>();
     HijriPicker iqrarDate = HijriPicker(controller.decisionDate);
     HijriPicker khitabDate = HijriPicker(controller.letterDate);
     return Dialog(
@@ -108,12 +110,12 @@ class UpdateEqrar extends StatelessWidget {
               ).paddingAll(5).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: 'التقرير',
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createEqrarReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                   CustomButton(
                     text: 'تعديل',
                     onPressed: () => controller.save(),
@@ -137,6 +139,7 @@ class UpdateEqrar extends StatelessWidget {
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
+              SizedBox(height: 16),
             ],
           );
         },

@@ -11,6 +11,7 @@ import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../controllers/passport_report_controller.dart';
 
 class UpdatePassport extends StatelessWidget {
   const UpdatePassport({super.key});
@@ -21,6 +22,7 @@ class UpdatePassport extends StatelessWidget {
     double currentHeight = Get.height;
 
     final controller = Get.find<PassportController>();
+    final controllerReport = Get.find<PassportReportController>();
 
     HijriPicker date = HijriPicker(controller.date);
 
@@ -143,12 +145,12 @@ class UpdatePassport extends StatelessWidget {
               ).paddingAll(5).scrollDirection(Axis.horizontal),
               Row(
                 children: [
-                  // CustomButton(
-                  //   text: 'طلب كشف طبي',
-                  //   onPressed: () {},
-                  //   height: 35,
-                  //   width: 150,
-                  // ),
+                  CustomButton(
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createReport(),
+                    height: 35,
+                    width: 150,
+                  ),
                   CustomButton(
                     text: 'تعديل',
                     onPressed: () => controller.save(),

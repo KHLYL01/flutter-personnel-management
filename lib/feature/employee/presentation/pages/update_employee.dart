@@ -639,10 +639,12 @@ class UpdateEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomButton(
-                            text: 'طباعة كارت تعريفي',
-                            onPressed: () {},
-                            height: 30,
-                            width: 120),
+                          text: 'طباعة كارت تعريفي',
+                          onPressed: () =>
+                              controllerReport.createEmployeeCard(),
+                          height: 30,
+                          width: 120,
+                        ),
                         // CustomButton(
                         //     text: 'موظف جديد',
                         //     onPressed: () => controller.clearControllers(),
@@ -656,11 +658,13 @@ class UpdateEmployee extends StatelessWidget {
                           text: 'مشهد بالراتب',
                           height: 30,
                           width: 120,
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createMashhadRatebReport(),
                         ),
                         CustomButton(
                             text: 'شهادة تعريف',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createShahadaTarefReport(),
                             height: 30,
                             width: 120),
                       ],
