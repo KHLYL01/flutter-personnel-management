@@ -53,7 +53,7 @@ class BladiaInfo extends StatelessWidget {
                               customHeight: currentHeight / 20,
                               customWidth: currentWidth / 5),
                           CustomTextField(
-                              controller: controller.deputyMayor,
+                              controller: controller.bossAssistant,
                               label: 'اسم نائب رئيس البلدية',
                               customHeight: currentHeight / 20,
                               customWidth: currentWidth / 5),
@@ -62,8 +62,7 @@ class BladiaInfo extends StatelessWidget {
                       Row(
                         children: [
                           CustomTextField(
-                              controller:
-                                  controller.modeerIdaraShoonMaliaIdarea,
+                              controller: controller.edariaBoss,
                               label: 'مدير إدارة الشؤون المالية والإدارية ',
                               customHeight: currentHeight / 20,
                               customWidth: currentWidth / 5),
@@ -82,7 +81,7 @@ class BladiaInfo extends StatelessWidget {
                       Row(
                         children: [
                           CustomTextField(
-                              controller: controller.modeerShoonMalia,
+                              controller: controller.maliaBoss,
                               label: 'اسم مدير الشؤون المالية',
                               customHeight: currentHeight / 20,
                               customWidth: currentWidth / 5),

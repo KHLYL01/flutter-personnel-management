@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -8,8 +9,9 @@ import '../../data/repository/emp_holiday_repository.dart';
 
 class EmpHolidayController extends GetxController {
   final EmpHolidayRepository _repository;
+  final EmpHolidayTypeRepository _typeRepository;
 
-  EmpHolidayController(this._repository);
+  EmpHolidayController(this._repository, this._typeRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -217,7 +219,7 @@ class EmpHolidayController extends GetxController {
     );
   }
 
-  void fillControllers(EmpHolidayModel r) {
+  void fillControllers(EmpHolidayModel r) async {
     id.text = r.id.toString();
     empId.text = r.empId.toString();
     mrtaba.text = r.mrtaba.toString();
@@ -253,5 +255,8 @@ class EmpHolidayController extends GetxController {
     mostahaka(r.mostahaka == 1);
     directBoss(r.directBoss == 1);
     tamdeedIgazahAccept(r.prev == 1);
+
+    (await _typeRepository.findById(int.parse(holidayType.text)))
+        .fold((l) => l, (r) => holidayTypeName.text = (r.name ?? ""));
   }
 }

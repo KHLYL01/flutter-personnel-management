@@ -14,22 +14,22 @@ class BladiaInfoController extends GetxController {
 
   Rx<BladiaInfoModel> bladia = Rx(BladiaInfoModel());
 
-  final TextEditingController datBegin = TextEditingController();
-  final TextEditingController datEnd = TextEditingController();
   final TextEditingController name = TextEditingController();
   final TextEditingController boss = TextEditingController();
-  final TextEditingController deputyMayor = TextEditingController();
-  final TextEditingController modeerIdaraShoonMaliaIdarea =
-      TextEditingController();
+  final TextEditingController bossAssistant = TextEditingController();
+  final TextEditingController edariaBoss = TextEditingController();
   final TextEditingController partBoss = TextEditingController();
   final TextEditingController part2Boss = TextEditingController();
   final TextEditingController maliaBoss = TextEditingController();
-  final TextEditingController modeerShoonMalia = TextEditingController();
   final TextEditingController emp = TextEditingController();
   final TextEditingController empHelp = TextEditingController();
   final TextEditingController ma3esha = TextEditingController();
   final TextEditingController workStationBoss = TextEditingController();
   final TextEditingController ipan = TextEditingController();
+  final TextEditingController datBegin = TextEditingController();
+  final TextEditingController datEnd = TextEditingController();
+
+  final TextEditingController amana = TextEditingController();
 
   var municipalitySymbol = ''.obs;
 
@@ -54,10 +54,8 @@ class BladiaInfoController extends GetxController {
   void fillController() {
     name.text = bladia.value.bladiaInfo?.nameAr ?? '';
     boss.text = bladia.value.bladiaInfo?.boss ?? '';
-
-    // deputyMayor.text = bladia.value.empPartInfo?.partBoss ?? '';
-    // modeerIdaraShoonMaliaIdarea.text = bladia.value.empPartInfo?.maliaBoss ?? '';
-
+    bossAssistant.text = bladia.value.bladiaInfo?.bossAssistant ?? '';
+    edariaBoss.text = bladia.value.empPartInfo?.edariaBoss ?? '';
     partBoss.text = bladia.value.empPartInfo?.partBoss ?? '';
     part2Boss.text = bladia.value.empPartInfo?.part2Boss ?? '';
     maliaBoss.text = bladia.value.empPartInfo?.maliaBoss ?? '';
@@ -66,6 +64,8 @@ class BladiaInfoController extends GetxController {
     ma3esha.text = bladia.value.empPartInfo?.ma3esha.toString() ?? '';
     workStationBoss.text = bladia.value.empPartInfo?.workStationBoss ?? '';
     ipan.text = bladia.value.bladiaInfo?.ipan ?? '';
+
+    amana.text = bladia.value.bladiaInfo?.amana ?? '';
 
     datBegin.text = bladia.value.bladiaInfo?.datBegin ?? '';
     datEnd.text = bladia.value.bladiaInfo?.datEnd ?? '';

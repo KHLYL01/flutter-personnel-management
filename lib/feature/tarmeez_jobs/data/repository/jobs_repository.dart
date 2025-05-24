@@ -26,6 +26,19 @@ class JobsRepository {
     }
   }
 
+  Future<Either<Failure, JobsModel>> findById({
+    required int? id,
+  }) async {
+    try {
+      final httpResponse = await _apiService.findJobById(id);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, List<JobsModel>>> findAll() async {
     try {
       final httpResponse = await _apiService.findAllJobs();

@@ -9,6 +9,7 @@ import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/emp_mokhalfat_det_controller.dart';
 import '../controllers/emp_mokhalfat_search_controller.dart';
 
 class MokhalfatSearch extends StatelessWidget {
@@ -17,6 +18,7 @@ class MokhalfatSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMokhalfatSearchController>();
+    final controllerDet = Get.find<EmpMokhalfatDetController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -126,8 +128,12 @@ class MokhalfatSearch extends StatelessWidget {
                       ),
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
-                    onRowDoubleTap: (event) {
-                      controller.findById(event.row.cells['id']!.value);
+                    onRowDoubleTap: (event) async {
+                      int mokhalfaId = event.row.cells['id']!.value;
+                      await controller.findById(mokhalfaId);
+                      await controllerDet
+                          .getMokhalfatDetByMokhalfatId(mokhalfaId);
+                      controllerDet.resetSelectedRow();
                       Get.dialog(const UpdateMokhalfat());
                     },
                   );

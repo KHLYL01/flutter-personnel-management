@@ -4,10 +4,64 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_controller.dart';
+import 'package:personnel_management/feature/tarmeez_nations/data/repository/nations_repository.dart';
+
+import '../../../employee/data/repository/employee_repository.dart';
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
 
 class TafweedReportController extends GetxController {
+  final EmployeeRepository _empRepository;
+  final JobsRepository _jobsRepository;
+  final NationsRepository _nationsRepository;
+
+  TafweedReportController(
+      this._empRepository, this._jobsRepository, this._nationsRepository);
   // التقرير
   Future<void> createReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    TafweedController controller = Get.find<TafweedController>();
+    String subject = controller.subject.text;
+    String day = controller.selectedDay.value;
+    String startDate = controller.startDate.text;
+    String endDate = controller.endDate.text;
+    String notes = controller.note.text;
+
+    String employeeName = controller.empName.text;
+
+    late int jobId;
+    late int nationId;
+
+    late String jobName;
+    late String cardId;
+    late String nationName;
+
+    (await _empRepository.findById(int.parse(controller.empId.text)))
+        .fold((l) => l, (r) {
+      jobId = r.jobId ?? 0;
+      nationId = r.nationId ?? 0;
+      cardId = r.cardId ?? "";
+    });
+
+    (await _jobsRepository.findById(id: jobId))
+        .fold((l) => l, (r) => jobName = r.name ?? "");
+    (await _nationsRepository.findById(id: nationId))
+        .fold((l) => l, (r) => nationName = r.name ?? "");
+
+    List<List<dynamic>> data = [
+      [
+        nationName,
+        cardId,
+        jobName,
+        employeeName,
+      ],
+    ];
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "التقرير");
 
@@ -47,7 +101,7 @@ class TafweedReportController extends GetxController {
                         ),
                       ),
                       pw.Text(
-                        "الموضوع: تفويض",
+                        "الموضوع: $subject",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
@@ -92,19 +146,11 @@ class TafweedReportController extends GetxController {
                     'رقم السجل المدني',
                     'الاسم',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data,
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  """تشهد بلدية محافظة تيماء بأن الموضح اسمه و بياناته اعلاه هو أحد منسوبيها و لازال على رأس عمله حتى تاريخه و يرغب اعتبارا من يوم الموافق                            هـ و حتى                            هـ و حيث ل مانع لدينا من تفويضه آمل تسهيل مروره.
- """,
+                  """تشهد $name بأن الموضح اسمه و بياناته اعلاه هو أحد منسوبيها و لازال على رأس عمله حتى تاريخه و يرغب اعتبارا من يوم $day الموافق $startDate هـ و حتى $endDate هـ و حيث لا مانع لدينا من تفويضه $subject  ,  $notes آمل تسهيل مروره.""",
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -128,22 +174,13 @@ class TafweedReportController extends GetxController {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "رئيس بلدية محافظة تيماء",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "المهندس / حسن بن عبدالرحيم الغبان",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 10, lineSpacing: 10),
-                        ),
-                      ],
+                    pw.Text(
+                      """رئيس $name
+                      
+$bossName""",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          font: arabicFont, fontSize: 11, lineSpacing: 10),
                     ),
                   ],
                 )

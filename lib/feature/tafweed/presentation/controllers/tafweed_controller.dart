@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -8,8 +9,9 @@ import '../../data/repository/tafweed_repository.dart';
 
 class TafweedController extends GetxController {
   final TafweedRepository _repository;
+  final EmployeeRepository _empRepository;
 
-  TafweedController(this._repository);
+  TafweedController(this._repository, this._empRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -104,7 +106,7 @@ class TafweedController extends GetxController {
     );
   }
 
-  void fillControllers(TafweedModel model) {
+  void fillControllers(TafweedModel model) async {
     id.text = model.id.toString();
     empId.text = model.empId.toString();
     subject.text = model.subject!;
@@ -112,5 +114,8 @@ class TafweedController extends GetxController {
     startDate.text = model.startDate!;
     endDate.text = model.endDate!;
     note.text = model.note!;
+
+    (await _empRepository.findById(int.parse(empId.text)))
+        .fold((l) => l, (r) => empName.text = r.name ?? "");
   }
 }

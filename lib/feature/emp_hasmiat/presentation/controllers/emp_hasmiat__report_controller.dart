@@ -2,14 +2,73 @@ import 'dart:html' as html;
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:printing/printing.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../employee/data/repository/employee_repository.dart';
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
+import '../../data/model/emp_hasmiat_det_model.dart';
+import 'emp_hasmiat_controller.dart';
+import 'emp_hasmiat_det_controller.dart';
+
 class EmpHasmiatReportController extends GetxController {
+  final EmployeeRepository _employeeRepository;
+  final JobsRepository _jobsRepository;
+
+  EmpHasmiatReportController(this._employeeRepository, this._jobsRepository);
+
   // قرار حسم
   Future<void> createQrarHasmiatReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    EmpHasmiatController controller = Get.find<EmpHasmiatController>();
+
+    String hasmiatMonth1 = controller.month1.text;
+    String hasmiatYear1 = controller.year1.text;
+    String hasmiatMonth2 = controller.month2.text;
+    String hasmiatYear2 = controller.year2.text;
+
+    EmpHasmiatDetController detController = Get.find<EmpHasmiatDetController>();
+    // await detController.getHasmiatDetByHasmiatId(int.parse(controller.id.text));
+
+    List<List<dynamic>> data = [];
+
+    int i = 1;
+    for (EmpHasmiatDetModel item in detController.hasmialDets) {
+      late int jobId;
+      late String jobName;
+      late String fia;
+
+      (await _employeeRepository.findById(item.empId!)).fold((l) => l, (r) {
+        jobId = r.jobId ?? 0;
+        fia = r.fia ?? "";
+      });
+      (await _jobsRepository.findById(id: jobId))
+          .fold((l) => l, (r) => jobName = r.name ?? "");
+
+      data.add(
+        [
+          item.notes ?? "",
+          item.gza ?? "",
+          item.ghyab ?? "",
+          item.tagmee3 ?? "",
+          item.min ?? "",
+          item.naqlBadal ?? 0,
+          item.salary ?? 0,
+          fia,
+          jobName,
+          item.employeeName ?? "",
+          i,
+        ],
+      );
+      i++;
+    }
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "قرار حسم");
 
@@ -121,29 +180,14 @@ class EmpHasmiatReportController extends GetxController {
                     'الاسم',
                     ' م ',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data,
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  """إن رئيس بلدية محافظة تيماء
-بناء على خطاب مدير عام شؤون الموظفين بالوزارة رقم )2962( و تاريخ 1435/02/14 هـ و المتضمنة تأخر و
-تغيب الموظف الموضح اسمه أعلاه خلال خلاصة لشهر سبتمبر عام 2024 هو استنادا للمادة رقم )21( من نظام
-الخدمة المدنية فقد تقرر ما يلي:
-1:- يحسم من راتب الموظف الموضح اسمه أعله راتب و بدلت مدة الغياب و التأخير المحددة أمام اسمه من راتب شهر اكتوبر لعام 2024
+                  """إن رئيس $name
+بناء على خطاب مدير عام شؤون الموظفين بالوزارة رقم (2962) و تاريخ 1435/02/14 هـ و المتضمنة تأخر و
+تغيب الموظف الموضح اسمه أعلاه خلال خلاصة لشهر $hasmiatMonth1 عام $hasmiatYear1 هو استنادا للمادة رقم (21) من نظام الخدمة المدنية فقد تقرر ما يلي:
+1:- يحسم من راتب الموظف الموضح اسمه أعلاه راتب و بدلات مدة الغياب و التأخير المحددة أمام اسمه من راتب شهر $hasmiatMonth2 لعام $hasmiatYear2
 2:- يبلغ قرارنا هذا من يلزم لنفاذه .""",
                   style: pw.TextStyle(
                     font: arabicFont,
@@ -171,17 +215,12 @@ class EmpHasmiatReportController extends GetxController {
                     pw.Column(
                       children: [
                         pw.Text(
-                          "رئيس بلدية محافظة تيماء",
+                          """رئيس $name
+                          
+$bossName""",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "المهندس / حسن بن عبدالرحيم الغبان",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 10, lineSpacing: 10),
+                              font: arabicFont, fontSize: 11, lineSpacing: 10),
                         ),
                       ],
                     ),

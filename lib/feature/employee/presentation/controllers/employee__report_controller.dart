@@ -1,14 +1,34 @@
 import 'dart:html' as html;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
+import 'package:personnel_management/feature/tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 
 class EmployeeReportController extends GetxController {
   // عقد عامل
   Future<void> createAkdEmployeeReport() async {
+    String bossName = Get.find<BladiaInfoController>().boss.text;
+    String ma3esha = Get.find<BladiaInfoController>().ma3esha.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+
+    String employeeName = controller.name.text;
+    String employeeNation = controller.nationName.text;
+    String employeeCardId = controller.cardId.text;
+    String employeeJobDate = controller.datJob.text;
+    String employeeJobId = controller.jobNo.text;
+    String employeeJobName = controller.jobName.text;
+    String employeeSalary = controller.salary.text;
+    String employeeNaqlBadal = controller.naqlBadal.text;
+
+    String totalSalary = (double.parse(employeeSalary) +
+            double.parse(employeeNaqlBadal) +
+            double.parse(ma3esha))
+        .toString();
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "عقد عامل");
 
@@ -59,7 +79,7 @@ class EmployeeReportController extends GetxController {
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  'طرف أول : بلدية محافظة تيماء ويمثلها رئيسها المهندس/حسن بن عبدالرحيم الغبان',
+                  'طرف أول : بلدية محافظة تيماء ويمثلها رئيسها $bossName',
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -72,7 +92,7 @@ class EmployeeReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                     pw.Text(
-                      'طرف ثاني :دانش ريس الدين',
+                      'طرف ثاني : $employeeName',
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,
@@ -81,7 +101,7 @@ class EmployeeReportController extends GetxController {
                       ),
                     ),
                     pw.Text(
-                      'الجنسية :هندي',
+                      'الجنسية : $employeeNation',
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,
@@ -90,7 +110,7 @@ class EmployeeReportController extends GetxController {
                       ),
                     ),
                     pw.Text(
-                      'رقم القامة : 192222',
+                      'رقم القامة : $employeeCardId',
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,
@@ -99,7 +119,7 @@ class EmployeeReportController extends GetxController {
                       ),
                     ),
                     pw.Text(
-                      'تاريخه: 1444/2/22',
+                      'تاريخه: ',
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,
@@ -111,21 +131,20 @@ class EmployeeReportController extends GetxController {
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  """تم التفاق على هذا العقد بين الطرفين بالشروط الآتية :
-1:- يباشر الطرف الثاني واجبات الوظيفة المعين عليها عامل نظافة رقم : 0
-اعتبارا من تاريخ 1445/2/22 هـ ويلتزم بما يوجه له الطرف الول من أعمال على أن يكون العمل اليومي 8 سـاعات والعطلة السبوعية يوم
-الجمعة فقط إل إذا رأى الطرف الول غير ذلك .
-2:- يدفع الطرف الول للطرف الثاني راتبا شهريا وقدره : 0.00 ريال
-الراتب مقداره : 0.00 ر . وبدل نقل شهري وقدره : 0.00 ر .وبدل اعاشة 0.00 في نهاية كل شهر هجري .
-3:- عطلة العياد يوم قبل العيد ويوم العيد ويوم بعده فقط ثلثة أيام .
-والجازة السنوية إحدى وعشرون يوما عن كل سنة من تاريخ بداية هذا العقد .
+                  """تم الأتفاق على هذا العقد بين الطرفين بالشروط الآتية :
+1:- يباشر الطرف الثاني واجبات الوظيفة المعين عليها $employeeJobName رقم : $employeeJobId
+اعتبارا من تاريخ $employeeJobDate هـ ويلتزم بما يوجه له الطرف الأول من أعمال على أن يكون العمل اليومي 8 سـاعات والعطلة السبوعية يوم
+الجمعة فقط إلا إذا رأى الطرف الأول غير ذلك .
+2:- يدفع الطرف الأول للطرف الثاني راتبا شهريا وقدره : $totalSalary ريال
+الراتب مقداره : $employeeSalary ريال . وبدل نقل شهري وقدره : $employeeNaqlBadal ريال .وبدل اعاشة $ma3esha في نهاية كل شهر هجري .
+3:- عطلة الأعياد يوم قبل العيد ويوم العيد ويوم بعده فقط ثلاثة أيام .
+والإجازة السنوية إحدى وعشرون يوما عن كل سنة من تاريخ بداية هذا العقد .
 4:- لا يتحمل الطرف الأول تكاليف السفر والإقامة أو تجديدها .
 5:- يتحمل الطرف الأول سكن الطرف الثاني حسب المتاح وإلا فالطرف الثاني يتحمل سكنه .
-6:- يلتزم الطرف الثاني بالعادات والتقاليد المعمول بها في المملكة العربية السعودية ويبتعد عن المشاكل وكل ما يخل بالشرف والمانة وإلا سوف
-يتحمل عواقب الخلل بهذه الفقرة .
-7:- الطرف الول غير ملزم بدفع مبالغ عند نهاية الخدمة .
--:8 يجدد هذا العقد تلقائيا كل سنتين وفي حالة الطرف الثاني في إنهاء عقده يتقدم بطلب رسمي إلى الطرف الول قبل ذلك بثلاثين يوما .
-تم التفاق على هذا العقد بين الطرفين بالشروط الآتية: 
+6:- يلتزم الطرف الثاني بالعادات والتقاليد المعمول بها في المملكة العربية السعودية ويبتعد عن المشاكل وكل ما يخل بالشرف والأمانة وإلا سوف يتحمل عواقب الخلل بهذه الفقرة .
+7:- الطرف الأول غير ملزم بدفع مبالغ عند نهاية الخدمة .
+8:- يجدد هذا العقد تلقائيا كل سنتين وفي حالة الطرف الثاني في إنهاء عقده يتقدم بطلب رسمي إلى الطرف الأول قبل ذلك بثلاثين يوما .
+تم الأتفاق على هذا العقد بين الطرفين بالشروط الآتية: 
 """,
                   style: pw.TextStyle(
                       font: arabicFont, fontSize: 11, lineSpacing: 16),
@@ -166,12 +185,12 @@ class EmployeeReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                     pw.Text(
-                      "دانش ريس الدين",
+                      employeeName,
                       style: pw.TextStyle(
                           font: arabicFont, fontSize: 11, lineSpacing: 16),
                     ),
                     pw.Text(
-                      "المهندس/حسن بن عبدالرحيم الغبان",
+                      bossName,
                       style: pw.TextStyle(
                           font: arabicFont, fontSize: 11, lineSpacing: 16),
                     )
@@ -200,6 +219,21 @@ class EmployeeReportController extends GetxController {
 
   // مكافأة عن الإجازات
   Future<void> createMokafaaHolidayReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+    String employeeJobDate = controller.datJob.text;
+    String employeeName = controller.name.text;
+    String employeeJobName = controller.jobName.text;
+    String employeeSalary = controller.salary.text;
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "مكافأة عن الإجازات");
 
@@ -230,7 +264,7 @@ class EmployeeReportController extends GetxController {
                         """المملكة العربية السعودية
 وزارة الشئون البلدية و القروية
 
-بلدية محافظة تيماء
+$name
 إدارة الموارد البشرية
 """,
                         textAlign: pw.TextAlign.center,
@@ -244,7 +278,7 @@ class EmployeeReportController extends GetxController {
                       pw.SizedBox(width: 50),
                       pw.Text(
                         """بسم الله الرحمن الرحيم
-تاريخ تعينه فى 1444/2/2 هـ
+تاريخ تعينه فى $employeeJobDate هـ
 مسير إفرادى بمقدرا مكافأة العامل أدناه لتعويضه عن الجازات
                         """,
                         textAlign: pw.TextAlign.center,
@@ -309,9 +343,9 @@ class EmployeeReportController extends GetxController {
                         '',
                         '',
                         '',
-                        '',
-                        '',
-                        '',
+                        employeeSalary,
+                        employeeJobName,
+                        employeeName,
                       ],
                     ]),
                 pw.SizedBox(height: 20),
@@ -345,7 +379,7 @@ class EmployeeReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "فهد نايف العنزي",
+                          edara,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -362,7 +396,7 @@ class EmployeeReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "حمدان هجيج العنزي",
+                          modaqeq,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -379,7 +413,7 @@ class EmployeeReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "عبدالله فهد العيادي",
+                          malia,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -412,6 +446,30 @@ class EmployeeReportController extends GetxController {
 
   // بيان خدمة موظف
   Future<void> createBeanKhedmhEmployeeReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+    String employeeName = controller.name.text;
+    String employeeCardNumber = controller.cardNo.text;
+    String employeeCardDate = controller.cardStart.text;
+    String employeeCardPlace = name.split(" ").last;
+    String employeeJobName = controller.jobName.text;
+    String employeeMartba = controller.fia.text;
+    String employeeJobNo = controller.jobNo.text;
+    String employeeSalary = controller.salary.text;
+    String place = "";
+    String khedmaFrom = "";
+    String khedmaTo = "";
+    String numberOfAmr = "";
+    String dateOfAmr = "";
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: 'بيان خدمة موظف');
 
@@ -442,7 +500,7 @@ class EmployeeReportController extends GetxController {
                       pw.Text(
                         """المملكة العربية السعودية
 وزارة الشئون البلدية و القروية
-بلدية محافظة تيماء
+$name
 إدارة الموارد البشرية
 """,
                         textAlign: pw.TextAlign.center,
@@ -455,7 +513,7 @@ class EmployeeReportController extends GetxController {
                       ),
                       pw.SizedBox(width: 100),
                       pw.Text(
-                        "بيان بخدمات الموظف سعد محمد سالم العنزي بطاقة رقم 1200020541 تاريخها 1411/8/19 مصدرها تيماء",
+                        "بيان بخدمات الموظف $employeeName بطاقة رقم $employeeCardNumber تاريخها $employeeCardDate مصدرها $employeeCardPlace",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: arabicFont,
@@ -515,15 +573,15 @@ class EmployeeReportController extends GetxController {
                     data: [
                       [
                         "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
+                        dateOfAmr,
+                        numberOfAmr,
+                        khedmaTo,
+                        khedmaFrom,
+                        place,
+                        employeeSalary,
+                        employeeJobNo,
+                        employeeMartba,
+                        employeeJobName,
                       ]
                     ]),
                 pw.SizedBox(height: 20),
@@ -557,7 +615,7 @@ class EmployeeReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "فهد نايف العنزي",
+                          edara,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -574,7 +632,7 @@ class EmployeeReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "المهندس / حسن بن عبدالرحيم الغبان",
+                          bossName,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 10, lineSpacing: 10),
@@ -606,6 +664,30 @@ class EmployeeReportController extends GetxController {
 
   // شهادة تعريف
   Future<void> createShahadaTarefReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String bossName = bladiaInfoController.boss.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+
+    String employeeName = controller.name.text;
+    String employeeCardId = controller.cardId.text;
+    String employeeJobStartDate = controller.datJob.text;
+    String employeeJobName = controller.jobName.text;
+    String employeeMartba = controller.fia.text;
+    String employeeDraga = controller.draga.text;
+    String employeeHasmTaamenat = "";
+    String employeeHasmTaamenatEjtemaia = "";
+
+    String employeeSalary = controller.salary.text;
+    String employeeNaqlBadal = controller.naqlBadal.text;
+    String employeeNatureWork = "";
+    String employeeDrarAndAdua = "";
+    String employeeTotal = "";
+    String employeeHasmSandokAkary = "";
+    String employeeHasmSandokZera3y = "";
+    String employeeSafee = "";
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "شهادة تعريف");
 
@@ -683,63 +765,53 @@ class EmployeeReportController extends GetxController {
                       2: const pw.FixedColumnWidth(400),
                       3: const pw.FixedColumnWidth(200),
                     },
-                    // headers: [
-                    //   'بدل النقل',
-                    //   'مدة الانتداب',
-                    //   'الراتب',
-                    //   'الدرجة',
-                    //   'المرتبة',
-                    //   'الوظيفة',
-                    //   'رقم السجل المدني',
-                    //   'الاسم',
-                    // ],
                     data: [
                       [
-                        '',
+                        employeeSalary,
                         'الراتب الأساسي:',
-                        '',
+                        employeeName,
                         'اسم الموظف:',
                       ],
                       [
-                        '',
+                        employeeNaqlBadal,
                         'بدل النقل:',
-                        '',
+                        employeeCardId,
                         'رقم السجل:',
                       ],
                       [
-                        '',
+                        employeeNatureWork,
                         'طبيعة العمل:',
-                        '',
+                        employeeJobStartDate,
                         'بداية الخدمة:',
                       ],
                       [
-                        '',
+                        employeeDrarAndAdua,
                         'ضرر وعدوى:',
-                        '',
+                        employeeJobName,
                         'الوظيفة:',
                       ],
                       [
-                        '',
+                        employeeTotal,
                         'الإجمالي:',
-                        '',
+                        employeeMartba,
                         'المرتبة / المستوى:',
                       ],
                       [
-                        '',
+                        employeeHasmSandokAkary,
                         'حسم صندوق التنمية العقاري:',
-                        '',
+                        employeeDraga,
                         'الدرجة:',
                       ],
                       [
-                        '',
+                        employeeHasmSandokZera3y,
                         'حسم صندوق التنمية الزراعية:',
-                        '',
+                        employeeHasmTaamenat,
                         'حسم التأمينات:',
                       ],
                       [
-                        '',
+                        employeeSafee,
                         'الصافي:',
-                        '',
+                        employeeHasmTaamenatEjtemaia,
                         'حسم التنمية الإجتماعية:',
                       ],
                     ]),
@@ -774,24 +846,10 @@ class EmployeeReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
                     pw.Text(
-                      "رئيس بلدية محافظة تيماء            ",
-                      textAlign: pw.TextAlign.start,
-                      style: pw.TextStyle(
-                        font: arabicFont,
-                        fontSize: 13,
-                        lineSpacing: 10,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                pw.SizedBox(height: 10),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Text(
-                      "المهندس / حسن بن عبد الرحيم الغبان",
-                      textAlign: pw.TextAlign.start,
+                      """رئيس بلدية محافظة تيماء
+
+$bossName""",
+                      textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 13,
@@ -825,6 +883,27 @@ class EmployeeReportController extends GetxController {
 
   // مشهد بالراتب
   Future<void> createMashhadRatebReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String edara = bladiaInfoController.partBoss.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+
+    String employeeName = controller.name.text;
+    String employeeJobNumber = controller.jobNo.text;
+    String employeeJobName = controller.jobName.text;
+    String employeeMartba = controller.fia.text;
+    String employeeDraga = controller.draga.text;
+    String employeeNaqlBadal = controller.naqlBadal.text;
+    String employeeHasmTaamenat = "";
+
+    String employeeCardId = controller.cardId.text;
+    String employeeJobStartDate = controller.datJob.text;
+    String employeeSalary = controller.salary.text;
+    String employeeNatureWorkBadal = "";
+    String employeeHasmBank = "";
+    String employeeSafeeSalary = "";
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "مشهد بالراتب");
 
@@ -902,57 +981,47 @@ class EmployeeReportController extends GetxController {
                       2: const pw.FixedColumnWidth(400),
                       3: const pw.FixedColumnWidth(200),
                     },
-                    // headers: [
-                    //   'بدل النقل',
-                    //   'مدة الانتداب',
-                    //   'الراتب',
-                    //   'الدرجة',
-                    //   'المرتبة',
-                    //   'الوظيفة',
-                    //   'رقم السجل المدني',
-                    //   'الاسم',
-                    // ],
                     data: [
                       [
-                        '',
+                        employeeCardId,
                         'رقم السجل المدني:',
-                        '',
+                        employeeName,
                         'الاسم:',
                       ],
                       [
-                        '',
+                        employeeJobStartDate,
                         'تاريخ التعيين:',
-                        '',
+                        employeeJobNumber,
                         'رقم الوظيفة:',
                       ],
                       [
-                        '',
+                        employeeSalary,
                         'الراتب:',
-                        '',
+                        employeeJobName,
                         'الوظيفة:',
                       ],
                       [
-                        '',
+                        employeeNatureWorkBadal,
                         'بدل طبيعة العمل',
-                        '',
+                        employeeMartba,
                         'المرتبة:',
                       ],
                       [
-                        '',
+                        employeeHasmBank,
                         'حسم بنكي:',
-                        '',
+                        employeeDraga,
                         'الدرجة:',
                       ],
                       [
-                        '',
+                        employeeSafeeSalary,
                         'صافي الراتب',
-                        '',
+                        employeeNaqlBadal,
                         'بدل النقل:',
                       ],
                       [
                         '',
                         '',
-                        '',
+                        employeeHasmTaamenat,
                         'التأمينات:',
                       ],
                     ]),
@@ -989,7 +1058,7 @@ class EmployeeReportController extends GetxController {
                   children: [
                     pw.Text(
                       """مدير إدارة الموارد البشرية
-فهد نايف العنزي""",
+$edara""",
                       textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                         font: arabicFont,
@@ -1024,6 +1093,17 @@ class EmployeeReportController extends GetxController {
 
   // كارت تعريفي
   Future<void> createEmployeeCard() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String bossName = bladiaInfoController.boss.text;
+
+    EmployeeController controller = Get.find<EmployeeController>();
+
+    String employeeName = controller.name.text;
+    String employeeCardId = controller.cardId.text;
+    String employeePartName = controller.partName.text;
+    String employeeCardEndDate = "";
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "كارت تعريفي");
 
@@ -1071,13 +1151,13 @@ class EmployeeReportController extends GetxController {
                             ),
                             pw.SizedBox(height: 6),
                             pw.Text(
-                              """اسم الموظف:
+                              """اسم الموظف: $employeeName
 
-رقم الهوية:
+رقم الهوية: $employeeCardId
 
-القسم:
+القسم: $employeePartName
 
-تاريخ انتهاء البطاقة:""",
+تاريخ انتهاء البطاقة: $employeeCardEndDate""",
                               style: pw.TextStyle(
                                 font: arabicFont,
                                 fontSize: 9,

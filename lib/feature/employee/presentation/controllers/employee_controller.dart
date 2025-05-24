@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
+import 'package:personnel_management/feature/tarmeez_nations/data/repository/nations_repository.dart';
+import 'package:personnel_management/feature/tarmeez_parts/data/repository/parts_repository.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/functions/image_picker.dart';
+import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
 import '../../data/model/employee_model.dart';
 import '../../data/repository/employee_repository.dart';
 
 class EmployeeController extends GetxController {
   final EmployeeRepository _repository;
+  final JobsRepository _jobsRepository;
+  final PartsRepository _partsRepository;
+  final NationsRepository _nationsRepository;
 
-  EmployeeController(this._repository);
+  EmployeeController(this._repository, this._jobsRepository,
+      this._partsRepository, this._nationsRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -283,7 +290,13 @@ class EmployeeController extends GetxController {
     );
   }
 
-  void fillControllers(EmployeeModel r) {
+  void fillControllers(EmployeeModel r) async {
+    (await _jobsRepository.findById(id: r.jobNo))
+        .fold((l) => l, (r) => jobName.text = r.name.toString());
+    (await _nationsRepository.findById(id: r.nationId))
+        .fold((l) => l, (r) => nationName.text = r.name.toString());
+    (await _partsRepository.findById(id: r.partId))
+        .fold((l) => l, (r) => partName.text = r.name.toString());
     id.text = r.id.toString();
     fia.text = r.fia.toString();
     draga.text = r.draga.toString();

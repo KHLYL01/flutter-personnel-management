@@ -26,6 +26,19 @@ class NationsRepository {
     }
   }
 
+  Future<Either<Failure, NationsModel>> findById({
+    required int? id,
+  }) async {
+    try {
+      final httpResponse = await _apiService.findNationById(id);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, List<NationsModel>>> findAll() async {
     try {
       final httpResponse = await _apiService.findAllNations();

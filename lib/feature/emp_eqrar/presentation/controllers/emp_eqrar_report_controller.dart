@@ -4,10 +4,26 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/emp_eqrar/presentation/controllers/emp_eqrar_controller.dart';
+
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 
 class EmpEqrarReportController extends GetxController {
   // اقرار موظف
   Future<void> createEqrarReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    EmpEqrarController controller = Get.find<EmpEqrarController>();
+    String eqrarQrarDate = controller.decisionDate.text;
+    String eqrarQrarName = controller.decisionName.text;
+    String eqrarQrarPlace = controller.decisionPlace.text;
+    String eqrarKhetabNumber = controller.letterNumber.text;
+    String eqrarKhetabDate = controller.letterDate.text;
+    String eqrarKhetabName = controller.letterName.text;
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "اقرار موظف");
 
@@ -51,7 +67,7 @@ class EmpEqrarReportController extends GetxController {
                 pw.SizedBox(height: 10),
                 pw.Center(
                   child: pw.Text(
-                    "[إقرار في                                 هـ]",
+                    "[ إقرار في $eqrarQrarDate هـ ]",
                     style: pw.TextStyle(
                       font: arabicFont,
                       fontSize: 14,
@@ -61,8 +77,8 @@ class EmpEqrarReportController extends GetxController {
                   ),
                 ),
                 pw.Text(
-                  """بناء على خطاب رقم
-في                                                هـ  بشأن حضوري                                                لديهم لوجود معاملة تخصني .
+                  """بناء على خطاب  $eqrarKhetabName                                                               رقم $eqrarKhetabNumber 
+في $eqrarKhetabDate        هـ  بشأن حضوري $eqrarQrarPlace                                               لديهم لوجود معاملة تخصني .
 لذا فإنني اقر باطلاعي على الخطاب المذكور حسب خطاب المشار إليه...""",
                   style: pw.TextStyle(
                     font: arabicFont,
@@ -88,8 +104,9 @@ class EmpEqrarReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
                     pw.Text(
-                      """الاسم:                                 
+                      """الاسم: $eqrarQrarName             
 التوقيع:                                 """,
+                      textAlign: pw.TextAlign.start,
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,
@@ -105,7 +122,7 @@ class EmpEqrarReportController extends GetxController {
                   color: PdfColors.black,
                 ),
                 pw.Text(
-                  """                                                                                                                              الموقر
+                  """$eqrarKhetabName                                                                                                            الموقر
 السلم عليكم و رحمة الله و بركاته : -
 إشارة لخطابكم الموضح رقمه و تاريخه أعلاه بخصوص مراجعة الموضح اسمه عليه . نفيدكم انه تم إبلغ المذكور حسب القرار الموضح أعله نأمل بعد الطلع الحاطة ..""",
                   style: pw.TextStyle(
@@ -126,11 +143,15 @@ class EmpEqrarReportController extends GetxController {
                     ),
                   ),
                 ),
+                pw.SizedBox(height: 16),
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
                     pw.Text(
-                      "الرئيس:                                 ",
+                      """الرئيس $name
+                      
+$bossName""",
+                      textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                         font: arabicFont,
                         fontSize: 11,

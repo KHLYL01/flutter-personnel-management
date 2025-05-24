@@ -10,7 +10,7 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
-import '../controllers/emp_takleef__report_controller.dart';
+import '../controllers/emp_takleef_report_controller.dart';
 import '../controllers/emp_takleef_controller.dart';
 
 class UpdateTakleef extends StatelessWidget {

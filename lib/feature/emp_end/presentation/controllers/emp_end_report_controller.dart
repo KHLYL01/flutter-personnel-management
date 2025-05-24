@@ -5,9 +5,43 @@ import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import 'emp_end_controller.dart';
+
 class EmpEndReportController extends GetxController {
   // قرار إنهاء خدمة
   Future<void> createQrarEndReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    EmpEndController controller = Get.find<EmpEndController>();
+
+    String endDate = controller.endDate.text;
+    String mokafaa = controller.salaryFor4Months.value ? "أربعة" : "ستة";
+
+    String empName = controller.empName.text;
+    String cardId = controller.cardId.text;
+    String fia = controller.fia.text;
+    String draga = controller.draga.text;
+    String jobNumber = controller.jobNumber.text;
+    String nqalBadal = controller.nqalBadal.text;
+    String salary = controller.salary.text;
+    String job = controller.job.text;
+
+    List<List<dynamic>> data = [
+      [
+        nqalBadal,
+        salary,
+        jobNumber,
+        fia,
+        job,
+        cardId,
+        empName,
+      ],
+    ];
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "قرار إنهاء خدمة");
 
@@ -98,27 +132,17 @@ class EmpEndReportController extends GetxController {
                     'رقم السجل المدني',
                     'الاسم',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data,
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  """إن رئيس
-بناء على الصلاحيات الممنوحة له نظاما بشأن إحالة الموظف الموضح اسمه و بياناته أعلاه على التقاعد اعتبارا من تاريخ            هـ
+                  """إن رئيس $name
+بناء على الصلاحيات الممنوحة له نظاما بشأن إحالة الموظف الموضح اسمه و بياناته أعلاه على التقاعد اعتبارا من تاريخ $endDate هـ
 استنادا إلى لائحة إنهاء الخدمة المدنية الصادرة بقرار مجلس الخدمة المدنية رقم (813/1) و تاريخ 1423/8/20 هـ و عمل بأحكام نظام الخدمة المدنية و لوائحه التنفيذية تقرر مايلي :
-1:- يحال الموظف الموضح أسمه أعلاه على التقاعد اعتبارا من            هـ
-2:- تعتبر الوظيفة المبينة أعلاه شاغرة من            هـ
+1:- يحال الموظف الموضح أسمه أعلاه على التقاعد اعتبارا من $endDate هـ
+2:- تعتبر الوظيفة المبينة أعلاه شاغرة من $endDate هـ
 3:- يصرف للمذكور تعويض عن إجازته التي لم يستعملها إن وجدت حسب النظام
-4:- يصرف للمذكور ستة شهور نهاية خدمة بناء على المادة رقم (19/27)
+4:- يصرف للمذكور $mokafaa شهور نهاية خدمة بناء على المادة رقم (19/27)
 5:- تعطى الجهات المختصة صورة من هذا القرار
 6:- يبلغ شؤون الموظفين و المالية لنفاذه
 """,
@@ -129,6 +153,16 @@ class EmpEndReportController extends GetxController {
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
+                pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
+                  pw.Text(
+                    """رئيس $name
+                      
+$bossName""",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 11, lineSpacing: 10),
+                  ),
+                ])
               ],
             ),
           );
@@ -152,6 +186,46 @@ class EmpEndReportController extends GetxController {
 
   // مسير إنهاء خدمة
   Future<void> createMoserEndReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    EmpEndController controller = Get.find<EmpEndController>();
+
+    String endDate = controller.endDate.text;
+    String days = controller.days.text;
+    int mokafaa = controller.salaryFor4Months.value ? 4 : 6;
+
+    String employeeName = controller.empName.text;
+    String fia = controller.fia.text;
+    String jobNumber = controller.jobNumber.text;
+    String salary = controller.salary.text;
+    String job = controller.job.text;
+    double egazaPrice = double.parse(days) * double.parse(salary) / 30;
+    double mokafaaPrice = mokafaa * double.parse(salary);
+    double total = egazaPrice + mokafaaPrice;
+    List<List<dynamic>> data = [
+      [
+        "",
+        "",
+        total,
+        mokafaaPrice,
+        egazaPrice,
+        days,
+        salary,
+        jobNumber,
+        fia,
+        job,
+        employeeName,
+        "1",
+      ],
+    ];
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: 'مسير إنهاء خدمة');
 
@@ -182,7 +256,6 @@ class EmpEndReportController extends GetxController {
                       pw.Text(
                         """المملكة العربية السعودية
 وزارة الشئون البلدية و القروية
-
 إدارة الموارد البشرية
 """,
                         textAlign: pw.TextAlign.center,
@@ -273,22 +346,7 @@ class EmpEndReportController extends GetxController {
                     'الاسم',
                     ' م ',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data,
                 ),
 
                 pw.TableHelper.fromTextArray(
@@ -316,7 +374,7 @@ class EmpEndReportController extends GetxController {
                     2: const pw.FixedColumnWidth(200),
                     3: const pw.FixedColumnWidth(2600),
                   },
-                  headers: ['', '', '', 'المجموع:   10000'],
+                  headers: ['', '', total, 'المجموع:'],
                   data: [],
                 ),
                 pw.SizedBox(height: 20),
@@ -350,7 +408,7 @@ class EmpEndReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "فهد نايف العنزي",
+                          edara,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -367,7 +425,7 @@ class EmpEndReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "حمدان هجيج العنزي",
+                          modaqeq,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -384,30 +442,21 @@ class EmpEndReportController extends GetxController {
                         ),
                         pw.SizedBox(height: 20),
                         pw.Text(
-                          "عبدالله فهد العيادي",
+                          malia,
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                               font: arabicFont, fontSize: 8, lineSpacing: 10),
                         ),
                       ],
                     ),
-                    // pw.Column(
-                    //   children: [
-                    //     pw.Text(
-                    //       "رئيس بلدية مجافظة تيماء",
-                    //       textAlign: pw.TextAlign.center,
-                    //       style: pw.TextStyle(
-                    //           font: arabicFont, fontSize: 8, lineSpacing: 10),
-                    //     ),
-                    //     pw.SizedBox(height: 20),
-                    //     pw.Text(
-                    //       "المهندس / حسن بن عبدالرحيم الغبان",
-                    //       textAlign: pw.TextAlign.center,
-                    //       style: pw.TextStyle(
-                    //           font: arabicFont, fontSize: 10, lineSpacing: 10),
-                    //     ),
-                    //   ],
-                    // ),
+                    pw.Text(
+                      """رئيس $name
+                      
+$bossName""",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          font: arabicFont, fontSize: 11, lineSpacing: 10),
+                    ),
                   ],
                 )
               ],
@@ -700,23 +749,23 @@ class EmpEndReportController extends GetxController {
                         ),
                       ],
                     ),
-                    // pw.Column(
-                    //   children: [
-                    //     pw.Text(
-                    //       "رئيس بلدية مجافظة تيماء",
-                    //       textAlign: pw.TextAlign.center,
-                    //       style: pw.TextStyle(
-                    //           font: arabicFont, fontSize: 8, lineSpacing: 10),
-                    //     ),
-                    //     pw.SizedBox(height: 20),
-                    //     pw.Text(
-                    //       "المهندس / حسن بن عبدالرحيم الغبان",
-                    //       textAlign: pw.TextAlign.center,
-                    //       style: pw.TextStyle(
-                    //           font: arabicFont, fontSize: 10, lineSpacing: 10),
-                    //     ),
-                    //   ],
-                    // ),
+                    pw.Column(
+                      children: [
+                        pw.Text(
+                          "رئيس بلدية مجافظة تيماء",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                              font: arabicFont, fontSize: 8, lineSpacing: 10),
+                        ),
+                        pw.SizedBox(height: 20),
+                        pw.Text(
+                          "المهندس / حسن بن عبدالرحيم الغبان",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                              font: arabicFont, fontSize: 10, lineSpacing: 10),
+                        ),
+                      ],
+                    ),
                   ],
                 )
               ],

@@ -29,7 +29,7 @@ import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_co
 import '../../feature/emp_holiday/data/repository/emp_holiday_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_tamdeed_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
-import '../../feature/emp_holiday/presentation/controllers/emp_holiday__report_controller.dart';
+import '../../feature/emp_holiday/presentation/controllers/emp_holiday_report_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
@@ -41,7 +41,9 @@ import '../../feature/emp_mobashra/data/repository/emp_mobashra_repository.dart'
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_report_controller.dart';
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
+import '../../feature/emp_mokhalfat/data/repository/emp_mokhalfat_det_repository.dart';
 import '../../feature/emp_mokhalfat/data/repository/emp_mokhalfat_repository.dart';
+import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_det_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_report_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
@@ -51,7 +53,7 @@ import '../../feature/emp_taeen/presentation/controllers/emp_taeen_report_contro
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
 import '../../feature/emp_takleef/data/repository/emp_takleef_det_repository.dart';
 import '../../feature/emp_takleef/data/repository/emp_takleef_repository.dart';
-import '../../feature/emp_takleef/presentation/controllers/emp_takleef__report_controller.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_report_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
@@ -138,7 +140,7 @@ class DependenceInitializer {
 
     // Employee DI
     Get.lazyPut(() => EmployeeRepository(Get.find()));
-    Get.put(EmployeeController(Get.find()));
+    Get.put(EmployeeController(Get.find(), Get.find(), Get.find(), Get.find()));
     Get.put(EmployeeSearchController(Get.find()));
     Get.put(EmployeeFindController(Get.find()));
     Get.put(EmployeeReportController());
@@ -151,7 +153,7 @@ class DependenceInitializer {
 
     // EmpEnd DI
     Get.lazyPut(() => EmpEndRepository(Get.find()));
-    Get.put(EmpEndController(Get.find()));
+    Get.put(EmpEndController(Get.find(), Get.find(), Get.find()));
     Get.put(EmpEndSearchController(Get.find()));
     Get.put(EmpEndReportController());
 
@@ -159,7 +161,7 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpEntedabRepository(Get.find()));
     Get.put(EmpEntedabController(Get.find()));
     Get.put(EmpEntedabSearchController(Get.find()));
-    Get.put(EmpEntedabReportController());
+    Get.put(EmpEntedabReportController(Get.find(), Get.find()));
 
     Get.lazyPut(() => EmpEntedabDetRepository(Get.find()));
     Get.put(EmpEntedabDetController(Get.find()));
@@ -172,20 +174,21 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpHasmiatDetRepository(Get.find()));
     Get.put(EmpHasmiatDetController(Get.find()));
 
-    Get.put(EmpHasmiatReportController());
+    Get.put(EmpHasmiatReportController(Get.find(), Get.find()));
 
     // EmpHoliday DI
+    Get.lazyPut(() => EmpHolidayTypeRepository(Get.find()));
     Get.lazyPut(() => EmpHolidayRepository(Get.find()));
-    Get.put(EmpHolidayController(Get.find()));
+    Get.put(EmpHolidayController(Get.find(), Get.find()));
     Get.put(EmpHolidaySearchController(Get.find()));
-    Get.put(EmpHolidayReportController(Get.find()));
+    Get.put(EmpHolidayReportController(Get.find(), Get.find()));
 
     Get.lazyPut(() => EmpHolidayTamdeedRepository(Get.find()));
     Get.put(EmpHolidayTamdeedController(Get.find()));
 
     // EmpKashfTepy DI
     Get.lazyPut(() => EmpKashfTepyRepository(Get.find()));
-    Get.put(EmpKashfTepyController(Get.find()));
+    Get.put(EmpKashfTepyController(Get.find(), Get.find()));
     Get.put(EmpKashfTepySearchController(Get.find()));
     Get.put(EmpKashfTepyReportController());
 
@@ -193,14 +196,17 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpMobashraRepository(Get.find()));
     Get.put(EmpMobashraController(Get.find()));
     Get.put(EmpMobashraSearchController(Get.find()));
-    Get.put(EmpMobashraReportController());
+    Get.put(EmpMobashraReportController(Get.find(), Get.find()));
 
     // EmpMokhalfat DI
     Get.lazyPut(() => EmpMokhalfatRepository(Get.find()));
     Get.put(EmpMokhalfatController(Get.find()));
     Get.put(EmpMokhalfatSearchController(Get.find()));
 
-    Get.put(EmpMokhalfatReportController());
+    Get.lazyPut(() => EmpMokhalfatDetRepository(Get.find()));
+    Get.put(EmpMokhalfatDetController(Get.find()));
+
+    Get.put(EmpMokhalfatReportController(Get.find(), Get.find()));
 
     // EmpTakleef DI
     Get.lazyPut(() => EmpTakleefRepository(Get.find()));
@@ -209,19 +215,20 @@ class DependenceInitializer {
 
     Get.lazyPut(() => EmpTakleefDetRepository(Get.find()));
     Get.put(EmpTakleefDetController(Get.find()));
-    Get.put(EmpTakleefReportController());
+    Get.put(EmpTakleefReportController(Get.find(), Get.find()));
 
     // EmpTaeen DI
     Get.lazyPut(() => EmpTaeenRepository(Get.find()));
-    Get.put(EmpTaeenController(Get.find()));
+    Get.put(EmpTaeenController(Get.find(), Get.find(), Get.find(), Get.find()));
     Get.put(EmpTaeenSearchController(Get.find()));
     Get.put(EmpTaeenReportController());
 
     // EmpTarqea DI
     Get.lazyPut(() => EmpTarqeaRepository(Get.find()));
-    Get.put(EmpTarqeaController(Get.find()));
+    Get.put(
+        EmpTarqeaController(Get.find(), Get.find(), Get.find(), Get.find()));
     Get.put(EmpTarqeaSearchController(Get.find()));
-    Get.put(EmpTarqeaReportController());
+    Get.put(EmpTarqeaReportController(Get.find()));
 
     // Passport DI
     Get.lazyPut(() => PassportRepository(Get.find()));
@@ -231,9 +238,9 @@ class DependenceInitializer {
 
     // Tafweed DI
     Get.lazyPut(() => TafweedRepository(Get.find()));
-    Get.put(TafweedController(Get.find()));
+    Get.put(TafweedController(Get.find(), Get.find()));
     Get.put(TafweedSearchController(Get.find()));
-    Get.put(TafweedReportController());
+    Get.put(TafweedReportController(Get.find(), Get.find(), Get.find()));
 
     // EmpEqrar DI
     Get.lazyPut(() => EmpEqrarRepository(Get.find()));

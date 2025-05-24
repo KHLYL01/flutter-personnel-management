@@ -22,6 +22,8 @@ import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_contr
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
+import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
+import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_det_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
 import '../widgets/custom_pop_up_menu_button.dart';
 
@@ -380,6 +382,14 @@ class BaseScreen extends StatelessWidget {
                                 break;
                               case AppRoutes.addMokhalfat:
                                 controller.setPage("المخالفات");
+                                int nextId = await Get.find<
+                                        EmpMokhalfatSearchController>()
+                                    .getId();
+                                Get.find<EmpMokhalfatDetController>()
+                                    .mokhalfaId
+                                    .text = nextId.toString();
+                                Get.find<EmpMokhalfatController>().id.text =
+                                    nextId.toString();
                                 break;
                               case AppRoutes.addHoliday:
                                 controller.setPage("بيانات الإجازات");

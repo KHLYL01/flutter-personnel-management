@@ -1,16 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
+import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../tarmeez_parts/data/repository/parts_repository.dart';
 import '../../data/model/emp_taeen_model.dart';
 import '../../data/repository/emp_taeen_repository.dart';
 import 'emp_taeen_search_controller.dart';
 
 class EmpTaeenController extends GetxController {
   final EmpTaeenRepository _repository;
+  final EmployeeRepository _empRepository;
+  final JobsRepository _jobsRepository;
+  final PartsRepository _partsRepository;
 
-  EmpTaeenController(this._repository);
+  EmpTaeenController(this._repository, this._empRepository,
+      this._jobsRepository, this._partsRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -23,10 +29,10 @@ class EmpTaeenController extends GetxController {
   late final TextEditingController draga = TextEditingController();
   late final TextEditingController salary = TextEditingController();
   late final TextEditingController empPart = TextEditingController();
-  late final TextEditingController empType = TextEditingController();
+  late final TextEditingController jobName = TextEditingController();
   late final TextEditingController mrtaba = TextEditingController();
-  late final TextEditingController naqelBadal = TextEditingController();
-  late final TextEditingController cardId = TextEditingController();
+  late final TextEditingController nqalBadal = TextEditingController();
+  late final TextEditingController jobNumber = TextEditingController();
   late final TextEditingController socialNumber = TextEditingController();
   late final TextEditingController khetabId = TextEditingController();
   late final TextEditingController khetabDate = TextEditingController();
@@ -114,10 +120,10 @@ class EmpTaeenController extends GetxController {
     draga.clear();
     salary.clear();
     empPart.clear();
-    empType.clear();
+    jobName.clear();
     mrtaba.clear();
-    naqelBadal.clear();
-    cardId.clear();
+    nqalBadal.clear();
+    jobNumber.clear();
     socialNumber.clear();
     khetabId.clear();
     khetabDate.clear();
@@ -142,7 +148,7 @@ class EmpTaeenController extends GetxController {
     );
   }
 
-  void fillControllers(EmpTaeenModel r) {
+  void fillControllers(EmpTaeenModel r) async {
     id.text = r.id.toString();
     qrarId.text = r.qrarId.toString();
     qrarDate.text = r.qrarDate.toString();
@@ -156,5 +162,31 @@ class EmpTaeenController extends GetxController {
     mDay(r.mDay);
     state(r.state == 1 ? "متزوج" : 'أعزب');
     gender(r.gender == 1 ? "ذكر" : 'أنثى');
+
+    late int jobId;
+    late int partId;
+
+    (await _empRepository.findById(int.parse(empId.text))).fold(
+      (l) => l,
+      (r) {
+        empName.text = r.name ?? "";
+        jobId = r.jobId ?? 0;
+        partId = r.partId ?? 0;
+        draga.text = (r.draga ?? 0).toString();
+        salary.text = (r.salary ?? 0).toString();
+        mrtaba.text = r.fia ?? "";
+        jobNumber.text = (r.jobNo ?? 0).toString();
+        nqalBadal.text = (r.naqlBadal ?? 0).toString();
+      },
+    );
+
+    (await _jobsRepository.findById(id: jobId)).fold(
+      (l) => l,
+      (r) => jobName.text = r.name ?? "",
+    );
+    (await _partsRepository.findById(id: partId)).fold(
+      (l) => l,
+      (r) => empPart.text = r.name ?? "",
+    );
   }
 }

@@ -13,6 +13,7 @@ import '../../feature/emp_holiday/data/model/emp_holiday_tamdeed_model.dart';
 import '../../feature/emp_holiday/data/model/emp_holiday_type_model.dart';
 import '../../feature/emp_kashf_tepy/data/model/emp_kashf_tepy_model.dart';
 import '../../feature/emp_mobashra/data/model/emp_mobashra_model.dart';
+import '../../feature/emp_mokhalfat/data/model/emp_mokhalfat_det_model.dart';
 import '../../feature/emp_mokhalfat/data/model/emp_mokhalfat_model.dart';
 import '../../feature/emp_taeen/data/model/emp_taeen_model.dart';
 import '../../feature/emp_takleef/data/model/emp_takleef_det_model.dart';
@@ -60,6 +61,11 @@ abstract class ApiService {
     @Query("name") String? name,
   );
 
+  @GET("$nations/{id}")
+  Future<HttpResponse<NationsModel>> findNationById(
+    @Path("id") int? id,
+  );
+
   @POST(nations)
   Future<HttpResponse<NationsModel>> saveNations(
       @Body(nullToAbsent: true) NationsModel model);
@@ -83,6 +89,11 @@ abstract class ApiService {
     @Query("name") String? name,
   );
 
+  @GET("$parts/{id}")
+  Future<HttpResponse<PartsModel>> findPartById(
+    @Path("id") int? id,
+  );
+
   @POST(parts)
   Future<HttpResponse<PartsModel>> saveParts(
       @Body(nullToAbsent: true) PartsModel model);
@@ -104,6 +115,11 @@ abstract class ApiService {
   Future<HttpResponse<List<JobsModel>>> findJobs(
     @Query("id") int? id,
     @Query("name") String? name,
+  );
+
+  @GET("$jobs/{id}")
+  Future<HttpResponse<JobsModel>> findJobById(
+    @Path("id") int? id,
   );
 
   @POST(jobs)
@@ -459,6 +475,24 @@ abstract class ApiService {
   @DELETE("$empMokhalfat/{id}")
   Future<HttpResponse<void>> deleteEmpMokhalfat(@Path("id") int id);
 
+  ///
+  /// Mokhalfat Det
+  ///
+
+  @GET("$empMokhalfat/det/nextId")
+  Future<HttpResponse<int>> getNextMokhalfatDetId();
+
+  @GET("$empMokhalfat/{id}/det")
+  Future<HttpResponse<List<EmpMokhalfatDetModel>>> findEmpMokhalfatDetById(
+      @Path("id") int id);
+
+  @POST("$empMokhalfat/det")
+  Future<HttpResponse<void>> saveEmpMokhalfatDet(
+      @Body(nullToAbsent: true) EmpMokhalfatDetModel model);
+
+  @DELETE("$empMokhalfat/det/{id}")
+  Future<HttpResponse<void>> deleteEmpMokhalfatDet(@Path("id") int id);
+
   //*
   //* Emp Takleef api
   //*
@@ -655,6 +689,10 @@ abstract class ApiService {
   //*
   @GET(empHolidayType)
   Future<HttpResponse<List<EmpHolidayTypeModel>>> findAllEmpHolidayType();
+
+  @GET("$empHolidayType/{id}")
+  Future<HttpResponse<EmpHolidayTypeModel>> findEmpHolidayTypeById(
+      @Path("id") int id);
 
   @POST(empHolidayType)
   Future<HttpResponse<EmpHolidayTypeModel>> saveEmpHolidayType(

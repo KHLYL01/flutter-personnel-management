@@ -5,9 +5,77 @@ import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../employee/data/repository/employee_repository.dart';
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import 'emp_tarqea_controller.dart';
+
 class EmpTarqeaReportController extends GetxController {
+  final EmployeeRepository _empRepository;
+
+  EmpTarqeaReportController(this._empRepository);
+
   // قرار ترقية
   Future<void> createQrarTarqeaReport(bool withWorkPercentage) async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String amana = bladiaInfoController.amana.text;
+
+    EmpTarqeaController controller = Get.find<EmpTarqeaController>();
+    String tarqeaQrarNumber = controller.qrarId.text;
+    String tarqeaQrarDate = controller.qrarDate.text;
+    String tarqeaKhetabNumber = controller.khetabId.text;
+    String tarqeaKhetabDate = controller.khetabDate.text;
+    String tarqeaMosadakaNumber = controller.mosadakaId.text;
+    String tarqeaMosadakaDate = controller.mosadakaDate.text;
+    String tarqeaMahdarNumber = controller.mahdarId.text;
+    String tarqeaMahdarDate = controller.mahdarDate.text;
+    String tarqeaPercent = controller.percent.text;
+
+    String employeeName = controller.empName.text;
+
+    String oldJobName = controller.oldJobName.text;
+    String oldFia = controller.oldFia.text;
+    String oldNo = controller.oldNo.text;
+    String oldSalary = controller.oldSalary.text;
+    String oldJobBadalat = controller.oldJobBadalat.text;
+    String oldPartName = controller.oldPartName.text;
+
+    String newJobName = controller.newJobName.text;
+    String newFia = controller.newFia.text;
+    String newNo = controller.newNo.text;
+    String newSalary = controller.newSalary.text;
+    String newJobBadalat = controller.newJobBadalat.text;
+    String newPartName = controller.newPartName.text;
+
+    late String cardId;
+
+    (await _empRepository.findById(int.parse(controller.empId.text)))
+        .fold((l) => l, (r) => cardId = r.cardId ?? '');
+
+    List<List<dynamic>> data1 = [
+      [
+        oldPartName,
+        oldJobBadalat,
+        oldSalary,
+        oldNo,
+        oldFia,
+        oldJobName,
+      ],
+    ];
+
+    List<List<dynamic>> data2 = [
+      [
+        newPartName,
+        newJobBadalat,
+        newSalary,
+        newNo,
+        newFia,
+        newJobName,
+      ],
+    ];
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(
         title: withWorkPercentage
@@ -66,7 +134,7 @@ class EmpTarqeaReportController extends GetxController {
 
                 pw.Center(
                   child: pw.Text(
-                    "قرار رقم                     و تاريخ 1437/8/16 هـ",
+                    "قرار رقم  $tarqeaQrarNumber و تاريخ $tarqeaQrarDate هـ",
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                       font: arabicFont,
@@ -79,8 +147,8 @@ class EmpTarqeaReportController extends GetxController {
                 pw.SizedBox(height: 10),
 
                 pw.Text(
-                  """إن رئيس بلدية محافظة تيماء :-
-بناء على الصلحيات المخولة له بموجب القرار الداري رقم 2314 تاريخ 1426/3/15 و بناء على خطاب سعادة مدير عام الشئون الدارية و المالية بأمانة منطقة الجوف رقم                     و تاريخ 1437/8/16 هـ المبني على مصادقة مدير إدارة الترقيات و النقل المدنية رقم                     و تاريخ 1437/8/16 هـ  المتضمن المصادقة على محضر الترقيات رقم                     و تاريخ 1437/8/16 هـ
+                  """إن رئيس $name :-
+بناء على الصلحيات المخولة له بموجب القرار الداري رقم 2314 تاريخ 1426/3/15 و بناء على خطاب سعادة مدير عام الشئون الدارية و المالية بأمانة $amana رقم $tarqeaKhetabNumber و تاريخ $tarqeaKhetabDate هـ المبني على مصادقة مدير إدارة الترقيات و النقل المدنية رقم $tarqeaMosadakaNumber و تاريخ $tarqeaMosadakaDate هـ  المتضمن المصادقة على محضر الترقيات رقم $tarqeaMahdarNumber و تاريخ $tarqeaMahdarDate هـ
 بشأن ترقية الموظف الموضح اسمه أدناه و بناء على لائحة الترقيات بنظام الخدمة المدنية و تنفيذ المادة /18ب من النظام المتعلقة بالعلاوة الضافية و المادة 17/27 التي تشير لبدل طبيعة عليه يقرر ما يلي: """,
                   style: pw.TextStyle(
                     font: arabicFont,
@@ -91,7 +159,7 @@ class EmpTarqeaReportController extends GetxController {
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  "(1) ترقية  عبد المجيد محمد منصور   برقم بطاقة  121654672  وفقاً للبيانات الموضحة",
+                  "(1) ترقية  $employeeName   برقم بطاقة  $cardId  وفقاً للبيانات الموضحة",
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -146,16 +214,7 @@ class EmpTarqeaReportController extends GetxController {
                     'المرتبة',
                     'مسمى الوظيفة',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data1,
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
@@ -204,22 +263,13 @@ class EmpTarqeaReportController extends GetxController {
                     'المرتبة',
                     'مسمى الوظيفة',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data2,
                 ),
                 pw.SizedBox(height: 10),
                 withWorkPercentage
                     ? pw.Text(
                         """(2) منحه العلاوة الإضافية المنصوص عليها بالمادة /18ب من نظام الخدمة المدنية.
-(3) يمنح المذكور بدل طبيعة عمل 0 % من أول مربوط 38 مبلغ و 0 ريال.
+(3) يمنح المذكور بدل طبيعة عمل $tarqeaPercent % من أول مربوط 38 مبلغ و 0 ريال.
 (4) تكون ترقية المذكور من تاريخ مباشرته عمل الوظيفة المرقى عليها بعد صدور هذا القرار.
 (5) يبلغ هذا القرار للجهات المختصة و على شؤون الموظفين إنفاذه بموجب النظام .""",
                         style: pw.TextStyle(
@@ -257,22 +307,13 @@ class EmpTarqeaReportController extends GetxController {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "رئيس بلدية محافظة تيماء",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "المهندس / حسن بن عبدالرحيم الغبان",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 10, lineSpacing: 10),
-                        ),
-                      ],
+                    pw.Text(
+                      """رئيس $name
+                      
+$bossName""",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          font: arabicFont, fontSize: 11, lineSpacing: 10),
                     ),
                   ],
                 )
@@ -299,6 +340,44 @@ class EmpTarqeaReportController extends GetxController {
 
   // قرار مباشرة
   Future<void> createQrarMobashraReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    EmpTarqeaController controller = Get.find<EmpTarqeaController>();
+    String tarqeaQrarNumber = controller.qrarId.text;
+    String tarqeaQrarDate = controller.qrarDate.text;
+    String partBoss = controller.newPartName.text;
+    String partBossKhetabNumber = controller.mKhetabId.text;
+    String partBossKhetabDate = controller.mKhetabDate.text;
+    String mobashraDay = controller.mobasharaDay.value;
+    String mobashraDate = controller.mobasharaDate.text;
+
+    String employeeName = controller.empName.text;
+    String newJobName = controller.newJobName.text;
+    String newFia = controller.newFia.text;
+    String newNo = controller.newNo.text;
+    String newSalary = controller.newSalary.text;
+    String newNaqlBadal = controller.newNaqlBadal.text;
+
+    late String cardId;
+
+    (await _empRepository.findById(int.parse(controller.empId.text)))
+        .fold((l) => l, (r) => cardId = r.cardId ?? '');
+
+    List<List<dynamic>> data = [
+      [
+        newNaqlBadal,
+        newSalary,
+        newNo,
+        newFia,
+        newJobName,
+        cardId,
+        employeeName,
+      ],
+    ];
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "قرار مباشرة");
 
@@ -389,23 +468,13 @@ class EmpTarqeaReportController extends GetxController {
                     'رقم السجل المدني',
                     'الاسم',
                   ],
-                  data: [
-                    [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                  ],
+                  data: data,
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   """المكرم مدير الموارد البشرية                                                 المحترم
 السلام عليكم ورحمة الله و بركاته ,
-إلحاقا لقرارنا الإداري رقم / و تاريخ 14 / 9 / 1436هـ هـ القاضي بترقية الموضح اسمه و بياناته أعلاه على الوظيفة المحاذية لسمه و بناء على ما رفعه لنا رئيس قسم الحركة والصيانة في خطابه 1663 و بتاريخ 14 / 9 / 1436هـ والذي أفاد فيه عن مباشرة المذكور عمله لدى القسم اعتبارا من يوم السبت الموافق 14 / 9 / 1436هـ
+إلحاقا لقرارنا الإداري رقم $tarqeaQrarNumber و تاريخ $tarqeaQrarDate  هـ القاضي بترقية الموضح اسمه و بياناته أعلاه على الوظيفة المحاذية لاسمه و بناء على ما رفعه لنا رئيس قسم $partBoss في خطابه $partBossKhetabNumber و بتاريخ $partBossKhetabDate هـ والذي أفاد فيه عن مباشرة المذكور عمله لدى القسم اعتبارا من يوم $mobashraDay الموافق $mobashraDate هـ
 
 لذا اعتمدوا التأشير  بذلك و تزويد الجهات المختصة بصورة منه .
 والسلام عليكم ورحمة الله وبركاته ,""",
@@ -420,22 +489,13 @@ class EmpTarqeaReportController extends GetxController {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "رئيس بلدية محافظة تيماء",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "المهندس / حسن بن عبدالرحيم الغبان",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 10, lineSpacing: 10),
-                        ),
-                      ],
+                    pw.Text(
+                      """رئيس $name
+                      
+$bossName""",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          font: arabicFont, fontSize: 11, lineSpacing: 10),
                     ),
                   ],
                 )

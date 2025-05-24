@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
+import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
+import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
+import 'package:personnel_management/feature/tarmeez_parts/data/repository/parts_repository.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -10,8 +13,12 @@ import 'emp_tarqea_search_controller.dart';
 
 class EmpTarqeaController extends GetxController {
   final EmpTarqeaRepository _repository;
+  final EmployeeRepository _empRepository;
+  final JobsRepository _jobsRepository;
+  final PartsRepository _partsRepository;
 
-  EmpTarqeaController(this._repository);
+  EmpTarqeaController(this._repository, this._jobsRepository,
+      this._partsRepository, this._empRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -194,7 +201,7 @@ class EmpTarqeaController extends GetxController {
     );
   }
 
-  void fillControllers(EmpTarqeaModel r) {
+  void fillControllers(EmpTarqeaModel r) async {
     id.text = r.id.toString();
     qrarId.text = r.qrarId.toString();
     qrarDate.text = r.qrarDate.toString();
@@ -227,5 +234,18 @@ class EmpTarqeaController extends GetxController {
     mKhetabDate.text = r.mKhetabDate.toString();
     percent.text = "0";
     mobasharaDay(r.mobasharaDay);
+
+    (await _empRepository.findById(int.parse(empId.text)))
+        .fold((l) => l, (r) => empName.text = r.name ?? "");
+
+    (await _jobsRepository.findById(id: int.parse(oldJobId.text)))
+        .fold((l) => l, (r) => oldJobName.text = r.name ?? "");
+    (await _jobsRepository.findById(id: int.parse(newJobId.text)))
+        .fold((l) => l, (r) => newJobName.text = r.name ?? "");
+
+    (await _partsRepository.findById(id: int.parse(oldPartId.text)))
+        .fold((l) => l, (r) => oldPartName.text = r.name ?? "");
+    (await _partsRepository.findById(id: int.parse(newPartId.text)))
+        .fold((l) => l, (r) => newPartName.text = r.name ?? "");
   }
 }

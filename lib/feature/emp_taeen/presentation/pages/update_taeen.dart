@@ -112,9 +112,9 @@ class UpdateTaeen extends StatelessWidget {
                                 cells['draga']!.value.toString();
                             controller.mrtaba.text =
                                 cells['fia']!.value.toString();
-                            controller.naqelBadal.text =
+                            controller.nqalBadal.text =
                                 cells['naqlBadal']!.value.toString();
-                            controller.empType.text =
+                            controller.jobName.text =
                                 cells['empType']!.value.toString();
                             Get.back();
                           },
@@ -154,7 +154,7 @@ class UpdateTaeen extends StatelessWidget {
                   ),
                   CustomTextField(
                     enabled: false,
-                    controller: controller.cardId,
+                    controller: controller.jobNumber,
                     label: 'الرقم',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
@@ -172,7 +172,7 @@ class UpdateTaeen extends StatelessWidget {
                 children: [
                   CustomTextField(
                     enabled: false,
-                    controller: controller.empType,
+                    controller: controller.jobName,
                     label: 'الوظيفة',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
@@ -186,7 +186,7 @@ class UpdateTaeen extends StatelessWidget {
                   ),
                   CustomTextField(
                     enabled: false,
-                    controller: controller.naqelBadal,
+                    controller: controller.nqalBadal,
                     label: 'النقل',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,

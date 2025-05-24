@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
+import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
+import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -9,8 +11,10 @@ import '../../data/repository/emp_end_repository.dart';
 
 class EmpEndController extends GetxController {
   final EmpEndRepository _repository;
+  final EmployeeRepository _empRepository;
+  final JobsRepository _jobsRepository;
 
-  EmpEndController(this._repository);
+  EmpEndController(this._repository, this._empRepository, this._jobsRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -22,8 +26,8 @@ class EmpEndController extends GetxController {
   final TextEditingController empName = TextEditingController();
   final TextEditingController draga = TextEditingController();
   final TextEditingController salary = TextEditingController();
-  final TextEditingController statusCardNumber = TextEditingController();
   final TextEditingController job = TextEditingController();
+  final TextEditingController jobNumber = TextEditingController();
   final TextEditingController fia = TextEditingController();
   final TextEditingController cardId = TextEditingController();
   final TextEditingController empType = TextEditingController();
@@ -31,6 +35,8 @@ class EmpEndController extends GetxController {
   final TextEditingController days = TextEditingController();
   final TextEditingController birthDate = TextEditingController();
   final TextEditingController age = TextEditingController(text: 0.toString());
+
+  final TextEditingController nqalBadal = TextEditingController();
 
   var isPicture = false.obs;
   var salaryFor4Months = false.obs;
@@ -114,10 +120,9 @@ class EmpEndController extends GetxController {
     empName.clear();
     draga.clear();
     salary.clear();
-    statusCardNumber.clear();
+    cardId.clear();
     job.clear();
     fia.clear();
-    cardId.clear();
     empType.clear();
     endDate.clear();
     days.clear();
@@ -141,19 +146,11 @@ class EmpEndController extends GetxController {
     );
   }
 
-  void fillControllers(EmpEndModel r) {
+  void fillControllers(EmpEndModel r) async {
     id.text = r.id.toString();
     decisionNumber.text = r.qrarId.toString();
     decisionDate.text = r.qrarDate.toString();
     empId.text = r.empId.toString();
-    // empName.text = r.toString();
-    // draga.text = r.toString();
-    // salary.text = r.toString();
-    // statusCardNumber.text = r.toString();
-    // job.text = r.toString();
-    // fia.text = r.toString();
-    // cardId.text = r.toString();
-    // empType.text = r.toString();
     endDate.text = r.endDate.toString();
     days.text = r.days.toString();
     birthDate.text = r.birthDate.toString();
@@ -165,5 +162,27 @@ class EmpEndController extends GetxController {
             : "تقاعد الوفاه");
     salaryFor4Months(r.reward == 1);
     salaryFor6Months(r.reward1 == 1);
+
+    late int jobId;
+
+    (await _empRepository.findById(int.parse(empId.text))).fold(
+      (l) => l,
+      (r) {
+        empName.text = r.name ?? "";
+        jobId = r.jobId ?? 0;
+        cardId.text = r.cardId ?? "";
+        draga.text = (r.draga ?? 0).toString();
+        salary.text = (r.salary ?? 0).toString();
+        fia.text = r.fia ?? "";
+        empType.text = r.empType ?? "";
+        jobNumber.text = (r.jobNo ?? 0).toString();
+        nqalBadal.text = (r.naqlBadal ?? 0).toString();
+      },
+    );
+
+    (await _jobsRepository.findById(id: jobId)).fold(
+      (l) => l,
+      (r) => job.text = r.name ?? "",
+    );
   }
 }

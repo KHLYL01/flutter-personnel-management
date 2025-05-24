@@ -6,12 +6,14 @@ import 'package:personnel_management/feature/emp_mokhalfat/presentation/controll
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../../../employee/presentation/controllers/employee_find_controller.dart';
+import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_mokhalfat_det_controller.dart';
 import '../controllers/emp_mokhalfat_report_controller.dart';
 
 class UpdateMokhalfat extends StatelessWidget {
@@ -20,6 +22,7 @@ class UpdateMokhalfat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMokhalfatController>();
+    final controllerDet = Get.find<EmpMokhalfatDetController>();
     final controllerReport = Get.find<EmpMokhalfatReportController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
@@ -98,9 +101,171 @@ class UpdateMokhalfat extends StatelessWidget {
                   ),
                   CustomButton(
                     text: "إضافة موظف",
-                    onPressed: () {},
+                    onPressed: () {
+                      controllerDet.clearControllers();
+                      Get.dialog(
+                        Dialog(
+                          child: SizedBox(
+                            width: 900,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "المسلسل",
+                                      controller: controllerDet.maxId,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "مسلسل المخالفة",
+                                      controller: controllerDet.mokhalfaId,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomTextField(
+                                      label: "الجزاء",
+                                      controller: controllerDet.gza,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "الموظف",
+                                      controller: controllerDet.empId,
+                                      customHeight: 25,
+                                      customWidth: 100,
+                                    ),
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "",
+                                      controller: controllerDet.empName,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomButton(
+                                      text: "اختر",
+                                      onPressed: () {
+                                        Get.find<EmployeeFindController>()
+                                            .clearControllers();
+                                        Get.dialog(
+                                          EmployeesFind(
+                                            onRowDoubleTap: (event) {
+                                              Map<String, PlutoCell> cells =
+                                                  event.row.cells;
+                                              controllerDet.empId.text =
+                                                  cells['id']!.value.toString();
+                                              controllerDet.empName.text =
+                                                  cells['name']!
+                                                      .value
+                                                      .toString();
+                                              controllerDet.salary.text =
+                                                  cells['salary']!
+                                                      .value
+                                                      .toString();
+                                              controllerDet.naqlBadal.text =
+                                                  cells['naqlBadal']!
+                                                      .value
+                                                      .toString();
+                                              controllerDet.fia.text =
+                                                  cells['fia']!
+                                                      .value
+                                                      .toString();
+                                              controllerDet.draga.text =
+                                                  cells['draga']!
+                                                      .value
+                                                      .toString();
+                                              Get.back();
+                                            },
+                                          ),
+                                        );
+                                        Get.find<EmployeeFindController>()
+                                            .findEmployee();
+                                      },
+                                      height: 35,
+                                      width: 50,
+                                    ).paddingOnly(top: 20),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "الدرجة",
+                                      controller: controllerDet.draga,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "المرتبة",
+                                      controller: controllerDet.fia,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "الراتب",
+                                      controller: controllerDet.salary,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                    CustomTextField(
+                                      enabled: false,
+                                      label: "بدل النقل",
+                                      controller: controllerDet.naqlBadal,
+                                      customHeight: 25,
+                                      customWidth: 200,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CustomButton(
+                                      text: "إضافة",
+                                      onPressed: () {
+                                        controllerDet.beforeSaveDet();
+                                      },
+                                      height: 35,
+                                      width: 100,
+                                    ),
+                                    CustomButton(
+                                      text: "عودة",
+                                      onPressed: () => Get.back(),
+                                      height: 35,
+                                      width: 100,
+                                    ),
+                                  ],
+                                ).center()
+                              ],
+                            ).paddingAll(16),
+                          ),
+                        ),
+                      );
+                    },
                     height: 35,
-                    width: 150,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "حذف موظف",
+                    onPressed: () =>
+                        controllerDet.confirmDelete(withGoBack: true),
+                    height: 35,
+                    width: 120,
                   ),
                   CustomButton(
                     text: "تعديل",
@@ -128,43 +293,72 @@ class UpdateMokhalfat extends StatelessWidget {
               SizedBox(
                 height: currentHeight / 1.5,
                 width: currentWidth - 140,
-                child: PlutoGrid(
-                  configuration: getPlutoConfig(),
-                  rows: [],
-                  columns: [
-                    PlutoColumn(
-                      title: 'الاسم',
-                      field: 'name',
-                      type: PlutoColumnType.text(),
-                    ),
-                    PlutoColumn(
-                      title: 'الراتب',
-                      field: 'salary',
-                      type: PlutoColumnType.text(),
-                    ),
-                    PlutoColumn(
-                      title: 'بدل النقل',
-                      field: 'badal_naqel',
-                      type: PlutoColumnType.text(),
-                    ),
-                    PlutoColumn(
-                      title: 'الدرجة',
-                      field: 'degree',
-                      type: PlutoColumnType.text(),
-                    ),
-                    PlutoColumn(
-                      title: 'المرتبة',
-                      field: 'rank',
-                      type: PlutoColumnType.text(),
-                    ),
-                    PlutoColumn(
-                      title: 'الجزاء',
-                      field: '',
-                      type: PlutoColumnType.text(),
-                    ),
-                  ],
-                  mode: PlutoGridMode.selectWithOneTap,
-                  onSelected: (event) {},
+                child: Obx(
+                  () {
+                    if (controllerDet.isLoading.value) {
+                      return const CustomProgressIndicator();
+                    }
+                    return PlutoGrid(
+                      configuration: getPlutoConfig(),
+                      rows: controllerDet.mokhalfatDets
+                          .map(
+                            (item) => PlutoRow(
+                              cells: {
+                                "id": PlutoCell(value: item.id),
+                                "empName": PlutoCell(value: item.empName),
+                                "salary": PlutoCell(value: item.salary),
+                                "draga": PlutoCell(value: item.draga),
+                                "fia": PlutoCell(value: item.fia),
+                                "naqlBadal": PlutoCell(value: item.naqlBadal),
+                                "gza": PlutoCell(value: item.gza),
+                              },
+                            ),
+                          )
+                          .toList(),
+                      columns: [
+                        PlutoColumn(
+                            title: 'الرمز',
+                            field: 'id',
+                            type: PlutoColumnType.text(),
+                            hide: true),
+                        PlutoColumn(
+                          title: 'الاسم',
+                          field: 'empName',
+                          type: PlutoColumnType.text(),
+                        ),
+                        PlutoColumn(
+                          title: 'الراتب',
+                          field: 'salary',
+                          type: PlutoColumnType.text(),
+                        ),
+                        PlutoColumn(
+                          title: 'بدل النقل',
+                          field: 'naqlBadal',
+                          type: PlutoColumnType.text(),
+                        ),
+                        PlutoColumn(
+                          title: 'الدرجة',
+                          field: 'draga',
+                          type: PlutoColumnType.text(),
+                        ),
+                        PlutoColumn(
+                          title: 'المرتبة',
+                          field: 'fia',
+                          type: PlutoColumnType.text(),
+                        ),
+                        PlutoColumn(
+                          title: 'الجزاء',
+                          field: 'gza',
+                          type: PlutoColumnType.text(),
+                        ),
+                      ],
+                      mode: PlutoGridMode.selectWithOneTap,
+                      onSelected: (event) {
+                        controllerDet.selectedDetId =
+                            event.row!.cells['id']!.value;
+                      },
+                    );
+                  },
                 ),
               ).paddingAll(15),
             ],

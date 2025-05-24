@@ -1,52 +1,47 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
-import '../../data/model/emp_entedab_det_model.dart';
-import '../../data/repository/emp_entedab_det_repository.dart';
+import '../../data/model/emp_mokhalfat_det_model.dart';
+import '../../data/repository/emp_mokhalfat_det_repository.dart';
+import 'emp_mokhalfat_controller.dart';
+import 'emp_mokhalfat_search_controller.dart';
 
-class EmpEntedabDetController extends GetxController {
-  final EmpEntedabDetRepository _repository;
+class EmpMokhalfatDetController extends GetxController {
+  final EmpMokhalfatDetRepository _repository;
 
-  EmpEntedabDetController(this._repository);
+  EmpMokhalfatDetController(this._repository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpEntedabDetModel> entedabDets = RxList([]);
+  RxList<EmpMokhalfatDetModel> mokhalfatDets = RxList([]);
 
   final TextEditingController maxId = TextEditingController();
-  final TextEditingController entedabId = TextEditingController();
+  final TextEditingController mokhalfaId = TextEditingController();
   final TextEditingController empId = TextEditingController();
   final TextEditingController empName = TextEditingController();
-  final TextEditingController fia = TextEditingController();
+  final TextEditingController gza = TextEditingController(text: "0");
   final TextEditingController salary = TextEditingController(text: "0");
+  final TextEditingController fia = TextEditingController(text: "0");
   final TextEditingController draga = TextEditingController(text: "0");
   final TextEditingController naqlBadal = TextEditingController(text: "0");
-  final TextEditingController entedabBadal = TextEditingController(text: "0");
-  final TextEditingController prev = TextEditingController(text: "0");
-  final TextEditingController externalEntedab =
-      TextEditingController(text: "0");
 
   int selectedDetId = 0;
 
-  Future<void> getEntedabDetNextId() async {
+  Future<void> getMokhalfatDetNextId() async {
     messageError('');
     final data = await _repository.getNextId();
     data.fold(
         (l) => messageError(l.eerMessage), (r) => maxId.text = r.toString());
   }
 
-  Future<void> getEntedabDetByEntedabId(int entedabId) async {
+  Future<void> getMokhalfatDetByMokhalfatId(int mokhalfaId) async {
     isLoading(true);
     messageError('');
-    this.entedabId.text = entedabId.toString();
-    final data = await _repository.findEmpEntedabDetById(entedabId);
-    data.fold((l) => messageError(l.eerMessage), (r) {
-      return entedabDets(r);
-    });
+    this.mokhalfaId.text = mokhalfaId.toString();
+    final data = await _repository.findEmpMokhalfatDetById(mokhalfaId);
+    data.fold((l) => messageError(l.eerMessage), (r) => mokhalfatDets(r));
     isLoading(false);
   }
 
@@ -54,19 +49,18 @@ class EmpEntedabDetController extends GetxController {
     isLoading(true);
     messageError("");
     final data = await _repository.save(
-      EmpEntedabDetModel(
+      EmpMokhalfatDetModel(
         maxId: int.parse(maxId.text),
-        entedabId: int.parse(entedabId.text),
+        mokhalfaId: int.parse(mokhalfaId.text),
         empId: int.parse(empId.text),
-        prev: int.parse(prev.text),
-        externalEntedab: double.parse(externalEntedab.text),
+        gza: double.parse(gza.text),
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getEntedabDetByEntedabId(int.parse(entedabId.text));
-      getEntedabDetNextId();
+      getMokhalfatDetByMokhalfatId(int.parse(mokhalfaId.text));
+      getMokhalfatDetNextId();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -87,7 +81,7 @@ class EmpEntedabDetController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getEntedabDetByEntedabId(int.parse(entedabId.text));
+      getMokhalfatDetByMokhalfatId(int.parse(mokhalfaId.text));
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -110,22 +104,20 @@ class EmpEntedabDetController extends GetxController {
     );
   }
 
-  void clearControllers() async {
-    await getEntedabDetNextId();
+  clearControllers() async {
+    await getMokhalfatDetNextId();
     empId.clear();
     empName.clear();
-    fia.clear();
     salary.text = "0";
-    draga.text = "0";
     naqlBadal.text = "0";
-    entedabBadal.text = "0";
-    prev.text = "0";
-    externalEntedab.text = "0";
+    draga.text = "0";
+    fia.text = "0";
+    gza.text = "0";
   }
 
   void resetSelectedRow() {
     selectedDetId = 0;
   }
 
-  // void fillControllers(EmpEntedabDetResponseModel r) {}
+  // void fillControllers(EmpMokhalfatDetResponseModel r) {}
 }

@@ -26,6 +26,8 @@ Bladia _$BladiaFromJson(Map<String, dynamic> json) => Bladia(
       id: (json['id'] as num?)?.toInt(),
       nameAr: json['nameAr'] as String?,
       boss: json['boss'] as String?,
+      bossAssistant: json['bossAssistant'] as String?,
+      amana: json['amana'] as String?,
       ipan: json['ipan'] as String?,
       datBegin: json['datBegin'] as String?,
       datEnd: json['datEnd'] as String?,
@@ -35,6 +37,8 @@ Map<String, dynamic> _$BladiaToJson(Bladia instance) => <String, dynamic>{
       'id': instance.id,
       'nameAr': instance.nameAr,
       'boss': instance.boss,
+      'bossAssistant': instance.bossAssistant,
+      'amana': instance.amana,
       'ipan': instance.ipan,
       'datBegin': instance.datBegin,
       'datEnd': instance.datEnd,
@@ -48,6 +52,7 @@ EmpPartInfo _$EmpPartInfoFromJson(Map<String, dynamic> json) => EmpPartInfo(
       emp: json['emp'] as String?,
       empHelp: json['empHelp'] as String?,
       ma3esha: (json['ma3esha'] as num?)?.toInt(),
+      edariaBoss: json['edariaBoss'] as String?,
       workStationBoss: json['workStationBoss'] as String?,
     );
 
@@ -60,5 +65,6 @@ Map<String, dynamic> _$EmpPartInfoToJson(EmpPartInfo instance) =>
       'emp': instance.emp,
       'empHelp': instance.empHelp,
       'ma3esha': instance.ma3esha,
+      'edariaBoss': instance.edariaBoss,
       'workStationBoss': instance.workStationBoss,
     };

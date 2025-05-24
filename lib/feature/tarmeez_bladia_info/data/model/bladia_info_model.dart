@@ -20,6 +20,8 @@ class Bladia {
   final int? id;
   final String? nameAr;
   final String? boss;
+  final String? bossAssistant;
+  final String? amana;
   // final byte[]? logo;
   final String? ipan;
   final String? datBegin;
@@ -29,13 +31,14 @@ class Bladia {
     this.id,
     this.nameAr,
     this.boss,
+    this.bossAssistant,
+    this.amana,
     this.ipan,
     this.datBegin,
     this.datEnd,
   });
 
-  factory Bladia.fromJson(Map<String, dynamic> json) =>
-      _$BladiaFromJson(json);
+  factory Bladia.fromJson(Map<String, dynamic> json) => _$BladiaFromJson(json);
 
   Map<String, dynamic> toJson() => _$BladiaToJson(this);
 }
@@ -49,6 +52,7 @@ class EmpPartInfo {
   final String? emp;
   final String? empHelp;
   final int? ma3esha;
+  final String? edariaBoss;
   final String? workStationBoss;
 
   EmpPartInfo({
@@ -59,6 +63,7 @@ class EmpPartInfo {
     this.emp,
     this.empHelp,
     this.ma3esha,
+    this.edariaBoss,
     this.workStationBoss,
   });
 

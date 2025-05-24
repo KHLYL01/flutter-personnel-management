@@ -71,8 +71,8 @@ class EmpEntedabController extends GetxController {
     toggleCheckBoxValue(solfahNaqdeah);
   }
 
-  var taskRa = ' لا يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه'.obs;
   var sarf = ' يصرف له يوميا بدل نقل إضافي 1/ 30 من بدل نقله الشهري'.obs;
+  var taskRa = ' لا يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه'.obs;
 
   onChangedPicture() {
     isPicture.value = !isPicture.value;

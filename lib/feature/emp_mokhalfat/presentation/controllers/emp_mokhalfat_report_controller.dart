@@ -5,9 +5,64 @@ import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../employee/data/repository/employee_repository.dart';
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
+import '../../data/model/emp_mokhalfat_det_model.dart';
+import 'emp_mokhalfat_controller.dart';
+import 'emp_mokhalfat_det_controller.dart';
+
 class EmpMokhalfatReportController extends GetxController {
+  final EmployeeRepository _employeeRepository;
+  final JobsRepository _jobsRepository;
+
+  EmpMokhalfatReportController(this._employeeRepository, this._jobsRepository);
+
   // بيان مخالفة
   Future<void> createBeanMokhalfatReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+
+    EmpMokhalfatController controller = Get.find<EmpMokhalfatController>();
+    String mokhalfatType = controller.mokhalfaType.value;
+    String mokhalfatStartDate = controller.startDate.text;
+    String mokhalfatEndDate = controller.endDate.text;
+    String mokhalfatDescription = controller.description.text;
+
+    EmpMokhalfatDetController detController =
+        Get.find<EmpMokhalfatDetController>();
+    await detController
+        .getMokhalfatDetByMokhalfatId(int.parse(controller.id.text));
+
+    List<List<dynamic>> data = [];
+
+    for (EmpMokhalfatDetModel item in detController.mokhalfatDets) {
+      late int jobId;
+      late String jobName;
+      late String cardId;
+
+      (await _employeeRepository.findById(item.empId!)).fold((l) => l, (r) {
+        jobId = r.jobId ?? 0;
+        cardId = r.cardId ?? "";
+      });
+      (await _jobsRepository.findById(id: jobId))
+          .fold((l) => l, (r) => jobName = r.name ?? "");
+      data.add(
+        [
+          item.gza ?? 0,
+          mokhalfatEndDate,
+          mokhalfatStartDate,
+          mokhalfatType,
+          item.fia ?? "",
+          jobName,
+          cardId,
+          item.empName ?? "",
+        ],
+      );
+    }
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "بيان مخالفة");
 
@@ -58,64 +113,51 @@ class EmpMokhalfatReportController extends GetxController {
 
                 // جدول البيانات
                 pw.TableHelper.fromTextArray(
-                    context: context,
-                    border: pw.TableBorder.all(color: PdfColors.grey400),
-                    tableDirection: pw.TextDirection.rtl,
-                    headerStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontWeight: pw.FontWeight.bold,
-                      color: PdfColors.white,
-                      fontSize: 11,
-                    ),
-                    headerDecoration: const pw.BoxDecoration(
-                      color: PdfColors.grey600,
-                    ),
-                    cellStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                    ),
-                    cellAlignment: pw.Alignment.center,
-                    headerAlignment: pw.Alignment.center,
-                    columnWidths: {
-                      0: const pw.FixedColumnWidth(250),
-                      1: const pw.FixedColumnWidth(250),
-                      2: const pw.FixedColumnWidth(250),
-                      3: const pw.FixedColumnWidth(250),
-                      4: const pw.FixedColumnWidth(250),
-                      5: const pw.FixedColumnWidth(250),
-                      6: const pw.FixedColumnWidth(300),
-                      7: const pw.FixedColumnWidth(300),
-                    },
-                    headers: [
-                      'أيام الجزاء',
-                      'الفترة إلى',
-                      'الفترة من',
-                      'النوع',
-                      'المرتبة',
-                      'مسمى الوظيفة',
-                      'رقم السجل المدني',
-                      'الاسم',
-                    ],
-                    data: [
-                      [
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                      ]
-                    ]),
+                  context: context,
+                  border: pw.TableBorder.all(color: PdfColors.grey400),
+                  tableDirection: pw.TextDirection.rtl,
+                  headerStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.white,
+                    fontSize: 11,
+                  ),
+                  headerDecoration: const pw.BoxDecoration(
+                    color: PdfColors.grey600,
+                  ),
+                  cellStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                  ),
+                  cellAlignment: pw.Alignment.center,
+                  headerAlignment: pw.Alignment.center,
+                  columnWidths: {
+                    0: const pw.FixedColumnWidth(250),
+                    1: const pw.FixedColumnWidth(250),
+                    2: const pw.FixedColumnWidth(250),
+                    3: const pw.FixedColumnWidth(250),
+                    4: const pw.FixedColumnWidth(250),
+                    5: const pw.FixedColumnWidth(250),
+                    6: const pw.FixedColumnWidth(300),
+                    7: const pw.FixedColumnWidth(300),
+                  },
+                  headers: [
+                    'أيام الجزاء',
+                    'الفترة إلى',
+                    'الفترة من',
+                    'النوع',
+                    'المرتبة',
+                    'مسمى الوظيفة',
+                    'رقم السجل المدني',
+                    'الاسم',
+                  ],
+                  data: data,
+                ),
                 pw.SizedBox(height: 30),
 
                 // نص ختامي
                 pw.Text(
-                  """ان رئيس بلدية محافظة تيماء .
-بناءعلى خطاب الدارة القانونية رقم 4300640241 وبعد التوصيات المنتضمنة عقوبة الحسم يومين من راتب الموظف ابراهيم صالح الصعب تقرر مايلي :
-1- حسم يومين من راتب الموظف المذكور
-2- يبلغ قرارنا من يلزم لنفاذه""",
+                  mokhalfatDescription,
                   style: pw.TextStyle(
                       font: arabicFont, fontSize: 11, lineSpacing: 10),
                 ),
@@ -124,9 +166,9 @@ class EmpMokhalfatReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
                     pw.Text(
-                      """رئيس بلدية محافظة تيماء
-
-المهندس/حسن بن عبدالرحيم الغبان""",
+                      """رئيس $name
+                      
+$bossName""",
                       textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                           font: arabicFont, fontSize: 11, lineSpacing: 10),

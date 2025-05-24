@@ -91,14 +91,17 @@ class AddEnd extends StatelessWidget {
                         Get.dialog(
                           EmployeesFind(
                             onRowDoubleTap: (event) {
-                              Map<String, PlutoCell> cells = event.row!.cells;
+                              Map<String, PlutoCell> cells = event.row.cells;
                               controller.empId.text =
                                   cells['id']!.value.toString();
                               controller.empName.text =
                                   cells['name']!.value.toString();
                               controller.salary.text =
                                   cells['salary']!.value.toString();
-                              // controller.cardId.text = cells['cardId']!.value;
+                              controller.cardId.text =
+                                  cells['cardId']!.value.toString();
+                              controller.empType.text =
+                                  cells['empType']!.value.toString();
                               controller.draga.text =
                                   cells['draga']!.value.toString();
                               controller.fia.text =
@@ -134,7 +137,7 @@ class AddEnd extends StatelessWidget {
                     ),
                     CustomTextField(
                       enabled: false,
-                      controller: controller.statusCardNumber,
+                      controller: controller.cardId,
                       label: 'رقم بطاقة الأحوال',
                       customHeight: 35,
                       customWidth: 250,
@@ -152,7 +155,7 @@ class AddEnd extends StatelessWidget {
                     ),
                     CustomTextField(
                       enabled: false,
-                      controller: controller.cardId,
+                      controller: controller.jobNumber,
                       label: 'الرقم',
                       customHeight: 35,
                       customWidth: 250,

@@ -4,10 +4,24 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
+
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 
 class EmpKashfTepyReportController extends GetxController {
   // طلب كشف طبي
   Future<void> createOrderKashfTepyReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossAssistant = bladiaInfoController.bossAssistant.text;
+    String amana = bladiaInfoController.amana.text;
+    String city = name.split(" ").last;
+
+    EmpKashfTepyController controller = Get.find<EmpKashfTepyController>();
+    String empName = controller.empName.text;
+    String cardId = controller.cardId.text;
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "طلب كشف طبي");
 
@@ -37,7 +51,7 @@ class EmpKashfTepyReportController extends GetxController {
                     crossAxisAlignment: pw.CrossAxisAlignment.end,
                     children: [
                       pw.Text(
-                        """أمانة منطقة تبوك 
+                        """أمانة $amana
                         
                         
 إدارة الموارد البشرية""",
@@ -60,28 +74,28 @@ class EmpKashfTepyReportController extends GetxController {
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  "المكرم مدير مستشفى مستشفى محافظة تيماء",
+                  "المكرم مدير مستشفى مستشفى محافظة $city",
                   style: pw.TextStyle(
                       font: arabicFont, fontSize: 11, lineSpacing: 10),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Center(
                   child: pw.Text(
-                    "السلم عليكم ورحمة ا وبركاته ،",
+                    "السلام عليكم ورحمة الله وبركاته،",
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 9, lineSpacing: 10),
                   ),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Text(
-                  "نأمل إجراء الكشف الطبى على -: موظف ابتسام بشير نصار الشرارى",
+                  "نأمل إجراء الكشف الطبى على -: موظف $empName",
                   style: pw.TextStyle(
                       font: arabicFont, fontSize: 11, lineSpacing: 10),
                 ),
                 pw.SizedBox(height: 10),
                 pw.Center(
                   child: pw.Text(
-                    "رقم السجل المدني: 12354681215",
+                    "رقم السجل المدني: $cardId",
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 11, lineSpacing: 10),
                   ),
@@ -98,9 +112,9 @@ class EmpKashfTepyReportController extends GetxController {
                   mainAxisAlignment: pw.MainAxisAlignment.end,
                   children: [
                     pw.Text(
-                      """مساعد رئيس بلدية محافظة تيماء
-
-المهندس / ماجد خلف الدوشان""",
+                      """مساعد رئيس $name
+                      
+$bossAssistant""",
                       textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                           font: arabicFont, fontSize: 11, lineSpacing: 10),
