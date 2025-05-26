@@ -32,8 +32,8 @@ class AddEmployee extends StatelessWidget {
     final controller = Get.find<EmployeeController>();
     HijriPicker graduationDate = HijriPicker(controller.datEducation);
     HijriPicker sodorDate = HijriPicker(controller.sodorDate);
-    HijriPicker dateOfBirth = HijriPicker(controller.dateOfBirth);
-    HijriPicker serviceStartDate = HijriPicker(controller.inDate);
+    HijriPicker dateOfBirth = HijriPicker(controller.datBirth);
+    HijriPicker serviceStartDate = HijriPicker(controller.datWork);
     HijriPicker loanStartDate = HijriPicker(controller.datAkdBegin);
     HijriPicker loanEndDate = HijriPicker(controller.datAkdEnd);
     HijriPicker cardSodorDate = HijriPicker(controller.cardStart);
@@ -74,7 +74,7 @@ class AddEmployee extends StatelessWidget {
                           label: 'نوع بيانات الوظيفة ',
                           // height: 25,
                           // width: 100,,
-                          item: controller.workJob,
+                          item: controller.empType,
                           list: controller.jobDataTypes,
                           onChanged: (value) {
                             controller.onChangeJobDataType(value);
@@ -115,7 +115,7 @@ class AddEmployee extends StatelessWidget {
                           width: 40,
                         ).paddingOnly(top: 20),
                         CustomTextField(
-                          controller: controller.jobData,
+                          controller: controller.degreeId,
                           label: 'بيانات الوظيفة',
                           customHeight: 25,
                           customWidth: 100,
@@ -307,7 +307,7 @@ class AddEmployee extends StatelessWidget {
                           customWidth: 150,
                         ),
                         CustomTextField(
-                          controller: controller.cardId,
+                          controller: controller.takenHolidays,
                           label: 'الإجازات المسجلة حتى الأن',
                           customHeight: 25,
                           customWidth: 150,
@@ -352,7 +352,7 @@ class AddEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                          controller: controller.hafezahNumber,
+                          controller: controller.bok,
                           label: 'رقم الحفيظة',
                           customHeight: 25,
                           customWidth: 100,
@@ -386,7 +386,7 @@ class AddEmployee extends StatelessWidget {
                             size: 15,
                           ),
                           onTap: () => dateOfBirth.pickHijriDate(context),
-                          controller: controller.dateOfBirth,
+                          controller: controller.datBirth,
                           label: "تاريخ الميلاد",
                           customHeight: 25,
                           customWidth: 150,
@@ -397,7 +397,7 @@ class AddEmployee extends StatelessWidget {
                             size: 15,
                           ),
                           onTap: () => serviceStartDate.pickHijriDate(context),
-                          controller: controller.inDate,
+                          controller: controller.datWork,
                           label: "تاريخ بداية الخدمة",
                           customHeight: 25,
                           customWidth: 150,
@@ -407,12 +407,12 @@ class AddEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                            controller: controller.educationName,
+                            controller: controller.education,
                             label: 'اسم المؤهل العلمي',
                             customHeight: 25,
                             customWidth: 150),
                         CustomTextField(
-                            controller: controller.education,
+                            controller: controller.educationName,
                             label: 'اسم المؤسسة العلمية',
                             customHeight: 25,
                             customWidth: 150),
@@ -444,7 +444,7 @@ class AddEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                          controller: controller.cardJob,
+                          controller: controller.workJob,
                           label: 'العمل المكلف به',
                           customHeight: 25,
                           customWidth: 100,
@@ -517,13 +517,13 @@ class AddEmployee extends StatelessWidget {
                             children: [
                               const Text('مسير الرواتب'),
                               CustomTextField(
-                                controller: controller.harmOrInfection,
+                                controller: controller.badal2,
                                 label: 'ضرر/عدوى',
                                 customHeight: 25,
                                 customWidth: 100,
                               ),
                               CustomTextField(
-                                controller: controller.other1,
+                                controller: controller.badal4,
                                 label: 'أخرى',
                                 customHeight: 25,
                                 customWidth: 100,
@@ -575,7 +575,7 @@ class AddEmployee extends StatelessWidget {
                           ).paddingAll(15),
                         ),
                         CustomTextField(
-                          controller: controller.bankId,
+                          controller: controller.dissent,
                           label: 'بنك التسليف',
                           customHeight: 25,
                           customWidth: 100,
@@ -587,7 +587,7 @@ class AddEmployee extends StatelessWidget {
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.realEstateBank,
+                          controller: controller.sandok,
                           label: 'عقاري',
                           customHeight: 25,
                           customWidth: 100,
@@ -599,19 +599,19 @@ class AddEmployee extends StatelessWidget {
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.agriculturalBank,
+                          controller: controller.zeraee,
                           label: 'البنك الزراعي ',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.healthInsurance,
+                          controller: controller.hasm1,
                           label: 'التأمين الصحي',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.other2,
+                          controller: controller.hasm2,
                           label: 'أخرى',
                           customHeight: 25,
                           customWidth: 100,
@@ -619,7 +619,7 @@ class AddEmployee extends StatelessWidget {
                         Obx(
                           () => CustomCheckbox(
                             label: 'ساند',
-                            value: controller.saned.value,
+                            value: controller.isHasm3.value,
                             onChanged: (value) {
                               controller.onChangeSaned();
                             },
@@ -705,7 +705,7 @@ class AddEmployee extends StatelessWidget {
                     ),
                     CustomTextField(
                       label: 'تاريخ خطاب التعريف',
-                      controller: controller.datBok,
+                      controller: TextEditingController(),
                       customHeight: 25,
                       customWidth: 120,
                     ),
@@ -713,7 +713,7 @@ class AddEmployee extends StatelessWidget {
                       children: [
                         CustomTextField(
                           label: 'جهة خطاب التعريف',
-                          controller: controller.bokPlace,
+                          controller: TextEditingController(),
                           customHeight: 25,
                           customWidth: 120,
                         ),

@@ -24,12 +24,10 @@ class EmployeeController extends GetxController {
 
   final TextEditingController id = TextEditingController();
   //TextEditingController updateEmployeeNumber = TextEditingController();
-  final TextEditingController jobData = TextEditingController();
   final TextEditingController fia = TextEditingController();
   final TextEditingController draga = TextEditingController(text: "0");
   final TextEditingController draga2 = TextEditingController();
   final TextEditingController jobNo = TextEditingController(text: "0");
-  final TextEditingController jobbadalat = TextEditingController(text: "0");
   final TextEditingController salary = TextEditingController(text: "0");
   final TextEditingController naqlBadal = TextEditingController(text: "0");
   final TextEditingController elawa = TextEditingController(text: "0");
@@ -47,46 +45,49 @@ class EmployeeController extends GetxController {
   final TextEditingController nationId = TextEditingController();
   final TextEditingController nationName = TextEditingController();
   final TextEditingController cardId = TextEditingController();
-  final TextEditingController takenHolidays = TextEditingController(text: "0");
   final TextEditingController iqazatMosagalah = TextEditingController();
-  final TextEditingController hafezahNumber = TextEditingController();
+  final TextEditingController bok = TextEditingController();
   final TextEditingController makanAlsodor = TextEditingController();
   final TextEditingController sodorDate = TextEditingController();
-  final TextEditingController dateOfBirth = TextEditingController();
   final TextEditingController datBirth = TextEditingController();
-  final TextEditingController inDate = TextEditingController();
   final TextEditingController education = TextEditingController();
-  final TextEditingController educationName = TextEditingController();
-  final TextEditingController datEducation = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController phone = TextEditingController();
-  final TextEditingController cardJob = TextEditingController();
-  final TextEditingController cardNo = TextEditingController(text: "0");
-  final TextEditingController cardStart = TextEditingController();
+  final TextEditingController workJob = TextEditingController();
   final TextEditingController datAkdBegin = TextEditingController();
   final TextEditingController datAkdEnd = TextEditingController();
-  final TextEditingController qardQest = TextEditingController(text: "0");
-  final TextEditingController qardMony = TextEditingController(text: "0");
-  final TextEditingController taka3odM = TextEditingController(text: "0");
-  final TextEditingController agriculturalBank = TextEditingController();
-  final TextEditingController harmOrInfection = TextEditingController();
-  final TextEditingController bankId = TextEditingController();
-  final TextEditingController akdNoTasleef = TextEditingController();
-  final TextEditingController other1 = TextEditingController();
-  final TextEditingController realEstateBank = TextEditingController();
   final TextEditingController contractOfrealEstateBank =
       TextEditingController();
-  final TextEditingController other2 = TextEditingController();
   final TextEditingController datBok = TextEditingController();
   final TextEditingController bokPlace = TextEditingController();
   final TextEditingController birthPlace = TextEditingController();
-  final TextEditingController healthInsurance = TextEditingController();
   var employeePhoto = ''.obs;
   var isPicture = false.obs;
-  var saned = false.obs;
-  RxString workJob = 'موظف'.obs;
+  var isHasm3 = false.obs;
+  RxString empType = 'موظف'.obs;
   RxString jobState = 'مشغولة'.obs;
   var nationalityRadoiListTileValue = ''.obs;
+
+  final TextEditingController degreeId = TextEditingController(text: "0");
+  final TextEditingController jobbadalat = TextEditingController(text: "0");
+  final TextEditingController datWork = TextEditingController();
+  final TextEditingController educationName = TextEditingController();
+  final TextEditingController datEducation = TextEditingController();
+  final TextEditingController dissent = TextEditingController(text: "0");
+  final TextEditingController akdNoTasleef = TextEditingController();
+  final TextEditingController takenHolidays = TextEditingController(text: "0");
+  final TextEditingController sandok = TextEditingController(text: "0");
+  final TextEditingController cardNo = TextEditingController(text: "0");
+  final TextEditingController cardStart = TextEditingController();
+  final TextEditingController qardQest = TextEditingController(text: "0");
+  final TextEditingController qardMony = TextEditingController(text: "0");
+  final TextEditingController taka3odM = TextEditingController(text: "0");
+  final TextEditingController hasm1 = TextEditingController();
+  final TextEditingController hasm2 = TextEditingController();
+  final TextEditingController badal2 = TextEditingController();
+  final TextEditingController badal4 = TextEditingController();
+  final TextEditingController zeraee = TextEditingController();
+
   onChangeNationalityRadoiListTileValue(value) {
     nationalityRadoiListTileValue.value = value;
   }
@@ -113,11 +114,11 @@ class EmployeeController extends GetxController {
   }
 
   onChangeSaned() {
-    saned.value = !saned.value;
+    isHasm3.value = !isHasm3.value;
   }
 
   onChangeJobDataType(value) {
-    workJob(value);
+    empType(value);
   }
 
   onChangeJobDataStatu(value) {
@@ -141,13 +142,11 @@ class EmployeeController extends GetxController {
         id: id.text != ""
             ? int.parse(id.text)
             : await Get.find<EmployeeSearchController>().getId(),
-        workJob: workJob.value,
         // بيانات الوظيفة
         // empType .value,
         fia: fia.text,
         draga: double.parse(draga.text),
         jobNo: int.parse(jobNo.text),
-        jobbadalat: double.parse(jobbadalat.text),
         salary: double.parse(salary.text),
         naqlBadal: double.parse(naqlBadal.text),
         elawa: double.parse(elawa.text),
@@ -157,24 +156,17 @@ class EmployeeController extends GetxController {
         symble: symble.text,
         partId: int.parse(partId.text),
         datJob: datJob.text,
-        jobState: jobState.value,
         name: name.text,
         cardId: cardId.text,
-        takenHolidays:
-            int.parse(takenHolidays.text), // الاجازات المسجلة حتى الان
         nationId: int.parse(nationId.text),
         // رقم الحفيظة
         // مكان الصدور
         // تاريخ الصدور
         birthPlace: birthPlace.text,
-        datBirth: datBirth.text,
-        inDate: inDate.text,
-        educationName: educationName.text,
-        education: education.text,
+        inDate: datWork.text,
         datEducation: datEducation.text,
         address: address.text,
         phone: phone.text,
-        cardJob: cardJob.text, // العمل المكلف به
         cardNo: int.parse(cardNo.text),
         cardStart: cardStart.text,
         // datQard datQard.text,
@@ -186,15 +178,35 @@ class EmployeeController extends GetxController {
 
         // ضرر عدوى
         // أخرى
-        bankId: bankId.text,
-        akdNoTasleef: akdNoTasleef.text,
         // عقاري
         // رقم العقد
         // البنك الزراعي
         // التأمين الصحي
         // أخرى
-        datBok: datBok.text,
+
+        degreeId: int.parse(degreeId.text),
+        jobbadalat: double.parse(jobbadalat.text),
+        bok: bok.text,
         bokPlace: bokPlace.text,
+        datBok: datBok.text,
+        datBirth: datBirth.text,
+        datWork: datWork.text,
+        educationName: educationName.text,
+        education: education.text,
+        empType: empType.value,
+        jobState: jobState.value,
+        workJob: workJob.text, // العمل المكلف به
+        dissent: double.parse(dissent.text),
+        akdNoTasleef: akdNoTasleef.text,
+        takenHolidays:
+            int.parse(takenHolidays.text), // الاجازات المسجلة حتى الان
+        sandok: double.parse(sandok.text),
+        hasm1: int.parse(hasm1.text),
+        hasm2: int.parse(hasm2.text),
+        badal2: int.parse(badal2.text),
+        badal4: int.parse(badal4.text),
+        zeraee: double.parse(zeraee.text),
+        isHasm3: isHasm3.value ? 1 : 0,
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
@@ -221,7 +233,7 @@ class EmployeeController extends GetxController {
 
   void clearControllers() {
     id.clear();
-    jobData.clear();
+    degreeId.clear();
     fia.clear();
     draga.text = "0";
     draga2.clear();
@@ -244,18 +256,18 @@ class EmployeeController extends GetxController {
     cardId.clear();
     takenHolidays.text = "0";
     iqazatMosagalah.clear();
-    hafezahNumber.clear();
+    bok.clear();
     makanAlsodor.clear();
     sodorDate.clear();
-    dateOfBirth.clear();
     datBirth.clear();
-    inDate.clear();
+    datBirth.clear();
+    datWork.clear();
     education.clear();
     educationName.clear();
     datEducation.clear();
     address.clear();
     phone.clear();
-    cardJob.clear();
+    workJob.clear();
     cardNo.text = "0";
     cardStart.clear();
     datAkdBegin.clear();
@@ -263,18 +275,18 @@ class EmployeeController extends GetxController {
     qardQest.text = "0";
     qardMony.text = "0";
     taka3odM.text = "0";
-    agriculturalBank.clear();
-    harmOrInfection.clear();
-    bankId.clear();
+    zeraee.clear();
+    badal2.clear();
+    dissent.clear();
     akdNoTasleef.clear();
-    other1.clear();
-    realEstateBank.clear();
+    badal4.clear();
+    sandok.clear();
     contractOfrealEstateBank.clear();
-    other2.clear();
+    hasm2.clear();
     datBok.clear();
     bokPlace.clear();
     birthPlace.clear();
-    healthInsurance.clear();
+    hasm1.clear();
   }
 
   void confirmDelete(int id, {bool withGoBack = true}) async {
@@ -291,50 +303,63 @@ class EmployeeController extends GetxController {
   }
 
   void fillControllers(EmployeeModel r) async {
-    (await _jobsRepository.findById(id: r.jobNo))
-        .fold((l) => l, (r) => jobName.text = r.name.toString());
+    (await _jobsRepository.findById(id: r.jobId))
+        .fold((l) => l, (r) => jobName.text = r.name ?? "");
     (await _nationsRepository.findById(id: r.nationId))
-        .fold((l) => l, (r) => nationName.text = r.name.toString());
+        .fold((l) => l, (r) => nationName.text = r.name ?? "");
     (await _partsRepository.findById(id: r.partId))
-        .fold((l) => l, (r) => partName.text = r.name.toString());
-    id.text = r.id.toString();
-    fia.text = r.fia.toString();
-    draga.text = r.draga.toString();
-    jobNo.text = r.jobNo.toString();
-    jobbadalat.text = r.jobbadalat.toString();
-    salary.text = r.salary.toString();
-    naqlBadal.text = r.naqlBadal.toString();
-    elawa.text = r.elawa.toString();
-    inEntedabBadal.text = r.inEntedabBadal.toString();
-    outEntedabBadal.text = r.outEntedabBadal.toString();
-    symble.text = r.symble.toString();
-    partId.text = r.partId.toString();
-    datJob.text = r.datJob.toString();
-    name.text = r.name.toString();
-    cardId.text = r.cardId.toString();
-    nationId.text = r.nationId.toString();
-    birthPlace.text = r.birthPlace.toString();
-    datBirth.text = r.datBirth.toString();
-    inDate.text = r.inDate.toString().substring(0, 10);
-    educationName.text = r.educationName.toString();
-    education.text = r.education.toString();
-    datEducation.text = r.datEducation.toString();
-    address.text = r.address.toString();
-    phone.text = r.phone.toString();
-    cardJob.text = r.cardJob.toString();
-    cardNo.text = r.cardNo.toString();
-    cardStart.text = r.cardStart.toString();
-    datAkdBegin.text = r.datAkdBegin.toString();
-    datAkdEnd.text = r.datAkdEnd.toString();
-    qardMony.text = r.qardMony.toString();
-    qardQest.text = r.qardQest.toString();
-    taka3odM.text = r.taka3odM.toString();
-    jobId.text = r.jobId.toString();
-    bankId.text = r.bankId.toString();
-    akdNoTasleef.text = r.akdNoTasleef.toString();
-    datBok.text = r.datBok.toString();
-    bokPlace.text = r.bokPlace.toString();
-    workJob('موظف');
-    jobState('مشغولة');
+        .fold((l) => l, (r) => partName.text = r.name ?? "");
+
+    jobId.text = (r.jobId ?? "0").toString();
+    id.text = (r.id ?? "0").toString();
+    fia.text = (r.fia ?? "0").toString();
+    draga.text = (r.draga ?? "0").toString();
+    jobNo.text = (r.jobNo ?? "0").toString();
+    jobbadalat.text = (r.jobbadalat ?? "0").toString();
+    salary.text = (r.salary ?? "0").toString();
+    naqlBadal.text = (r.naqlBadal ?? "0").toString();
+    elawa.text = (r.elawa ?? "0").toString();
+    inEntedabBadal.text = (r.inEntedabBadal ?? "0").toString();
+    outEntedabBadal.text = (r.outEntedabBadal ?? "0").toString();
+    symble.text = r.symble ?? "";
+    partId.text = (r.partId ?? "0").toString();
+    datJob.text = r.datJob ?? "";
+    name.text = r.name ?? "";
+    cardId.text = r.cardId ?? "";
+    nationId.text = (r.nationId ?? "0").toString();
+    birthPlace.text = r.birthPlace ?? "";
+    datBirth.text = r.datBirth ?? "";
+    datWork.text = r.datWork ?? "";
+    education.text = r.education ?? "";
+    educationName.text = r.educationName ?? "";
+    datEducation.text = r.datEducation ?? "";
+    address.text = r.address ?? "";
+    phone.text = r.phone ?? "";
+    workJob.text = r.workJob ?? "";
+    cardNo.text = (r.cardNo ?? "0").toString();
+    cardStart.text = r.cardStart ?? "";
+    datAkdBegin.text = r.datAkdBegin ?? "";
+    datAkdEnd.text = r.datAkdEnd ?? "";
+    qardMony.text = (r.qardMony ?? "0").toString();
+    qardQest.text = (r.qardQest ?? "0").toString();
+    taka3odM.text = (r.taka3odM ?? "0").toString();
+    dissent.text = (r.dissent ?? "0").toString();
+    akdNoTasleef.text = r.akdNoTasleef ?? "";
+    datBok.text = r.datBok ?? "";
+    bokPlace.text = r.bokPlace ?? "";
+    bok.text = r.bok ?? "";
+
+    degreeId.text = (r.degreeId ?? "0").toString();
+    takenHolidays.text = (r.takenHolidays ?? "0").toString();
+    sandok.text = (r.sandok ?? "0").toString();
+    hasm1.text = (r.hasm1 ?? "0").toString();
+    hasm2.text = (r.hasm2 ?? "0").toString();
+    badal2.text = (r.badal2 ?? "0").toString();
+    badal4.text = (r.badal4 ?? "0").toString();
+    zeraee.text = (r.zeraee ?? "0").toString();
+    isHasm3.value = r.isHasm3 == 1;
+
+    empType(r.empType ?? "موظف");
+    jobState(r.jobState ?? "مشغولة");
   }
 }

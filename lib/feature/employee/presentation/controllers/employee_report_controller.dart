@@ -670,24 +670,86 @@ $name
 
     EmployeeController controller = Get.find<EmployeeController>();
 
-    String employeeName = controller.name.text;
-    String employeeCardId = controller.cardId.text;
-    String employeeJobStartDate = controller.datJob.text;
-    String employeeJobName = controller.jobName.text;
-    String employeeMartba = controller.fia.text;
-    String employeeDraga = controller.draga.text;
-    String employeeHasmTaamenat = "";
-    String employeeHasmTaamenatEjtemaia = "";
+    String name = controller.name.text;
+    String cardId = controller.cardId.text;
+    String jobStartDate = controller.datWork.text;
+    String job = controller.jobName.text;
+    String martaba = controller.fia.text;
+    String draga = controller.draga.text;
 
-    String employeeSalary = controller.salary.text;
-    String employeeNaqlBadal = controller.naqlBadal.text;
-    String employeeNatureWork = "";
-    String employeeDrarAndAdua = "";
-    String employeeTotal = "";
-    String employeeHasmSandokAkary = "";
-    String employeeHasmSandokZera3y = "";
-    String employeeSafee = "";
+    String salary = controller.salary.text;
+    String naqlBadal = controller.naqlBadal.text;
+    String jobBadalat = controller.jobbadalat.text;
+    String badal2 = controller.badal2.text;
+    double employeeTotal = double.parse(salary) +
+        double.parse(naqlBadal) +
+        double.parse(jobBadalat) +
+        double.parse(badal2);
 
+    double hasmTaamenat = double.parse(salary) * 9 / 100;
+    String dissent = controller.dissent.text;
+    String sandok = controller.sandok.text;
+    String zeraee = controller.zeraee.text;
+    String taka3od = controller.taka3odM.text;
+
+    double hasmTotal = hasmTaamenat +
+        double.parse(dissent) +
+        double.parse(sandok) +
+        double.parse(zeraee) +
+        double.parse(taka3od);
+
+    double employeeSafee = employeeTotal - hasmTotal;
+
+    List<List<dynamic>> data = [
+      [
+        salary,
+        'الراتب الأساسي:',
+        name,
+        'اسم الموظف:',
+      ],
+      [
+        naqlBadal,
+        'بدل النقل:',
+        cardId,
+        'رقم السجل:',
+      ],
+      [
+        jobBadalat,
+        'طبيعة العمل:',
+        jobStartDate,
+        'بداية الخدمة:',
+      ],
+      [
+        badal2,
+        'ضرر وعدوى:',
+        job,
+        'الوظيفة:',
+      ],
+      [
+        employeeTotal,
+        'الإجمالي:',
+        martaba,
+        'المرتبة / المستوى:',
+      ],
+      [
+        sandok,
+        'حسم صندوق التنمية العقاري:',
+        draga,
+        'الدرجة:',
+      ],
+      [
+        zeraee,
+        'حسم صندوق التنمية الزراعية:',
+        hasmTaamenat,
+        'حسم التأمينات:',
+      ],
+      [
+        employeeSafee,
+        'الصافي:',
+        dissent,
+        'حسم التنمية الإجتماعية:',
+      ],
+    ];
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "شهادة تعريف");
 
@@ -742,79 +804,31 @@ $name
 
                 // جدول البيانات
                 pw.TableHelper.fromTextArray(
-                    context: context,
-                    border: pw.TableBorder.all(color: PdfColors.grey400),
-                    tableDirection: pw.TextDirection.rtl,
-                    headerStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontWeight: pw.FontWeight.bold,
-                      fontSize: 8,
-                    ),
-                    headerDecoration: const pw.BoxDecoration(
-                      color: PdfColors.white,
-                    ),
-                    cellStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 8,
-                    ),
-                    cellAlignment: pw.Alignment.center,
-                    headerAlignment: pw.Alignment.center,
-                    columnWidths: {
-                      0: const pw.FixedColumnWidth(200),
-                      1: const pw.FixedColumnWidth(200),
-                      2: const pw.FixedColumnWidth(400),
-                      3: const pw.FixedColumnWidth(200),
-                    },
-                    data: [
-                      [
-                        employeeSalary,
-                        'الراتب الأساسي:',
-                        employeeName,
-                        'اسم الموظف:',
-                      ],
-                      [
-                        employeeNaqlBadal,
-                        'بدل النقل:',
-                        employeeCardId,
-                        'رقم السجل:',
-                      ],
-                      [
-                        employeeNatureWork,
-                        'طبيعة العمل:',
-                        employeeJobStartDate,
-                        'بداية الخدمة:',
-                      ],
-                      [
-                        employeeDrarAndAdua,
-                        'ضرر وعدوى:',
-                        employeeJobName,
-                        'الوظيفة:',
-                      ],
-                      [
-                        employeeTotal,
-                        'الإجمالي:',
-                        employeeMartba,
-                        'المرتبة / المستوى:',
-                      ],
-                      [
-                        employeeHasmSandokAkary,
-                        'حسم صندوق التنمية العقاري:',
-                        employeeDraga,
-                        'الدرجة:',
-                      ],
-                      [
-                        employeeHasmSandokZera3y,
-                        'حسم صندوق التنمية الزراعية:',
-                        employeeHasmTaamenat,
-                        'حسم التأمينات:',
-                      ],
-                      [
-                        employeeSafee,
-                        'الصافي:',
-                        employeeHasmTaamenatEjtemaia,
-                        'حسم التنمية الإجتماعية:',
-                      ],
-                    ]),
+                  context: context,
+                  border: pw.TableBorder.all(color: PdfColors.grey400),
+                  tableDirection: pw.TextDirection.rtl,
+                  headerStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 8,
+                  ),
+                  headerDecoration: const pw.BoxDecoration(
+                    color: PdfColors.white,
+                  ),
+                  cellStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 8,
+                  ),
+                  cellAlignment: pw.Alignment.center,
+                  headerAlignment: pw.Alignment.center,
+                  columnWidths: {
+                    0: const pw.FixedColumnWidth(200),
+                    1: const pw.FixedColumnWidth(200),
+                    2: const pw.FixedColumnWidth(400),
+                    3: const pw.FixedColumnWidth(200),
+                  },
+                  data: data,
+                ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   """تشهد بأن المذكور اسمه أعلاه يعمل لدينا و على رأس عمله واعطيت له شهادة بناء على طلبه دون ادنى مسؤولية على البلديةي سواء كانت مالية أو إدارية اتجاه تلك الشهادة لتقديمها إلى
@@ -889,21 +903,74 @@ $bossName""",
 
     EmployeeController controller = Get.find<EmployeeController>();
 
-    String employeeName = controller.name.text;
-    String employeeJobNumber = controller.jobNo.text;
-    String employeeJobName = controller.jobName.text;
-    String employeeMartba = controller.fia.text;
-    String employeeDraga = controller.draga.text;
-    String employeeNaqlBadal = controller.naqlBadal.text;
-    String employeeHasmTaamenat = "";
+    String jobNo = controller.jobNo.text;
+    String name = controller.name.text;
+    String cardId = controller.cardId.text;
+    String jobStartDate = controller.datWork.text;
+    String job = controller.jobName.text;
+    String martaba = controller.fia.text;
+    String draga = controller.draga.text;
 
-    String employeeCardId = controller.cardId.text;
-    String employeeJobStartDate = controller.datJob.text;
-    String employeeSalary = controller.salary.text;
-    String employeeNatureWorkBadal = "";
-    String employeeHasmBank = "";
-    String employeeSafeeSalary = "";
+    String salary = controller.salary.text;
+    String naqlBadal = controller.naqlBadal.text;
+    String jobBadalat = controller.jobbadalat.text;
+    double employeeTotal = double.parse(salary) +
+        double.parse(naqlBadal) +
+        double.parse(jobBadalat);
 
+    double hasmTaamenat = double.parse(salary) * 9 / 100;
+    String dissent = controller.dissent.text;
+
+    double hasmTotal = hasmTaamenat + double.parse(dissent);
+
+    double safeeSalary = employeeTotal - hasmTotal;
+
+    List<List<dynamic>> data = [
+      [
+        cardId,
+        'رقم السجل المدني:',
+        name,
+        'الاسم:',
+      ],
+      [
+        jobStartDate,
+        'تاريخ التعيين:',
+        jobNo,
+        'رقم الوظيفة:',
+      ],
+      [
+        salary,
+        'الراتب:',
+        job,
+        'الوظيفة:',
+      ],
+      [
+        jobBadalat,
+        'بدل طبيعة العمل',
+        martaba,
+        'المرتبة:',
+      ],
+      [
+        dissent,
+        'حسم بنكي:',
+        draga,
+        'الدرجة:',
+      ],
+      [
+        hasmTaamenat,
+        'التأمينات:',
+        naqlBadal,
+        'بدل النقل:',
+      ],
+      [
+        '',
+        '',
+        safeeSalary,
+        'صافي الراتب',
+      ],
+    ];
+
+    double employeeSafee = employeeTotal - hasmTotal;
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "مشهد بالراتب");
 
@@ -958,73 +1025,31 @@ $bossName""",
 
                 // جدول البيانات
                 pw.TableHelper.fromTextArray(
-                    context: context,
-                    border: pw.TableBorder.all(color: PdfColors.grey400),
-                    tableDirection: pw.TextDirection.rtl,
-                    headerStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontWeight: pw.FontWeight.bold,
-                      fontSize: 8,
-                    ),
-                    headerDecoration: const pw.BoxDecoration(
-                      color: PdfColors.white,
-                    ),
-                    cellStyle: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 8,
-                    ),
-                    cellAlignment: pw.Alignment.center,
-                    headerAlignment: pw.Alignment.center,
-                    columnWidths: {
-                      0: const pw.FixedColumnWidth(200),
-                      1: const pw.FixedColumnWidth(200),
-                      2: const pw.FixedColumnWidth(400),
-                      3: const pw.FixedColumnWidth(200),
-                    },
-                    data: [
-                      [
-                        employeeCardId,
-                        'رقم السجل المدني:',
-                        employeeName,
-                        'الاسم:',
-                      ],
-                      [
-                        employeeJobStartDate,
-                        'تاريخ التعيين:',
-                        employeeJobNumber,
-                        'رقم الوظيفة:',
-                      ],
-                      [
-                        employeeSalary,
-                        'الراتب:',
-                        employeeJobName,
-                        'الوظيفة:',
-                      ],
-                      [
-                        employeeNatureWorkBadal,
-                        'بدل طبيعة العمل',
-                        employeeMartba,
-                        'المرتبة:',
-                      ],
-                      [
-                        employeeHasmBank,
-                        'حسم بنكي:',
-                        employeeDraga,
-                        'الدرجة:',
-                      ],
-                      [
-                        employeeSafeeSalary,
-                        'صافي الراتب',
-                        employeeNaqlBadal,
-                        'بدل النقل:',
-                      ],
-                      [
-                        '',
-                        '',
-                        employeeHasmTaamenat,
-                        'التأمينات:',
-                      ],
-                    ]),
+                  context: context,
+                  border: pw.TableBorder.all(color: PdfColors.grey400),
+                  tableDirection: pw.TextDirection.rtl,
+                  headerStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 8,
+                  ),
+                  headerDecoration: const pw.BoxDecoration(
+                    color: PdfColors.white,
+                  ),
+                  cellStyle: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 8,
+                  ),
+                  cellAlignment: pw.Alignment.center,
+                  headerAlignment: pw.Alignment.center,
+                  columnWidths: {
+                    0: const pw.FixedColumnWidth(200),
+                    1: const pw.FixedColumnWidth(200),
+                    2: const pw.FixedColumnWidth(400),
+                    3: const pw.FixedColumnWidth(200),
+                  },
+                  data: data,
+                ),
                 pw.SizedBox(height: 10),
                 pw.Text(
                   """تشهد إدارة شئون الموظفين ببلدية محافظة تيماء بأن الموضج اسمه أعلاه أحد (موظفي) هذة البلدية
@@ -1103,6 +1128,7 @@ $edara""",
     String employeeCardId = controller.cardId.text;
     String employeePartName = controller.partName.text;
     String employeeCardEndDate = "";
+    String employeeCardNumber = controller.cardNo.text;
 
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "كارت تعريفي");
@@ -1245,7 +1271,7 @@ $edara""",
                                     mainAxisAlignment: pw.MainAxisAlignment.end,
                                     children: [
                                       pw.Text(
-                                        'رقم البطاقة 0',
+                                        'رقم البطاقة $employeeCardNumber',
                                         style: pw.TextStyle(
                                           font: arabicFont,
                                           fontSize: 9,

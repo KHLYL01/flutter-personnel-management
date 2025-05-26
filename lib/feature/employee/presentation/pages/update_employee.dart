@@ -20,7 +20,7 @@ import '../../../tarmeez_nations/presentation/controllers/nations_controller.dar
 import '../../../tarmeez_nations/presentation/pages/nations_find.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
-import '../controllers/employee__report_controller.dart';
+import '../controllers/employee_report_controller.dart';
 
 class UpdateEmployee extends StatelessWidget {
   const UpdateEmployee({super.key});
@@ -33,8 +33,8 @@ class UpdateEmployee extends StatelessWidget {
     final controllerReport = Get.find<EmployeeReportController>();
     HijriPicker graduationDate = HijriPicker(controller.datEducation);
     HijriPicker sodorDate = HijriPicker(controller.sodorDate);
-    HijriPicker dateOfBirth = HijriPicker(controller.dateOfBirth);
-    HijriPicker serviceStartDate = HijriPicker(controller.inDate);
+    HijriPicker dateOfBirth = HijriPicker(controller.datBirth);
+    HijriPicker serviceStartDate = HijriPicker(controller.datWork);
     HijriPicker loanStartDate = HijriPicker(controller.datAkdBegin);
     HijriPicker loanEndDate = HijriPicker(controller.datAkdEnd);
     HijriPicker cardSodorDate = HijriPicker(controller.cardStart);
@@ -74,10 +74,10 @@ class UpdateEmployee extends StatelessWidget {
                         //   customWidth: 100,
                         // ),
                         CustomDropdownButton(
-                          label: 'نوع بيانات الوظيفة ',
+                          label: 'نوع بيانات الوظيفة',
                           // height: 25,
                           // width: 100,,
-                          item: controller.workJob,
+                          item: controller.empType,
                           list: controller.jobDataTypes,
                           onChanged: (value) {
                             controller.onChangeJobDataType(value);
@@ -92,7 +92,7 @@ class UpdateEmployee extends StatelessWidget {
                               EmpDegreesFindPage(
                                 onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
-                                      event.row!.cells;
+                                      event.row.cells;
                                   controller.fia.text =
                                       cells['martaba']!.value.toString();
                                   controller.salary.text =
@@ -118,7 +118,7 @@ class UpdateEmployee extends StatelessWidget {
                           width: 40,
                         ).paddingOnly(top: 20),
                         CustomTextField(
-                          controller: controller.jobData,
+                          controller: controller.degreeId,
                           label: 'بيانات الوظيفة',
                           customHeight: 25,
                           customWidth: 100,
@@ -212,7 +212,7 @@ class UpdateEmployee extends StatelessWidget {
                               JobsFind(
                                 onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
-                                      event.row!.cells;
+                                      event.row.cells;
                                   controller.jobId.text =
                                       cells['id']!.value.toString();
                                   controller.jobName.text =
@@ -253,7 +253,7 @@ class UpdateEmployee extends StatelessWidget {
                               PartsFind(
                                 onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
-                                      event.row!.cells;
+                                      event.row.cells;
                                   controller.partId.text =
                                       cells['id']!.value.toString();
                                   controller.partName.text =
@@ -284,7 +284,7 @@ class UpdateEmployee extends StatelessWidget {
                           customWidth: 150,
                         ),
                         CustomDropdownButton(
-                          label: ' حالة الوظيفة ',
+                          label: ' حالة الوظيفة',
                           // height: 25,
                           // width: 100,,
                           item: controller.jobState,
@@ -310,7 +310,7 @@ class UpdateEmployee extends StatelessWidget {
                           customWidth: 150,
                         ),
                         CustomTextField(
-                          controller: controller.cardId,
+                          controller: controller.takenHolidays,
                           label: 'الإجازات المسجلة حتى الأن',
                           customHeight: 25,
                           customWidth: 150,
@@ -336,7 +336,7 @@ class UpdateEmployee extends StatelessWidget {
                               NationsFind(
                                 onRowDoubleTap: (event) {
                                   Map<String, PlutoCell> cells =
-                                      event.row!.cells;
+                                      event.row.cells;
                                   controller.nationId.text =
                                       cells['id']!.value.toString();
                                   controller.nationName.text =
@@ -355,13 +355,13 @@ class UpdateEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                          controller: controller.hafezahNumber,
+                          controller: controller.bok,
                           label: 'رقم الحفيظة',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.makanAlsodor,
+                          controller: controller.bokPlace,
                           label: 'مكان الصدور',
                           customHeight: 25,
                           customWidth: 100,
@@ -372,10 +372,21 @@ class UpdateEmployee extends StatelessWidget {
                             size: 15,
                           ),
                           onTap: () => sodorDate.pickHijriDate(context),
-                          controller: controller.sodorDate,
+                          controller: controller.datBok,
                           label: "تاريخ الصدور",
                           customHeight: 25,
                           customWidth: 100,
+                        ),
+                        CustomTextField(
+                          suffixIcon: const Icon(
+                            Icons.date_range_sharp,
+                            size: 15,
+                          ),
+                          onTap: () => dateOfBirth.pickHijriDate(context),
+                          controller: controller.datBirth,
+                          label: "تاريخ الميلاد",
+                          customHeight: 25,
+                          customWidth: 150,
                         ),
                         CustomTextField(
                           controller: controller.birthPlace,
@@ -388,19 +399,8 @@ class UpdateEmployee extends StatelessWidget {
                             Icons.date_range_sharp,
                             size: 15,
                           ),
-                          onTap: () => dateOfBirth.pickHijriDate(context),
-                          controller: controller.dateOfBirth,
-                          label: "تاريخ الميلاد",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
                           onTap: () => serviceStartDate.pickHijriDate(context),
-                          controller: controller.inDate,
+                          controller: controller.datWork,
                           label: "تاريخ بداية الخدمة",
                           customHeight: 25,
                           customWidth: 150,
@@ -410,12 +410,12 @@ class UpdateEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                            controller: controller.educationName,
+                            controller: controller.education,
                             label: 'اسم المؤهل العلمي',
                             customHeight: 25,
                             customWidth: 150),
                         CustomTextField(
-                            controller: controller.education,
+                            controller: controller.educationName,
                             label: 'اسم المؤسسة العلمية',
                             customHeight: 25,
                             customWidth: 150),
@@ -447,7 +447,7 @@ class UpdateEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                          controller: controller.cardJob,
+                          controller: controller.workJob,
                           label: 'العمل المكلف به',
                           customHeight: 25,
                           customWidth: 100,
@@ -520,13 +520,13 @@ class UpdateEmployee extends StatelessWidget {
                             children: [
                               const Text('مسير الرواتب'),
                               CustomTextField(
-                                controller: controller.harmOrInfection,
+                                controller: controller.badal2,
                                 label: 'ضرر/عدوى',
                                 customHeight: 25,
                                 customWidth: 100,
                               ),
                               CustomTextField(
-                                controller: controller.other1,
+                                controller: controller.badal4,
                                 label: 'أخرى',
                                 customHeight: 25,
                                 customWidth: 100,
@@ -578,7 +578,7 @@ class UpdateEmployee extends StatelessWidget {
                           ).paddingAll(15),
                         ),
                         CustomTextField(
-                          controller: controller.bankId,
+                          controller: controller.dissent,
                           label: 'بنك التسليف',
                           customHeight: 25,
                           customWidth: 100,
@@ -590,7 +590,7 @@ class UpdateEmployee extends StatelessWidget {
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.realEstateBank,
+                          controller: controller.sandok,
                           label: 'عقاري',
                           customHeight: 25,
                           customWidth: 100,
@@ -602,19 +602,19 @@ class UpdateEmployee extends StatelessWidget {
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.agriculturalBank,
+                          controller: controller.zeraee,
                           label: 'البنك الزراعي ',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.healthInsurance,
+                          controller: controller.hasm1,
                           label: 'التأمين الصحي',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
-                          controller: controller.other2,
+                          controller: controller.hasm2,
                           label: 'أخرى',
                           customHeight: 25,
                           customWidth: 100,
@@ -622,7 +622,7 @@ class UpdateEmployee extends StatelessWidget {
                         Obx(
                           () => CustomCheckbox(
                             label: 'ساند',
-                            value: controller.saned.value,
+                            value: controller.isHasm3.value,
                             onChanged: (value) {
                               controller.onChangeSaned();
                             },
@@ -704,7 +704,7 @@ class UpdateEmployee extends StatelessWidget {
                     ),
                     CustomTextField(
                       label: 'تاريخ خطاب التعريف',
-                      controller: controller.datBok,
+                      controller: TextEditingController(),
                       customHeight: 25,
                       customWidth: 120,
                     ),
@@ -712,7 +712,7 @@ class UpdateEmployee extends StatelessWidget {
                       children: [
                         CustomTextField(
                           label: 'جهة خطاب التعريف',
-                          controller: controller.bokPlace,
+                          controller: TextEditingController(),
                           customHeight: 25,
                           customWidth: 120,
                         ),

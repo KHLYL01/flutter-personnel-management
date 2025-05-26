@@ -62,7 +62,7 @@ import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_report_controller.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
 import '../../feature/employee/data/repository/employee_repository.dart';
-import '../../feature/employee/presentation/controllers/employee__report_controller.dart';
+import '../../feature/employee/presentation/controllers/employee_report_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_find_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_search_controller.dart';
