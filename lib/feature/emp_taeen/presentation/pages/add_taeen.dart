@@ -309,6 +309,12 @@ class AddTaeen extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: " تعيين جديد",
                       onPressed: () => controller.clearControllers(),
                       height: 35,
@@ -320,12 +326,6 @@ class AddTaeen extends StatelessWidget {
                     //   height: 35,
                     //   width: 200,
                     // ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 120,
-                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

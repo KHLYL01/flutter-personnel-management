@@ -311,12 +311,6 @@ class UpdateTaeen extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
-                    text: "طباعة قرار تعيين على بند الأجور",
-                    onPressed: () => controllerReport.createQrarTaeenReport(),
-                    height: 35,
-                    width: 200,
-                  ),
-                  CustomButton(
                     text: "تعديل",
                     onPressed: () => controller.save(),
                     height: 35,
@@ -330,6 +324,12 @@ class UpdateTaeen extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة قرار تعيين على بند الأجور",
+                    onPressed: () => controllerReport.createQrarTaeenReport(),
+                    height: 35,
+                    width: 200,
                   ),
                   CustomButton(
                     text: "عودة",

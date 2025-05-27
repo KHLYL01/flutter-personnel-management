@@ -589,6 +589,12 @@ class AddTarqea extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: "ترقية جديدة",
                       onPressed: () => controller.clearControllers(),
                       height: 35,
@@ -612,12 +618,6 @@ class AddTarqea extends StatelessWidget {
                     //   height: 35,
                     //   width: 120,
                     // ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 120,
-                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

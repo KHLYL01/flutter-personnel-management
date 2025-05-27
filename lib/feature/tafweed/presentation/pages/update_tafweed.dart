@@ -93,7 +93,7 @@ class UpdateTafweed extends StatelessWidget {
                                 EmployeesFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.empId.text =
                                         cells['id']!.value.toString();
                                     controller.empName.text =
@@ -157,14 +157,14 @@ class UpdateTafweed extends StatelessWidget {
                     width: 150,
                   ),
                   CustomButton(
-                    text: "عودة",
-                    onPressed: () => Get.back(),
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createReport(),
                     height: 35,
                     width: 150,
                   ),
                   CustomButton(
-                    text: 'التقرير',
-                    onPressed: () => controllerReport.createReport(),
+                    text: "عودة",
+                    onPressed: () => Get.back(),
                     height: 35,
                     width: 150,
                   ),

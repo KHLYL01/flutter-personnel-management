@@ -123,6 +123,21 @@ class UpdateDowra extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "تعديل",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 150,
+                    ),
+                    CustomButton(
+                      text: "حذف",
+                      onPressed: () => controller.confirmDelete(
+                        int.parse(controller.id.text),
+                        withGoBack: true,
+                      ),
+                      height: 35,
+                      width: 150,
+                    ),
+                    CustomButton(
                       text: "إضافة موظف",
                       onPressed: () => null,
                       height: 35,
@@ -137,21 +152,6 @@ class UpdateDowra extends StatelessWidget {
                     CustomButton(
                       text: "طباعة بيان الدورة",
                       onPressed: () => controllerReport.createBeanDowraReport(),
-                      height: 35,
-                      width: 150,
-                    ),
-                    CustomButton(
-                      text: "تعديل",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 150,
-                    ),
-                    CustomButton(
-                      text: "حذف",
-                      onPressed: () => controller.confirmDelete(
-                        int.parse(controller.id.text),
-                        withGoBack: true,
-                      ),
                       height: 35,
                       width: 150,
                     ),

@@ -440,22 +440,27 @@ class EmpTakleefReportController extends GetxController {
       (await _jobsRepository.findById(id: jobId))
           .fold((l) => l, (r) => jobName = r.name ?? "");
 
+      double hourSum = double.parse(takleefHour) * (item.period ?? 0);
+      double takleefPrice = ((item.salary ?? 0) / 155) * hourSum;
+      double takleefNaqlBadal =
+          ((item.naqlBadal ?? 0) / 30) * (item.period ?? 0);
+
       totalSalary += item.salary ?? 0;
       totalNqalBadal += item.naqlBadal ?? 0;
       totalTakleefDay += item.period ?? 0;
-      totalHour += (item.period ?? 0) * (double.parse(takleefHour));
-      totalTakleefPrice += 0;
-      totalNqalBadalSafee += 0;
-      totalSafee += 0;
+      totalHour += hourSum;
+      totalTakleefPrice += takleefPrice;
+      totalNqalBadalSafee += takleefNaqlBadal;
+      totalSafee += takleefNaqlBadal + takleefPrice;
 
       data.add(
         [
           cardId,
           "",
-          0 + 0,
-          0,
-          0,
-          double.parse(takleefHour) * (item.period ?? 0),
+          (takleefNaqlBadal + takleefPrice).toPrecision(2),
+          takleefNaqlBadal.toPrecision(2),
+          takleefPrice.toPrecision(2),
+          hourSum.toPrecision(2),
           item.period ?? 0,
           item.naqlBadal ?? 0,
           item.salary ?? 0,
@@ -625,10 +630,10 @@ $name
                   headers: [
                     '',
                     '',
-                    totalSafee,
-                    totalNqalBadalSafee,
-                    totalTakleefPrice,
-                    totalHour,
+                    totalSafee.toPrecision(2),
+                    totalNqalBadalSafee.toPrecision(2),
+                    totalTakleefPrice.toPrecision(2),
+                    totalHour.toPrecision(2),
                     totalTakleefDay,
                     totalNqalBadal,
                     'المجموع:   $totalSalary'

@@ -329,6 +329,12 @@ class AddEntedab extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 30,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: "إضافة موظف",
                       onPressed: () {
                         controllerDet.clearControllers();
@@ -540,12 +546,7 @@ class AddEntedab extends StatelessWidget {
                     //   height: 30,
                     //   width: 100,
                     // ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 30,
-                      width: 120,
-                    ),
+
                     CustomButton(
                       text: "عودة",
                       onPressed: () => Get.back(),

@@ -92,7 +92,7 @@ class AddTafweed extends StatelessWidget {
                                   EmployeesFind(
                                     onRowDoubleTap: (event) {
                                       Map<String, PlutoCell> cells =
-                                          event.row!.cells;
+                                          event.row.cells;
                                       controller.empId.text =
                                           cells['id']!.value.toString();
                                       controller.empName.text =

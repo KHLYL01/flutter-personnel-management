@@ -119,6 +119,12 @@ class AddDowra extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
+                    text: "حفظ",
+                    onPressed: () => controller.save(),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
                     text: "إضافة جديد ",
                     onPressed: () => controller.clearControllers(),
                     height: 35,
@@ -133,12 +139,6 @@ class AddDowra extends StatelessWidget {
                   CustomButton(
                     text: "إضافة موظف",
                     onPressed: () {},
-                    height: 35,
-                    width: 150,
-                  ),
-                  CustomButton(
-                    text: "حفظ",
-                    onPressed: () => controller.save(),
                     height: 35,
                     width: 150,
                   ),

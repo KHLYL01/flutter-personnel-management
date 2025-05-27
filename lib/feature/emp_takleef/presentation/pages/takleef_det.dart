@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
-import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 import 'package:personnel_management/feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -160,14 +159,14 @@ class TakleefDet extends StatelessWidget {
                       width: 120,
                     ),
                     CustomButton(
-                      text: 'عودة',
-                      onPressed: () => Get.back(),
+                      text: 'تفريغ الخانات',
+                      onPressed: () => controller.clearControllers(),
                       height: 30,
                       width: 120,
                     ),
                     CustomButton(
-                      text: 'تفريغ الخانات',
-                      onPressed: () => controller.clearControllers(),
+                      text: 'عودة',
+                      onPressed: () => Get.back(),
                       height: 30,
                       width: 120,
                     ),

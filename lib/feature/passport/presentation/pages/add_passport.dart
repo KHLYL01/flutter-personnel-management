@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
-import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
 import 'package:personnel_management/feature/passport/presentation/controllers/passport_controller.dart';
 import 'package:personnel_management/feature/tarmeez_nations/presentation/controllers/nations_controller.dart';
 import 'package:personnel_management/feature/tarmeez_nations/presentation/pages/nations_find.dart';
@@ -11,10 +10,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
-import '../../../employee/presentation/controllers/employee_find_controller.dart';
-import '../../../employee/presentation/pages/employee_find.dart';
 
 class AddPassport extends StatelessWidget {
   const AddPassport({super.key});
@@ -145,6 +141,12 @@ class AddPassport extends StatelessWidget {
             Row(
               children: [
                 CustomButton(
+                  text: 'حفظ',
+                  onPressed: () => controller.save(),
+                  height: 35,
+                  width: 150,
+                ),
+                CustomButton(
                   text: 'اقرار جديد',
                   onPressed: () => controller.clearControllers(),
                   height: 35,
@@ -156,12 +158,6 @@ class AddPassport extends StatelessWidget {
                 //   height: 35,
                 //   width: 150,
                 // ),
-                CustomButton(
-                  text: 'حفظ',
-                  onPressed: () => controller.save(),
-                  height: 35,
-                  width: 150,
-                ),
               ],
             ).scrollDirection(Axis.horizontal).center(),
           ]).paddingSymmetric(horizontal: 16);

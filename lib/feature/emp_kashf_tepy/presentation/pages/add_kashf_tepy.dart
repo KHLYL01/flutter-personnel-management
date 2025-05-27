@@ -158,6 +158,12 @@ class AddKashfTepy extends StatelessWidget {
             Row(
               children: [
                 CustomButton(
+                  text: 'حفظ',
+                  onPressed: () => controller.save(),
+                  height: 35,
+                  width: 150,
+                ),
+                CustomButton(
                   text: 'طلب جديد',
                   onPressed: () => controller.clearControllers(),
                   height: 35,
@@ -169,12 +175,6 @@ class AddKashfTepy extends StatelessWidget {
                 //   height: 35,
                 //   width: 150,
                 // ),
-                CustomButton(
-                  text: 'حفظ',
-                  onPressed: () => controller.save(),
-                  height: 35,
-                  width: 150,
-                ),
               ],
             ).scrollDirection(Axis.horizontal).center(),
           ]).paddingSymmetric(horizontal: 16);

@@ -160,6 +160,12 @@ class HolidayTamdeed extends StatelessWidget {
                       width: 150,
                     ),
                     CustomButton(
+                      text: "تفريغ الخانات",
+                      onPressed: () => controller.clearControllers(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: "طباعة قرار تمديد",
                       onPressed: () {},
                       height: 35,
@@ -168,12 +174,6 @@ class HolidayTamdeed extends StatelessWidget {
                     CustomButton(
                       text: "عودة",
                       onPressed: () => Get.back(),
-                      height: 35,
-                      width: 120,
-                    ),
-                    CustomButton(
-                      text: "تفريغ الخانات",
-                      onPressed: () => controller.clearControllers(),
                       height: 35,
                       width: 120,
                     ),

@@ -582,12 +582,27 @@ class UpdateTarqea extends StatelessWidget {
               ).scrollDirection(Axis.horizontal),
               Row(
                 children: [
+                  CustomButton(
+                    text: "تعديل",
+                    onPressed: () => controller.save(),
+                    height: 35,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "حذف",
+                    onPressed: () => controller.delete(
+                      int.parse(controller.id.text),
+                    ),
+                    height: 35,
+                    width: 120,
+                  ),
                   // CustomButton(
                   //   text: "ترقية جديدة",
                   //   onPressed: () => controller.clearControllers(),
                   //   height: 35,
                   //   width: 120,
                   // ),
+
                   CustomButton(
                     text: "طباعة قرار ترقية",
                     onPressed: () =>
@@ -606,21 +621,6 @@ class UpdateTarqea extends StatelessWidget {
                     text: "طباعة مباشرة",
                     onPressed: () =>
                         controllerReport.createQrarMobashraReport(),
-                    height: 35,
-                    width: 120,
-                  ),
-
-                  CustomButton(
-                    text: "تعديل",
-                    onPressed: () => controller.save(),
-                    height: 35,
-                    width: 120,
-                  ),
-                  CustomButton(
-                    text: "حذف",
-                    onPressed: () => controller.delete(
-                      int.parse(controller.id.text),
-                    ),
                     height: 35,
                     width: 120,
                   ),

@@ -489,6 +489,21 @@ class UpdateHoliday extends StatelessWidget {
                       width: 120,
                     ),
                     CustomButton(
+                      text: "تعديل",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "حذف",
+                      onPressed: () => controller.confirmDelete(
+                        int.parse(controller.id.text),
+                        withGoBack: true,
+                      ),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: " قرار إجازة",
                       onPressed: () =>
                           controllerReport.createQrarHolidayReport(),
@@ -505,21 +520,6 @@ class UpdateHoliday extends StatelessWidget {
                       text: "طباعة مسير",
                       onPressed: () =>
                           controllerReport.createMoserHolidayReport(),
-                      height: 35,
-                      width: 120,
-                    ),
-                    CustomButton(
-                      text: "تعديل",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 120,
-                    ),
-                    CustomButton(
-                      text: "حذف",
-                      onPressed: () => controller.confirmDelete(
-                        int.parse(controller.id.text),
-                        withGoBack: true,
-                      ),
                       height: 35,
                       width: 120,
                     ),

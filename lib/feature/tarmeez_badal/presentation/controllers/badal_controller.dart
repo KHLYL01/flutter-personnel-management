@@ -91,8 +91,9 @@ class BadalController extends GetxController {
   }
 
   @override
-  void onInit() {
-    findAll();
+  void onInit() async {
+    await findAll();
+    id.text = getId().toString();
     super.onInit();
   }
 

@@ -112,8 +112,8 @@ class JobsPage extends StatelessWidget {
                       ),
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
-                    onRowDoubleTap: (event) {
-                      controller.fillControllers(event.row.cells);
+                    onSelected: (event) {
+                      controller.fillControllers(event.row!.cells);
                     },
                   ),
                 ).paddingAll(16)

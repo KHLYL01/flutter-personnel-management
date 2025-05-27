@@ -8,7 +8,6 @@ import 'package:personnel_management/feature/employee/presentation/pages/employe
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_radio_list_tile.dart';
@@ -294,6 +293,21 @@ class UpdateEnd extends StatelessWidget {
               ),
               Row(
                 children: [
+                  CustomButton(
+                    text: "تعديل",
+                    onPressed: () => controller.save(),
+                    height: 35,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "حذف",
+                    onPressed: () => controller.confirmDelete(
+                      int.parse(controller.id.text),
+                      withGoBack: true,
+                    ),
+                    height: 35,
+                    width: 120,
+                  ),
                   // CustomButton(
                   //   text: "إنهاء خدمة جديد",
                   //   onPressed: () {
@@ -329,21 +343,7 @@ class UpdateEnd extends StatelessWidget {
                     height: 35,
                     width: 200,
                   ),
-                  CustomButton(
-                    text: "تعديل",
-                    onPressed: () => controller.save(),
-                    height: 35,
-                    width: 120,
-                  ),
-                  CustomButton(
-                    text: "حذف",
-                    onPressed: () => controller.confirmDelete(
-                      int.parse(controller.id.text),
-                      withGoBack: true,
-                    ),
-                    height: 35,
-                    width: 120,
-                  ),
+
                   CustomButton(
                     text: "عودة",
                     onPressed: () => Get.back(),

@@ -146,12 +146,6 @@ class UpdatePassport extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
-                    text: 'التقرير',
-                    onPressed: () => controllerReport.createReport(),
-                    height: 35,
-                    width: 150,
-                  ),
-                  CustomButton(
                     text: 'تعديل',
                     onPressed: () => controller.save(),
                     height: 35,
@@ -161,6 +155,12 @@ class UpdatePassport extends StatelessWidget {
                     text: 'حذف',
                     onPressed: () =>
                         controller.delete(int.parse(controller.id.text)),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createReport(),
                     height: 35,
                     width: 150,
                   ),

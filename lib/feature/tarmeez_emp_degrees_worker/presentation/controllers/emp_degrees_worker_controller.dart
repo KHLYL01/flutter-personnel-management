@@ -80,8 +80,9 @@ class EmpDegreesWorkerController extends GetxController {
   }
 
   @override
-  void onInit() {
-    findAll();
+  void onInit() async {
+    await findAll();
+    id.text = getId().toString();
     super.onInit();
   }
 
@@ -111,5 +112,10 @@ class EmpDegreesWorkerController extends GetxController {
 
   void fillControllers(Map<String, PlutoCell> cells) {
     id.text = cells['id']!.value.toString();
+    fia.text = cells['fia']!.value.toString();
+    draga.text = cells['draga']!.value.toString();
+    salary.text = cells['salary']!.value.toString();
+    elawa.text = cells['elawa']!.value.toString();
+    naqlBadal.text = cells['naqlBadal']!.value.toString();
   }
 }

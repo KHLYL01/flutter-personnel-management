@@ -93,6 +93,21 @@ class UpdateMokhalfat extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
+                    text: "تعديل",
+                    onPressed: () => controller.save(),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: "حذف",
+                    onPressed: () => controller.confirmDelete(
+                      int.parse(controller.id.text),
+                      withGoBack: true,
+                    ),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
                     text: "طباعة بيان مخالفة",
                     onPressed: () =>
                         controllerReport.createBeanMokhalfatReport(),
@@ -266,21 +281,6 @@ class UpdateMokhalfat extends StatelessWidget {
                         controllerDet.confirmDelete(withGoBack: true),
                     height: 35,
                     width: 120,
-                  ),
-                  CustomButton(
-                    text: "تعديل",
-                    onPressed: () => controller.save(),
-                    height: 35,
-                    width: 150,
-                  ),
-                  CustomButton(
-                    text: "حذف",
-                    onPressed: () => controller.confirmDelete(
-                      int.parse(controller.id.text),
-                      withGoBack: true,
-                    ),
-                    height: 35,
-                    width: 150,
                   ),
                   CustomButton(
                     text: "عودة",

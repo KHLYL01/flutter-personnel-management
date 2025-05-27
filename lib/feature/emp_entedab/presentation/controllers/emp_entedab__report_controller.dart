@@ -1632,26 +1632,30 @@ $bossName""",
           .fold((l) => l, (r) => jobId = r.jobId!);
       (await _jobsRepository.findById(id: jobId))
           .fold((l) => l, (r) => jobName = r.name!);
+
+      double entedabPrice = int.parse(entedabPeriod) * (item.entedabBadal ?? 0);
+      double naqlBadalSafee =
+          (int.parse(entedabPeriod) * ((item.naqlBadal ?? 0) / 30))
+              .toPrecision(2);
+
       totalSalary += item.salary ?? 0;
       totalNqalBadal += item.naqlBadal ?? 0;
       totalBadalEntedabDaily += item.entedabBadal ?? 0;
-      totalEntedabPrice += int.parse(entedabPeriod) * (item.entedabBadal ?? 0);
-      totalNqalBadalSafee += 0;
+      totalEntedabPrice += entedabPrice;
+      totalNqalBadalSafee += naqlBadalSafee;
       totalTaskRa += double.parse(entedabTaskra);
-      totalSafee += (int.parse(entedabPeriod) * (item.entedabBadal ?? 0)) +
-          double.parse(entedabTaskra) +
-          0;
+      totalSafee +=
+          (entedabPrice + double.parse(entedabTaskra) + naqlBadalSafee)
+              .toPrecision(2);
 
       data.add(
         [
           "",
           "",
-          (int.parse(entedabPeriod) * (item.entedabBadal ?? 0)) +
-              double.parse(entedabTaskra) +
-              0,
+          entedabPrice + double.parse(entedabTaskra) + naqlBadalSafee,
           entedabTaskra,
-          0,
-          int.parse(entedabPeriod) * (item.entedabBadal ?? 0),
+          naqlBadalSafee,
+          entedabPrice,
           entedabPeriod,
           item.entedabBadal,
           item.naqlBadal,
@@ -1828,7 +1832,7 @@ $name
                     '',
                     totalSafee,
                     totalTaskRa,
-                    totalNqalBadalSafee,
+                    totalNqalBadalSafee.toPrecision(2),
                     totalEntedabPrice,
                     entedabPeriod,
                     totalBadalEntedabDaily,

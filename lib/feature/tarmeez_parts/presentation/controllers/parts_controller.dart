@@ -77,8 +77,9 @@ class PartsController extends GetxController {
   }
 
   @override
-  void onInit() {
-    findAll();
+  void onInit() async {
+    await findAll();
+    id.text = getId().toString();
     super.onInit();
   }
 
@@ -112,7 +113,7 @@ class PartsController extends GetxController {
   }
 
   clearControllersForSearch() {
-    id.clear();
+    id.text = getId().toString();
     name.clear();
   }
 }

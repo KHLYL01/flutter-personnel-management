@@ -110,6 +110,12 @@ class AddEqrar extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: 'حفظ',
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 150,
+                    ),
+                    CustomButton(
                       text: 'إقرار جديد',
                       onPressed: () => controller.clearControllers(),
                       height: 35,
@@ -121,12 +127,6 @@ class AddEqrar extends StatelessWidget {
                     //   height: 35,
                     //   width: 150,
                     // ),
-                    CustomButton(
-                      text: 'حفظ',
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 150,
-                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

@@ -295,6 +295,12 @@ class AddEnd extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: "إنهاء خدمة جديد",
                       onPressed: () {
                         controller.clearControllers();
@@ -329,12 +335,6 @@ class AddEnd extends StatelessWidget {
                     //   height: 35,
                     //   width: 200,
                     // ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 120,
-                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

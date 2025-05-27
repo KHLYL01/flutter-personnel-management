@@ -330,6 +330,21 @@ class UpdateEntedab extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
+                    text: "تعديل",
+                    onPressed: () => controller.save(),
+                    height: 30,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "حذف",
+                    onPressed: () => controller.confirmDelete(
+                      int.parse(controller.id.text),
+                      withGoBack: true,
+                    ),
+                    height: 30,
+                    width: 120,
+                  ),
+                  CustomButton(
                     text: "إضافة موظف",
                     onPressed: () {
                       controllerDet.clearControllers();
@@ -538,21 +553,6 @@ class UpdateEntedab extends StatelessWidget {
                         controllerReport.createEsthqaqRatebReport(),
                     height: 30,
                     width: 100,
-                  ),
-                  CustomButton(
-                    text: "تعديل",
-                    onPressed: () => controller.save(),
-                    height: 30,
-                    width: 120,
-                  ),
-                  CustomButton(
-                    text: "حذف",
-                    onPressed: () => controller.confirmDelete(
-                      int.parse(controller.id.text),
-                      withGoBack: true,
-                    ),
-                    height: 30,
-                    width: 120,
                   ),
                   CustomButton(
                     text: "عودة",

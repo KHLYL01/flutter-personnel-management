@@ -90,6 +90,12 @@ class AddMokhalfat extends StatelessWidget {
                 ).scrollDirection(Axis.horizontal),
                 Row(
                   children: [
+                    CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 150,
+                    ),
                     // CustomButton(
                     //   text: "إضافة جديد ",
                     //   onPressed: () {
@@ -273,12 +279,6 @@ class AddMokhalfat extends StatelessWidget {
                           controllerDet.confirmDelete(withGoBack: true),
                       height: 35,
                       width: 120,
-                    ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 150,
                     ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),

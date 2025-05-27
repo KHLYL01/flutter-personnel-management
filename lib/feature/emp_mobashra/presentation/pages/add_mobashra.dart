@@ -267,6 +267,12 @@ class AddMobashra extends StatelessWidget {
                 Row(
                   children: [
                     CustomButton(
+                      text: "حفظ",
+                      onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
                       text: "إضافة جديد",
                       onPressed: () => controller.clearControllers(),
                       height: 35,
@@ -284,12 +290,6 @@ class AddMobashra extends StatelessWidget {
                     //   height: 35,
                     //   width: 150,
                     // ),
-                    CustomButton(
-                      text: "حفظ",
-                      onPressed: () => controller.save(),
-                      height: 35,
-                      width: 120,
-                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

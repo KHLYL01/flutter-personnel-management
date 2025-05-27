@@ -111,12 +111,6 @@ class UpdateEqrar extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
-                    text: 'التقرير',
-                    onPressed: () => controllerReport.createEqrarReport(),
-                    height: 35,
-                    width: 150,
-                  ),
-                  CustomButton(
                     text: 'تعديل',
                     onPressed: () => controller.save(),
                     height: 35,
@@ -128,6 +122,12 @@ class UpdateEqrar extends StatelessWidget {
                       int.parse(controller.id.text),
                       withGoBack: true,
                     ),
+                    height: 35,
+                    width: 150,
+                  ),
+                  CustomButton(
+                    text: 'التقرير',
+                    onPressed: () => controllerReport.createEqrarReport(),
                     height: 35,
                     width: 150,
                   ),

@@ -103,7 +103,7 @@ class NationsPage extends StatelessWidget {
                       ),
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
-                    onRowDoubleTap: (event) {
+                    onSelected: (event) {
                       controller.fillControllers(event.row!.cells);
                     },
                   ),

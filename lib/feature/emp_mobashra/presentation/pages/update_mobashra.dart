@@ -270,20 +270,6 @@ class UpdateMobashra extends StatelessWidget {
               Row(
                 children: [
                   CustomButton(
-                    text: "طباعة قرار مباشرة",
-                    onPressed: () =>
-                        controllerReport.createQrarMobashraReport(),
-                    height: 35,
-                    width: 120,
-                  ),
-                  CustomButton(
-                    text: "طباعة مسير راتب إفرادي",
-                    onPressed: () =>
-                        controllerReport.createMoserRatebEfradyReport(),
-                    height: 35,
-                    width: 150,
-                  ),
-                  CustomButton(
                     text: "تعديل",
                     onPressed: () => controller.save(),
                     height: 35,
@@ -297,6 +283,20 @@ class UpdateMobashra extends StatelessWidget {
                     ),
                     height: 35,
                     width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة قرار مباشرة",
+                    onPressed: () =>
+                        controllerReport.createQrarMobashraReport(),
+                    height: 35,
+                    width: 120,
+                  ),
+                  CustomButton(
+                    text: "طباعة مسير راتب إفرادي",
+                    onPressed: () =>
+                        controllerReport.createMoserRatebEfradyReport(),
+                    height: 35,
+                    width: 150,
                   ),
                   CustomButton(
                     text: "عودة",
