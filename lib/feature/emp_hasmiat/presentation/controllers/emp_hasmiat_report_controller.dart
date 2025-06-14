@@ -79,116 +79,21 @@ class EmpHasmiatReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        // orientation: pw.PageOrientation.landscape,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Text(
-                        "إدارة الموارد البشرية",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        "الموضوع: قرار حسم",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 5),
-                pw.Center(
-                  child: pw.Text(
-                    "قرار حسم الغياب و التأخير",
-                    textAlign: pw.TextAlign.center,
-                    style: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                      lineSpacing: 10,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                ),
-                pw.SizedBox(height: 10),
-                // جدول البيانات
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 6,
-                  ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 6,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(250),
-                    1: const pw.FixedColumnWidth(250),
-                    2: const pw.FixedColumnWidth(300),
-                    3: const pw.FixedColumnWidth(300),
-                    4: const pw.FixedColumnWidth(300),
-                    5: const pw.FixedColumnWidth(250),
-                    6: const pw.FixedColumnWidth(200),
-                    7: const pw.FixedColumnWidth(200),
-                    8: const pw.FixedColumnWidth(300),
-                    9: const pw.FixedColumnWidth(400),
-                    10: const pw.FixedColumnWidth(200),
-                  },
-                  headers: [
-                    'ملاحظات',
-                    'مقدار الحسم بالريال',
-                    'مدة الغياب و التأخير يوم',
-                    'مدة الغياب و التأخير س',
-                    'مدة الغياب و التأخير د',
-                    'بدل النقل',
-                    'الراتب',
-                    'المرتبة',
-                    'الوظيفة',
-                    'الاسم',
-                    ' م ',
-                  ],
-                  data: data,
-                ),
-                pw.SizedBox(height: 10),
                 pw.Text(
-                  """إن رئيس $name
-بناء على خطاب مدير عام شؤون الموظفين بالوزارة رقم (2962) و تاريخ 1435/02/14 هـ و المتضمنة تأخر و
-تغيب الموظف الموضح اسمه أعلاه خلال خلاصة لشهر $hasmiatMonth1 عام $hasmiatYear1 هو استنادا للمادة رقم (21) من نظام الخدمة المدنية فقد تقرر ما يلي:
-1:- يحسم من راتب الموظف الموضح اسمه أعلاه راتب و بدلات مدة الغياب و التأخير المحددة أمام اسمه من راتب شهر $hasmiatMonth2 لعام $hasmiatYear2
-2:- يبلغ قرارنا هذا من يلزم لنفاذه .""",
+                  "إدارة الموارد البشرية",
+                  textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -196,40 +101,126 @@ class EmpHasmiatReportController extends GetxController {
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
-                pw.Center(
-                  child: pw.Text(
-                    "و السلام عليكم و رحمه الله و بركاته ,,,,,",
-                    style: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                      lineSpacing: 10,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
+                pw.Text(
+                  "الموضوع: قرار حسم",
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    lineSpacing: 10,
+                    fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          """رئيس $name
-                          
-$bossName""",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 11, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 5),
+          pw.Center(
+            child: pw.Text(
+              "قرار حسم الغياب و التأخير",
+              textAlign: pw.TextAlign.center,
+              style: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 11,
+                lineSpacing: 10,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          // جدول البيانات
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 6,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 6,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(250),
+              1: const pw.FixedColumnWidth(250),
+              2: const pw.FixedColumnWidth(300),
+              3: const pw.FixedColumnWidth(300),
+              4: const pw.FixedColumnWidth(300),
+              5: const pw.FixedColumnWidth(250),
+              6: const pw.FixedColumnWidth(200),
+              7: const pw.FixedColumnWidth(200),
+              8: const pw.FixedColumnWidth(300),
+              9: const pw.FixedColumnWidth(400),
+              10: const pw.FixedColumnWidth(200),
+            },
+            headers: [
+              'ملاحظات',
+              'مقدار الحسم بالريال',
+              'مدة الغياب و التأخير يوم',
+              'مدة الغياب و التأخير س',
+              'مدة الغياب و التأخير د',
+              'بدل النقل',
+              'الراتب',
+              'المرتبة',
+              'الوظيفة',
+              'الاسم',
+              ' م ',
+            ],
+            data: data,
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text(
+            """إن رئيس $name
+بناء على خطاب مدير عام شؤون الموظفين بالوزارة رقم (2962) و تاريخ 1435/02/14 هـ و المتضمنة تأخر و
+تغيب الموظف الموضح اسمه أعلاه خلال خلاصة لشهر $hasmiatMonth1 عام $hasmiatYear1 هو استنادا للمادة رقم (21) من نظام الخدمة المدنية فقد تقرر ما يلي:
+1:- يحسم من راتب الموظف الموضح اسمه أعلاه راتب و بدلات مدة الغياب و التأخير المحددة أمام اسمه من راتب شهر $hasmiatMonth2 لعام $hasmiatYear2
+2:- يبلغ قرارنا هذا من يلزم لنفاذه .""",
+            style: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+              lineSpacing: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text(
+              "و السلام عليكم و رحمه الله و بركاته ,,,,,",
+              style: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 11,
+                lineSpacing: 10,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.Column(
+                children: [
+                  pw.Text(
+                    """رئيس $name
+                    
+$bossName""",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 11, lineSpacing: 10),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
     // Generate the PDF bytes

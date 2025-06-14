@@ -32,99 +32,91 @@ class EmpKashfTepyReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.end,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Text(
-                        """أمانة $amana
-                        
-                        
+                pw.Text(
+                  """أمانة $amana
+                  
+                  
 إدارة الموارد البشرية""",
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        'الموضوع: طلب كشف طبي',
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
                 pw.Text(
-                  "المكرم مدير مستشفى مستشفى محافظة $city",
+                  'الموضوع: طلب كشف طبي',
                   style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
-                ),
-                pw.SizedBox(height: 10),
-                pw.Center(
-                  child: pw.Text(
-                    "السلام عليكم ورحمة الله وبركاته،",
-                    style: pw.TextStyle(
-                        font: arabicFont, fontSize: 9, lineSpacing: 10),
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
-                pw.Text(
-                  "نأمل إجراء الكشف الطبى على -: موظف $empName",
-                  style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
-                ),
-                pw.SizedBox(height: 10),
-                pw.Center(
-                  child: pw.Text(
-                    "رقم السجل المدني: $cardId",
-                    style: pw.TextStyle(
-                        font: arabicFont, fontSize: 11, lineSpacing: 10),
-                  ),
-                ),
-                pw.SizedBox(height: 20),
-                pw.Text(
-                  """وإفادتنا بالنتيجة علما بأنه :
-   قائم بالعمل حتى تاريخه""",
-                  style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
-                ),
-                pw.SizedBox(height: 20),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Text(
-                      """مساعد رئيس $name
-                      
-$bossAssistant""",
-                      textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(
-                          font: arabicFont, fontSize: 11, lineSpacing: 10),
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text(
+            "المكرم مدير مستشفى مستشفى محافظة $city",
+            style:
+                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text(
+              "السلام عليكم ورحمة الله وبركاته،",
+              style:
+                  pw.TextStyle(font: arabicFont, fontSize: 9, lineSpacing: 10),
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text(
+            "نأمل إجراء الكشف الطبى على -: موظف $empName",
+            style:
+                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text(
+              "رقم السجل المدني: $cardId",
+              style:
+                  pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+            ),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Text(
+            """وإفادتنا بالنتيجة علما بأنه :
+   قائم بالعمل حتى تاريخه""",
+            style:
+                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.Text(
+                """مساعد رئيس $name
+                
+$bossAssistant""",
+                textAlign: pw.TextAlign.center,
+                style: pw.TextStyle(
+                    font: arabicFont, fontSize: 11, lineSpacing: 10),
+              ),
+            ],
+          ),
+        ],
       ),
     );
 

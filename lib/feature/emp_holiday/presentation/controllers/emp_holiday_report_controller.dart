@@ -74,90 +74,85 @@ class EmpHolidayReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Text(
-                        'إدارة الموارد البشرية',
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        'الموضوع: إجازة موظف',
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 10),
-
-                // جدول البيانات
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 11,
-                  ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 11,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(130),
-                    1: const pw.FixedColumnWidth(130),
-                    2: const pw.FixedColumnWidth(130),
-                    3: const pw.FixedColumnWidth(130),
-                    4: const pw.FixedColumnWidth(120),
-                    5: const pw.FixedColumnWidth(250),
-                    6: const pw.FixedColumnWidth(300),
-                  },
-                  headers: [
-                    'بدل النقل',
-                    'الراتب',
-                    'الدرجة',
-                    'المرتبة',
-                    'الوظيفة',
-                    'رقم السجل المدني',
-                    'الاسم',
-                  ],
-                  data: data,
-                ),
-
-                pw.SizedBox(height: 30),
-
-                // نص ختامي
                 pw.Text(
-                  """إن مساعد رئيس $name
+                  'إدارة الموارد البشرية',
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.Text(
+                  'الموضوع: إجازة موظف',
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          pw.SizedBox(height: 10),
+
+          // جدول البيانات
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 11,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(130),
+              1: const pw.FixedColumnWidth(130),
+              2: const pw.FixedColumnWidth(130),
+              3: const pw.FixedColumnWidth(130),
+              4: const pw.FixedColumnWidth(120),
+              5: const pw.FixedColumnWidth(250),
+              6: const pw.FixedColumnWidth(300),
+            },
+            headers: [
+              'بدل النقل',
+              'الراتب',
+              'الدرجة',
+              'المرتبة',
+              'الوظيفة',
+              'رقم السجل المدني',
+              'الاسم',
+            ],
+            data: data,
+          ),
+
+          pw.SizedBox(height: 30),
+
+          // نص ختامي
+          pw.Text(
+            """إن مساعد رئيس $name
 بناءً على الصلاحيات الممنوحة لة بالقرار الاداري رقم ($holidayQrarId) وتاريخ $holidayQrarDate هـ .
 و إشارة إلى طلب الإجازة المرفق من الموضح اسمه و بياناته أعلاه وبناء على
 المادة (130) من اللائحة التنفيذية للموارد البشرية بنظام الخدمة المدنية, يقرر ما يلي:
@@ -168,35 +163,32 @@ class EmpHolidayReportController extends GetxController {
 3- يبلغ هذا القرار لمن يلزم لإنفاذه
 
 """,
-                  style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
-                ),
+            style:
+                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+          ),
 
-                pw.Center(
-                  child: pw.Text(
-                    "والسلام عليكم ورحمة الله و بركاته ....",
-                    style: pw.TextStyle(
-                        font: arabicFont, fontSize: 11, lineSpacing: 10),
-                  ),
-                ),
-                pw.SizedBox(height: 20),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Text(
-                      """مساعد رئيس $name
+          pw.Center(
+            child: pw.Text(
+              "والسلام عليكم ورحمة الله و بركاته ....",
+              style:
+                  pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+            ),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.Text(
+                """مساعد رئيس $name
 
 $bossAssistant""",
-                      textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(
-                          font: arabicFont, fontSize: 11, lineSpacing: 10),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        },
+                textAlign: pw.TextAlign.center,
+                style: pw.TextStyle(
+                    font: arabicFont, fontSize: 11, lineSpacing: 10),
+              ),
+            ],
+          ),
+        ],
       ),
     );
     // Generate the PDF bytes
@@ -301,271 +293,263 @@ $bossAssistant""",
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         orientation: pw.PageOrientation.landscape,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    children: [
-                      pw.Text(
-                        """المملكة العربية السعودية
+                pw.Text(
+                  """المملكة العربية السعودية
 وزارة الشئون البلدية و القروية
 $name
 إدارة الموارد البشرية
 """,
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 8,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.SizedBox(width: 150),
-                      pw.Text(
-                        """بسم الله الرحمن الرحيم
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 8,
+                    lineSpacing: 10,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.SizedBox(width: 150),
+                pw.Text(
+                  """بسم الله الرحمن الرحيم
 
 سند إفرادي يوضح استحقاق الموضح ادناه لقاء
 عن المدة من $holidayStartDate هـ وتاريخ انتهاء الإجازة إعتباراٌ $holidayEndDate هـ
 بموجب القرار رقم $holidayQrarId وتاريخ $holidayQrarDate""",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 8,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 10),
-                // جدول البيانات
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
                     font: arabicFont,
+                    fontSize: 8,
+                    lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 6,
                   ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 6,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(150),
-                    1: const pw.FixedColumnWidth(150),
-                    2: const pw.FixedColumnWidth(160),
-                    3: const pw.FixedColumnWidth(230),
-                    4: const pw.FixedColumnWidth(230),
-                    5: const pw.FixedColumnWidth(150),
-                    6: const pw.FixedColumnWidth(160),
-                    7: const pw.FixedColumnWidth(230),
-                    8: const pw.FixedColumnWidth(230),
-                    9: const pw.FixedColumnWidth(230),
-                    10: const pw.FixedColumnWidth(160),
-                    11: const pw.FixedColumnWidth(230),
-                    12: const pw.FixedColumnWidth(230),
-                    13: const pw.FixedColumnWidth(230),
-                    14: const pw.FixedColumnWidth(130),
-                    15: const pw.FixedColumnWidth(140),
-                    16: const pw.FixedColumnWidth(230),
-                    17: const pw.FixedColumnWidth(300),
-                    18: const pw.FixedColumnWidth(50),
-                  },
-                  headers: [
-                    'التوقيع',
-                    'الصافي',
-                    'المجموع',
-                    'حسميات التسليف',
-                    'حسميات العقاري',
-                    'التقاعد',
-                    'المجموع',
-                    'قسط طبيعة العمل',
-                    'قسط بدل النقل',
-                    'قسط الراتب',
-                    'المجموع',
-                    'بدل طبيعة العمل',
-                    'بدل النقل',
-                    'الراتب الاساسي',
-                    'الدرجة',
-                    'المرتبة',
-                    'الوظيفة',
-                    'الاسم',
-                    ' م',
-                  ],
-                  data: data,
                 ),
-
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 6,
-                  ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 6,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(150),
-                    1: const pw.FixedColumnWidth(150),
-                    2: const pw.FixedColumnWidth(160),
-                    3: const pw.FixedColumnWidth(230),
-                    4: const pw.FixedColumnWidth(230),
-                    5: const pw.FixedColumnWidth(150),
-                    6: const pw.FixedColumnWidth(160),
-                    7: const pw.FixedColumnWidth(230),
-                    8: const pw.FixedColumnWidth(230),
-                    9: const pw.FixedColumnWidth(230),
-                    10: const pw.FixedColumnWidth(160),
-                    11: const pw.FixedColumnWidth(230),
-                    12: const pw.FixedColumnWidth(230),
-                    13: const pw.FixedColumnWidth(230),
-                    14: const pw.FixedColumnWidth(850),
-                  },
-                  headers: [
-                    '0.0',
-                    totalkast + totalHasm,
-                    totalHasm,
-                    hasmTsleef,
-                    hasmAkary,
-                    taka3d,
-                    totalkast,
-                    kastNaturalWorkBadal,
-                    kastNqalBadal,
-                    kastSalary,
-                    salaryWithBadal,
-                    naturalWorkBadal,
-                    naqlBadal,
-                    salary,
-                    'الإجمالي'
-                  ],
-                  data: [],
-                ),
-                pw.SizedBox(height: 20),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "الموظف المختص",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          "مدير النظام",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "مدير ادارة الموارد البشرية",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          edara,
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "المدقق",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          modaqeq,
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "مدير قسم الشئون المالية",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          malia,
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                    pw.Column(
-                      children: [
-                        pw.Text(
-                          "رئيس $name",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 8, lineSpacing: 10),
-                        ),
-                        pw.SizedBox(height: 20),
-                        pw.Text(
-                          bossName,
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                              font: arabicFont, fontSize: 10, lineSpacing: 10),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 10),
+          // جدول البيانات
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 6,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 6,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(150),
+              1: const pw.FixedColumnWidth(150),
+              2: const pw.FixedColumnWidth(160),
+              3: const pw.FixedColumnWidth(230),
+              4: const pw.FixedColumnWidth(230),
+              5: const pw.FixedColumnWidth(150),
+              6: const pw.FixedColumnWidth(160),
+              7: const pw.FixedColumnWidth(230),
+              8: const pw.FixedColumnWidth(230),
+              9: const pw.FixedColumnWidth(230),
+              10: const pw.FixedColumnWidth(160),
+              11: const pw.FixedColumnWidth(230),
+              12: const pw.FixedColumnWidth(230),
+              13: const pw.FixedColumnWidth(230),
+              14: const pw.FixedColumnWidth(130),
+              15: const pw.FixedColumnWidth(140),
+              16: const pw.FixedColumnWidth(230),
+              17: const pw.FixedColumnWidth(300),
+              18: const pw.FixedColumnWidth(50),
+            },
+            headers: [
+              'التوقيع',
+              'الصافي',
+              'المجموع',
+              'حسميات التسليف',
+              'حسميات العقاري',
+              'التقاعد',
+              'المجموع',
+              'قسط طبيعة العمل',
+              'قسط بدل النقل',
+              'قسط الراتب',
+              'المجموع',
+              'بدل طبيعة العمل',
+              'بدل النقل',
+              'الراتب الاساسي',
+              'الدرجة',
+              'المرتبة',
+              'الوظيفة',
+              'الاسم',
+              ' م',
+            ],
+            data: data,
+          ),
+
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 6,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 6,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(150),
+              1: const pw.FixedColumnWidth(150),
+              2: const pw.FixedColumnWidth(160),
+              3: const pw.FixedColumnWidth(230),
+              4: const pw.FixedColumnWidth(230),
+              5: const pw.FixedColumnWidth(150),
+              6: const pw.FixedColumnWidth(160),
+              7: const pw.FixedColumnWidth(230),
+              8: const pw.FixedColumnWidth(230),
+              9: const pw.FixedColumnWidth(230),
+              10: const pw.FixedColumnWidth(160),
+              11: const pw.FixedColumnWidth(230),
+              12: const pw.FixedColumnWidth(230),
+              13: const pw.FixedColumnWidth(230),
+              14: const pw.FixedColumnWidth(850),
+            },
+            headers: [
+              '0.0',
+              totalkast + totalHasm,
+              totalHasm,
+              hasmTsleef,
+              hasmAkary,
+              taka3d,
+              totalkast,
+              kastNaturalWorkBadal,
+              kastNqalBadal,
+              kastSalary,
+              salaryWithBadal,
+              naturalWorkBadal,
+              naqlBadal,
+              salary,
+              'الإجمالي'
+            ],
+            data: [],
+          ),
+          pw.SizedBox(height: 20),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+              pw.Column(
+                children: [
+                  pw.Text(
+                    "الموظف المختص",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    "مدير النظام",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                ],
+              ),
+              pw.Column(
+                children: [
+                  pw.Text(
+                    "مدير ادارة الموارد البشرية",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    edara,
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                ],
+              ),
+              pw.Column(
+                children: [
+                  pw.Text(
+                    "المدقق",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    modaqeq,
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                ],
+              ),
+              pw.Column(
+                children: [
+                  pw.Text(
+                    "مدير قسم الشئون المالية",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    malia,
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                ],
+              ),
+              pw.Column(
+                children: [
+                  pw.Text(
+                    "رئيس $name",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 8, lineSpacing: 10),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    bossName,
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                        font: arabicFont, fontSize: 10, lineSpacing: 10),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
     // Generate the PDF bytes

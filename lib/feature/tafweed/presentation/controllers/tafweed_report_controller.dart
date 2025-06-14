@@ -72,85 +72,21 @@ class TafweedReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        // orientation: pw.PageOrientation.landscape,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Text(
-                        "إدارة الموارد البشرية",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        "الموضوع: $subject",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 10),
-                // جدول البيانات
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 6,
-                  ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 6,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(200),
-                    1: const pw.FixedColumnWidth(200),
-                    2: const pw.FixedColumnWidth(200),
-                    3: const pw.FixedColumnWidth(200),
-                  },
-                  headers: [
-                    'الجنسية',
-                    'الوظيفة',
-                    'رقم السجل المدني',
-                    'الاسم',
-                  ],
-                  data: data,
-                ),
-                pw.SizedBox(height: 10),
                 pw.Text(
-                  """تشهد $name بأن الموضح اسمه و بياناته اعلاه هو أحد منسوبيها و لازال على رأس عمله حتى تاريخه و يرغب اعتبارا من يوم $day الموافق $startDate هـ و حتى $endDate هـ و حيث لا مانع لدينا من تفويضه $subject  ,  $notes آمل تسهيل مروره.""",
+                  "إدارة الموارد البشرية",
+                  textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -158,36 +94,91 @@ class TafweedReportController extends GetxController {
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
-                pw.Center(
-                  child: pw.Text(
-                    "والله الموفق ....",
-                    style: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                      lineSpacing: 10,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
+                pw.Text(
+                  "الموضوع: $subject",
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    lineSpacing: 10,
+                    fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Text(
-                      """رئيس $name
-                      
-$bossName""",
-                      textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(
-                          font: arabicFont, fontSize: 11, lineSpacing: 10),
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 10),
+          // جدول البيانات
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 6,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 6,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(200),
+              1: const pw.FixedColumnWidth(200),
+              2: const pw.FixedColumnWidth(200),
+              3: const pw.FixedColumnWidth(200),
+            },
+            headers: [
+              'الجنسية',
+              'الوظيفة',
+              'رقم السجل المدني',
+              'الاسم',
+            ],
+            data: data,
+          ),
+          pw.SizedBox(height: 10),
+          pw.Text(
+            """تشهد $name بأن الموضح اسمه و بياناته اعلاه هو أحد منسوبيها و لازال على رأس عمله حتى تاريخه و يرغب اعتبارا من يوم $day الموافق $startDate هـ و حتى $endDate هـ و حيث لا مانع لدينا من تفويضه $subject  ,  $notes آمل تسهيل مروره.""",
+            style: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+              lineSpacing: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Center(
+            child: pw.Text(
+              "والله الموفق ....",
+              style: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 11,
+                lineSpacing: 10,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ),
+          pw.SizedBox(height: 10),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.Text(
+                """رئيس $name
+
+$bossName""",
+                textAlign: pw.TextAlign.center,
+                style: pw.TextStyle(
+                    font: arabicFont, fontSize: 11, lineSpacing: 10),
+              ),
+            ],
+          ),
+        ],
       ),
     );
     // Generate the PDF bytes

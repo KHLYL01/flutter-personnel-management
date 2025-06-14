@@ -18,51 +18,21 @@ class PassportReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        // orientation: pw.PageOrientation.landscape,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Text(
-                        "إدارة الموارد البشرية",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        "الموضوع: إقرار استلام جواز سفر",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          lineSpacing: 10,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 60),
-
                 pw.Text(
-                  "نعم أنا العامل :                                                                                                جنسيته:               ",
+                  "إدارة الموارد البشرية",
+                  textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -70,11 +40,9 @@ class PassportReportController extends GetxController {
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-
-                pw.SizedBox(height: 60),
-
                 pw.Text(
-                  "أنني استلمت جواز السفر الخاص بي رقم : ",
+                  "الموضوع: إقرار استلام جواز سفر",
+                  textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
                     fontSize: 11,
@@ -82,62 +50,80 @@ class PassportReportController extends GetxController {
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 60),
-
-                pw.Text(
-                  "الصادر من :",
-                  style: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 11,
-                    lineSpacing: 10,
-                    fontWeight: pw.FontWeight.bold,
-                  ),
-                ),
-                pw.SizedBox(height: 60),
-                pw.Center(
-                  child: pw.Text(
-                    "و على ذلك جرى التوقيع ...",
-                    style: pw.TextStyle(
-                      font: arabicFont,
-                      fontSize: 11,
-                      lineSpacing: 10,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                ),
-                pw.SizedBox(height: 60),
-
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Text(
-                      """                            شاهد
-الاسم :
-التوقيع : ........................................""",
-                      style: pw.TextStyle(
-                        font: arabicFont,
-                        fontSize: 11,
-                        lineSpacing: 10,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                    pw.Text(
-                      """                            المقر بما فيه
-العامل :
-التوقيع : ........................................""",
-                      style: pw.TextStyle(
-                        font: arabicFont,
-                        fontSize: 11,
-                        lineSpacing: 10,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 60),
+          pw.Text(
+            "نعم أنا العامل :                                                                                                جنسيته:               ",
+            style: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+              lineSpacing: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 60),
+          pw.Text(
+            "أنني استلمت جواز السفر الخاص بي رقم : ",
+            style: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+              lineSpacing: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 60),
+          pw.Text(
+            "الصادر من :",
+            style: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+              lineSpacing: 10,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 60),
+          pw.Center(
+            child: pw.Text(
+              "و على ذلك جرى التوقيع ...",
+              style: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 11,
+                lineSpacing: 10,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+          ),
+          pw.SizedBox(height: 60),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+              pw.Text(
+                """                            شاهد
+الاسم :
+التوقيع : ........................................""",
+                style: pw.TextStyle(
+                  font: arabicFont,
+                  fontSize: 11,
+                  lineSpacing: 10,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.Text(
+                """                            المقر بما فيه
+العامل :
+التوقيع : ........................................""",
+                style: pw.TextStyle(
+                  font: arabicFont,
+                  fontSize: 11,
+                  lineSpacing: 10,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
     // Generate the PDF bytes

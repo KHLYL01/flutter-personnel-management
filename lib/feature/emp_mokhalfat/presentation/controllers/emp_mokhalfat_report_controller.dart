@@ -73,112 +73,104 @@ class EmpMokhalfatReportController extends GetxController {
 
     // إضافة صفحة إلى المستند
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Directionality(
-            textDirection: pw.TextDirection.rtl, // للغة العربية
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+          pw.Header(
+            level: 0,
+            decoration: const pw.BoxDecoration(
+              border: pw.Border.fromBorderSide(pw.BorderSide.none),
+            ),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
-                // عنوان التقرير
-                pw.Header(
-                  level: 0,
-                  decoration: const pw.BoxDecoration(
-                    border: pw.Border.fromBorderSide(pw.BorderSide.none),
-                  ),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Text(
-                        'إدارة الموارد البشرية',
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                      pw.Text(
-                        'الموضوع: بيان مخالفة',
-                        style: pw.TextStyle(
-                          font: arabicFont,
-                          fontSize: 11,
-                          fontWeight: pw.FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 10),
-
-                // جدول البيانات
-                pw.TableHelper.fromTextArray(
-                  context: context,
-                  border: pw.TableBorder.all(color: PdfColors.grey400),
-                  tableDirection: pw.TextDirection.rtl,
-                  headerStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.white,
-                    fontSize: 11,
-                  ),
-                  headerDecoration: const pw.BoxDecoration(
-                    color: PdfColors.grey600,
-                  ),
-                  cellStyle: pw.TextStyle(
-                    font: arabicFont,
-                    fontSize: 11,
-                  ),
-                  cellAlignment: pw.Alignment.center,
-                  headerAlignment: pw.Alignment.center,
-                  columnWidths: {
-                    0: const pw.FixedColumnWidth(250),
-                    1: const pw.FixedColumnWidth(250),
-                    2: const pw.FixedColumnWidth(250),
-                    3: const pw.FixedColumnWidth(250),
-                    4: const pw.FixedColumnWidth(250),
-                    5: const pw.FixedColumnWidth(250),
-                    6: const pw.FixedColumnWidth(300),
-                    7: const pw.FixedColumnWidth(300),
-                  },
-                  headers: [
-                    'أيام الجزاء',
-                    'الفترة إلى',
-                    'الفترة من',
-                    'النوع',
-                    'المرتبة',
-                    'مسمى الوظيفة',
-                    'رقم السجل المدني',
-                    'الاسم',
-                  ],
-                  data: data,
-                ),
-                pw.SizedBox(height: 30),
-
-                // نص ختامي
                 pw.Text(
-                  mokhalfatDescription,
+                  'إدارة الموارد البشرية',
                   style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 10),
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
                 ),
-                pw.SizedBox(height: 20),
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
-                  children: [
-                    pw.Text(
-                      """رئيس $name
-                      
-$bossName""",
-                      textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(
-                          font: arabicFont, fontSize: 11, lineSpacing: 10),
-                    ),
-                  ],
-                )
+                pw.Text(
+                  'الموضوع: بيان مخالفة',
+                  style: pw.TextStyle(
+                    font: arabicFont,
+                    fontSize: 11,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
               ],
             ),
-          );
-        },
+          ),
+          pw.SizedBox(height: 10),
+
+          // جدول البيانات
+          pw.TableHelper.fromTextArray(
+            context: context,
+            border: pw.TableBorder.all(color: PdfColors.grey400),
+            tableDirection: pw.TextDirection.rtl,
+            headerStyle: pw.TextStyle(
+              font: arabicFont,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.white,
+              fontSize: 11,
+            ),
+            headerDecoration: const pw.BoxDecoration(
+              color: PdfColors.grey600,
+            ),
+            cellStyle: pw.TextStyle(
+              font: arabicFont,
+              fontSize: 11,
+            ),
+            cellAlignment: pw.Alignment.center,
+            headerAlignment: pw.Alignment.center,
+            columnWidths: {
+              0: const pw.FixedColumnWidth(250),
+              1: const pw.FixedColumnWidth(250),
+              2: const pw.FixedColumnWidth(250),
+              3: const pw.FixedColumnWidth(250),
+              4: const pw.FixedColumnWidth(250),
+              5: const pw.FixedColumnWidth(250),
+              6: const pw.FixedColumnWidth(300),
+              7: const pw.FixedColumnWidth(300),
+            },
+            headers: [
+              'أيام الجزاء',
+              'الفترة إلى',
+              'الفترة من',
+              'النوع',
+              'المرتبة',
+              'مسمى الوظيفة',
+              'رقم السجل المدني',
+              'الاسم',
+            ],
+            data: data,
+          ),
+          pw.SizedBox(height: 30),
+
+          // نص ختامي
+          pw.Text(
+            mokhalfatDescription,
+            style:
+                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 10),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.Text(
+                """رئيس $name
+                
+$bossName""",
+                textAlign: pw.TextAlign.center,
+                style: pw.TextStyle(
+                    font: arabicFont, fontSize: 11, lineSpacing: 10),
+              ),
+            ],
+          ),
+        ],
       ),
     );
 

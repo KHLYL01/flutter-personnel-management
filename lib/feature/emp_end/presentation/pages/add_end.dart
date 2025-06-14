@@ -94,22 +94,19 @@ class AddEnd extends StatelessWidget {
                           EmployeesFind(
                             onRowDoubleTap: (event) {
                               Map<String, PlutoCell> cells = event.row.cells;
-                              controller.empId.text =
-                                  cells['id']!.value.toString();
-                              controller.empName.text =
-                                  cells['name']!.value.toString();
-                              controller.salary.text =
-                                  cells['salary']!.value.toString();
-                              controller.cardId.text =
-                                  cells['cardId']!.value.toString();
-                              controller.empType.text =
-                                  cells['empType']!.value.toString();
-                              controller.draga.text =
-                                  cells['draga']!.value.toString();
-                              controller.fia.text =
-                                  cells['fia']!.value.toString();
-                              controller.empType.text =
-                                  cells['empType']!.value.toString();
+                              final fields = {
+                                'id': controller.empId,
+                                'name': controller.empName,
+                                'salary': controller.salary,
+                                'cardId': controller.cardId,
+                                'empType': controller.empType,
+                                'draga': controller.draga,
+                                'fia': controller.fia,
+                              };
+
+                              fields.forEach((key, ctrl) {
+                                ctrl.text = cells[key]?.value.toString() ?? '';
+                              });
                               Get.back();
                             },
                           ),
