@@ -22,6 +22,14 @@ class EmpHolidayTypeController extends GetxController {
     isLoading(false);
   }
 
+  // Future<void> findById(int id) async {
+  //   isLoading(true);
+  //   messageError("");
+  //   final data = await _repository.findById(id);
+  //   data.fold((l) => messageError(l.eerMessage), (r) => r);
+  //   isLoading(false);
+  // }
+
   // Future<void> save() async {
   //   isLoading(true);
   //   messageError("");

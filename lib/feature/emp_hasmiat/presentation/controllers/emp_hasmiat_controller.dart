@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_hasmiat_model.dart';
 import '../../data/repository/emp_hasmiat_repository.dart';
+import 'emp_hasmiat_det_controller.dart';
 
 class EmpHasmiatController extends GetxController {
   final EmpHasmiatRepository _repository;
@@ -76,20 +79,6 @@ class EmpHasmiatController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    datBegin.clear();
-    datEnd.clear();
-    qrarId.clear();
-    datQrar.clear();
-    month1.clear();
-    year1.clear();
-    month2.clear();
-    year2.clear();
-    dependOn.clear();
-    hasmType('حسم عن غياب');
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -104,16 +93,33 @@ class EmpHasmiatController extends GetxController {
   }
 
   void fillControllers(EmpHasmiatModel r) {
-    id.text = r.id.toString();
-    datBegin.text = r.datBegin.toString();
-    datEnd.text = r.datEnd.toString();
-    qrarId.text = r.qrarId.toString();
-    datQrar.text = r.datQrar.toString();
-    month1.text = r.month1.toString();
-    year1.text = r.year1.toString();
-    month2.text = r.month2.toString();
-    year2.text = r.year2.toString();
-    dependOn.text = r.dependOn.toString();
+    id.text = r.id.getValue();
+    datBegin.text = r.datBegin.getValue();
+    datEnd.text = r.datEnd.getValue();
+    qrarId.text = r.qrarId.getValue();
+    datQrar.text = r.datQrar.getValue();
+    month1.text = r.month1.getValue();
+    year1.text = r.year1.getValue();
+    month2.text = r.month2.getValue();
+    year2.text = r.year2.getValue();
+    dependOn.text = r.dependOn.getValue();
     hasmType(r.hasmType);
+  }
+
+  clearControllers() async {
+    datBegin.text = nowHijriDate();
+    datEnd.text = nowHijriDate();
+    qrarId.clear();
+    datQrar.text = nowHijriDate();
+    month1.clear();
+    year1.clear();
+    month2.clear();
+    year2.clear();
+    dependOn.clear();
+    hasmType('حسم عن غياب');
+
+    Get.find<EmpHasmiatDetController>().clearAllData();
+    id.text = (await Get.find<EmpHasmiatSearchController>().getId()).toString();
+    Get.find<EmpHasmiatDetController>().hasmId.text = id.text;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_takleef/presentation/pages/update_takleef.dart';
@@ -82,15 +83,21 @@ class TakleefSearch extends StatelessWidget {
                       rows: controller.empTakleefs
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "cardId": PlutoCell(value: item.cardId),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "jobName": PlutoCell(value: item.jobName),
-                                  "hoursAvg": PlutoCell(value: item.hoursAvg),
-                                  "period": PlutoCell(value: item.period),
-                                  "dateBegin": PlutoCell(value: item.dateBegin),
-                                  "place": PlutoCell(value: item.place),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "cardId":
+                                      PlutoCell(value: item.cardId.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "jobName":
+                                      PlutoCell(value: item.jobName.getValue()),
+                                  "hoursAvg": PlutoCell(
+                                      value: item.hoursAvg.getValue()),
+                                  "period":
+                                      PlutoCell(value: item.period.getValue()),
+                                  "dateBegin": PlutoCell(
+                                      value: item.dateBegin.getValue()),
+                                  "place":
+                                      PlutoCell(value: item.place.getValue()),
                                 },
                               ))
                           .toList(),
@@ -138,7 +145,8 @@ class TakleefSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateTakleef());
                       },
                     );

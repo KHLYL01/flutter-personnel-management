@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/functions/alert_dialog.dart';
@@ -125,5 +127,10 @@ class EmpHasmiatDetController extends GetxController {
     selectedDetId = 0;
   }
 
-  // void fillControllers(EmpHasmiatDetResponseModel r) {}
+  void clearAllData() {
+    clearControllers();
+    hasmialDets.clear();
+  }
+
+// void fillControllers(EmpHasmiatDetResponseModel r) {}
 }

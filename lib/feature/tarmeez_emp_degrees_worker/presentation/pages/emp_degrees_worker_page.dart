@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -100,12 +101,13 @@ class EmpDegreesWorkerPage extends StatelessWidget {
                     rows: controller.empDegreesWorker
                         .map(
                           (item) => PlutoRow(cells: {
-                            "id": PlutoCell(value: item.id),
-                            "fia": PlutoCell(value: item.fia),
-                            "draga": PlutoCell(value: item.draga),
-                            "salary": PlutoCell(value: item.salary),
-                            "naqlBadal": PlutoCell(value: item.naqlBadal),
-                            "elawa": PlutoCell(value: item.elawa),
+                            "id": PlutoCell(value: item.id.getValue()),
+                            "fia": PlutoCell(value: item.fia.getValue()),
+                            "draga": PlutoCell(value: item.draga.getValue()),
+                            "salary": PlutoCell(value: item.salary.getValue()),
+                            "naqlBadal":
+                                PlutoCell(value: item.naqlBadal.getValue()),
+                            "elawa": PlutoCell(value: item.elawa.getValue()),
                           }),
                         )
                         .toList(),

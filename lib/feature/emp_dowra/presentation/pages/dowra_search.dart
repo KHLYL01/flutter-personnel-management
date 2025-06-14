@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/feature/emp_dowra/presentation/pages/update_dowra.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -9,6 +10,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/emp_dowra_det_controller.dart';
 import '../controllers/emp_dowra_search_controller.dart';
 
 class DowraSearch extends StatelessWidget {
@@ -17,6 +19,7 @@ class DowraSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpDowraSearchController>();
+    final controllerDet = Get.find<EmpDowraDetController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -79,14 +82,19 @@ class DowraSearch extends StatelessWidget {
                           .map(
                             (item) => PlutoRow(
                               cells: {
-                                "dowraId": PlutoCell(value: item.dowraId),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "fia": PlutoCell(value: item.fia),
-                                "draga": PlutoCell(value: item.draga),
-                                "salary": PlutoCell(value: item.salary),
-                                "naqlBadal": PlutoCell(value: item.naqlBadal),
-                                "jobName": PlutoCell(value: item.jobName),
+                                "dowraId":
+                                    PlutoCell(value: item.dowraId.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "fia": PlutoCell(value: item.fia.getValue()),
+                                "draga":
+                                    PlutoCell(value: item.draga.getValue()),
+                                "salary":
+                                    PlutoCell(value: item.salary.getValue()),
+                                "naqlBadal":
+                                    PlutoCell(value: item.naqlBadal.getValue()),
+                                "jobName":
+                                    PlutoCell(value: item.jobName.getValue()),
                               },
                             ),
                           )
@@ -129,8 +137,10 @@ class DowraSearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['dowraId']?.value);
+                      onRowDoubleTap: (event) async {
+                        int dowraId = event.row.cells['dowraId']!.value;
+                        await controller.findById(dowraId);
+                        await controllerDet.getDowraDetByDowraId(dowraId);
                         Get.dialog(const UpdateDowra());
                       },
                     );

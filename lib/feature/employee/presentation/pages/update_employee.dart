@@ -27,10 +27,12 @@ class UpdateEmployee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
     final controller = Get.find<EmployeeController>();
     final controllerReport = Get.find<EmployeeReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
+
     HijriPicker graduationDate = HijriPicker(controller.datEducation);
     HijriPicker sodorDate = HijriPicker(controller.sodorDate);
     HijriPicker dateOfBirth = HijriPicker(controller.datBirth);
@@ -636,21 +638,11 @@ class UpdateEmployee extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        CustomButton(
-                          text: 'طباعة كارت تعريفي',
-                          onPressed: () =>
-                              controllerReport.createEmployeeCard(),
-                          height: 30,
-                          width: 120,
-                        ),
-                        // CustomButton(
-                        //     text: 'موظف جديد',
-                        //     onPressed: () => controller.clearControllers(),
-                        //     height: 30,
-                        //     width: 120),
-                      ],
+                    CustomButton(
+                      text: 'طباعة كارت تعريفي',
+                      onPressed: () => controllerReport.createEmployeeCard(),
+                      height: 30,
+                      width: 120,
                     ),
                     Row(
                       children: [

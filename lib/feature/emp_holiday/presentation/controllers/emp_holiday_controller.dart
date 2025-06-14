@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_holiday_model.dart';
 import '../../data/repository/emp_holiday_repository.dart';
 
@@ -23,8 +26,9 @@ class EmpHolidayController extends GetxController {
   final TextEditingController draga = TextEditingController();
   final TextEditingController salary = TextEditingController();
   final TextEditingController naqlBadal = TextEditingController();
-  final TextEditingController holidayType = TextEditingController();
-  final TextEditingController holidayTypeName = TextEditingController();
+  final TextEditingController holidayType = TextEditingController(text: "0");
+  final TextEditingController holidayTypeName =
+      TextEditingController(text: "إعتيادية سنوى");
   final TextEditingController startDate = TextEditingController();
   final TextEditingController endDate = TextEditingController();
   final TextEditingController requestDate = TextEditingController();
@@ -166,46 +170,6 @@ class EmpHolidayController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    empId.clear();
-    empName.clear();
-    mrtaba.clear();
-    draga.clear();
-    salary.clear();
-    naqlBadal.clear();
-    holidayType.clear();
-    holidayTypeName.clear();
-    startDate.clear();
-    endDate.clear();
-    requestDate.clear();
-    period.text = 0.toString();
-    address.clear();
-    notesForPrint.clear();
-    boss.clear();
-    bossJob.clear();
-    qrarId.clear();
-    qrarDate.clear();
-    istehqaqDate.clear();
-    eligibilityStartDate.clear();
-    eligibilityEndDate.clear();
-    badeel.clear();
-    fileNo.clear();
-    forr.clear();
-    tepyNo.clear();
-    tepyDate.clear();
-    hospital.clear();
-    inputDate.clear();
-    separationDate.clear();
-    edara.clear();
-    sarf('لا أرغب بصرف راتبها مقدما');
-    etemad(false);
-    cancel(false);
-    mostahaka(false);
-    directBoss(false);
-    tamdeedIgazahAccept(false);
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -220,35 +184,35 @@ class EmpHolidayController extends GetxController {
   }
 
   void fillControllers(EmpHolidayModel r) async {
-    id.text = r.id.toString();
-    empId.text = r.empId.toString();
-    mrtaba.text = r.mrtaba.toString();
-    draga.text = r.draga.toString();
-    salary.text = r.salary.toString();
-    naqlBadal.text = r.naqlBadal.toString();
-    holidayType.text = r.holidayType.toString();
-    startDate.text = r.startDateString.toString();
-    endDate.text = r.endDateString.toString();
-    requestDate.text = r.requestDateString.toString();
-    period.text = r.period.toString();
-    address.text = r.address.toString();
-    notesForPrint.text = r.footer.toString();
-    boss.text = r.boss.toString();
-    bossJob.text = r.bossJob.toString();
-    qrarId.text = r.qrarId.toString();
-    qrarDate.text = r.qrarDate.toString();
-    // istehqaqDate.text = r.mostahaka.toString();
-    eligibilityStartDate.text = r.eligibilityStartDate.toString();
-    eligibilityEndDate.text = r.eligibilityEndDate.toString();
-    badeel.text = r.badeel.toString();
-    fileNo.text = r.fileNo.toString();
-    forr.text = r.forr.toString();
-    tepyNo.text = r.tepyNo.toString();
-    tepyDate.text = r.tepyDate.toString();
-    hospital.text = r.hospital.toString();
-    inputDate.text = r.inputDate.toString();
-    separationDate.text = r.separationDate.toString();
-    edara.text = r.edara.toString();
+    id.text = r.id.getValue();
+    empId.text = r.empId.getValue();
+    mrtaba.text = r.mrtaba.getValue();
+    draga.text = r.draga.getValue();
+    salary.text = r.salary.getValue();
+    naqlBadal.text = r.naqlBadal.getValue();
+    holidayType.text = r.holidayType.getValue();
+    startDate.text = r.startDateString.getValue();
+    endDate.text = r.endDateString.getValue();
+    requestDate.text = r.requestDateString.getValue();
+    period.text = r.period.getValue();
+    address.text = r.address.getValue();
+    notesForPrint.text = r.footer.getValue();
+    boss.text = r.boss.getValue();
+    bossJob.text = r.bossJob.getValue();
+    qrarId.text = r.qrarId.getValue();
+    qrarDate.text = r.qrarDate.getValue();
+    // istehqaqDate.text = r.mostahaka.getValue();
+    eligibilityStartDate.text = r.eligibilityStartDate.getValue();
+    eligibilityEndDate.text = r.eligibilityEndDate.getValue();
+    badeel.text = r.badeel.getValue();
+    fileNo.text = r.fileNo.getValue();
+    forr.text = r.forr.getValue();
+    tepyNo.text = r.tepyNo.getValue();
+    tepyDate.text = r.tepyDate.getValue();
+    hospital.text = r.hospital.getValue();
+    inputDate.text = r.inputDate.getValue();
+    separationDate.text = r.separationDate.getValue();
+    edara.text = r.edara.getValue();
     sarf(r.sarf == 0 ? 'لا أرغب بصرف راتبها مقدما' : 'أرغب بصرف راتبها مقدما');
     etemad(r.etemad == 1);
     cancel(r.cancel == 1);
@@ -258,5 +222,48 @@ class EmpHolidayController extends GetxController {
 
     (await _typeRepository.findById(int.parse(holidayType.text)))
         .fold((l) => l, (r) => holidayTypeName.text = (r.name ?? ""));
+  }
+
+  clearControllers() async {
+    empId.clear();
+    empName.clear();
+    mrtaba.clear();
+    draga.clear();
+    salary.clear();
+    naqlBadal.clear();
+    holidayType.text = "0";
+    holidayTypeName.text = 'إعتيادية سنوى';
+    startDate.text = nowHijriDate();
+    endDate.text = nowHijriDate();
+    requestDate.text = nowHijriDate();
+    period.text = 0.toString();
+    address.clear();
+    notesForPrint.clear();
+    boss.clear();
+    bossJob.clear();
+    qrarId.clear();
+    qrarDate.text = nowHijriDate();
+    istehqaqDate.text = nowHijriDate();
+    eligibilityStartDate.text = nowHijriDate();
+    eligibilityEndDate.text = nowHijriDate();
+    badeel.clear();
+    fileNo.clear();
+    forr.clear();
+    tepyNo.clear();
+    tepyDate.text = nowHijriDate();
+    hospital.clear();
+    inputDate.text = nowHijriDate();
+    separationDate.text = nowHijriDate();
+    edara.clear();
+    sarf('لا أرغب بصرف راتبها مقدما');
+    etemad(false);
+    cancel(false);
+    mostahaka(false);
+    directBoss(false);
+    tamdeedIgazahAccept(false);
+
+    Get.find<EmpHolidayTamdeedController>().clearAllData();
+    id.text = (await Get.find<EmpHolidaySearchController>().getId()).toString();
+    // Get.find<EmpHolidayTamdeedController>().holidaysId.text = id.text;
   }
 }

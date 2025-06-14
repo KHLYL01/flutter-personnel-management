@@ -10,15 +10,21 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../controllers/emp_takleef_controller.dart';
+import '../controllers/emp_takleef_det_controller.dart';
+import '../controllers/emp_takleef_report_controller.dart';
+import 'takleef_det.dart';
 
 class AddTakleef extends StatelessWidget {
   const AddTakleef({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<EmpTakleefController>();
+    final controllerDet = Get.find<EmpTakleefDetController>();
+    final controllerReport = Get.find<EmpTakleefReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
-    final controller = Get.find<EmpTakleefController>();
 
     late HijriPicker qararDate =
         HijriPicker(controller.datQrar, controller.datQrarGo);
@@ -251,6 +257,23 @@ class AddTakleef extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomButton(
+                            text: 'بيانات موظفي التكليف',
+                            onPressed: () {
+                              controllerDet.clearControllers();
+                              controllerDet.getTakleefDetByTakleefId(
+                                  int.parse(controller.id.text));
+                              controllerDet.datBegin.text =
+                                  controller.datBegin.text;
+                              controllerDet.datEnd.text =
+                                  controller.datEnd.text;
+                              controllerDet.period.text =
+                                  controller.periodOthersDay.text;
+                              Get.dialog(const TakleefDet());
+                            },
+                            height: 30,
+                            width: 120,
+                          ),
+                          CustomButton(
                             text: 'حفظ',
                             onPressed: () => controller.save(),
                             height: 30,
@@ -263,19 +286,22 @@ class AddTakleef extends StatelessWidget {
                               width: 120),
                           CustomButton(
                             text: 'طباعة قرار خارج الدوام',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createQrarTakleefReport(),
                             height: 30,
                             width: 150,
                           ),
                           CustomButton(
                             text: 'مسير خارج الدوام',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createMoserTakleefReport(),
                             height: 30,
                             width: 120,
                           ),
                           CustomButton(
                             text: 'قرار صرف خارج ',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createQrarSrfTakleefReport(),
                             height: 30,
                             width: 120,
                           ),

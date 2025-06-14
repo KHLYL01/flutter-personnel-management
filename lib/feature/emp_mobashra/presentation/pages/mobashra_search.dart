@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
@@ -83,15 +84,20 @@ class MobashraSearch extends StatelessWidget {
                     rows: controller.empMobashras
                         .map((item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "cardId": PlutoCell(value: item.cardId),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "jobName": PlutoCell(value: item.jobName),
-                                "fia": PlutoCell(value: item.fia),
-                                "draga": PlutoCell(value: item.draga),
-                                "salary": PlutoCell(value: item.salary),
-                                "naqlBadal": PlutoCell(value: item.naqlBadal),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                "cardId":
+                                    PlutoCell(value: item.cardId.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "jobName":
+                                    PlutoCell(value: item.jobName.getValue()),
+                                "fia": PlutoCell(value: item.fia.getValue()),
+                                "draga":
+                                    PlutoCell(value: item.draga.getValue()),
+                                "salary":
+                                    PlutoCell(value: item.salary.getValue()),
+                                "naqlBadal":
+                                    PlutoCell(value: item.naqlBadal.getValue()),
                               },
                             ))
                         .toList(),
@@ -139,7 +145,8 @@ class MobashraSearch extends StatelessWidget {
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
                     onRowDoubleTap: (event) {
-                      controller.findById(event.row.cells['id']!.value);
+                      controller
+                          .findById(int.parse(event.row.cells['id']!.value));
                       Get.find<EmpMobashraController>().empName.text =
                           event.row.cells['employeeName']!.value.toString();
                       Get.find<EmpMobashraController>().salary.text =

@@ -21,15 +21,19 @@ import '../../../tarmeez_nations/presentation/controllers/nations_controller.dar
 import '../../../tarmeez_nations/presentation/pages/nations_find.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
+import '../controllers/employee_report_controller.dart';
 
 class AddEmployee extends StatelessWidget {
   const AddEmployee({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<EmployeeController>();
+    final controllerReport = Get.find<EmployeeReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
-    final controller = Get.find<EmployeeController>();
+
     HijriPicker graduationDate = HijriPicker(controller.datEducation);
     HijriPicker sodorDate = HijriPicker(controller.sodorDate);
     HijriPicker dateOfBirth = HijriPicker(controller.datBirth);
@@ -650,19 +654,11 @@ class AddEmployee extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        CustomButton(
-                            text: 'طباعة كارت تعريفي',
-                            onPressed: () {},
-                            height: 30,
-                            width: 120),
-                        CustomButton(
-                            text: 'موظف جديد',
-                            onPressed: () => controller.clearControllers(),
-                            height: 30,
-                            width: 120),
-                      ],
+                    CustomButton(
+                      text: 'طباعة كارت تعريفي',
+                      onPressed: () => controllerReport.createEmployeeCard(),
+                      height: 30,
+                      width: 120,
                     ),
                     Row(
                       children: [
@@ -670,11 +666,13 @@ class AddEmployee extends StatelessWidget {
                           text: 'مشهد بالراتب',
                           height: 30,
                           width: 120,
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createMashhadRatebReport(),
                         ),
                         CustomButton(
                             text: 'شهادة تعريف',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createShahadaTarefReport(),
                             height: 30,
                             width: 120),
                       ],
@@ -683,13 +681,15 @@ class AddEmployee extends StatelessWidget {
                       children: [
                         CustomButton(
                           text: 'بيان خدمات موظف',
-                          onPressed: () {},
+                          onPressed: () =>
+                              controllerReport.createBeanKhedmhEmployeeReport(),
                           height: 30,
                           width: 120,
                         ),
                         CustomButton(
                             text: 'طباعة مكافئة عن الاجازات',
-                            onPressed: () {},
+                            onPressed: () =>
+                                controllerReport.createMokafaaHolidayReport(),
                             height: 30,
                             width: 120),
                       ],
@@ -701,6 +701,13 @@ class AddEmployee extends StatelessWidget {
                             onPressed: () {},
                             height: 30,
                             width: 120),
+                        CustomButton(
+                          text: 'عقد عامل',
+                          onPressed: () =>
+                              controllerReport.createAkdEmployeeReport(),
+                          height: 30,
+                          width: 120,
+                        ),
                       ],
                     ),
                     CustomTextField(
@@ -752,6 +759,12 @@ class AddEmployee extends StatelessWidget {
                     CustomButton(
                       text: 'حفظ',
                       onPressed: () => controller.save(),
+                      height: 30,
+                      width: 80,
+                    ),
+                    CustomButton(
+                      text: 'إضافة جديدة',
+                      onPressed: () => controller.clearControllers(),
                       height: 30,
                       width: 80,
                     ),

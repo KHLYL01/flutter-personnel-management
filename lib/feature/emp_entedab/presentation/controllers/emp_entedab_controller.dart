@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
+import 'package:personnel_management/feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import 'package:personnel_management/feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_entedab_model.dart';
 import '../../data/repository/emp_entedab_repository.dart';
 
@@ -129,13 +131,17 @@ class EmpEntedabController extends GetxController {
         qrarId: qrarId.text,
         day: day.value,
         datBegin: datBegin.text,
-        datBeginGo: DateTime.parse(datBeginGo.text).toIso8601String(),
+        datBeginGo: DateTime.parse(datBeginGo.text.replaceAll("/", '-'))
+            .toIso8601String(),
         datEnd: datEnd.text,
-        datEndGo: DateTime.parse(datEndGo.text).toIso8601String(),
+        datEndGo: DateTime.parse(datEndGo.text.replaceAll("/", '-'))
+            .toIso8601String(),
         datKhetab: datKhrtab.text,
-        datKhetabGo: DateTime.parse(datKhetabGo.text).toIso8601String(),
+        datKhetabGo: DateTime.parse(datKhetabGo.text.replaceAll("/", '-'))
+            .toIso8601String(),
         datQrar: datQrar.text,
-        datQrarGo: DateTime.parse(datQrarGo.text).toIso8601String(),
+        datQrarGo: DateTime.parse(datQrarGo.text.replaceAll("/", '-'))
+            .toIso8601String(),
         fia: fia.value,
         fiaMony: double.parse(fiaMony.text),
         type: type.value,
@@ -183,37 +189,6 @@ class EmpEntedabController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    qrarId.clear();
-    day.value = 'الأحد';
-    datBegin.clear();
-    datBeginGo.clear();
-    datEnd.clear();
-    datEndGo.clear();
-    datKhrtab.clear();
-    datKhetabGo.clear();
-    datQrar.clear();
-    datQrarGo.clear();
-    fia.value = "أ";
-    fiaMony.text = 0.toString();
-    type.value = "داخلي";
-    waselTsafar.value = "الطائرة";
-    task.clear();
-    place.clear();
-    khetabId.clear();
-    period.clear();
-    distance.text = 0.toString();
-    taskRaValue.text = 0.toString();
-    travelVehicleTameen(false);
-    usingCar(false);
-    workOutDawam(false);
-    housingOrFood(false);
-    solfahNaqdeah(false);
-    sarf(' يصرف له يوميا بدل نقل إضافي 1/ 30 من بدل نقله الشهري');
-    taskRa(' لا يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه');
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -228,23 +203,26 @@ class EmpEntedabController extends GetxController {
   }
 
   void fillControllers(EmpEntedabModel r) {
-    id.text = r.id.toString();
-    qrarId.text = r.qrarId.toString();
-    datBegin.text = r.datBegin.toString();
-    datBeginGo.text = r.datBeginGo.toString().substring(0, 10);
-    datEnd.text = r.datEnd.toString();
-    datEndGo.text = r.datEndGo.toString().substring(0, 10);
-    datKhrtab.text = r.datKhetab.toString();
-    datKhetabGo.text = r.datKhetabGo.toString().substring(0, 10);
-    datQrar.text = r.datQrar.toString();
-    datQrarGo.text = r.datQrarGo.toString().substring(0, 10);
-    fiaMony.text = r.fiaMony.toString();
-    task.text = r.task.toString();
-    place.text = r.place.toString();
-    khetabId.text = r.khetabId.toString();
-    period.text = r.period.toString();
-    distance.text = r.distance.toString();
-    taskRaValue.text = r.taskRaValue.toString();
+    id.text = r.id.getValue();
+    qrarId.text = r.qrarId.getValue();
+    datBegin.text = r.datBegin.getValue();
+    datBeginGo.text =
+        r.datBeginGo.getValue().substring(0, 10).replaceAll('-', '/');
+    datEnd.text = r.datEnd.getValue();
+    datEndGo.text = r.datEndGo.getValue().substring(0, 10).replaceAll('-', '/');
+    datKhrtab.text = r.datKhetab.getValue();
+    datKhetabGo.text =
+        r.datKhetabGo.getValue().substring(0, 10).replaceAll('-', '/');
+    datQrar.text = r.datQrar.getValue();
+    datQrarGo.text =
+        r.datQrarGo.getValue().substring(0, 10).replaceAll('-', '/');
+    fiaMony.text = r.fiaMony.getValue();
+    task.text = r.task.getValue();
+    place.text = r.place.getValue();
+    khetabId.text = r.khetabId.getValue();
+    period.text = r.period.getValue();
+    distance.text = r.distance.getValue();
+    taskRaValue.text = r.taskRaValue.getValue();
     travelVehicleTameen.value = r.question1 == 1;
     usingCar.value = r.question2 == 1;
     workOutDawam.value = r.question3 == 1;
@@ -260,5 +238,39 @@ class EmpEntedabController extends GetxController {
     waselTsafar(r.waselTsafar);
     type(r.type);
     fia(r.fia);
+  }
+
+  clearControllers() async {
+    qrarId.clear();
+    day.value = 'الأحد';
+    datBegin.text = nowHijriDate();
+    datBeginGo.text = nowDate();
+    datEnd.text = nowHijriDate();
+    datEndGo.text = nowDate();
+    datKhrtab.text = nowHijriDate();
+    datKhetabGo.text = nowDate();
+    datQrar.text = nowHijriDate();
+    datQrarGo.text = nowDate();
+    fia.value = "أ";
+    fiaMony.text = 0.toString();
+    type.value = "داخلي";
+    waselTsafar.value = "الطائرة";
+    task.clear();
+    place.clear();
+    khetabId.clear();
+    period.text = "0";
+    distance.text = 0.toString();
+    taskRaValue.text = 0.toString();
+    travelVehicleTameen(false);
+    usingCar(false);
+    workOutDawam(false);
+    housingOrFood(false);
+    solfahNaqdeah(false);
+    sarf(' يصرف له يوميا بدل نقل إضافي 1/ 30 من بدل نقله الشهري');
+    taskRa(' لا يصرف للمذكور مبلغًا تعويضًا عن تذاكر إركابه');
+
+    Get.find<EmpEntedabDetController>().clearAllData();
+    id.text = (await Get.find<EmpEntedabSearchController>().getId()).toString();
+    Get.find<EmpEntedabDetController>().entedabId.text = id.text;
   }
 }

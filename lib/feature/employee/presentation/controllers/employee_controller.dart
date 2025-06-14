@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
 import 'package:personnel_management/feature/tarmeez_nations/data/repository/nations_repository.dart';
 import 'package:personnel_management/feature/tarmeez_parts/data/repository/parts_repository.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/functions/image_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
 import '../../data/model/employee_model.dart';
 import '../../data/repository/employee_repository.dart';
@@ -231,7 +233,81 @@ class EmployeeController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
+  void confirmDelete(int id, {bool withGoBack = true}) async {
+    await alertDialog(
+      title: 'تحذير',
+      middleText: "هل تريد حذف الوظيفة بالفعل",
+      onPressedConfirm: () {
+        if (withGoBack) {
+          Get.back();
+        }
+        delete(id);
+      },
+    );
+  }
+
+  void fillControllers(EmployeeModel r) async {
+    (await _jobsRepository.findById(id: r.jobId))
+        .fold((l) => l, (r) => jobName.text = r.name.getValue());
+    (await _nationsRepository.findById(id: r.nationId))
+        .fold((l) => l, (r) => nationName.text = r.name.getValue());
+    (await _partsRepository.findById(id: r.partId))
+        .fold((l) => l, (r) => partName.text = r.name.getValue());
+
+    jobId.text = r.jobId.getValue();
+    id.text = r.id.getValue();
+    fia.text = r.fia.getValue();
+    draga.text = r.draga.getValue();
+    jobNo.text = r.jobNo.getValue();
+    jobbadalat.text = r.jobbadalat.getValue();
+    salary.text = r.salary.getValue();
+    naqlBadal.text = r.naqlBadal.getValue();
+    elawa.text = r.elawa.getValue();
+    inEntedabBadal.text = r.inEntedabBadal.getValue();
+    outEntedabBadal.text = r.outEntedabBadal.getValue();
+    symble.text = r.symble.getValue();
+    partId.text = r.partId.getValue();
+    datJob.text = r.datJob.getValue();
+    name.text = r.name.getValue();
+    cardId.text = r.cardId.getValue();
+    nationId.text = r.nationId.getValue();
+    birthPlace.text = r.birthPlace.getValue();
+    datBirth.text = r.datBirth.getValue();
+    datWork.text = r.datWork.getValue();
+    education.text = r.education.getValue();
+    educationName.text = r.educationName.getValue();
+    datEducation.text = r.datEducation.getValue();
+    address.text = r.address.getValue();
+    phone.text = r.phone.getValue();
+    workJob.text = r.workJob.getValue();
+    cardNo.text = r.cardNo.getValue();
+    cardStart.text = r.cardStart.getValue();
+    datAkdBegin.text = r.datAkdBegin.getValue();
+    datAkdEnd.text = r.datAkdEnd.getValue();
+    qardMony.text = r.qardMony.getValue();
+    qardQest.text = r.qardQest.getValue();
+    taka3odM.text = r.taka3odM.getValue();
+    dissent.text = r.dissent.getValue();
+    akdNoTasleef.text = r.akdNoTasleef.getValue();
+    datBok.text = r.datBok.getValue();
+    bokPlace.text = r.bokPlace.getValue();
+    bok.text = r.bok.getValue();
+
+    degreeId.text = r.degreeId.getValue();
+    takenHolidays.text = r.takenHolidays.getValue();
+    sandok.text = r.sandok.getValue();
+    hasm1.text = r.hasm1.getValue();
+    hasm2.text = r.hasm2.getValue();
+    badal2.text = r.badal2.getValue();
+    badal4.text = r.badal4.getValue();
+    zeraee.text = r.zeraee.getValue();
+    isHasm3.value = r.isHasm3 == 1;
+
+    empType(r.empType ?? "موظف");
+    jobState(r.jobState ?? "مشغولة");
+  }
+
+  clearControllers() async {
     id.clear();
     degreeId.clear();
     fia.clear();
@@ -249,7 +325,7 @@ class EmployeeController extends GetxController {
     symble.clear();
     partId.clear();
     partName.clear();
-    datJob.clear();
+    datJob.text = nowHijriDate();
     name.clear();
     nationId.clear();
     nationName.clear();
@@ -258,20 +334,20 @@ class EmployeeController extends GetxController {
     iqazatMosagalah.clear();
     bok.clear();
     makanAlsodor.clear();
-    sodorDate.clear();
-    datBirth.clear();
-    datBirth.clear();
-    datWork.clear();
+    sodorDate.text = nowHijriDate();
+    datBirth.text = nowHijriDate();
+    datBirth.text = nowHijriDate();
+    datWork.text = nowHijriDate();
     education.clear();
     educationName.clear();
-    datEducation.clear();
+    datEducation.text = nowHijriDate();
     address.clear();
     phone.clear();
     workJob.clear();
     cardNo.text = "0";
     cardStart.clear();
-    datAkdBegin.clear();
-    datAkdEnd.clear();
+    datAkdBegin.text = nowHijriDate();
+    datAkdEnd.text = nowHijriDate();
     qardQest.text = "0";
     qardMony.text = "0";
     taka3odM.text = "0";
@@ -283,83 +359,11 @@ class EmployeeController extends GetxController {
     sandok.clear();
     contractOfrealEstateBank.clear();
     hasm2.clear();
-    datBok.clear();
+    datBok.text = nowHijriDate();
     bokPlace.clear();
     birthPlace.clear();
     hasm1.clear();
-  }
 
-  void confirmDelete(int id, {bool withGoBack = true}) async {
-    await alertDialog(
-      title: 'تحذير',
-      middleText: "هل تريد حذف الوظيفة بالفعل",
-      onPressedConfirm: () {
-        if (withGoBack) {
-          Get.back();
-        }
-        delete(id);
-      },
-    );
-  }
-
-  void fillControllers(EmployeeModel r) async {
-    (await _jobsRepository.findById(id: r.jobId))
-        .fold((l) => l, (r) => jobName.text = r.name ?? "");
-    (await _nationsRepository.findById(id: r.nationId))
-        .fold((l) => l, (r) => nationName.text = r.name ?? "");
-    (await _partsRepository.findById(id: r.partId))
-        .fold((l) => l, (r) => partName.text = r.name ?? "");
-
-    jobId.text = (r.jobId ?? "0").toString();
-    id.text = (r.id ?? "0").toString();
-    fia.text = (r.fia ?? "0").toString();
-    draga.text = (r.draga ?? "0").toString();
-    jobNo.text = (r.jobNo ?? "0").toString();
-    jobbadalat.text = (r.jobbadalat ?? "0").toString();
-    salary.text = (r.salary ?? "0").toString();
-    naqlBadal.text = (r.naqlBadal ?? "0").toString();
-    elawa.text = (r.elawa ?? "0").toString();
-    inEntedabBadal.text = (r.inEntedabBadal ?? "0").toString();
-    outEntedabBadal.text = (r.outEntedabBadal ?? "0").toString();
-    symble.text = r.symble ?? "";
-    partId.text = (r.partId ?? "0").toString();
-    datJob.text = r.datJob ?? "";
-    name.text = r.name ?? "";
-    cardId.text = r.cardId ?? "";
-    nationId.text = (r.nationId ?? "0").toString();
-    birthPlace.text = r.birthPlace ?? "";
-    datBirth.text = r.datBirth ?? "";
-    datWork.text = r.datWork ?? "";
-    education.text = r.education ?? "";
-    educationName.text = r.educationName ?? "";
-    datEducation.text = r.datEducation ?? "";
-    address.text = r.address ?? "";
-    phone.text = r.phone ?? "";
-    workJob.text = r.workJob ?? "";
-    cardNo.text = (r.cardNo ?? "0").toString();
-    cardStart.text = r.cardStart ?? "";
-    datAkdBegin.text = r.datAkdBegin ?? "";
-    datAkdEnd.text = r.datAkdEnd ?? "";
-    qardMony.text = (r.qardMony ?? "0").toString();
-    qardQest.text = (r.qardQest ?? "0").toString();
-    taka3odM.text = (r.taka3odM ?? "0").toString();
-    dissent.text = (r.dissent ?? "0").toString();
-    akdNoTasleef.text = r.akdNoTasleef ?? "";
-    datBok.text = r.datBok ?? "";
-    bokPlace.text = r.bokPlace ?? "";
-    bok.text = r.bok ?? "";
-
-    degreeId.text = (r.degreeId ?? "0").toString();
-    takenHolidays.text = (r.takenHolidays ?? "0").toString();
-    sandok.text = (r.sandok ?? "0").toString();
-    hasm1.text = (r.hasm1 ?? "0").toString();
-    hasm2.text = (r.hasm2 ?? "0").toString();
-    badal2.text = (r.badal2 ?? "0").toString();
-    badal4.text = (r.badal4 ?? "0").toString();
-    zeraee.text = (r.zeraee ?? "0").toString();
-    isHasm3.value = r.isHasm3 == 1;
-
-    empType(r.empType ?? "موظف");
-    jobState(r.jobState ?? "مشغولة");
+    id.text = (await Get.find<EmployeeSearchController>().getId()).toString();
   }
 }

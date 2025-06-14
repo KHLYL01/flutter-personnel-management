@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_dropdown_button.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
@@ -92,21 +93,31 @@ class EmployeesFind extends StatelessWidget {
                     rows: controller.findEmployees
                         .map((item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "name": PlutoCell(value: item.name),
-                                "fia": PlutoCell(value: item.fia),
-                                "draga": PlutoCell(value: item.draga),
-                                "salary": PlutoCell(value: item.salary),
-                                "naqlBadal": PlutoCell(value: item.naqlBadal),
-                                "intentedabBadal":
-                                    PlutoCell(value: item.intentedabBadal),
-                                "empType": PlutoCell(value: item.empType),
-                                "badal1": PlutoCell(value: item.badal1),
-                                "badal2": PlutoCell(value: item.badal2),
-                                "badal3": PlutoCell(value: item.badal3),
-                                "badal4": PlutoCell(value: item.badal4),
-                                "jobBadalat": PlutoCell(value: item.jobBadalat),
-                                "maeesha": PlutoCell(value: item.maeesha),
+                                "id": PlutoCell(value: item.id?.getValue()),
+                                "name": PlutoCell(value: item.name.getValue()),
+                                "fia": PlutoCell(value: item.fia.getValue()),
+                                "draga":
+                                    PlutoCell(value: item.draga.getValue()),
+                                "salary":
+                                    PlutoCell(value: item.salary.getValue()),
+                                "naqlBadal":
+                                    PlutoCell(value: item.naqlBadal.getValue()),
+                                "intentedabBadal": PlutoCell(
+                                    value: item.intentedabBadal.getValue()),
+                                "empType":
+                                    PlutoCell(value: item.empType.getValue()),
+                                "badal1":
+                                    PlutoCell(value: item.badal1.getValue()),
+                                "badal2":
+                                    PlutoCell(value: item.badal2.getValue()),
+                                "badal3":
+                                    PlutoCell(value: item.badal3.getValue()),
+                                "badal4":
+                                    PlutoCell(value: item.badal4.getValue()),
+                                "jobBadalat": PlutoCell(
+                                    value: item.jobBadalat.getValue()),
+                                "maeesha":
+                                    PlutoCell(value: item.maeesha.getValue()),
                               },
                             ))
                         .toList(),

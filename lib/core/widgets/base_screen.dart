@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
+import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_controller.dart';
 import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
+import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_controller.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
+import 'package:personnel_management/feature/emp_eqrar/presentation/controllers/emp_eqrar_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
+import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
 import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
 import 'package:personnel_management/feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
+import 'package:personnel_management/feature/emp_taeen/presentation/controllers/emp_taeen_controller.dart';
 import 'package:personnel_management/feature/emp_taeen/presentation/controllers/emp_taeen_search_controller.dart';
+import 'package:personnel_management/feature/emp_takleef/presentation/controllers/emp_takleef_controller.dart';
+import 'package:personnel_management/feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.dart';
 import 'package:personnel_management/feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
+import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
+import 'package:personnel_management/feature/passport/presentation/controllers/passport_controller.dart';
 import 'package:personnel_management/feature/passport/presentation/controllers/passport_search_controller.dart';
+import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_controller.dart';
 import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
 
 import '../../core/constants/app_colors.dart';
@@ -22,6 +33,7 @@ import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_contr
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
+import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_det_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
@@ -353,72 +365,78 @@ class BaseScreen extends StatelessWidget {
                             Get.toNamed(page);
                             switch (page) {
                               case AppRoutes.addEmployee:
+                                await Get.find<EmployeeController>()
+                                    .clearControllers();
                                 controller.setPage("بيانات الوظائف الأساسية");
                                 break;
                               case AppRoutes.addEntedab:
+                                await Get.find<EmpEntedabController>()
+                                    .clearControllers();
                                 controller.setPage("بيانات الانتداب");
-                                int nextId =
-                                    await Get.find<EmpEntedabSearchController>()
-                                        .getId();
-                                Get.find<EmpEntedabDetController>()
-                                    .entedabId
-                                    .text = nextId.toString();
-                                Get.find<EmpEntedabController>().id.text =
-                                    nextId.toString();
                                 break;
                               case AppRoutes.addTakleef:
+                                await Get.find<EmpTakleefController>()
+                                    .clearControllers();
                                 controller.setPage("خارج الدوام");
                                 break;
                               case AppRoutes.addHasmiat:
+                                await Get.find<EmpHasmiatController>()
+                                    .clearControllers();
                                 controller.setPage("بيانات الحسم");
-                                int nextId =
-                                    await Get.find<EmpHasmiatSearchController>()
-                                        .getId();
-                                Get.find<EmpHasmiatDetController>()
-                                    .hasmId
-                                    .text = nextId.toString();
-                                Get.find<EmpHasmiatController>().id.text =
-                                    nextId.toString();
                                 break;
                               case AppRoutes.addMokhalfat:
+                                await Get.find<EmpMokhalfatController>()
+                                    .clearControllers();
                                 controller.setPage("المخالفات");
-                                int nextId = await Get.find<
-                                        EmpMokhalfatSearchController>()
-                                    .getId();
-                                Get.find<EmpMokhalfatDetController>()
-                                    .mokhalfaId
-                                    .text = nextId.toString();
-                                Get.find<EmpMokhalfatController>().id.text =
-                                    nextId.toString();
                                 break;
                               case AppRoutes.addHoliday:
+                                await Get.find<EmpHolidayController>()
+                                    .clearControllers();
                                 controller.setPage("بيانات الإجازات");
                                 break;
                               case AppRoutes.addDowra:
+                                await Get.find<EmpDowraController>()
+                                    .clearControllers();
                                 controller.setPage("دورة موظف");
                                 break;
                               case AppRoutes.addKashfTepy:
+                                await Get.find<EmpKashfTepyController>()
+                                    .clearControllers();
                                 controller.setPage("طلب كشف طبي");
                                 break;
                               case AppRoutes.addMobashra:
+                                await Get.find<EmpMobashraController>()
+                                    .clearControllers();
                                 controller.setPage("قرار مباشرة");
                                 break;
                               case AppRoutes.addEqrar:
+                                await Get.find<EmpEqrarController>()
+                                    .clearControllers();
                                 controller.setPage("إقرار");
                                 break;
                               case AppRoutes.addTarqea:
+                                await Get.find<EmpTarqeaController>()
+                                    .clearControllers();
                                 controller.setPage("ترقية موظف");
                                 break;
                               case AppRoutes.addEnd:
+                                await Get.find<EmpEndController>()
+                                    .clearControllers();
                                 controller.setPage("إنهاء خدمة");
                                 break;
                               case AppRoutes.addTaeen:
+                                await Get.find<EmpTaeenController>()
+                                    .clearControllers();
                                 controller.setPage("تعيين و مباشرة");
                                 break;
                               case AppRoutes.addPassport:
+                                await Get.find<PassportController>()
+                                    .clearControllers();
                                 controller.setPage("اقرار استلام جواز سفر");
                                 break;
                               case AppRoutes.addTafweed:
+                                await Get.find<TafweedController>()
+                                    .clearControllers();
                                 controller.setPage("تفويض");
                                 break;
                             }

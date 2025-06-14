@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_end_model.dart';
 import '../../data/repository/emp_end_repository.dart';
 
@@ -112,27 +114,6 @@ class EmpEndController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    decisionNumber.clear();
-    decisionDate.clear();
-    empId.clear();
-    empName.clear();
-    draga.clear();
-    salary.clear();
-    cardId.clear();
-    job.clear();
-    fia.clear();
-    empType.clear();
-    endDate.clear();
-    days.clear();
-    birthDate.clear();
-    age.text = 0.toString();
-    selectedRadioListTileValue("تقاعد نظامي");
-    salaryFor4Months(false);
-    salaryFor6Months(false);
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -147,14 +128,14 @@ class EmpEndController extends GetxController {
   }
 
   void fillControllers(EmpEndModel r) async {
-    id.text = r.id.toString();
-    decisionNumber.text = r.qrarId.toString();
-    decisionDate.text = r.qrarDate.toString();
-    empId.text = r.empId.toString();
-    endDate.text = r.endDate.toString();
-    days.text = r.days.toString();
-    birthDate.text = r.birthDate.toString();
-    age.text = r.age.toString();
+    id.text = r.id.getValue();
+    decisionNumber.text = r.qrarId.getValue();
+    decisionDate.text = r.qrarDate.getValue();
+    empId.text = r.empId.getValue();
+    endDate.text = r.endDate.getValue();
+    days.text = r.days.getValue();
+    birthDate.text = r.birthDate.getValue();
+    age.text = r.age.getValue();
     selectedRadioListTileValue(r.taqa7d == 0
         ? "تقاعد نظامي"
         : r.taqa7d == 1
@@ -168,21 +149,43 @@ class EmpEndController extends GetxController {
     (await _empRepository.findById(int.parse(empId.text))).fold(
       (l) => l,
       (r) {
-        empName.text = r.name ?? "";
-        jobId = r.jobId ?? 0;
-        cardId.text = r.cardId ?? "";
-        draga.text = (r.draga ?? 0).toString();
-        salary.text = (r.salary ?? 0).toString();
-        fia.text = r.fia ?? "";
-        empType.text = r.empType ?? "";
-        jobNumber.text = (r.jobNo ?? 0).toString();
-        nqalBadal.text = (r.naqlBadal ?? 0).toString();
+        empName.text = r.name.getValue();
+        jobId = r.jobId.getValue();
+        cardId.text = r.cardId.getValue();
+        draga.text = r.draga.getValue();
+        salary.text = r.salary.getValue();
+        fia.text = r.fia.getValue();
+        empType.text = r.empType.getValue();
+        jobNumber.text = r.jobNo.getValue();
+        nqalBadal.text = r.naqlBadal.getValue();
       },
     );
 
     (await _jobsRepository.findById(id: jobId)).fold(
       (l) => l,
-      (r) => job.text = r.name ?? "",
+      (r) => job.text = r.name.getValue(),
     );
+  }
+
+  clearControllers() async {
+    decisionNumber.clear();
+    decisionDate.text = nowHijriDate();
+    empId.clear();
+    empName.clear();
+    draga.clear();
+    salary.clear();
+    cardId.clear();
+    job.clear();
+    fia.clear();
+    empType.clear();
+    endDate.text = nowHijriDate();
+    days.clear();
+    birthDate.text = nowHijriDate();
+    age.text = 0.toString();
+    selectedRadioListTileValue("تقاعد نظامي");
+    salaryFor4Months(false);
+    salaryFor6Months(false);
+
+    id.text = (await Get.find<EmpEndSearchController>().getId()).toString();
   }
 }

@@ -22,6 +22,7 @@ class UpdateTaeen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpTaeenController>();
     final controllerReport = Get.find<EmpTaeenReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 

@@ -18,11 +18,11 @@ class UpdatePassport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
-
     final controller = Get.find<PassportController>();
     final controllerReport = Get.find<PassportReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
 
     HijriPicker date = HijriPicker(controller.date);
 

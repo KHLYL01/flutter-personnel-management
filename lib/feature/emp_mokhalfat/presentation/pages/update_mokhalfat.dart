@@ -24,8 +24,10 @@ class UpdateMokhalfat extends StatelessWidget {
     final controller = Get.find<EmpMokhalfatController>();
     final controllerDet = Get.find<EmpMokhalfatDetController>();
     final controllerReport = Get.find<EmpMokhalfatReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
+
     HijriPicker startDate = HijriPicker(controller.startDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
     return Dialog(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/passport/presentation/controllers/passport_controller.dart';
@@ -77,15 +78,17 @@ class PassportSearch extends StatelessWidget {
                       rows: controller.passports
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "name": PlutoCell(value: item.name),
-                                  "declarationDate":
-                                      PlutoCell(value: item.declarationDate),
-                                  "nationality":
-                                      PlutoCell(value: item.nationality),
-                                  "passportNumber":
-                                      PlutoCell(value: item.passportNumber),
-                                  "issuedBy": PlutoCell(value: item.issuedBy),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "name":
+                                      PlutoCell(value: item.name.getValue()),
+                                  "declarationDate": PlutoCell(
+                                      value: item.declarationDate.getValue()),
+                                  "nationality": PlutoCell(
+                                      value: item.nationality.getValue()),
+                                  "passportNumber": PlutoCell(
+                                      value: item.passportNumber.getValue()),
+                                  "issuedBy": PlutoCell(
+                                      value: item.issuedBy.getValue()),
                                 },
                               ))
                           .toList(),
@@ -123,7 +126,8 @@ class PassportSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.find<PassportController>().nationalName.text =
                             event.row.cells["nationality"]!.value.toString();
                         Get.dialog(const UpdatePassport());

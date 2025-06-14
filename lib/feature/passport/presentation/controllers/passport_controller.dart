@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/passport/presentation/controllers/passport_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/passport_model.dart';
 import '../../data/repository/passport_repository.dart';
 
@@ -63,18 +65,6 @@ class PassportController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    date.clear();
-    name.clear();
-    documentNumber.clear();
-    exportFrom.clear();
-    nationalId.clear();
-    nationalName.clear();
-    owner.clear();
-    witness.clear();
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -89,13 +79,26 @@ class PassportController extends GetxController {
   }
 
   void fillControllers(PassportModel r) {
-    id.text = r.id.toString();
-    date.text = r.date.toString();
-    name.text = r.name.toString();
-    documentNumber.text = r.documentNumber.toString();
-    exportFrom.text = r.exportFrom.toString();
-    nationalId.text = r.nationalId.toString();
-    owner.text = r.owner.toString();
-    witness.text = r.witness.toString();
+    id.text = r.id.getValue();
+    date.text = r.date.getValue();
+    name.text = r.name.getValue();
+    documentNumber.text = r.documentNumber.getValue();
+    exportFrom.text = r.exportFrom.getValue();
+    nationalId.text = r.nationalId.getValue();
+    owner.text = r.owner.getValue();
+    witness.text = r.witness.getValue();
+  }
+
+  clearControllers() async {
+    date.text = nowHijriDate();
+    name.clear();
+    documentNumber.clear();
+    exportFrom.clear();
+    nationalId.clear();
+    nationalName.clear();
+    owner.clear();
+    witness.clear();
+
+    id.text = (await Get.find<PassportSearchController>().getId()).toString();
   }
 }

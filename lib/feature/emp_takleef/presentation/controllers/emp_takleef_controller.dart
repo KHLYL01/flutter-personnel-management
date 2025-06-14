@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:personnel_management/core/utils/helper_method.dart';
+import 'package:personnel_management/feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
 
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -79,19 +82,19 @@ class EmpTakleefController extends GetxController {
             : await Get.find<EmpTakleefSearchController>().getId(),
         qrarId: qrarId.text,
         datQrar: datQrar.text,
-        datQrarGo: datQrarGo.text,
+        datQrarGo: datQrarGo.text.replaceAll("/", "-"),
         place: place.text,
         task: task.text,
         periodOthersDay: int.parse(periodOthersDay.text),
         khetabId: khetabId.text,
         datKhetab: datKhetab.text,
-        datKhetabGo: datKhetabGo.text,
+        datKhetabGo: datKhetabGo.text.replaceAll("/", "-"),
         hoursAvg: double.tryParse(hoursAvg.text),
         day: day.value,
         datBegin: datBegin.text,
-        datBeginGo: datBeginGo.text,
+        datBeginGo: datBeginGo.text.replaceAll("/", "-"),
         datEnd: datEnd.text,
-        datEndGo: datEndGo.text,
+        datEndGo: datEndGo.text.replaceAll("/", "-"),
         inDate: DateTime.now().toIso8601String(),
       ),
     );
@@ -130,44 +133,50 @@ class EmpTakleefController extends GetxController {
     );
   }
 
-  void clearControllers() {
-    id.clear();
+  void fillControllers(EmpTakleefModel r) {
+    id.text = r.id.getValue();
+    place.text = r.place.getValue();
+    qrarId.text = r.qrarId.getValue();
+    datQrar.text = r.datQrar.getValue();
+    datQrarGo.text =
+        r.datQrarGo.getValue().substring(0, 10).replaceAll("-", "/");
+    task.text = r.task.getValue();
+    khetabId.text = r.khetabId.getValue();
+    datKhetab.text = r.datKhetab.getValue();
+    datKhetabGo.text =
+        r.datKhetabGo.getValue().substring(0, 10).replaceAll("-", "/");
+    datBegin.text = r.datBegin.getValue();
+    datBeginGo.text =
+        r.datBeginGo.getValue().substring(0, 10).replaceAll("-", "/");
+    datEnd.text = r.datEnd.getValue();
+    datEndGo.text = r.datEndGo.getValue().substring(0, 10).replaceAll("-", "/");
+    periodOthersDay.text = r.periodOthersDay.getValue();
+    hoursAvg.text = r.hoursAvg.getValue();
+    day(r.day);
+  }
+
+  clearControllers() async {
     place.clear();
     qrarId.clear();
-    datQrar.clear();
-    datQrarGo.clear();
+    datQrar.text = nowHijriDate();
+    datQrarGo.text = nowDate();
     task.clear();
     khetabId.clear();
-    datKhetab.clear();
-    datKhetabGo.clear();
-    datBegin.clear();
-    datBeginGo.clear();
-    datEnd.clear();
-    datEndGo.clear();
+    datKhetab.text = nowHijriDate();
+    datKhetabGo.text = nowDate();
+    datBegin.text = nowHijriDate();
+    datBeginGo.text = nowDate();
+    datEnd.text = nowHijriDate();
+    datEndGo.text = nowDate();
     periodOthersDay.clear();
     hoursAvg.clear();
     day('السبت');
     isEidFutur(false);
     isEidAdhaa(false);
     isPicture(false);
-  }
 
-  void fillControllers(EmpTakleefModel r) {
-    id.text = r.id.toString();
-    place.text = r.place.toString();
-    qrarId.text = r.qrarId.toString();
-    datQrar.text = r.datQrar.toString();
-    datQrarGo.text = r.datQrarGo.toString().substring(0, 10);
-    task.text = r.task.toString();
-    khetabId.text = r.khetabId.toString();
-    datKhetab.text = r.datKhetab.toString();
-    datKhetabGo.text = r.datKhetabGo.toString().substring(0, 10);
-    datBegin.text = r.datBegin.toString();
-    datBeginGo.text = r.datBeginGo.toString().substring(0, 10);
-    datEnd.text = r.datEnd.toString();
-    datEndGo.text = r.datEndGo.toString().substring(0, 10);
-    periodOthersDay.text = r.periodOthersDay.toString();
-    hoursAvg.text = r.hoursAvg.toString();
-    day(r.day);
+    Get.find<EmpTakleefDetController>().clearAllData();
+    id.text = (await Get.find<EmpTakleefSearchController>().getId()).toString();
+    Get.find<EmpTakleefDetController>().takleefId.text = id.text;
   }
 }

@@ -12,15 +12,18 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_kashf_tepy_report_controller.dart';
 
 class AddKashfTepy extends StatelessWidget {
   const AddKashfTepy({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<EmpKashfTepyController>();
+    final controllerReport = Get.find<EmpKashfTepyReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
-    final controller = Get.find<EmpKashfTepyController>();
     HijriPicker requestDate = HijriPicker(controller.requestDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
 
@@ -169,12 +172,13 @@ class AddKashfTepy extends StatelessWidget {
                   height: 35,
                   width: 150,
                 ),
-                // CustomButton(
-                //   text: 'طلب كشف طبي',
-                //   onPressed: () {},
-                //   height: 35,
-                //   width: 150,
-                // ),
+                CustomButton(
+                  text: 'طلب كشف طبي',
+                  onPressed: () =>
+                      controllerReport.createOrderKashfTepyReport(),
+                  height: 35,
+                  width: 150,
+                ),
               ],
             ).scrollDirection(Axis.horizontal).center(),
           ]).paddingSymmetric(horizontal: 16);

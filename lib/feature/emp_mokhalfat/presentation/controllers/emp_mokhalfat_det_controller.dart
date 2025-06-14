@@ -4,8 +4,6 @@ import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_mokhalfat_det_model.dart';
 import '../../data/repository/emp_mokhalfat_det_repository.dart';
-import 'emp_mokhalfat_controller.dart';
-import 'emp_mokhalfat_search_controller.dart';
 
 class EmpMokhalfatDetController extends GetxController {
   final EmpMokhalfatDetRepository _repository;
@@ -117,6 +115,11 @@ class EmpMokhalfatDetController extends GetxController {
 
   void resetSelectedRow() {
     selectedDetId = 0;
+  }
+
+  void clearAllData() {
+    clearControllers();
+    mokhalfatDets.clear();
   }
 
   // void fillControllers(EmpMokhalfatDetResponseModel r) {}

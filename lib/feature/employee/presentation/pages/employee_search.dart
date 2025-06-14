@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_dropdown_button.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
-import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
 import 'package:personnel_management/feature/employee/presentation/pages/employee_find.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/presentation/controllers/jobs_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -244,16 +244,24 @@ class EmployeesSearch extends StatelessWidget {
                       rows: controller.employees
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "name": PlutoCell(value: item.name),
-                                  "cardId": PlutoCell(value: item.cardId),
-                                  "jobName": PlutoCell(value: item.jobName),
-                                  "partName": PlutoCell(value: item.partName),
-                                  "fia": PlutoCell(value: item.fia),
-                                  "salary": PlutoCell(value: item.salary),
-                                  "draga": PlutoCell(value: item.draga),
-                                  "jobState": PlutoCell(value: item.jobState),
-                                  "workJob": PlutoCell(value: item.workJob),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "name":
+                                      PlutoCell(value: item.name.getValue()),
+                                  "cardId":
+                                      PlutoCell(value: item.cardId.getValue()),
+                                  "jobName":
+                                      PlutoCell(value: item.jobName.getValue()),
+                                  "partName": PlutoCell(
+                                      value: item.partName.getValue()),
+                                  "fia": PlutoCell(value: item.fia.getValue()),
+                                  "salary":
+                                      PlutoCell(value: item.salary.getValue()),
+                                  "draga":
+                                      PlutoCell(value: item.draga.getValue()),
+                                  "jobState": PlutoCell(
+                                      value: item.jobState.getValue()),
+                                  "workJob":
+                                      PlutoCell(value: item.workJob.getValue()),
                                 },
                               ))
                           .toList(),
@@ -311,7 +319,8 @@ class EmployeesSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateEmployee());
                       },
                     );

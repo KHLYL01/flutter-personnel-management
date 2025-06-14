@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_mokhalfat/presentation/pages/update_mokhalfat.dart';
@@ -78,15 +79,19 @@ class MokhalfatSearch extends StatelessWidget {
                     rows: controller.empMokhalfats
                         .map((item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "cardId": PlutoCell(value: item.cardId),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "jobName": PlutoCell(value: item.jobName),
-                                "periodFrom": PlutoCell(value: item.periodFrom),
-                                "periodTo": PlutoCell(value: item.periodTo),
-                                "mokhalfaType":
-                                    PlutoCell(value: item.mokhalfaType),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                "cardId":
+                                    PlutoCell(value: item.cardId.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "jobName":
+                                    PlutoCell(value: item.jobName.getValue()),
+                                "periodFrom": PlutoCell(
+                                    value: item.periodFrom.getValue()),
+                                "periodTo":
+                                    PlutoCell(value: item.periodTo.getValue()),
+                                "mokhalfaType": PlutoCell(
+                                    value: item.mokhalfaType.getValue()),
                               },
                             ))
                         .toList(),
@@ -129,7 +134,7 @@ class MokhalfatSearch extends StatelessWidget {
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
                     onRowDoubleTap: (event) async {
-                      int mokhalfaId = event.row.cells['id']!.value;
+                      int mokhalfaId = int.parse(event.row.cells['id']!.value);
                       await controller.findById(mokhalfaId);
                       await controllerDet
                           .getMokhalfatDetByMokhalfatId(mokhalfaId);

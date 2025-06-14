@@ -15,6 +15,7 @@ import '../../../../core/widgets/pluto_config.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/emp_mokhalfat_det_controller.dart';
+import '../controllers/emp_mokhalfat_report_controller.dart';
 
 class AddMokhalfat extends StatelessWidget {
   const AddMokhalfat({super.key});
@@ -23,8 +24,11 @@ class AddMokhalfat extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMokhalfatController>();
     final controllerDet = Get.find<EmpMokhalfatDetController>();
+    final controllerReport = Get.find<EmpMokhalfatReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
+
     HijriPicker startDate = HijriPicker(controller.startDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
     return Scaffold(
@@ -96,20 +100,21 @@ class AddMokhalfat extends StatelessWidget {
                       height: 35,
                       width: 150,
                     ),
-                    // CustomButton(
-                    //   text: "إضافة جديد ",
-                    //   onPressed: () {
-                    //     controller.clearControllers();
-                    //   },
-                    //   height: 35,
-                    //   width: 150,
-                    // ),
-                    // CustomButton(
-                    //   text: "طباعة بيان مخالفة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 150,
-                    // ),
+                    CustomButton(
+                      text: "إضافة جديد ",
+                      onPressed: () {
+                        controller.clearControllers();
+                      },
+                      height: 35,
+                      width: 150,
+                    ),
+                    CustomButton(
+                      text: "طباعة بيان مخالفة",
+                      onPressed: () =>
+                          controllerReport.createBeanMokhalfatReport(),
+                      height: 35,
+                      width: 150,
+                    ),
                     CustomButton(
                       text: "إضافة موظف",
                       onPressed: () {
@@ -291,6 +296,7 @@ class AddMokhalfat extends StatelessWidget {
                         return const CustomProgressIndicator();
                       }
                       return PlutoGrid(
+                        key: ValueKey(controllerDet.mokhalfatDets.length),
                         configuration: getPlutoConfig(),
                         rows: controllerDet.mokhalfatDets
                             .map(

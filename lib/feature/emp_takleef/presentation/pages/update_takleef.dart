@@ -18,11 +18,12 @@ class UpdateTakleef extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
     final controller = Get.find<EmpTakleefController>();
     final controllerDet = Get.find<EmpTakleefDetController>();
     final controllerReport = Get.find<EmpTakleefReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
 
     late HijriPicker qararDate =
         HijriPicker(controller.datQrar, controller.datQrarGo);

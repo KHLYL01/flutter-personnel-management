@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
@@ -189,16 +190,25 @@ class HolidayTamdeed extends StatelessWidget {
                         .map(
                           (item) => PlutoRow(
                             cells: {
-                              "id": PlutoCell(value: item.id),
-                              "holidayType": PlutoCell(value: item.holidayType),
-                              "tamdeedPeriod":
-                                  PlutoCell(value: item.tamdeedPeriod),
-                              "tamdeedBegin":
-                                  PlutoCell(value: item.tamdeedBegin),
-                              "tamdeedEnd": PlutoCell(value: item.tamdeedEnd),
-                              "tepyNo": PlutoCell(value: item.tepyNo),
-                              "tepyDate": PlutoCell(value: item.tepyDate),
-                              "hospital": PlutoCell(value: item.hospital),
+                              "id": PlutoCell(value: item.id.getValue()),
+                              "holidayType": PlutoCell(
+                                value: item.holidayType.getValue(),
+                              ),
+                              // "holidayTypeName": PlutoCell(
+                              //     value: controller.getHolidayType(
+                              //         item.holidayType.getValue())),
+                              "tamdeedPeriod": PlutoCell(
+                                  value: item.tamdeedPeriod.getValue()),
+                              "tamdeedBegin": PlutoCell(
+                                  value: item.tamdeedBegin.getValue()),
+                              "tamdeedEnd":
+                                  PlutoCell(value: item.tamdeedEnd.getValue()),
+                              "tepyNo":
+                                  PlutoCell(value: item.tepyNo.getValue()),
+                              "tepyDate":
+                                  PlutoCell(value: item.tepyDate.getValue()),
+                              "hospital":
+                                  PlutoCell(value: item.hospital.getValue()),
                             },
                           ),
                         )
@@ -215,6 +225,11 @@ class HolidayTamdeed extends StatelessWidget {
                         field: 'holidayType',
                         type: PlutoColumnType.text(),
                       ),
+                      // PlutoColumn(
+                      //   title: 'نوع الإجازة',
+                      //   field: 'holidayTypeName',
+                      //   type: PlutoColumnType.text(),
+                      // ),
                       PlutoColumn(
                         title: 'مدة التمديد',
                         field: 'tamdeedPeriod',
@@ -248,7 +263,9 @@ class HolidayTamdeed extends StatelessWidget {
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
                     onSelected: (event) {
-                      controller.selectedId = event.row!.cells['id']!.value;
+                      controller.selectedId =
+                          int.parse(event.row!.cells['id']!.value);
+                      controller.fillControllers(event.row!.cells);
                     },
                   ),
                 ),

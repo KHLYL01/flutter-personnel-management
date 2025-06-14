@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
@@ -39,8 +40,8 @@ class HolidayTypeFind extends StatelessWidget {
                   rows: controller.empHolidaysType
                       .map(
                         (item) => PlutoRow(cells: {
-                          "id": PlutoCell(value: item.id),
-                          "name": PlutoCell(value: item.name),
+                          "id": PlutoCell(value: item.id.getValue()),
+                          "name": PlutoCell(value: item.name.getValue()),
                         }),
                       )
                       .toList(),

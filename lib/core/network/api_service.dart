@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../feature/emp_dowra/data/model/emp_dowra_det_model.dart';
 import '../../feature/emp_dowra/data/model/emp_dowra_model.dart';
 import '../../feature/emp_end/data/model/emp_end_model.dart';
 import '../../feature/emp_entedab/data/model/emp_entedab_det_model.dart';
@@ -247,6 +248,24 @@ abstract class ApiService {
 
   @DELETE("$empDowra/{id}")
   Future<HttpResponse<void>> deleteEmpDowra(@Path("id") int id);
+
+  ///
+  /// Dowra Det
+  ///
+
+  @GET("$empDowra/det/nextId")
+  Future<HttpResponse<int>> getNextDowraDetId();
+
+  @GET("$empDowra/{id}/det")
+  Future<HttpResponse<List<EmpDowraDetModel>>> findEmpDowraDetById(
+      @Path("id") int id);
+
+  @POST("$empDowra/det")
+  Future<HttpResponse<void>> saveEmpDowraDet(
+      @Body(nullToAbsent: true) EmpDowraDetModel model);
+
+  @DELETE("$empDowra/det/{id}")
+  Future<HttpResponse<void>> deleteEmpDowraDet(@Path("id") int id);
 
   //*
   //* Emp End api

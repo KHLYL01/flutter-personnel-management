@@ -16,6 +16,7 @@ import '../../../employee/presentation/controllers/employee_find_controller.dart
 import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/emp_entedab_controller.dart';
 import '../controllers/emp_entedab_det_controller.dart';
+import '../controllers/emp_entedab_report_controller.dart';
 
 class AddEntedab extends StatelessWidget {
   const AddEntedab({super.key});
@@ -24,6 +25,7 @@ class AddEntedab extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpEntedabController>();
     final controllerDet = Get.find<EmpEntedabDetController>();
+    final controllerReport = Get.find<EmpEntedabReportController>();
 
     double currentWidth = Get.width;
     double currentHeight = Get.height;
@@ -522,37 +524,45 @@ class AddEntedab extends StatelessWidget {
                       height: 35,
                       width: 120,
                     ),
-                    // CustomButton(
-                    //   text: "طباعة أمر إركاب ",
-                    //   onPressed: () {},
-                    //   height: 30,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: "طباعة أمر إنتداب",
-                    //   onPressed: () {},
-                    //   height: 30,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: "طباعة قرار إنتداب",
-                    //   onPressed: () {},
-                    //   height: 30,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: "استحقاق الراتب",
-                    //   onPressed: () {},
-                    //   height: 30,
-                    //   width: 100,
-                    // ),
-
                     CustomButton(
-                      text: "عودة",
-                      onPressed: () => Get.back(),
+                      text: "طباعة أمر إركاب ",
+                      onPressed: () => controllerReport.createAmrErkabReport(),
+                      height: 30,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "طباعة أمر إنتداب",
+                      onPressed: () =>
+                          controllerReport.createEntedabEmployeeReport(),
+                      height: 30,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "طباعة قرار إنتداب",
+                      onPressed: () =>
+                          controllerReport.createQrarEntedabReport(),
+                      height: 30,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "استحقاق الراتب",
+                      onPressed: () =>
+                          controllerReport.createEsthqaqRatebReport(),
+                      height: 30,
+                      width: 100,
+                    ),
+                    CustomButton(
+                      text: "إضافة جديدة",
+                      onPressed: () => controller.clearControllers(),
                       height: 25,
                       width: 150,
                     ),
+                    // CustomButton(
+                    //   text: "عودة",
+                    //   onPressed: () => Get.back(),
+                    //   height: 25,
+                    //   width: 150,
+                    // ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
                 const SizedBox(height: 10),
@@ -565,6 +575,7 @@ class AddEntedab extends StatelessWidget {
                         return const CustomProgressIndicator();
                       }
                       return PlutoGrid(
+                        key: ValueKey(controllerDet.entedabDets.length),
                         configuration: getPlutoConfig(),
                         rows: controllerDet.entedabDets
                             .map(

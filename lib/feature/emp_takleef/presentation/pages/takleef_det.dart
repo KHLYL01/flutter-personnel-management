@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
@@ -177,19 +178,27 @@ class TakleefDet extends StatelessWidget {
                   height: currentHeight / 3.5,
                   width: currentWidth - 100,
                   child: PlutoGrid(
+                    key: ValueKey(controller.takleefDets.length),
                     configuration: getPlutoConfig(),
                     rows: controller.takleefDets
                         .map(
                           (item) => PlutoRow(
                             cells: {
-                              "id": PlutoCell(value: item.maxId),
-                              "empName": PlutoCell(value: item.empName),
-                              "salary": PlutoCell(value: item.salary),
-                              "naqlBadal": PlutoCell(value: item.naqlBadal),
-                              "period": PlutoCell(value: item.period),
-                              "datBegin": PlutoCell(value: item.datBegin),
-                              "datEnd": PlutoCell(value: item.datEnd),
-                              "empWork": PlutoCell(value: item.empWork),
+                              "id": PlutoCell(value: item.maxId.getValue()),
+                              "empName":
+                                  PlutoCell(value: item.empName.getValue()),
+                              "salary":
+                                  PlutoCell(value: item.salary.getValue()),
+                              "naqlBadal":
+                                  PlutoCell(value: item.naqlBadal.getValue()),
+                              "period":
+                                  PlutoCell(value: item.period.getValue()),
+                              "datBegin":
+                                  PlutoCell(value: item.datBegin.getValue()),
+                              "datEnd":
+                                  PlutoCell(value: item.datEnd.getValue()),
+                              "empWork":
+                                  PlutoCell(value: item.empWork.getValue()),
                             },
                           ),
                         )
@@ -239,7 +248,8 @@ class TakleefDet extends StatelessWidget {
                     ],
                     mode: PlutoGridMode.selectWithOneTap,
                     onSelected: (event) {
-                      controller.selectedDetId = event.row!.cells['id']!.value;
+                      controller.selectedDetId =
+                          int.parse(event.row!.cells['id']!.value);
                     },
                   ),
                 ),

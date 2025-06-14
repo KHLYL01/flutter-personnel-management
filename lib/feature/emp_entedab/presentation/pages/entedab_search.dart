@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -85,16 +86,20 @@ class EntedabSearch extends StatelessWidget {
                       rows: controller.empEntedabs
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "cardId": PlutoCell(value: item.cardId),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "jobTitle": PlutoCell(value: item.jobTitle),
-                                  "entedabPlace":
-                                      PlutoCell(value: item.entedabPlace),
-                                  "period": PlutoCell(value: item.period),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "cardId":
+                                      PlutoCell(value: item.cardId.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "jobTitle": PlutoCell(
+                                      value: item.jobTitle.getValue()),
+                                  "entedabPlace": PlutoCell(
+                                      value: item.entedabPlace.getValue()),
+                                  "period":
+                                      PlutoCell(value: item.period.getValue()),
                                   "assignmentStartDate": PlutoCell(
-                                      value: item.assignmentStartDate),
+                                      value:
+                                          item.assignmentStartDate.getValue()),
                                 },
                               ))
                           .toList(),
@@ -137,7 +142,7 @@ class EntedabSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) async {
-                        int entedabId = event.row.cells['id']!.value;
+                        int entedabId = int.parse(event.row.cells['id']!.value);
                         await controller.findById(entedabId);
                         await controllerDet.getEntedabDetByEntedabId(entedabId);
                         Get.dialog(const UpdateEntedab());

@@ -8,6 +8,7 @@ import 'package:personnel_management/feature/emp_entedab/data/model/emp_entedab_
 import 'package:personnel_management/feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
+import 'package:printing/printing.dart';
 
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 import 'emp_entedab_det_controller.dart';
@@ -1946,6 +1947,13 @@ $name
     final blob = html.Blob([pdfBytes], 'application/pdf');
     final url = html.Url.createObjectUrlFromBlob(blob);
     html.window.open(url, '_blank');
+
+    // await Printing.layoutPdf(
+    //   onLayout: (PdfPageFormat format) => pdfBytes,
+    //   format: PdfPageFormat.a4.landscape,
+    //   // usePrinterSettings: , // يعرض مباشرة بدون خيارات الطابعة
+    //   dynamicLayout: false,
+    // );
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(

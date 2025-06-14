@@ -29,9 +29,9 @@ class HijriPicker {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 150,
+                itemCount: 75,
                 itemBuilder: (context, index) {
-                  final hijriYear = HijriCalendar.now().hYear - 75 + index;
+                  final hijriYear = HijriCalendar.now().hYear - index;
                   return ListTile(
                     title: Text("$hijriYear هـ"),
                     onTap: () => _pickHijriMonth(context, hijriYear),

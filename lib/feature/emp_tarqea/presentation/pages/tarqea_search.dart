@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_tarqea/presentation/pages/update_tarqea.dart';
@@ -76,13 +77,17 @@ class TarqeaSearch extends StatelessWidget {
                       rows: controller.empTarqeas
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "qrarId": PlutoCell(value: item.qrarId),
-                                  "qrarDate": PlutoCell(value: item.qrarDate),
-                                  "oldFia": PlutoCell(value: item.oldFia),
-                                  "newFia": PlutoCell(value: item.newFia),
+                                  "id": PlutoCell(value: item.id?.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "qrarId":
+                                      PlutoCell(value: item.qrarId.getValue()),
+                                  "qrarDate": PlutoCell(
+                                      value: item.qrarDate.getValue()),
+                                  "oldFia":
+                                      PlutoCell(value: item.oldFia.getValue()),
+                                  "newFia":
+                                      PlutoCell(value: item.newFia.getValue()),
                                 },
                               ))
                           .toList(),
@@ -120,7 +125,8 @@ class TarqeaSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateTarqea());
                       },
                     );

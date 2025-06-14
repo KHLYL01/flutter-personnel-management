@@ -6,7 +6,6 @@ import 'package:personnel_management/feature/emp_kashf_tepy/presentation/control
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
-import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
@@ -19,10 +18,11 @@ class UpdateKashfTepy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
     final controller = Get.find<EmpKashfTepyController>();
     final controllerReport = Get.find<EmpKashfTepyReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
     HijriPicker requestDate = HijriPicker(controller.requestDate);
     HijriPicker endDate = HijriPicker(controller.endDate);
 

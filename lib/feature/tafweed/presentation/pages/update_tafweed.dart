@@ -18,11 +18,11 @@ class UpdateTafweed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
-
     final controller = Get.find<TafweedController>();
     final controllerReport = Get.find<TafweedReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
 
     late HijriPicker startDate = HijriPicker(controller.startDate);
     late HijriPicker endDate = HijriPicker(controller.endDate);

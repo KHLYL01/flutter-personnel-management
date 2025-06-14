@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
@@ -15,7 +17,7 @@ import '../../../../core/widgets/pluto_config.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/emp_hasmiat_det_controller.dart';
-import '../controllers/emp_hasmiat_search_controller.dart';
+import '../controllers/emp_hasmiat_report_controller.dart';
 
 class AddHasmiat extends StatelessWidget {
   const AddHasmiat({super.key});
@@ -24,6 +26,7 @@ class AddHasmiat extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHasmiatController>();
     final controllerDet = Get.find<EmpHasmiatDetController>();
+    final controllerReport = Get.find<EmpHasmiatReportController>();
 
     double currentWidth = Get.width;
     double currentHeight = Get.height;
@@ -155,12 +158,13 @@ class AddHasmiat extends StatelessWidget {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    // CustomButton(
-                    //   text: "طباعة قرار حسم",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
+                    CustomButton(
+                      text: "طباعة قرار حسم",
+                      onPressed: () =>
+                          controllerReport.createQrarHasmiatReport(),
+                      height: 35,
+                      width: 120,
+                    ),
                     CustomButton(
                       text: "إضافة موظف",
                       onPressed: () {
@@ -344,6 +348,7 @@ class AddHasmiat extends StatelessWidget {
                         return const CustomProgressIndicator();
                       }
                       return PlutoGrid(
+                        key: ValueKey(controllerDet.hasmialDets.length),
                         configuration: getPlutoConfig(),
                         rows: controllerDet.hasmialDets
                             .map(
@@ -426,6 +431,12 @@ class AddHasmiat extends StatelessWidget {
                     CustomButton(
                       text: "حفظ",
                       onPressed: () => controller.save(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "إضافة جديدة",
+                      onPressed: () => controller.clearControllers(),
                       height: 35,
                       width: 120,
                     ),

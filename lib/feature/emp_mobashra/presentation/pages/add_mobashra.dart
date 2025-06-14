@@ -13,6 +13,7 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_mobashra_report_controller.dart';
 
 class AddMobashra extends StatelessWidget {
   const AddMobashra({super.key});
@@ -20,6 +21,8 @@ class AddMobashra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpMobashraController>();
+    final controllerReport = Get.find<EmpMobashraReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -278,18 +281,20 @@ class AddMobashra extends StatelessWidget {
                       height: 35,
                       width: 120,
                     ),
-                    // CustomButton(
-                    //   text: "طباعة قرار مباشرة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: "طباعة مسير راتب إفرادي",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 150,
-                    // ),
+                    CustomButton(
+                      text: "طباعة قرار مباشرة",
+                      onPressed: () =>
+                          controllerReport.createQrarMobashraReport(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "طباعة مسير راتب إفرادي",
+                      onPressed: () =>
+                          controllerReport.createMoserRatebEfradyReport(),
+                      height: 35,
+                      width: 150,
+                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

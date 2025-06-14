@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_mokhalfat_model.dart';
 import '../../data/repository/emp_mokhalfat_repository.dart';
+import 'emp_mokhalfat_det_controller.dart';
 import 'emp_mokhalfat_search_controller.dart';
 
 class EmpMokhalfatController extends GetxController {
@@ -66,14 +68,6 @@ class EmpMokhalfatController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    startDate.clear();
-    endDate.clear();
-    description.clear();
-    mokhalfaType('لفت نظر');
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -88,10 +82,22 @@ class EmpMokhalfatController extends GetxController {
   }
 
   void fillControllers(EmpMokhalfatModel r) {
-    id.text = r.id.toString();
-    startDate.text = r.startDateString.toString();
-    endDate.text = r.endDateString.toString();
-    description.text = r.description.toString();
+    id.text = r.id.getValue();
+    startDate.text = r.startDateString.getValue();
+    endDate.text = r.endDateString.getValue();
+    description.text = r.description.getValue();
     mokhalfaType(r.mokhalfaType);
+  }
+
+  clearControllers() async {
+    startDate.text = nowHijriDate();
+    endDate.text = nowHijriDate();
+    description.clear();
+    mokhalfaType('لفت نظر');
+
+    Get.find<EmpMokhalfatDetController>().clearAllData();
+    id.text =
+        (await Get.find<EmpMokhalfatSearchController>().getId()).toString();
+    Get.find<EmpMokhalfatDetController>().mokhalfaId.text = id.text;
   }
 }

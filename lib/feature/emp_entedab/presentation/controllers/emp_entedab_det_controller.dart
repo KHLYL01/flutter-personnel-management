@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/functions/alert_dialog.dart';
@@ -127,5 +125,10 @@ class EmpEntedabDetController extends GetxController {
     selectedDetId = 0;
   }
 
-  // void fillControllers(EmpEntedabDetResponseModel r) {}
+  void clearAllData() {
+    clearControllers();
+    entedabDets.clear();
+  }
+
+// void fillControllers(EmpEntedabDetResponseModel r) {}
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/emp_taeen/presentation/pages/update_taeen.dart';
@@ -70,15 +71,17 @@ class TaeenSearch extends StatelessWidget {
                       rows: controller.empTaeens
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "qrarId": PlutoCell(value: item.qrarId),
-                                  "qrarDate": PlutoCell(value: item.qrarDate),
-                                  "socialInsuranceNo":
-                                      PlutoCell(value: item.socialInsuranceNo),
-                                  "directDate":
-                                      PlutoCell(value: item.directDate),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "qrarId":
+                                      PlutoCell(value: item.qrarId.getValue()),
+                                  "qrarDate": PlutoCell(
+                                      value: item.qrarDate.getValue()),
+                                  "socialInsuranceNo": PlutoCell(
+                                      value: item.socialInsuranceNo.getValue()),
+                                  "directDate": PlutoCell(
+                                      value: item.directDate.getValue()),
                                 },
                               ))
                           .toList(),
@@ -116,7 +119,8 @@ class TaeenSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateTaeen());
                       },
                     );

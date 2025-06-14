@@ -13,6 +13,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_radio_list_tile.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../controllers/emp_end_report_controller.dart';
 
 class AddEnd extends StatelessWidget {
   const AddEnd({super.key});
@@ -20,6 +21,7 @@ class AddEnd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpEndController>();
+    final controllerReport = Get.find<EmpEndReportController>();
 
     double currentWidth = Get.width;
     double currentHeight = Get.height;
@@ -308,18 +310,18 @@ class AddEnd extends StatelessWidget {
                       height: 35,
                       width: 120,
                     ),
-                    // CustomButton(
-                    //   text: "طباعة قرار إنهاء خدمة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
-                    // CustomButton(
-                    //   text: "طباعة مسير",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 120,
-                    // ),
+                    CustomButton(
+                      text: "طباعة قرار إنهاء خدمة",
+                      onPressed: () => controllerReport.createQrarEndReport(),
+                      height: 35,
+                      width: 120,
+                    ),
+                    CustomButton(
+                      text: "طباعة مسير",
+                      onPressed: () => controllerReport.createMoserEndReport(),
+                      height: 35,
+                      width: 120,
+                    ),
                     // Obx(
                     //   () => CustomCheckbox(
                     //     label: "صورة",
@@ -329,12 +331,13 @@ class AddEnd extends StatelessWidget {
                     //     },
                     //   ).paddingOnly(top: 20),
                     // ),
-                    // CustomButton(
-                    //   text: "طباعة مكافأة إنهاء خدمة",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 200,
-                    // ),
+                    CustomButton(
+                      text: "طباعة مكافأة إنهاء خدمة",
+                      onPressed: () =>
+                          controllerReport.createMokafaaEndReport(),
+                      height: 35,
+                      width: 200,
+                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

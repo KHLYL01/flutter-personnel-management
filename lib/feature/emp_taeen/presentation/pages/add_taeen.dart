@@ -14,6 +14,7 @@ import '../../../../core/widgets/custom_radio_list_tile.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_taeen_report_controller.dart';
 
 class AddTaeen extends StatelessWidget {
   const AddTaeen({super.key});
@@ -21,6 +22,8 @@ class AddTaeen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpTaeenController>();
+    final controllerReport = Get.find<EmpTaeenReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -320,12 +323,12 @@ class AddTaeen extends StatelessWidget {
                       height: 35,
                       width: 120,
                     ),
-                    // CustomButton(
-                    //   text: "طباعة قرار تعيين على بند الأجور",
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 200,
-                    // ),
+                    CustomButton(
+                      text: "طباعة قرار تعيين على بند الأجور",
+                      onPressed: () => controllerReport.createQrarTaeenReport(),
+                      height: 35,
+                      width: 200,
+                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

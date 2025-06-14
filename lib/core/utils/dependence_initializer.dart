@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 
+import '../../feature/emp_dowra/data/repository/emp_dowra_det_repository.dart';
 import '../../feature/emp_dowra/data/repository/emp_dowra_repository.dart';
 import '../../feature/emp_dowra/presentation/controllers/emp_dowra_controller.dart';
+import '../../feature/emp_dowra/presentation/controllers/emp_dowra_det_controller.dart';
 import '../../feature/emp_dowra/presentation/controllers/emp_dowra_report_controller.dart';
 import '../../feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
 import '../../feature/emp_end/data/repository/emp_end_repository.dart';
@@ -12,7 +14,7 @@ import '../../feature/emp_end/presentation/controllers/emp_end_report_controller
 import '../../feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_det_repository.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_repository.dart';
-import '../../feature/emp_entedab/presentation/controllers/emp_entedab__report_controller.dart';
+import '../../feature/emp_entedab/presentation/controllers/emp_entedab_report_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
@@ -22,7 +24,7 @@ import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_report_contro
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_det_repository.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_repository.dart';
-import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat__report_controller.dart';
+import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_report_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
@@ -147,7 +149,9 @@ class DependenceInitializer {
 
     // EmpDowra DI
     Get.lazyPut(() => EmpDowraRepository(Get.find()));
+    Get.lazyPut(() => EmpDowraDetRepository(Get.find()));
     Get.put(EmpDowraController(Get.find()));
+    Get.put(EmpDowraDetController(Get.find()));
     Get.put(EmpDowraSearchController(Get.find()));
     Get.put(EmpDowraReportController());
 
@@ -184,7 +188,7 @@ class DependenceInitializer {
     Get.put(EmpHolidayReportController(Get.find(), Get.find()));
 
     Get.lazyPut(() => EmpHolidayTamdeedRepository(Get.find()));
-    Get.put(EmpHolidayTamdeedController(Get.find()));
+    Get.put(EmpHolidayTamdeedController(Get.find(), Get.find()));
 
     // EmpKashfTepy DI
     Get.lazyPut(() => EmpKashfTepyRepository(Get.find()));

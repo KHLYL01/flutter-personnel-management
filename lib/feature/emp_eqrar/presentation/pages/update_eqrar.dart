@@ -16,10 +16,11 @@ class UpdateEqrar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = Get.width;
-    double currentHeight = Get.height;
     final controller = Get.find<EmpEqrarController>();
     final controllerReport = Get.find<EmpEqrarReportController>();
+
+    double currentWidth = Get.width;
+    double currentHeight = Get.height;
     HijriPicker iqrarDate = HijriPicker(controller.decisionDate);
     HijriPicker khitabDate = HijriPicker(controller.letterDate);
     return Dialog(
@@ -139,7 +140,7 @@ class UpdateEqrar extends StatelessWidget {
                   ),
                 ],
               ).scrollDirection(Axis.horizontal).center(),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             ],
           );
         },

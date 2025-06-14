@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_kashf_tepy_model.dart';
 import '../../data/repository/emp_kashf_tepy_repository.dart';
 
@@ -86,18 +88,6 @@ class EmpKashfTepyController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    empId.clear();
-    empName.clear();
-    wehdaName.clear();
-    notes.clear();
-    requestDate.clear();
-    endDate.clear();
-    wehdaType("مستشفى");
-    employeeStatus("قائم بالعمل حتى تاريخه");
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -112,13 +102,13 @@ class EmpKashfTepyController extends GetxController {
   }
 
   void fillControllers(EmpKashfTepyModel r) async {
-    id.text = r.id.toString();
-    empId.text = r.empId.toString();
-    // empName.text = r..toString();
-    wehdaName.text = r.wehdaName.toString();
-    notes.text = r.notes.toString();
-    requestDate.text = r.requestDateString.toString();
-    endDate.text = r.endDateString.toString();
+    id.text = r.id.getValue();
+    empId.text = r.empId.getValue();
+    // empName.text = r..getValue();
+    wehdaName.text = r.wehdaName.getValue();
+    notes.text = r.notes.getValue();
+    requestDate.text = r.requestDateString.getValue();
+    endDate.text = r.endDateString.getValue();
     wehdaType(r.wehdaType);
     employeeStatus(r.employeeStatus);
     (await _employeeRepository.findById(int.parse(empId.text))).fold((l) => l,
@@ -126,5 +116,19 @@ class EmpKashfTepyController extends GetxController {
       empName.text = r.name!;
       cardId.text = r.cardId!;
     });
+  }
+
+  clearControllers() async {
+    empId.clear();
+    empName.clear();
+    wehdaName.clear();
+    notes.clear();
+    requestDate.text = nowHijriDate();
+    endDate.text = nowHijriDate();
+    wehdaType("مستشفى");
+    employeeStatus("قائم بالعمل حتى تاريخه");
+
+    id.text =
+        (await Get.find<EmpKashfTepySearchController>().getId()).toString();
   }
 }

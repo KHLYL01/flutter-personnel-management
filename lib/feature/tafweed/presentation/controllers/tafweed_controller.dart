@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/tafweed_model.dart';
 import '../../data/repository/tafweed_repository.dart';
 
@@ -82,17 +84,6 @@ class TafweedController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    empId.clear();
-    empName.clear();
-    subject.clear();
-    selectedDay("الأحد");
-    note.clear();
-    startDate.clear();
-    endDate.clear();
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -107,15 +98,27 @@ class TafweedController extends GetxController {
   }
 
   void fillControllers(TafweedModel model) async {
-    id.text = model.id.toString();
-    empId.text = model.empId.toString();
-    subject.text = model.subject!;
+    id.text = model.id.getValue();
+    empId.text = model.empId.getValue();
+    subject.text = model.subject.getValue();
     // selectedDay(model.day);
-    startDate.text = model.startDate!;
-    endDate.text = model.endDate!;
-    note.text = model.note!;
+    startDate.text = model.startDate.getValue();
+    endDate.text = model.endDate.getValue();
+    note.text = model.note.getValue();
 
     (await _empRepository.findById(int.parse(empId.text)))
-        .fold((l) => l, (r) => empName.text = r.name ?? "");
+        .fold((l) => l, (r) => empName.text = r.name.getValue());
+  }
+
+  clearControllers() async {
+    empId.clear();
+    empName.clear();
+    subject.clear();
+    selectedDay("الأحد");
+    note.clear();
+    startDate.text = nowHijriDate();
+    endDate.text = nowHijriDate();
+
+    id.text = (await Get.find<TafweedSearchController>().getId()).toString();
   }
 }

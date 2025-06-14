@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -82,14 +83,19 @@ class EqrarSearch extends StatelessWidget {
                           .map(
                             (item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "eqrarName": PlutoCell(value: item.eqrarName),
-                                "eqrarDate": PlutoCell(value: item.eqrarDate),
-                                "eqrarPlace": PlutoCell(value: item.eqrarPlace),
-                                "khetabNumber":
-                                    PlutoCell(value: item.khetabNumber),
-                                "khetabName": PlutoCell(value: item.khetabName),
-                                "khetabDate": PlutoCell(value: item.khetabDate),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                "eqrarName":
+                                    PlutoCell(value: item.eqrarName.getValue()),
+                                "eqrarDate":
+                                    PlutoCell(value: item.eqrarDate.getValue()),
+                                "eqrarPlace": PlutoCell(
+                                    value: item.eqrarPlace.getValue()),
+                                "khetabNumber": PlutoCell(
+                                    value: item.khetabNumber.getValue()),
+                                "khetabName": PlutoCell(
+                                    value: item.khetabName.getValue()),
+                                "khetabDate": PlutoCell(
+                                    value: item.khetabDate.getValue()),
                               },
                             ),
                           )

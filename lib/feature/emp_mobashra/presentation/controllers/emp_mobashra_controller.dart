@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_mobashra_model.dart';
 import '../../data/repository/emp_mobashra_repository.dart';
 import 'emp_mobashra_search_controller.dart';
@@ -103,30 +105,6 @@ class EmpMobashraController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    empId.clear();
-    empName.clear();
-    mrtaba.clear();
-    draga.clear();
-    salary.clear();
-    naqlBadal.clear();
-    qrarId.clear();
-    qrarDate.clear();
-    no.clear();
-    date.clear();
-    holidayStartDate.clear();
-    mobashraDate.clear();
-    khetabDate.clear();
-    partBoss.clear();
-    endDate.clear();
-    forr.clear();
-    notes.clear();
-    days.text = 0.toString();
-    period.text = 0.toString();
-    day('السبت');
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -141,22 +119,48 @@ class EmpMobashraController extends GetxController {
   }
 
   void fillControllers(EmpMobashraModel r) {
-    id.text = r.id.toString();
-    empId.text = r.empId.toString();
-    qrarId.text = r.qrarId.toString();
-    qrarDate.text = r.qrarDate.toString();
-    no.text = r.no.toString();
-    date.text = r.date.toString();
-    holidayStartDate.text = r.holidayStartDate.toString();
-    mobashraDate.text = r.mobashraDate.toString();
-    khetabDate.text = r.khetabDate.toString();
-    partBoss.text = r.partBoss.toString();
-    endDate.text = r.endDate.toString();
-    forr.text = r.forr.toString();
-    notes.text = r.notes.toString();
+    id.text = r.id.getValue();
+    empId.text = r.empId.getValue();
+    qrarId.text = r.qrarId.getValue();
+    qrarDate.text = r.qrarDate.getValue();
+    no.text = r.no.getValue();
+    date.text = r.date.getValue();
+    holidayStartDate.text = r.holidayStartDate.getValue();
+    mobashraDate.text = r.mobashraDate.getValue();
+    khetabDate.text = r.khetabDate.getValue();
+    partBoss.text = r.partBoss.getValue();
+    endDate.text = r.endDate.getValue();
+    forr.text = r.forr.getValue();
+    notes.text = r.notes.getValue();
 
-    days.text = r.days.toString();
-    period.text = r.period.toString();
+    days.text = r.days.getValue();
+    period.text = r.period.getValue();
     day(r.day);
+  }
+
+  clearControllers() async {
+    empId.clear();
+    empName.clear();
+    mrtaba.clear();
+    draga.clear();
+    salary.clear();
+    naqlBadal.clear();
+    qrarId.clear();
+    qrarDate.text = nowHijriDate();
+    no.clear();
+    date.text = nowHijriDate();
+    holidayStartDate.text = nowHijriDate();
+    mobashraDate.text = nowHijriDate();
+    khetabDate.text = nowHijriDate();
+    partBoss.clear();
+    endDate.text = nowHijriDate();
+    forr.clear();
+    notes.clear();
+    days.text = 0.toString();
+    period.text = 0.toString();
+    day('السبت');
+
+    id.text =
+        (await Get.find<EmpMobashraSearchController>().getId()).toString();
   }
 }

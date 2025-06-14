@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_dowra_model.dart';
 import '../../data/repository/emp_dowra_repository.dart';
+import 'emp_dowra_det_controller.dart';
 
 class EmpDowraController extends GetxController {
   final EmpDowraRepository _repository;
@@ -66,18 +68,6 @@ class EmpDowraController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    startDate.clear();
-    endDate.clear();
-    courseDays.text = 0.toString();
-    extraDays.text = 0.toString();
-    decisionNumber.clear();
-    decisionDate.clear();
-    title.clear();
-    footer.clear();
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -92,14 +82,29 @@ class EmpDowraController extends GetxController {
   }
 
   void fillControllers(EmpDowraModel r) {
-    id.text = r.id.toString();
-    startDate.text = r.startDate.toString();
-    endDate.text = r.endDate.toString();
-    courseDays.text = r.courseDays.toString();
-    extraDays.text = r.extraDays.toString();
-    decisionNumber.text = r.decisionNumber.toString();
-    decisionDate.text = r.decisionDate.toString();
-    title.text = r.title.toString();
-    footer.text = r.footer.toString();
+    id.text = r.id.getValue();
+    startDate.text = r.startDate.getValue();
+    endDate.text = r.endDate.getValue();
+    courseDays.text = r.courseDays.getValue();
+    extraDays.text = r.extraDays.getValue();
+    decisionNumber.text = r.decisionNumber.getValue();
+    decisionDate.text = r.decisionDate.getValue();
+    title.text = r.title.getValue();
+    footer.text = r.footer.getValue();
+  }
+
+  clearControllers() async {
+    startDate.text = nowHijriDate();
+    endDate.text = nowHijriDate();
+    courseDays.text = 0.toString();
+    extraDays.text = 0.toString();
+    decisionNumber.clear();
+    decisionDate.clear();
+    title.clear();
+    footer.clear();
+
+    Get.find<EmpDowraDetController>().clearAllData();
+    id.text = (await Get.find<EmpDowraSearchController>().getId()).toString();
+    Get.find<EmpDowraDetController>().dowraId.text = id.text;
   }
 }

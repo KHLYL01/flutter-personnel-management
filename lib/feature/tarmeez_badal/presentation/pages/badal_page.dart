@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -109,13 +110,15 @@ class BadalPage extends StatelessWidget {
                   rows: controller.badals
                       .map(
                         (item) => PlutoRow(cells: {
-                          "id": PlutoCell(value: item.id),
-                          "classA": PlutoCell(value: item.classA),
-                          "classB": PlutoCell(value: item.classB),
-                          "classC": PlutoCell(value: item.classC),
-                          "martaba": PlutoCell(value: item.martaba),
-                          "highLiving": PlutoCell(value: item.highLiving),
-                          "internal": PlutoCell(value: item.internal),
+                          "id": PlutoCell(value: item.id.getValue()),
+                          "classA": PlutoCell(value: item.classA.getValue()),
+                          "classB": PlutoCell(value: item.classB.getValue()),
+                          "classC": PlutoCell(value: item.classC.getValue()),
+                          "martaba": PlutoCell(value: item.martaba.getValue()),
+                          "highLiving":
+                              PlutoCell(value: item.highLiving.getValue()),
+                          "internal":
+                              PlutoCell(value: item.internal.getValue()),
                         }),
                       )
                       .toList(),

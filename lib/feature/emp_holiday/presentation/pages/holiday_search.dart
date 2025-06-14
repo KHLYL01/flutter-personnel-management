@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_dropdown_button.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
@@ -176,21 +179,24 @@ class HolidaySearch extends StatelessWidget {
                       configuration: getPlutoConfig(),
                       rows: controller.empHolidays
                           .map((item) => PlutoRow(cells: {
-                                "id": PlutoCell(value: item.id),
-                                // "startDate": PlutoCell(value: item.startDate),
-                                "cardId": PlutoCell(value: item.cardId),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "jobName": PlutoCell(value: item.jobName),
-                                "holidayType":
-                                    PlutoCell(value: item.holidayType),
-                                "holidayStartDate":
-                                    PlutoCell(value: item.holidayStartDate),
-                                "holidayEndDate":
-                                    PlutoCell(value: item.holidayEndDate),
-                                "period": PlutoCell(value: item.period),
-                                "employmentType":
-                                    PlutoCell(value: item.employmentType),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                // "startDate": PlutoCell(value: item.startDate.getValue()),
+                                "cardId":
+                                    PlutoCell(value: item.cardId.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "jobName":
+                                    PlutoCell(value: item.jobName.getValue()),
+                                "holidayType": PlutoCell(
+                                    value: item.holidayType.getValue()),
+                                "holidayStartDate": PlutoCell(
+                                    value: item.holidayStartDate.getValue()),
+                                "holidayEndDate": PlutoCell(
+                                    value: item.holidayEndDate.getValue()),
+                                "period":
+                                    PlutoCell(value: item.period.getValue()),
+                                "employmentType": PlutoCell(
+                                    value: item.employmentType.getValue()),
                                 "etemad": PlutoCell(
                                     value: item.etemad == 0 ? "لا" : "نعم"),
                                 // "etemad": PlutoCell(value: item.etemad),

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../tarmeez_parts/data/repository/parts_repository.dart';
 import '../../data/model/emp_taeen_model.dart';
 import '../../data/repository/emp_taeen_repository.dart';
@@ -111,30 +113,6 @@ class EmpTaeenController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    qrarId.clear();
-    qrarDate.clear();
-    empId.clear();
-    empName.clear();
-    draga.clear();
-    salary.clear();
-    empPart.clear();
-    jobName.clear();
-    mrtaba.clear();
-    nqalBadal.clear();
-    jobNumber.clear();
-    socialNumber.clear();
-    khetabId.clear();
-    khetabDate.clear();
-    khetabName.clear();
-    mKhetabDate.clear();
-    birthDate.clear();
-    mDay('السبت');
-    state("متزوج");
-    gender("ذكر");
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -149,16 +127,16 @@ class EmpTaeenController extends GetxController {
   }
 
   void fillControllers(EmpTaeenModel r) async {
-    id.text = r.id.toString();
-    qrarId.text = r.qrarId.toString();
-    qrarDate.text = r.qrarDate.toString();
-    empId.text = r.empId.toString();
-    socialNumber.text = r.socialNumber.toString();
-    khetabId.text = r.khetabId.toString();
-    khetabDate.text = r.khetabDate.toString();
-    khetabName.text = r.khetabName.toString();
-    mKhetabDate.text = r.mKhetabDate.toString();
-    birthDate.text = r.birthDate.toString();
+    id.text = r.id.getValue();
+    qrarId.text = r.qrarId.getValue();
+    qrarDate.text = r.qrarDate.getValue();
+    empId.text = r.empId.getValue();
+    socialNumber.text = r.socialNumber.getValue();
+    khetabId.text = r.khetabId.getValue();
+    khetabDate.text = r.khetabDate.getValue();
+    khetabName.text = r.khetabName.getValue();
+    mKhetabDate.text = r.mKhetabDate.getValue();
+    birthDate.text = r.birthDate.getValue();
     mDay(r.mDay);
     state(r.state == 1 ? "متزوج" : 'أعزب');
     gender(r.gender == 1 ? "ذكر" : 'أنثى');
@@ -169,24 +147,49 @@ class EmpTaeenController extends GetxController {
     (await _empRepository.findById(int.parse(empId.text))).fold(
       (l) => l,
       (r) {
-        empName.text = r.name ?? "";
-        jobId = r.jobId ?? 0;
-        partId = r.partId ?? 0;
-        draga.text = (r.draga ?? 0).toString();
-        salary.text = (r.salary ?? 0).toString();
-        mrtaba.text = r.fia ?? "";
-        jobNumber.text = (r.jobNo ?? 0).toString();
-        nqalBadal.text = (r.naqlBadal ?? 0).toString();
+        empName.text = r.name.getValue();
+        jobId = r.jobId.getValue();
+        partId = r.partId.getValue();
+        draga.text = r.draga.getValue();
+        salary.text = r.salary.getValue();
+        mrtaba.text = r.fia.getValue();
+        jobNumber.text = r.jobNo.getValue();
+        nqalBadal.text = r.naqlBadal.getValue();
       },
     );
 
     (await _jobsRepository.findById(id: jobId)).fold(
       (l) => l,
-      (r) => jobName.text = r.name ?? "",
+      (r) => jobName.text = r.name.getValue(),
     );
     (await _partsRepository.findById(id: partId)).fold(
       (l) => l,
-      (r) => empPart.text = r.name ?? "",
+      (r) => empPart.text = r.name.getValue(),
     );
+  }
+
+  clearControllers() async {
+    qrarId.clear();
+    qrarDate.text = nowHijriDate();
+    empId.clear();
+    empName.clear();
+    draga.clear();
+    salary.clear();
+    empPart.clear();
+    jobName.clear();
+    mrtaba.clear();
+    nqalBadal.clear();
+    jobNumber.clear();
+    socialNumber.clear();
+    khetabId.clear();
+    khetabDate.text = nowHijriDate();
+    khetabName.clear();
+    mKhetabDate.text = nowHijriDate();
+    birthDate.text = nowHijriDate();
+    mDay('السبت');
+    state("متزوج");
+    gender("ذكر");
+
+    id.text = (await Get.find<EmpTaeenSearchController>().getId()).toString();
   }
 }

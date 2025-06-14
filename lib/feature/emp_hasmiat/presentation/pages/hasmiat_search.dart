@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -80,13 +81,17 @@ class HasmiatSearch extends StatelessWidget {
                           .map(
                             (item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "cardId": PlutoCell(value: item.cardId),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "jobName": PlutoCell(value: item.jobName),
-                                "qrarId": PlutoCell(value: item.qrarId),
-                                "datQrar": PlutoCell(value: item.datQrar),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                "cardId":
+                                    PlutoCell(value: item.cardId.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "jobName":
+                                    PlutoCell(value: item.jobName.getValue()),
+                                "qrarId":
+                                    PlutoCell(value: item.qrarId.getValue()),
+                                "datQrar":
+                                    PlutoCell(value: item.datQrar.getValue()),
                               },
                             ),
                           )
@@ -125,7 +130,7 @@ class HasmiatSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) async {
-                        int hasmiatId = event.row.cells['id']!.value;
+                        int hasmiatId = int.parse(event.row.cells['id']!.value);
                         await controller.findById(hasmiatId);
                         await controllerDet.getHasmiatDetByHasmiatId(hasmiatId);
                         controllerDet.resetSelectedRow();

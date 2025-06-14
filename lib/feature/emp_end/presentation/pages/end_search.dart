@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
@@ -81,13 +82,15 @@ class EndSearch extends StatelessWidget {
                           .map(
                             (item) => PlutoRow(
                               cells: {
-                                "id": PlutoCell(value: item.id),
-                                "qrarId": PlutoCell(value: item.qrarId),
-                                "qrarDate": PlutoCell(value: item.qrarDate),
-                                "employeeName":
-                                    PlutoCell(value: item.employeeName),
-                                "terminationDate":
-                                    PlutoCell(value: item.terminationDate),
+                                "id": PlutoCell(value: item.id.getValue()),
+                                "qrarId":
+                                    PlutoCell(value: item.qrarId.getValue()),
+                                "qrarDate":
+                                    PlutoCell(value: item.qrarDate.getValue()),
+                                "employeeName": PlutoCell(
+                                    value: item.employeeName.getValue()),
+                                "terminationDate": PlutoCell(
+                                    value: item.terminationDate.getValue()),
                               },
                             ),
                           )

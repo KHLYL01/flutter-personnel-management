@@ -2,16 +2,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:pluto_grid/src/model/pluto_cell.dart';
 
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_holiday_tamdeed_model.dart';
 import '../../data/repository/emp_holiday_tamdeed_repository.dart';
+import '../../data/repository/emp_holiday_type_repository.dart';
 
 class EmpHolidayTamdeedController extends GetxController {
   final EmpHolidayTamdeedRepository _repository;
+  final EmpHolidayTypeRepository _typeRepository;
 
-  EmpHolidayTamdeedController(this._repository);
+  EmpHolidayTamdeedController(this._repository, this._typeRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -28,8 +33,10 @@ class EmpHolidayTamdeedController extends GetxController {
   final TextEditingController tepyNo = TextEditingController();
   final TextEditingController tepyDate = TextEditingController();
   final TextEditingController hospital = TextEditingController();
-  final TextEditingController holidayType = TextEditingController(); // id
-  final TextEditingController holidayTypeName = TextEditingController(); // id
+  final TextEditingController holidayType =
+      TextEditingController(text: "0"); // id
+  final TextEditingController holidayTypeName =
+      TextEditingController(text: "إعتيادية سنوى"); // id
 
   int holidaysId = 0;
   int selectedId = 0;
@@ -107,18 +114,6 @@ class EmpHolidayTamdeedController extends GetxController {
     );
   }
 
-  clearControllers() async {
-    id.text = (await getId()).toString();
-    tamdeedPeriod.text = "0";
-    tamdeedBegin.clear();
-    tamdeedEnd.clear();
-    tepyNo.clear();
-    tepyDate.clear();
-    hospital.clear();
-    holidayType.clear();
-    holidayTypeName.clear();
-  }
-
   // حل مبدأي
   Future<int> getId() async {
     int max = 0;
@@ -131,5 +126,68 @@ class EmpHolidayTamdeedController extends GetxController {
     }
     log("max id: ${max + 1}");
     return max + 1;
+  }
+
+  clearControllers() async {
+    id.text = (await getId()).toString();
+    tamdeedPeriod.text = "0";
+    tamdeedBegin.text = nowHijriDate();
+    tamdeedEnd.text = nowHijriDate();
+    tepyNo.clear();
+    tepyDate.text = nowHijriDate();
+    hospital.clear();
+    holidayType.text = "0";
+    holidayTypeName.text = 'إعتيادية سنوى';
+  }
+
+  void clearAllData() {
+    clearControllers();
+    empHolidayTamdeeds.clear();
+  }
+
+  void fillControllers(Map<String, PlutoCell> cells) async {
+    if (cells['id']?.value != null) {
+      id.text = cells['id']!.value.toString();
+    }
+
+    if (cells['tamdeedPeriods']?.value != null) {
+      tamdeedPeriod.text = cells['tamdeedPeriods']!.value.toString();
+    }
+
+    if (cells['tamdeedBegin']?.value != null) {
+      tamdeedBegin.text = cells['tamdeedBegin']!.value.toString();
+    }
+
+    if (cells['tamdeedEnd']?.value != null) {
+      tamdeedEnd.text = cells['tamdeedEnd']!.value.toString();
+    }
+
+    if (cells['tepyNo']?.value != null) {
+      tepyNo.text = cells['tepyNo']!.value.toString();
+    }
+
+    if (cells['tepyDate']?.value != null) {
+      tepyDate.text = cells['tepyDate']!.value.toString();
+    }
+
+    if (cells['hospital']?.value != null) {
+      hospital.text = cells['hospital']!.value.toString();
+    }
+
+    if (cells['holidayType']?.value != null) {
+      holidayType.text = cells['holidayType']!.value.toString();
+      // Only try to get holiday type name if we have a valid number
+      final type = int.tryParse(holidayType.text);
+      if (type != null) {
+        holidayTypeName.text = await getHolidayType(type);
+      }
+    }
+  }
+
+  Future<String> getHolidayType(int value) async {
+    String name = "";
+    (await _typeRepository.findById(value))
+        .fold((l) => l, (r) => name = r.name.getValue());
+    return name;
   }
 }

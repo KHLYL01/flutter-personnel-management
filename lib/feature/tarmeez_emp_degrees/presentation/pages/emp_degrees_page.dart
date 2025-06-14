@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -118,17 +119,19 @@ class EmpDegreesPage extends StatelessWidget {
                     rows: controller.empDegrees
                         .map(
                           (item) => PlutoRow(cells: {
-                            "id": PlutoCell(value: item.id),
-                            "type": PlutoCell(value: item.type),
-                            "martaba": PlutoCell(value: item.martaba),
-                            "draga": PlutoCell(value: item.draga),
-                            "salary": PlutoCell(value: item.salary),
-                            "naqlBadal": PlutoCell(value: item.naqlBadal),
-                            "elawa": PlutoCell(value: item.elawa),
-                            "inEntedabBadal":
-                                PlutoCell(value: item.inEntedabBadal),
-                            "outEntedabadal":
-                                PlutoCell(value: item.outEntedabadal),
+                            "id": PlutoCell(value: item.id.getValue()),
+                            "type": PlutoCell(value: item.type.getValue()),
+                            "martaba":
+                                PlutoCell(value: item.martaba.getValue()),
+                            "draga": PlutoCell(value: item.draga.getValue()),
+                            "salary": PlutoCell(value: item.salary.getValue()),
+                            "naqlBadal":
+                                PlutoCell(value: item.naqlBadal.getValue()),
+                            "elawa": PlutoCell(value: item.elawa.getValue()),
+                            "inEntedabBadal": PlutoCell(
+                                value: item.inEntedabBadal.getValue()),
+                            "outEntedabadal": PlutoCell(
+                                value: item.outEntedabadal.getValue()),
                           }),
                         )
                         .toList(),

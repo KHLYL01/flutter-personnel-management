@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -82,8 +83,8 @@ class JobsFind extends StatelessWidget {
                   rows: controller.jobs
                       .map(
                         (item) => PlutoRow(cells: {
-                          "id": PlutoCell(value: item.id),
-                          "name": PlutoCell(value: item.name),
+                          "id": PlutoCell(value: item.id.getValue()),
+                          "name": PlutoCell(value: item.name.getValue()),
                         }),
                       )
                       .toList(),

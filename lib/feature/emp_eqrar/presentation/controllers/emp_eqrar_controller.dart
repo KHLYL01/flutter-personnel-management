@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_eqrar_model.dart';
 import '../../data/repository/emp_eqrar_repository.dart';
 
@@ -65,16 +67,6 @@ class EmpEqrarController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
-    decisionDate.clear();
-    letterName.clear();
-    letterNumber.text = 0.toString();
-    letterDate.clear();
-    decisionName.clear();
-    decisionPlace.clear();
-  }
-
   void confirmDelete(int id, {bool withGoBack = true}) async {
     await alertDialog(
       title: 'تحذير',
@@ -89,12 +81,23 @@ class EmpEqrarController extends GetxController {
   }
 
   void fillControllers(EmpEqrarModel r) {
-    id.text = r.id.toString();
-    decisionDate.text = r.decisionDate.toString();
-    letterName.text = r.letterName.toString();
-    letterNumber.text = r.letterNumber.toString();
-    letterDate.text = r.letterDate.toString();
-    decisionName.text = r.decisionName.toString();
-    decisionPlace.text = r.decisionPlace.toString();
+    id.text = r.id.getValue();
+    decisionDate.text = r.decisionDate.getValue();
+    letterName.text = r.letterName.getValue();
+    letterNumber.text = r.letterNumber.getValue();
+    letterDate.text = r.letterDate.getValue();
+    decisionName.text = r.decisionName.getValue();
+    decisionPlace.text = r.decisionPlace.getValue();
+  }
+
+  clearControllers() async {
+    decisionDate.text = nowHijriDate();
+    letterName.clear();
+    letterNumber.text = 0.toString();
+    letterDate.text = nowHijriDate();
+    decisionName.clear();
+    decisionPlace.clear();
+
+    id.text = (await Get.find<EmpEqrarSearchController>().getId()).toString();
   }
 }

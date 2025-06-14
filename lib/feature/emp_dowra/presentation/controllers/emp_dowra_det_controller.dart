@@ -2,45 +2,49 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
-import '../../../../core/utils/helper_method.dart';
-import '../../data/model/emp_takleef_det_model.dart';
-import '../../data/repository/emp_takleef_det_repository.dart';
+import '../../data/model/emp_dowra_det_model.dart';
+import '../../data/repository/emp_dowra_det_repository.dart';
 
-class EmpTakleefDetController extends GetxController {
-  final EmpTakleefDetRepository _repository;
+class EmpDowraDetController extends GetxController {
+  final EmpDowraDetRepository _repository;
 
-  EmpTakleefDetController(this._repository);
+  EmpDowraDetController(this._repository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
-  RxList<EmpTakleefDetModel> takleefDets = RxList([]);
+  RxList<EmpDowraDetModel> dowraDets = RxList([]);
 
-  final TextEditingController id = TextEditingController();
-  final TextEditingController takleefId = TextEditingController();
+  final TextEditingController maxId = TextEditingController();
   final TextEditingController empId = TextEditingController();
+  final TextEditingController dowraId = TextEditingController();
+
   final TextEditingController empName = TextEditingController();
   final TextEditingController salary = TextEditingController(text: "0");
-  final TextEditingController naqlBadal = TextEditingController(text: "0");
-  final TextEditingController period = TextEditingController(text: "0");
-  final TextEditingController datBegin = TextEditingController();
-  final TextEditingController datEnd = TextEditingController();
-  final TextEditingController empWork = TextEditingController();
+  final TextEditingController draga = TextEditingController(text: "0");
+  final TextEditingController fia = TextEditingController();
+  final TextEditingController mokafaa = TextEditingController(text: "0");
+  final TextEditingController badalEntidab = TextEditingController(text: "0");
+  final TextEditingController badalTransfare = TextEditingController(text: "0");
+  final TextEditingController ticketCost = TextEditingController(text: "0");
 
   int selectedDetId = 0;
 
-  Future<void> getTakleefDetNextId() async {
+  Future<void> getDowraDetNextId() async {
     messageError('');
     final data = await _repository.getNextId();
-    data.fold((l) => messageError(l.eerMessage), (r) => id.text = r.toString());
+    data.fold(
+        (l) => messageError(l.eerMessage), (r) => maxId.text = r.toString());
   }
 
-  Future<void> getTakleefDetByTakleefId(int takleefId) async {
+  Future<void> getDowraDetByDowraId(int dowraId) async {
     isLoading(true);
     messageError('');
-    this.takleefId.text = takleefId.toString();
-    final data = await _repository.findEmpTakleefDetById(takleefId);
-    data.fold((l) => messageError(l.eerMessage), (r) => takleefDets(r));
+    this.dowraId.text = dowraId.toString();
+    final data = await _repository.findEmpDowraDetById(dowraId);
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      return dowraDets(r);
+    });
     isLoading(false);
   }
 
@@ -48,21 +52,25 @@ class EmpTakleefDetController extends GetxController {
     isLoading(true);
     messageError("");
     final data = await _repository.save(
-      EmpTakleefDetModel(
-        maxId: int.parse(id.text),
+      EmpDowraDetModel(
+        maxId: int.parse(maxId.text),
+        dowraId: int.parse(dowraId.text),
         empId: int.parse(empId.text),
-        takleefId: int.parse(takleefId.text),
-        datBegin: datBegin.text,
-        datEnd: datEnd.text,
-        period: double.parse(period.text),
-        empWork: empWork.text,
+        mokafaa: int.parse(mokafaa.text),
+        badalEntidab: int.parse(badalEntidab.text),
+        badalTransfare: int.parse(badalTransfare.text),
+        ticketCost: int.parse(ticketCost.text),
+        total: int.parse(mokafaa.text) +
+            int.parse(badalEntidab.text) +
+            int.parse(badalTransfare.text) +
+            int.parse(ticketCost.text),
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getTakleefDetByTakleefId(int.parse(takleefId.text));
-      getTakleefDetNextId();
+      getDowraDetByDowraId(int.parse(dowraId.text));
+      getDowraDetNextId();
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -83,7 +91,7 @@ class EmpTakleefDetController extends GetxController {
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
-      getTakleefDetByTakleefId(int.parse(takleefId.text));
+      getDowraDetByDowraId(int.parse(dowraId.text));
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -107,15 +115,16 @@ class EmpTakleefDetController extends GetxController {
   }
 
   void clearControllers() async {
-    await getTakleefDetNextId();
+    await getDowraDetNextId();
     empId.clear();
     empName.clear();
+    fia.clear();
     salary.text = "0";
-    naqlBadal.text = "0";
-    period.text = "0";
-    datBegin.text = nowHijriDate();
-    datEnd.text = nowHijriDate();
-    empWork.clear();
+    draga.text = "0";
+    mokafaa.text = "0";
+    badalEntidab.text = "0";
+    badalTransfare.text = "0";
+    ticketCost.text = "0";
   }
 
   void resetSelectedRow() {
@@ -124,8 +133,8 @@ class EmpTakleefDetController extends GetxController {
 
   void clearAllData() {
     clearControllers();
-    takleefDets.clear();
+    dowraDets.clear();
   }
 
-  // void fillControllers(EmpTakleefDetResponseModel r) {}
+// void fillControllers(EmpDowraDetResponseModel r) {}
 }

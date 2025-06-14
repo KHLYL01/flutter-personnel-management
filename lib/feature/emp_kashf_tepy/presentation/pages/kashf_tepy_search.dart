@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_dropdown_button.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
@@ -81,17 +82,19 @@ class KashfTepySearch extends StatelessWidget {
                       rows: controller.empKashfTepys
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "cardId": PlutoCell(value: item.cardId),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "jobName": PlutoCell(value: item.jobName),
-                                  "requestDate":
-                                      PlutoCell(value: item.requestDate),
-                                  "employeeStatus":
-                                      PlutoCell(value: item.employeeStatus),
-                                  "medicalUnitName":
-                                      PlutoCell(value: item.medicalUnitName),
+                                  "id": PlutoCell(value: item.id.getValue()),
+                                  "cardId":
+                                      PlutoCell(value: item.cardId.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "jobName":
+                                      PlutoCell(value: item.jobName.getValue()),
+                                  "requestDate": PlutoCell(
+                                      value: item.requestDate.getValue()),
+                                  "employeeStatus": PlutoCell(
+                                      value: item.employeeStatus.getValue()),
+                                  "medicalUnitName": PlutoCell(
+                                      value: item.medicalUnitName.getValue()),
                                 },
                               ))
                           .toList(),
@@ -134,7 +137,8 @@ class KashfTepySearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateKashfTepy());
                       },
                     );

@@ -28,6 +28,7 @@ class UpdateTarqea extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpTarqeaController>();
     final controllerReport = Get.find<EmpTarqeaReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 

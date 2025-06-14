@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 import 'package:personnel_management/feature/tarmeez_parts/data/repository/parts_repository.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../data/model/emp_tarqea_model.dart';
 import '../../data/repository/emp_tarqea_repository.dart';
 import 'emp_tarqea_search_controller.dart';
@@ -147,16 +148,76 @@ class EmpTarqeaController extends GetxController {
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
   }
 
-  void clearControllers() {
-    id.clear();
+  void confirmDelete(int id, {bool withGoBack = true}) async {
+    await alertDialog(
+      title: 'تحذير',
+      middleText: "هل تريد حذف الوظيفة بالفعل",
+      onPressedConfirm: () {
+        if (withGoBack) {
+          Get.back();
+        }
+        delete(id);
+      },
+    );
+  }
+
+  void fillControllers(EmpTarqeaModel r) async {
+    id.text = r.id.getValue();
+    qrarId.text = r.qrarId.getValue();
+    qrarDate.text = r.qrarDate.getValue();
+    khetabId.text = r.khetabId.getValue();
+    khetabDate.text = r.khetabDate.getValue();
+    mosadakaId.text = r.mosadakaId.getValue();
+    mosadakaDate.text = r.mosadakaDate.getValue();
+    mahdarId.text = r.mahdarId.getValue();
+    mahdarDate.text = r.mahdarDate.getValue();
+    empId.text = r.empId.getValue();
+    oldJobId.text = r.oldJobId.getValue();
+    oldFia.text = r.oldFia.getValue();
+    oldNo.text = r.oldNo.getValue();
+    oldSymble.text = r.oldSymble.getValue();
+    oldSalary.text = r.oldSalary.getValue();
+    oldNaqlBadal.text = r.oldNaqlBadal.getValue();
+    oldJobBadalat.text = "0";
+    oldPartId.text = r.oldPartId.getValue();
+    newJobId.text = r.newJobId.getValue();
+    newFia.text = r.newFia.getValue();
+    newNo.text = r.newNo.getValue();
+    newSymble.text = r.newSymble.getValue();
+    newSalary.text = r.newSalary.getValue();
+    newNaqlBadal.text = r.newNaqlBadal.getValue();
+    newJobBadalat.text = "0";
+    newPartId.text = r.newPartId.getValue();
+    percent.text = r.percent.getValue();
+    mobasharaDate.text = r.mobasharaDate.getValue();
+    mKhetabId.text = r.mKhetabId.getValue();
+    mKhetabDate.text = r.mKhetabDate.getValue();
+    percent.text = "0";
+    mobasharaDay(r.mobasharaDay);
+
+    (await _empRepository.findById(int.parse(empId.text)))
+        .fold((l) => l, (r) => empName.text = r.name.getValue());
+
+    (await _jobsRepository.findById(id: int.parse(oldJobId.text)))
+        .fold((l) => l, (r) => oldJobName.text = r.name.getValue());
+    (await _jobsRepository.findById(id: int.parse(newJobId.text)))
+        .fold((l) => l, (r) => newJobName.text = r.name.getValue());
+
+    (await _partsRepository.findById(id: int.parse(oldPartId.text)))
+        .fold((l) => l, (r) => oldPartName.text = r.name.getValue());
+    (await _partsRepository.findById(id: int.parse(newPartId.text)))
+        .fold((l) => l, (r) => newPartName.text = r.name.getValue());
+  }
+
+  clearControllers() async {
     qrarId.clear();
-    qrarDate.clear();
+    qrarDate.text = nowHijriDate();
     khetabId.clear();
-    khetabDate.clear();
+    khetabDate.text = nowHijriDate();
     mosadakaId.clear();
-    mosadakaDate.clear();
+    mosadakaDate.text = nowHijriDate();
     mahdarId.clear();
-    mahdarDate.clear();
+    mahdarDate.text = nowHijriDate();
     empId.clear();
     empName.clear();
     statuesCardNumber.clear();
@@ -181,71 +242,12 @@ class EmpTarqeaController extends GetxController {
     newPartId.clear();
     newPartName.clear();
     percent.clear();
-    mobasharaDate.clear();
+    mobasharaDate.text = nowHijriDate();
     mKhetabId.clear();
-    mKhetabDate.clear();
+    mKhetabDate.text = nowHijriDate();
     percent.text = "0";
     mobasharaDay("السبت");
-  }
 
-  void confirmDelete(int id, {bool withGoBack = true}) async {
-    await alertDialog(
-      title: 'تحذير',
-      middleText: "هل تريد حذف الوظيفة بالفعل",
-      onPressedConfirm: () {
-        if (withGoBack) {
-          Get.back();
-        }
-        delete(id);
-      },
-    );
-  }
-
-  void fillControllers(EmpTarqeaModel r) async {
-    id.text = r.id.toString();
-    qrarId.text = r.qrarId.toString();
-    qrarDate.text = r.qrarDate.toString();
-    khetabId.text = r.khetabId.toString();
-    khetabDate.text = r.khetabDate.toString();
-    mosadakaId.text = r.mosadakaId.toString();
-    mosadakaDate.text = r.mosadakaDate.toString();
-    mahdarId.text = r.mahdarId.toString();
-    mahdarDate.text = r.mahdarDate.toString();
-    empId.text = r.empId.toString();
-    oldJobId.text = r.oldJobId.toString();
-    oldFia.text = r.oldFia.toString();
-    oldNo.text = r.oldNo.toString();
-    oldSymble.text = r.oldSymble.toString();
-    oldSalary.text = r.oldSalary.toString();
-    oldNaqlBadal.text = r.oldNaqlBadal.toString();
-    oldJobBadalat.text = "0";
-    oldPartId.text = r.oldPartId.toString();
-    newJobId.text = r.newJobId.toString();
-    newFia.text = r.newFia.toString();
-    newNo.text = r.newNo.toString();
-    newSymble.text = r.newSymble.toString();
-    newSalary.text = r.newSalary.toString();
-    newNaqlBadal.text = r.newNaqlBadal.toString();
-    newJobBadalat.text = "0";
-    newPartId.text = r.newPartId.toString();
-    percent.text = r.percent.toString();
-    mobasharaDate.text = r.mobasharaDate.toString();
-    mKhetabId.text = r.mKhetabId.toString();
-    mKhetabDate.text = r.mKhetabDate.toString();
-    percent.text = "0";
-    mobasharaDay(r.mobasharaDay);
-
-    (await _empRepository.findById(int.parse(empId.text)))
-        .fold((l) => l, (r) => empName.text = r.name ?? "");
-
-    (await _jobsRepository.findById(id: int.parse(oldJobId.text)))
-        .fold((l) => l, (r) => oldJobName.text = r.name ?? "");
-    (await _jobsRepository.findById(id: int.parse(newJobId.text)))
-        .fold((l) => l, (r) => newJobName.text = r.name ?? "");
-
-    (await _partsRepository.findById(id: int.parse(oldPartId.text)))
-        .fold((l) => l, (r) => oldPartName.text = r.name ?? "");
-    (await _partsRepository.findById(id: int.parse(newPartId.text)))
-        .fold((l) => l, (r) => newPartName.text = r.name ?? "");
+    id.text = (await Get.find<EmpTarqeaSearchController>().getId()).toString();
   }
 }

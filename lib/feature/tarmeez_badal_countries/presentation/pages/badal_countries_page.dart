@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -76,9 +77,10 @@ class BadalCountriesPage extends StatelessWidget {
                     rows: controller.badalCountries
                         .map(
                           (item) => PlutoRow(cells: {
-                            "id": PlutoCell(value: item.id),
-                            "name": PlutoCell(value: item.name),
-                            "countryClass": PlutoCell(value: item.countryClass),
+                            "id": PlutoCell(value: item.id.getValue()),
+                            "name": PlutoCell(value: item.name.getValue()),
+                            "countryClass":
+                                PlutoCell(value: item.countryClass.getValue()),
                           }),
                         )
                         .toList(),

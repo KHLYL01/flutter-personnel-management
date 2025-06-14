@@ -9,16 +9,18 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../controllers/emp_eqrar_controller.dart';
+import '../controllers/emp_eqrar_report_controller.dart';
 
 class AddEqrar extends StatelessWidget {
   const AddEqrar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<EmpEqrarController>();
+    final controllerReport = Get.find<EmpEqrarReportController>();
+
     double currentWidth = Get.width;
     double currentHeight = Get.height;
-    final controller = Get.find<EmpEqrarController>();
-
     HijriPicker iqrarDate = HijriPicker(controller.decisionDate);
     HijriPicker khitabDate = HijriPicker(controller.letterDate);
     return Scaffold(
@@ -121,14 +123,15 @@ class AddEqrar extends StatelessWidget {
                       height: 35,
                       width: 150,
                     ),
-                    // CustomButton(
-                    //   text: 'التقرير',
-                    //   onPressed: () {},
-                    //   height: 35,
-                    //   width: 150,
-                    // ),
+                    CustomButton(
+                      text: 'التقرير',
+                      onPressed: () => controllerReport.createEqrarReport(),
+                      height: 35,
+                      width: 150,
+                    ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
+                const SizedBox(height: 16),
               ],
             );
           },

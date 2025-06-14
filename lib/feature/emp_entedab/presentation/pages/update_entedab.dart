@@ -13,7 +13,7 @@ import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
-import '../controllers/emp_entedab__report_controller.dart';
+import '../controllers/emp_entedab_report_controller.dart';
 import '../controllers/emp_entedab_controller.dart';
 import '../controllers/emp_entedab_det_controller.dart';
 

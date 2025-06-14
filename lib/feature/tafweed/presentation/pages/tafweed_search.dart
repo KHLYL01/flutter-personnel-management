@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_find_controller.dart';
@@ -11,7 +12,6 @@ import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
-import '../controllers/tafweed_controller.dart';
 import '../controllers/tafweed_search_controller.dart';
 
 class TafweedSearch extends StatelessWidget {
@@ -103,12 +103,15 @@ class TafweedSearch extends StatelessWidget {
                       rows: controller.tafweeds
                           .map((item) => PlutoRow(
                                 cells: {
-                                  "id": PlutoCell(value: item.id),
-                                  "employeeName":
-                                      PlutoCell(value: item.employeeName),
-                                  "startDate": PlutoCell(value: item.startDate),
-                                  "endDate": PlutoCell(value: item.endDate),
-                                  "subject": PlutoCell(value: item.subject),
+                                  "id": PlutoCell(value: item.id?.getValue()),
+                                  "employeeName": PlutoCell(
+                                      value: item.employeeName.getValue()),
+                                  "startDate": PlutoCell(
+                                      value: item.startDate.getValue()),
+                                  "endDate":
+                                      PlutoCell(value: item.endDate.getValue()),
+                                  "subject":
+                                      PlutoCell(value: item.subject.getValue()),
                                 },
                               ))
                           .toList(),
@@ -151,7 +154,8 @@ class TafweedSearch extends StatelessWidget {
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
                       onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']?.value);
+                        controller
+                            .findById(int.parse(event.row.cells['id']!.value));
                         Get.dialog(const UpdateTafweed());
                       },
                     );
