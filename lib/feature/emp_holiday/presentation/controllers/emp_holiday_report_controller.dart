@@ -222,6 +222,7 @@ $bossAssistant""",
     String holidayEndDate = controller.endDate.text;
     String holidayQrarId = controller.qrarId.text;
     String holidayQrarDate = controller.qrarDate.text;
+    String holidayPeriod = controller.period.text;
 
     String employeeName = controller.empName.text;
     String fia = controller.mrtaba.text;
@@ -232,37 +233,43 @@ $bossAssistant""",
     late int jobId;
     late String jobName;
     late double naturalWorkBadal;
-    late int kastSalary;
+    late double kastSalary;
     late double kastNqalBadal;
     late double kastNaturalWorkBadal;
     late double taka3d;
-    late int hasmAkary;
-    late int hasmTsleef;
+    late double hasmAkary;
+    late double hasmTsleef;
 
     (await _empRepository.findById(int.parse(controller.empId.text)))
         .fold((l) => l, (r) {
       jobId = r.jobId ?? 0;
-      naturalWorkBadal = 0;
-      kastSalary = r.salary1 ?? 0;
-      kastNqalBadal = 0;
-      kastNaturalWorkBadal = 0;
+      naturalWorkBadal = r.jobbadalat ?? 0;
+      kastSalary =
+          (((r.salary ?? 0) / 30) * int.parse(holidayPeriod)).toPrecision(2);
+      kastNqalBadal =
+          (((r.naqlBadal ?? 0) / 30) * int.parse(holidayPeriod)).toPrecision(2);
+      kastNaturalWorkBadal =
+          (((r.jobbadalat ?? 0) / 30) * int.parse(holidayPeriod))
+              .toPrecision(2);
       taka3d = r.taka3odM ?? 0;
-      hasmAkary = r.hasm1 ?? 0;
-      hasmTsleef = r.hasm2 ?? 0;
+      hasmAkary = r.sandok ?? 0;
+      hasmTsleef = r.dissent ?? 0;
     });
 
     (await _jobsRepository.findById(id: jobId))
         .fold((l) => l, (r) => jobName = r.name ?? "");
 
-    double salaryWithBadal =
-        naturalWorkBadal + double.parse(salary) + double.parse(naqlBadal);
-    double totalkast = kastSalary + kastNaturalWorkBadal + kastNqalBadal;
-    double totalHasm = hasmTsleef + hasmAkary + taka3d;
+    double totalSalary =
+        (naturalWorkBadal + double.parse(salary) + double.parse(naqlBadal))
+            .toPrecision(2);
+    double totalkast =
+        (kastSalary + kastNaturalWorkBadal + kastNqalBadal).toPrecision(2);
+    double totalHasm = (hasmTsleef + hasmAkary + taka3d).toPrecision(2);
 
     List<List<dynamic>> data = [
       [
         "",
-        totalkast + totalHasm,
+        totalSalary + totalkast - totalHasm,
         totalHasm,
         hasmTsleef,
         hasmAkary,
@@ -271,7 +278,7 @@ $bossAssistant""",
         kastNaturalWorkBadal,
         kastNqalBadal,
         kastSalary,
-        salaryWithBadal,
+        totalSalary,
         naturalWorkBadal,
         naqlBadal,
         salary,
@@ -440,8 +447,8 @@ $name
               14: const pw.FixedColumnWidth(850),
             },
             headers: [
-              '0.0',
-              totalkast + totalHasm,
+              ' ',
+              totalSalary + totalkast - totalHasm,
               totalHasm,
               hasmTsleef,
               hasmAkary,
@@ -450,7 +457,7 @@ $name
               kastNaturalWorkBadal,
               kastNqalBadal,
               kastSalary,
-              salaryWithBadal,
+              totalSalary,
               naturalWorkBadal,
               naqlBadal,
               salary,
