@@ -251,9 +251,14 @@ $bossAssistant""",
       kastNaturalWorkBadal =
           (((r.jobbadalat ?? 0) / 30) * int.parse(holidayPeriod))
               .toPrecision(2);
-      taka3d = r.taka3odM ?? 0;
       hasmAkary = r.sandok ?? 0;
       hasmTsleef = r.dissent ?? 0;
+
+      if (hasmTsleef == 0 && hasmAkary == 0) {
+        taka3d = 0;
+      } else {
+        taka3d = (r.salary ?? 0) * 9 / 100;
+      }
     });
 
     (await _jobsRepository.findById(id: jobId))
@@ -269,17 +274,17 @@ $bossAssistant""",
     List<List<dynamic>> data = [
       [
         "",
-        totalSalary + totalkast - totalHasm,
+        (totalSalary + totalkast - totalHasm).toPrecision(2),
         totalHasm,
-        hasmTsleef,
-        hasmAkary,
-        taka3d,
+        hasmTsleef.toPrecision(2),
+        hasmAkary.toPrecision(2),
+        taka3d.toPrecision(2),
         totalkast,
-        kastNaturalWorkBadal,
-        kastNqalBadal,
+        kastNaturalWorkBadal.toPrecision(2),
+        kastNqalBadal.toPrecision(2),
         kastSalary,
-        totalSalary,
-        naturalWorkBadal,
+        totalSalary.toPrecision(2),
+        naturalWorkBadal.toPrecision(2),
         naqlBadal,
         salary,
         draga,
@@ -367,16 +372,16 @@ $name
             headerAlignment: pw.Alignment.center,
             columnWidths: {
               0: const pw.FixedColumnWidth(150),
-              1: const pw.FixedColumnWidth(150),
-              2: const pw.FixedColumnWidth(160),
+              1: const pw.FixedColumnWidth(180),
+              2: const pw.FixedColumnWidth(180),
               3: const pw.FixedColumnWidth(230),
               4: const pw.FixedColumnWidth(230),
               5: const pw.FixedColumnWidth(150),
-              6: const pw.FixedColumnWidth(160),
+              6: const pw.FixedColumnWidth(180),
               7: const pw.FixedColumnWidth(230),
               8: const pw.FixedColumnWidth(230),
               9: const pw.FixedColumnWidth(230),
-              10: const pw.FixedColumnWidth(160),
+              10: const pw.FixedColumnWidth(180),
               11: const pw.FixedColumnWidth(230),
               12: const pw.FixedColumnWidth(230),
               13: const pw.FixedColumnWidth(230),
@@ -431,16 +436,16 @@ $name
             headerAlignment: pw.Alignment.center,
             columnWidths: {
               0: const pw.FixedColumnWidth(150),
-              1: const pw.FixedColumnWidth(150),
-              2: const pw.FixedColumnWidth(160),
+              1: const pw.FixedColumnWidth(180),
+              2: const pw.FixedColumnWidth(180),
               3: const pw.FixedColumnWidth(230),
               4: const pw.FixedColumnWidth(230),
               5: const pw.FixedColumnWidth(150),
-              6: const pw.FixedColumnWidth(160),
+              6: const pw.FixedColumnWidth(180),
               7: const pw.FixedColumnWidth(230),
               8: const pw.FixedColumnWidth(230),
               9: const pw.FixedColumnWidth(230),
-              10: const pw.FixedColumnWidth(160),
+              10: const pw.FixedColumnWidth(180),
               11: const pw.FixedColumnWidth(230),
               12: const pw.FixedColumnWidth(230),
               13: const pw.FixedColumnWidth(230),

@@ -25,9 +25,9 @@ class EmployeeFindController extends GetxController {
     "",
     "موظف",
     "مستخدم",
-    "عامل بند اجور",
+    "عامل بند إجور",
     "عامل أجنبي",
-    "عامل نظافة - عقد"
+    "عامل نظافة - عقد",
   ];
 
   void onChangedJobWork(String? value) {

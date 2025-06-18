@@ -2,9 +2,12 @@ import 'dart:html' as html;
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hijri/hijri_calendar.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/employee/data/model/mosaeer_salary_model.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
+import 'package:personnel_management/feature/employee/presentation/controllers/mosaeer_salary_controller.dart';
 import 'package:personnel_management/feature/tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 
 class EmployeeReportController extends GetxController {
@@ -1316,5 +1319,814 @@ $edara""",
     //   bytes: await pdf1.save(),
     //   filename: 'انتداب موظف.pdf1',
     // );
+  }
+
+  // مسير الروتب
+  Future<void> mosaeerSalaryReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    MosaeerSalaryController controller = Get.find<MosaeerSalaryController>();
+
+    String month = "";
+    String empType = "";
+
+    if (controller.empType.value == "موظف") {
+      empType = "رواتب الموظفين";
+    }
+    if (controller.empType.value == "مستخدم") {
+      empType = "رواتب المستخدمين";
+    }
+    if (controller.empType.value == "عامل بند إجور") {
+      empType = "رواتب العمال بند الإجور";
+    }
+    if (controller.empType.value == "عامل أجنبي") {
+      empType = "رواتب العمال الأجانب";
+    }
+
+    List<String> list = controller.startDate.text.split("/");
+    int y = int.parse(list[0]);
+    int m = int.parse(list[1]);
+    int d = int.parse(list[2]);
+
+    HijriCalendar.language = 'ar';
+    HijriCalendar hijriCalendar = HijriCalendar()
+      ..hYear = y
+      ..hMonth = m
+      ..hDay = d;
+
+    month = "${hijriCalendar.getLongMonthName()} $y";
+
+    List<List<dynamic>> data = [];
+    int i = 1;
+
+    double sumSafy = 0;
+    double sumHasmTotal = 0;
+    double sumHasm2 = 0;
+    double sumHasm3 = 0;
+    double sumSandok = 0;
+    double sumZeraee = 0;
+    double sumBank = 0;
+    double sumTaka3odM = 0;
+    double sumGza = 0;
+    double sumTaka3ed = 0;
+    double sumMosta7qTotal = 0;
+    double sumBadal4 = 0;
+    double sumBadal2 = 0;
+    double sumJobBadalat = 0;
+    double sumNaqlBadal = 0;
+    double sumSalary = 0;
+    for (MosaeerSalaryModel m in controller.mosaeer) {
+      data.add([
+        m.safy,
+        m.hasmTotal,
+        m.hasm2,
+        m.hasm3,
+        m.sandok,
+        m.zeraee,
+        m.bank,
+        m.taka3odM,
+        m.gza,
+        m.taka3ed,
+        m.mosta7qTotal,
+        m.badal4,
+        m.badal2,
+        m.jobBadalat,
+        m.naqlBadal,
+        m.salary,
+        m.draga,
+        m.fia,
+        m.jobName,
+        m.name,
+        i,
+      ]);
+
+      sumSafy += m.safy ?? 0;
+      sumHasmTotal += m.hasmTotal ?? 0;
+      sumHasm2 += m.hasm2 ?? 0;
+      sumHasm3 += m.hasm3 ?? 0;
+      sumSandok += m.sandok ?? 0;
+      sumZeraee += m.zeraee ?? 0;
+      sumBank += m.bank ?? 0;
+      sumTaka3odM += m.taka3odM ?? 0;
+      sumGza += m.gza ?? 0;
+      sumTaka3ed += m.taka3ed ?? 0;
+      sumMosta7qTotal += m.mosta7qTotal ?? 0;
+      sumBadal4 += m.badal4 ?? 0;
+      sumBadal2 += m.badal2 ?? 0;
+      sumJobBadalat += m.jobBadalat ?? 0;
+      sumNaqlBadal += m.naqlBadal ?? 0;
+      sumSalary += m.salary ?? 0;
+
+      i++;
+    }
+
+    // إنشاء مستند PDF جديد
+    final pdf = pw.Document(title: 'مسير رواتب');
+
+    // تحميل خط عربي (اختياري)
+    final arabicFont = pw.Font.ttf(
+      await rootBundle.load("assets/fonts/tajawal.ttf"),
+    );
+
+    final chunks = chunkList(data, 15);
+
+    //إضافة صفحة إلى المستند
+    int start = 1;
+    int last = chunks.length;
+    for (var chunk in chunks) {
+      pdf.addPage(
+        pw.MultiPage(
+          pageFormat: PdfPageFormat.a4,
+          orientation: pw.PageOrientation.landscape,
+          textDirection: pw.TextDirection.rtl,
+          build: (pw.Context context) => [
+            pw.Header(
+              level: 0,
+              decoration: const pw.BoxDecoration(
+                border: pw.Border.fromBorderSide(pw.BorderSide.none),
+              ),
+              child: pw.Row(
+                children: [
+                  pw.Text(
+                    """المملكة العربية السعودية
+وزارة الشئون البلدية و القروية
+$name
+إدارة الموارد البشرية
+""",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      font: arabicFont,
+                      fontSize: 8,
+                      lineSpacing: 10,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(width: 170),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    children: [
+                      pw.Text(
+                        """سند مشترك  برواتب شهر  $month
+وقد فوض موقعوه أمين الصندوق بقبض استحقاقهم بموجبه
+                  """,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 8,
+                          lineSpacing: 10,
+                          fontWeight: pw.FontWeight.bold,
+                        ),
+                      ),
+                      pw.Text(
+                        empType,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 8,
+                          lineSpacing: 10,
+                          fontWeight: pw.FontWeight.bold,
+                          decoration: pw.TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.SizedBox(width: 160),
+                  pw.Text(
+                    "الصفحة $start من $last",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      font: arabicFont,
+                      fontSize: 10,
+                      lineSpacing: 10,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            pw.SizedBox(height: 10),
+            // جدول البيانات
+            pw.TableHelper.fromTextArray(
+              context: context,
+              border: pw.TableBorder.all(color: PdfColors.grey400),
+              tableDirection: pw.TextDirection.rtl,
+              headerStyle: pw.TextStyle(
+                font: arabicFont,
+                fontWeight: pw.FontWeight.bold,
+                color: PdfColors.white,
+                fontSize: 6,
+              ),
+              headerDecoration: const pw.BoxDecoration(
+                color: PdfColors.grey600,
+              ),
+              cellStyle: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 6,
+              ),
+              cellAlignment: pw.Alignment.center,
+              headerAlignment: pw.Alignment.center,
+              columnWidths: {
+                0: const pw.FixedColumnWidth(1.8),
+                1: const pw.FixedColumnWidth(1.8),
+                2: const pw.FixedColumnWidth(1.2),
+                3: const pw.FixedColumnWidth(1.2),
+                4: const pw.FixedColumnWidth(1.2),
+                5: const pw.FixedColumnWidth(1.3),
+                6: const pw.FixedColumnWidth(1.5),
+                7: const pw.FixedColumnWidth(1.5),
+                8: const pw.FixedColumnWidth(1.4),
+                9: const pw.FixedColumnWidth(2),
+                10: const pw.FixedColumnWidth(1.8),
+                11: const pw.FixedColumnWidth(1.2),
+                12: const pw.FixedColumnWidth(1.5),
+                13: const pw.FixedColumnWidth(1.5),
+                14: const pw.FixedColumnWidth(1.5),
+                15: const pw.FixedColumnWidth(2),
+                16: const pw.FixedColumnWidth(1.2),
+                17: const pw.FixedColumnWidth(1.3),
+                18: const pw.FixedColumnWidth(2.2),
+                19: const pw.FixedColumnWidth(3),
+                20: const pw.FixedColumnWidth(1),
+              },
+              headers: [
+                'الصافي',
+                'المجموع',
+                'أخرى',
+                'سند',
+                'عقارى',
+                'الزراعى',
+                'التسليف',
+                'تقاعد معاد',
+                'جزاءات',
+                'تقاعد / تأمينات',
+                'المجموع',
+                'أخرى',
+                'ضرر / عدوى',
+                'طبيعة العمل',
+                'بدل النقل',
+                'الراتب الأساسي',
+                'الدرجة',
+                'المرتبة',
+                'الوظيفة',
+                'الاسم',
+                ' م ',
+              ],
+              data: chunk,
+            ),
+            if (start == last)
+              pw.TableHelper.fromTextArray(
+                context: context,
+                border: pw.TableBorder.all(color: PdfColors.grey400),
+                tableDirection: pw.TextDirection.rtl,
+                headerStyle: pw.TextStyle(
+                  font: arabicFont,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.white,
+                  fontSize: 6,
+                ),
+                headerDecoration: const pw.BoxDecoration(
+                  color: PdfColors.grey600,
+                ),
+                cellStyle: pw.TextStyle(
+                  font: arabicFont,
+                  fontSize: 6,
+                ),
+                cellAlignment: pw.Alignment.center,
+                headerAlignment: pw.Alignment.center,
+                columnWidths: {
+                  0: const pw.FixedColumnWidth(1.8),
+                  1: const pw.FixedColumnWidth(1.8),
+                  2: const pw.FixedColumnWidth(1.2),
+                  3: const pw.FixedColumnWidth(1.2),
+                  4: const pw.FixedColumnWidth(1.2),
+                  5: const pw.FixedColumnWidth(1.3),
+                  6: const pw.FixedColumnWidth(1.5),
+                  7: const pw.FixedColumnWidth(1.5),
+                  8: const pw.FixedColumnWidth(1.4),
+                  9: const pw.FixedColumnWidth(2),
+                  10: const pw.FixedColumnWidth(1.8),
+                  11: const pw.FixedColumnWidth(1.2),
+                  12: const pw.FixedColumnWidth(1.5),
+                  13: const pw.FixedColumnWidth(1.5),
+                  14: const pw.FixedColumnWidth(1.5),
+                  15: const pw.FixedColumnWidth(2),
+                  16: const pw.FixedColumnWidth(8.7),
+                },
+                headers: [
+                  sumSafy.toPrecision(2),
+                  sumHasmTotal.toPrecision(2),
+                  sumHasm2.toPrecision(2),
+                  sumHasm3.toPrecision(2),
+                  sumSandok.toPrecision(2),
+                  sumZeraee.toPrecision(2),
+                  sumBank.toPrecision(2),
+                  sumTaka3odM.toPrecision(2),
+                  sumGza.toPrecision(2),
+                  sumTaka3ed.toPrecision(2),
+                  sumMosta7qTotal.toPrecision(2),
+                  sumBadal4.toPrecision(2),
+                  sumBadal2.toPrecision(2),
+                  sumJobBadalat.toPrecision(2),
+                  sumNaqlBadal.toPrecision(2),
+                  sumSalary.toPrecision(2),
+                  'الإجمالي',
+                ],
+                data: [],
+              ),
+            if (start == last) pw.SizedBox(height: 20),
+            if (start == last)
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "الموظف المختص",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        "مدير النظام",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "مدير ادارة الموارد البشرية",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        edara,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "مدير قسم الشؤون المالية",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        malia,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "رئيس بلدية مجافظة تيماء",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        bossName,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 10, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
+      start++;
+    }
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'بيان خدمة موظف.pdf',
+    // );
+  }
+
+  // مسير الروتب لعمال النظافة
+  Future<void> mosaeerSalaryWorkerReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    MosaeerSalaryController controller = Get.find<MosaeerSalaryController>();
+
+    String month = "";
+    String empType = "رواتب عمال النظافة";
+
+    List<String> list = controller.startDate.text.split("/");
+    int y = int.parse(list[0]);
+    int m = int.parse(list[1]);
+    int d = int.parse(list[2]);
+
+    HijriCalendar.language = 'ar';
+    HijriCalendar hijriCalendar = HijriCalendar()
+      ..hYear = y
+      ..hMonth = m
+      ..hDay = d;
+
+    month = "${hijriCalendar.getLongMonthName()} $y";
+
+    List<List<dynamic>> data = [];
+    int i = 1;
+
+    double sumSafy = 0;
+    double sumHasmTotal = 0;
+    double sumBank = 0;
+    double sumGza = 0;
+    double sumTaka3ed = 0;
+    double sumMosta7qTotal = 0;
+    double sumMaeesha = 0;
+    double sumNaqlBadal = 0;
+    double sumMosta7qSalary = 0;
+    double sumSalary = 0;
+    for (MosaeerSalaryModel m in controller.mosaeer) {
+      data.add([
+        "",
+        "",
+        m.safy,
+        m.hasmTotal,
+        m.bank,
+        m.gza,
+        m.taka3ed,
+        m.mosta7qTotal,
+        m.ma3esha,
+        m.naqlBadal,
+        m.mosta7qSalary,
+        m.salary,
+        m.cardId,
+        m.fia,
+        m.jobName,
+        m.name,
+        i,
+      ]);
+
+      sumSafy += m.safy ?? 0;
+      sumHasmTotal += m.hasmTotal ?? 0;
+      sumBank += m.bank ?? 0;
+      sumGza += m.gza ?? 0;
+      sumTaka3ed += m.taka3ed ?? 0;
+      sumMosta7qTotal += m.mosta7qTotal ?? 0;
+      sumMaeesha += m.jobBadalat ?? 0;
+      sumNaqlBadal += m.naqlBadal ?? 0;
+      sumMosta7qSalary += m.salary ?? 0;
+      sumSalary += m.salary ?? 0;
+
+      i++;
+    }
+
+    // إنشاء مستند PDF جديد
+    final pdf = pw.Document(title: 'مسير رواتب');
+
+    // تحميل خط عربي (اختياري)
+    final arabicFont = pw.Font.ttf(
+      await rootBundle.load("assets/fonts/tajawal.ttf"),
+    );
+
+    final chunks = chunkList(data, 15);
+
+    //إضافة صفحة إلى المستند
+    int start = 1;
+    int last = chunks.length;
+    for (var chunk in chunks) {
+      pdf.addPage(
+        pw.MultiPage(
+          pageFormat: PdfPageFormat.a4,
+          orientation: pw.PageOrientation.landscape,
+          textDirection: pw.TextDirection.rtl,
+          build: (pw.Context context) => [
+            pw.Header(
+              level: 0,
+              decoration: const pw.BoxDecoration(
+                border: pw.Border.fromBorderSide(pw.BorderSide.none),
+              ),
+              child: pw.Row(
+                children: [
+                  pw.Text(
+                    """المملكة العربية السعودية
+وزارة الشئون البلدية و القروية
+$name
+إدارة الموارد البشرية
+""",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      font: arabicFont,
+                      fontSize: 8,
+                      lineSpacing: 10,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(width: 170),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    children: [
+                      pw.Text(
+                        """سند مشترك  برواتب شهر  $month
+وقد فوض موقعوه أمين الصندوق بقبض استحقاقهم بموجبه
+                  """,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 8,
+                          lineSpacing: 10,
+                          fontWeight: pw.FontWeight.bold,
+                        ),
+                      ),
+                      pw.Text(
+                        empType,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: arabicFont,
+                          fontSize: 8,
+                          lineSpacing: 10,
+                          fontWeight: pw.FontWeight.bold,
+                          decoration: pw.TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.SizedBox(width: 160),
+                  pw.Text(
+                    "الصفحة $start من $last",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      font: arabicFont,
+                      fontSize: 10,
+                      lineSpacing: 10,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            pw.SizedBox(height: 10),
+            // جدول البيانات
+            pw.TableHelper.fromTextArray(
+              context: context,
+              border: pw.TableBorder.all(color: PdfColors.grey400),
+              tableDirection: pw.TextDirection.rtl,
+              headerStyle: pw.TextStyle(
+                font: arabicFont,
+                fontWeight: pw.FontWeight.bold,
+                color: PdfColors.white,
+                fontSize: 6,
+              ),
+              headerDecoration: const pw.BoxDecoration(
+                color: PdfColors.grey600,
+              ),
+              cellStyle: pw.TextStyle(
+                font: arabicFont,
+                fontSize: 6,
+              ),
+              cellAlignment: pw.Alignment.center,
+              headerAlignment: pw.Alignment.center,
+              columnWidths: {
+                0: const pw.FixedColumnWidth(1.4),
+                1: const pw.FixedColumnWidth(1.4),
+                2: const pw.FixedColumnWidth(1.8),
+                3: const pw.FixedColumnWidth(1.8),
+                4: const pw.FixedColumnWidth(1.5),
+                5: const pw.FixedColumnWidth(1.5),
+                6: const pw.FixedColumnWidth(1.5),
+                7: const pw.FixedColumnWidth(1.8),
+                8: const pw.FixedColumnWidth(2),
+                9: const pw.FixedColumnWidth(1.5),
+                10: const pw.FixedColumnWidth(1.5),
+                11: const pw.FixedColumnWidth(1.5),
+                12: const pw.FixedColumnWidth(2),
+                13: const pw.FixedColumnWidth(1.2),
+                14: const pw.FixedColumnWidth(2),
+                15: const pw.FixedColumnWidth(3),
+                16: const pw.FixedColumnWidth(1.2),
+              },
+              headers: [
+                'ملاحظات',
+                'التوقيع',
+                'الصافي',
+                'المجموع',
+                'بنك التسليف',
+                'جزاءات',
+                'تقاعد 2%',
+                'المجموع',
+                'بدل غلاء المعيشة',
+                'بدل النقل',
+                'الراتب المستحق',
+                'الراتب الأساسي',
+                'رقم الإقامة',
+                'الفئة',
+                'الوظيفة',
+                'الاسم',
+                ' م ',
+              ],
+              data: chunk,
+            ),
+            if (start == last)
+              pw.TableHelper.fromTextArray(
+                context: context,
+                border: pw.TableBorder.all(color: PdfColors.grey400),
+                tableDirection: pw.TextDirection.rtl,
+                headerStyle: pw.TextStyle(
+                  font: arabicFont,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.white,
+                  fontSize: 6,
+                ),
+                headerDecoration: const pw.BoxDecoration(
+                  color: PdfColors.grey600,
+                ),
+                cellStyle: pw.TextStyle(
+                  font: arabicFont,
+                  fontSize: 6,
+                ),
+                cellAlignment: pw.Alignment.center,
+                headerAlignment: pw.Alignment.center,
+                columnWidths: {
+                  0: const pw.FixedColumnWidth(1.4),
+                  1: const pw.FixedColumnWidth(1.4),
+                  2: const pw.FixedColumnWidth(1.8),
+                  3: const pw.FixedColumnWidth(1.8),
+                  4: const pw.FixedColumnWidth(1.5),
+                  5: const pw.FixedColumnWidth(1.5),
+                  6: const pw.FixedColumnWidth(1.5),
+                  7: const pw.FixedColumnWidth(1.8),
+                  8: const pw.FixedColumnWidth(2),
+                  9: const pw.FixedColumnWidth(1.5),
+                  10: const pw.FixedColumnWidth(1.5),
+                  11: const pw.FixedColumnWidth(1.5),
+                  12: const pw.FixedColumnWidth(9.4),
+                },
+                headers: [
+                  "",
+                  "",
+                  sumSafy.toPrecision(2),
+                  sumHasmTotal.toPrecision(2),
+                  sumBank.toPrecision(2),
+                  sumGza.toPrecision(2),
+                  sumTaka3ed.toPrecision(2),
+                  sumMosta7qTotal.toPrecision(2),
+                  sumMaeesha.toPrecision(2),
+                  sumNaqlBadal.toPrecision(2),
+                  sumMosta7qSalary.toPrecision(2),
+                  sumSalary.toPrecision(2),
+                  'الإجمالي',
+                ],
+                data: [],
+              ),
+            if (start == last) pw.SizedBox(height: 20),
+            if (start == last)
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "الموظف المختص",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        "مدير النظام",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "مدير ادارة الموارد البشرية",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        edara,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "مدير قسم الشؤون المالية",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        malia,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "مدير إدارة الشؤون الإدارية و المالية",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        edara,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Text(
+                        "رئيس بلدية مجافظة تيماء",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 8, lineSpacing: 10),
+                      ),
+                      pw.SizedBox(height: 20),
+                      pw.Text(
+                        bossName,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            font: arabicFont, fontSize: 10, lineSpacing: 10),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
+      start++;
+    }
+    // Generate the PDF bytes
+    final pdfBytes = await pdf.save();
+
+    // Open in new tab
+    final blob = html.Blob([pdfBytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.window.open(url, '_blank');
+
+    // // حفظ أو مشاركة الملف
+    // await Printing.sharePdf(
+    //   bytes: await pdf.save(),
+    //   filename: 'بيان خدمة موظف.pdf',
+    // );
+  }
+
+  List<List<T>> chunkList<T>(List<T> list, int chunkSize) {
+    List<List<T>> chunks = [];
+    for (var i = 0; i < list.length; i += chunkSize) {
+      chunks.add(list.sublist(
+          i, i + chunkSize > list.length ? list.length : i + chunkSize));
+    }
+    return chunks;
   }
 }

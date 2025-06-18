@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:personnel_management/feature/employee/data/model/mosaeer_salary_model.dart';
 
 import '../../../../core/utils/failures.dart';
 import '../../../../core/network/api_service.dart';
@@ -41,6 +42,22 @@ class EmployeeRepository {
     try {
       final httpResponse =
           await _apiService.findEmployee(id, name, cardId, empType);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, List<MosaeerSalaryModel>>> getMosaeer({
+    required String? empType,
+    required String startDate,
+    required String endDate,
+  }) async {
+    try {
+      final httpResponse =
+          await _apiService.getMosaeerSalary(empType, startDate, endDate);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));

@@ -49,7 +49,7 @@ class EmployeeSearchController extends GetxController {
     "",
     "موظف",
     "مستخدم",
-    "عامل بند اجور",
+    "عامل بند إجور",
     "عامل أجنبي",
     "عامل نظافة - عقد"
   ];

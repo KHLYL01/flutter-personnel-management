@@ -68,9 +68,10 @@ class EmployeeController extends GetxController {
   var isHasm3 = false.obs;
   RxString empType = 'موظف'.obs;
   RxString jobState = 'مشغولة'.obs;
+  RxString esthqaqEndAkd = 'غير ملزم بدفع مبالغ عند نهاية الخدمة'.obs;
   var nationalityRadoiListTileValue = ''.obs;
 
-  final TextEditingController degreeId = TextEditingController(text: "0");
+  final TextEditingController degreeId = TextEditingController(text: "");
   final TextEditingController jobbadalat = TextEditingController(text: "0");
   final TextEditingController datWork = TextEditingController();
   final TextEditingController educationName = TextEditingController();
@@ -84,11 +85,11 @@ class EmployeeController extends GetxController {
   final TextEditingController qardQest = TextEditingController(text: "0");
   final TextEditingController qardMony = TextEditingController(text: "0");
   final TextEditingController taka3odM = TextEditingController(text: "0");
-  final TextEditingController hasm1 = TextEditingController();
-  final TextEditingController hasm2 = TextEditingController();
-  final TextEditingController badal2 = TextEditingController();
-  final TextEditingController badal4 = TextEditingController();
-  final TextEditingController zeraee = TextEditingController();
+  final TextEditingController hasm1 = TextEditingController(text: "0");
+  final TextEditingController hasm2 = TextEditingController(text: "0");
+  final TextEditingController badal2 = TextEditingController(text: "0");
+  final TextEditingController badal4 = TextEditingController(text: "0");
+  final TextEditingController zeraee = TextEditingController(text: "0");
 
   onChangeNationalityRadoiListTileValue(value) {
     nationalityRadoiListTileValue.value = value;
@@ -97,19 +98,25 @@ class EmployeeController extends GetxController {
   final List<String> jobDataTypes = [
     'موظف',
     'مستخدم',
-    'عامل بند اجور',
+    'عامل بند إجور',
     'عامل أجنبي',
     'عامل نظافة - عقد',
     'ندب',
     'مكافأة رئيس البلدية',
     'مكافأة المجلس البلدي',
-    'عامل بند اجور غير سعودي',
+    'عامل بند إجور غير سعودى',
   ];
+
   final List<String> jobStatus = [
     'مشغولة',
     'مشغولة و متوقف عن العمل',
     'شاغرة',
     'مشغولة و متقاعد عن العمل',
+  ];
+
+  final List<String> esthqaqAkd = [
+    'غير ملزم بدفع مبالغ عند نهاية الخدمة',
+    'ملزم بدفع مبالغ عند نهاية الخدمة',
   ];
   onChangeIsPicture() {
     isPicture.value = !isPicture.value;
@@ -125,6 +132,10 @@ class EmployeeController extends GetxController {
 
   onChangeJobDataStatu(value) {
     jobState(value);
+  }
+
+  onChangeEsthqaqEndAkd(value) {
+    esthqaqEndAkd(value);
   }
 
   void pickImage() async {
@@ -174,6 +185,7 @@ class EmployeeController extends GetxController {
         // datQard datQard.text,
         datAkdBegin: datAkdBegin.text, // تاريخ بداية القرض
         datAkdEnd: datAkdEnd.text, // تاريخ نهاية القرض
+        akdEndService: esthqaqEndAkd.value,
         qardMony: int.parse(qardMony.text),
         qardQest: int.parse(qardQest.text),
         taka3odM: double.parse(taka3odM.text),
@@ -186,7 +198,7 @@ class EmployeeController extends GetxController {
         // التأمين الصحي
         // أخرى
 
-        degreeId: int.parse(degreeId.text),
+        degreeId: degreeId.text.isEmpty ? null : int.parse(degreeId.text),
         jobbadalat: double.parse(jobbadalat.text),
         bok: bok.text,
         bokPlace: bokPlace.text,
@@ -305,11 +317,12 @@ class EmployeeController extends GetxController {
 
     empType(r.empType ?? "موظف");
     jobState(r.jobState ?? "مشغولة");
+    esthqaqEndAkd(r.akdEndService ?? "غير ملزم بدفع المبالغ عند نهاية الخدمة");
   }
 
   clearControllers() async {
     id.clear();
-    degreeId.clear();
+    degreeId.text = "";
     fia.clear();
     draga.text = "0";
     draga2.clear();
@@ -351,18 +364,22 @@ class EmployeeController extends GetxController {
     qardQest.text = "0";
     qardMony.text = "0";
     taka3odM.text = "0";
-    zeraee.clear();
-    badal2.clear();
-    dissent.clear();
+    zeraee.text = "0";
+    badal2.text = "0";
+    dissent.text = "0";
     akdNoTasleef.clear();
-    badal4.clear();
-    sandok.clear();
+    badal4.text = "0";
+    sandok.text = "0";
     contractOfrealEstateBank.clear();
-    hasm2.clear();
+    hasm2.text = "0";
     datBok.text = nowHijriDate();
     bokPlace.clear();
     birthPlace.clear();
-    hasm1.clear();
+    hasm1.text = "0";
+
+    empType("موظف");
+    jobState("مشغولة");
+    esthqaqEndAkd("غير ملزم بدفع المبالغ عند نهاية الخدمة");
 
     id.text = (await Get.find<EmployeeSearchController>().getId()).toString();
   }

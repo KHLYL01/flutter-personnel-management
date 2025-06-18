@@ -9,3 +9,12 @@ String nowDate() {
   DateTime date = DateTime.now();
   return "${date.year.toString().padLeft(4, "0")}/${date.month.toString().padLeft(2, "0")}/${date.day.toString().padLeft(2, "0")}";
 }
+
+DateTime convertToDateTime(String hijriDate) {
+  List<String> list = hijriDate.split("/");
+  int year = int.parse(list[0]);
+  int month = int.parse(list[1]);
+  int day = int.parse(list[2]);
+
+  return HijriCalendar().hijriToGregorian(year, month, day);
+}

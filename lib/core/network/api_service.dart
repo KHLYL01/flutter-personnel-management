@@ -21,6 +21,7 @@ import '../../feature/emp_takleef/data/model/emp_takleef_det_model.dart';
 import '../../feature/emp_takleef/data/model/emp_takleef_model.dart';
 import '../../feature/emp_tarqea/data/model/emp_tarqea_model.dart';
 import '../../feature/employee/data/model/employee_model.dart';
+import '../../feature/employee/data/model/mosaeer_salary_model.dart';
 import '../../feature/passport/data/model/passport_model.dart';
 import '../../feature/tafweed/data/model/tafweed_model.dart';
 import '../../feature/tarmeez_badal/data/model/badal_model.dart';
@@ -666,6 +667,13 @@ abstract class ApiService {
     @Query("name") String? name,
     @Query("cardId") String? cardId,
     @Query("empType") String? empType,
+  );
+
+  @GET("$employee/mosaeer-salary")
+  Future<HttpResponse<List<MosaeerSalaryModel>>> getMosaeerSalary(
+    @Query("empType") String? empType,
+    @Query("startDate") String startDate,
+    @Query("endDate") String endDate,
   );
 
   @GET("$employee/{id}")

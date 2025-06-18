@@ -442,6 +442,26 @@ class BaseScreen extends StatelessWidget {
                             }
                           },
                         ),
+
+                        CustomPopupMenuButton(
+                          buttonText: 'التقارير و الطباعة',
+                          items: const [
+                            PopupMenuItem(
+                              value: AppRoutes.mosaeerSalary,
+                              child: Text("مسير الرواتب"),
+                            ),
+                          ],
+                          onSelected: (page) async {
+                            Get.toNamed(page);
+                            switch (page) {
+                              case AppRoutes.addEmployee:
+                                // await Get.find<EmployeeController>()
+                                //     .clearControllers();
+                                controller.setPage("مسير الرواتب");
+                                break;
+                            }
+                          },
+                        ),
                       ],
                     ),
                     Obx(

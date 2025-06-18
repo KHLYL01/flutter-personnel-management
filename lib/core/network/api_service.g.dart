@@ -4740,6 +4740,53 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<MosaeerSalaryModel>>> getMosaeerSalary(
+    String? empType,
+    String startDate,
+    String endDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'empType': empType,
+      r'startDate': startDate,
+      r'endDate': endDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<MosaeerSalaryModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/employees/mosaeer-salary',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<MosaeerSalaryModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              MosaeerSalaryModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<EmployeeModel>> findEmployeeById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

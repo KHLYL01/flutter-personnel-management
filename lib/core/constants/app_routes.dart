@@ -26,6 +26,7 @@ import '../../feature/emp_tarqea/presentation/pages/add_tarqea.dart';
 import '../../feature/emp_tarqea/presentation/pages/tarqea_search.dart';
 import '../../feature/employee/presentation/pages/add_employee.dart';
 import '../../feature/employee/presentation/pages/employee_search.dart';
+import '../../feature/employee/presentation/pages/mosaeer_salary.dart';
 import '../../feature/passport/presentation/pages/add_passport.dart';
 import '../../feature/passport/presentation/pages/passport_search.dart';
 import '../../feature/tafweed/presentation/pages/add_tafweed.dart';
@@ -82,9 +83,10 @@ class AppRoutes {
   static const String addTaeen = '/add_taeen';
   static const String addTarqea = '/add_tarqea';
   static const String addPassport = '/add_passport';
+  static const String addTakleef = '/add_takleef';
   static const String addEmployee = '/add_employee';
 
-  static const String addTakleef = '/add_takleef';
+  static const String mosaeerSalary = '/mosaeer_salary';
 
   static List<GetPage> routes = [
     GetPage(name: baladiaInfo, page: () => const BladiaInfo()),
@@ -130,5 +132,6 @@ class AppRoutes {
     GetPage(name: AppRoutes.addPassport, page: () => const AddPassport()),
     GetPage(name: AppRoutes.addEmployee, page: () => const AddEmployee()),
     GetPage(name: AppRoutes.addTakleef, page: () => const AddTakleef()),
+    GetPage(name: AppRoutes.mosaeerSalary, page: () => const MosaeerSalary()),
   ];
 }

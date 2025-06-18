@@ -113,7 +113,7 @@ class NationsController extends GetxController {
   }
 
   void clearControllersForSearch() {
-    id.text = getId().toString();
+    id.clear();
     name.clear();
   }
 }

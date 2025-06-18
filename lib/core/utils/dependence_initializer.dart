@@ -68,6 +68,7 @@ import '../../feature/employee/presentation/controllers/employee_report_controll
 import '../../feature/employee/presentation/controllers/employee_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_find_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_search_controller.dart';
+import '../../feature/employee/presentation/controllers/mosaeer_salary_controller.dart';
 import '../../feature/passport/data/repository/passport_repository.dart';
 import '../../feature/passport/presentation/controllers/passport_controller.dart';
 import '../../feature/passport/presentation/controllers/passport_report_controller.dart';
@@ -145,6 +146,7 @@ class DependenceInitializer {
     Get.put(EmployeeController(Get.find(), Get.find(), Get.find(), Get.find()));
     Get.put(EmployeeSearchController(Get.find()));
     Get.put(EmployeeFindController(Get.find()));
+    Get.put(MosaeerSalaryController(Get.find()));
     Get.put(EmployeeReportController());
 
     // EmpDowra DI

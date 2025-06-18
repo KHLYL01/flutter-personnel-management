@@ -113,7 +113,7 @@ class PartsController extends GetxController {
   }
 
   clearControllersForSearch() {
-    id.text = getId().toString();
+    id.clear();
     name.clear();
   }
 }

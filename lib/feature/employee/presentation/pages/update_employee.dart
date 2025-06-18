@@ -41,6 +41,8 @@ class UpdateEmployee extends StatelessWidget {
     HijriPicker loanEndDate = HijriPicker(controller.datAkdEnd);
     HijriPicker cardSodorDate = HijriPicker(controller.cardStart);
     HijriPicker shaghlWazefaDate = HijriPicker(controller.datJob);
+    HijriPicker datAkdBegin = HijriPicker(controller.datAkdBegin);
+    HijriPicker datAkdEnd = HijriPicker(controller.datAkdEnd);
     return Dialog(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
@@ -58,139 +60,265 @@ class UpdateEmployee extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CustomTextField(
-                          controller: controller.id,
-                          label: 'رقم الموظف',
-                          customHeight: 25,
-                          customWidth: 100,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CustomTextField(
+                                  controller: controller.id,
+                                  label: 'رقم الموظف',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                // CustomTextField(
+                                //   onTap: () => {},
+                                //   suffixIcon: const Icon(
+                                //     Icons.edit,
+                                //     size: 15,
+                                //   ),
+                                //   controller: controller.updateEmployeeNumber,
+                                //   label: ' تعديل رقم الموظف',
+                                //   customHeight: 25,
+                                //   customWidth: 100,
+                                // ),
+                                CustomDropdownButton(
+                                  label: 'نوع بيانات الوظيفة ',
+                                  // height: 25,
+                                  // width: 100,,
+                                  item: controller.empType,
+                                  list: controller.jobDataTypes,
+                                  onChanged: (value) {
+                                    controller.onChangeJobDataType(value);
+                                  },
+                                ),
+                                if (controller.empType.value != "عامل أجنبي" &&
+                                    controller.empType.value !=
+                                        "عامل نظافة - عقد" &&
+                                    controller.empType.value !=
+                                        "مكافأة رئيس البلدية" &&
+                                    controller.empType.value !=
+                                        "مكافأة المجلس البلدي" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور غير سعودى")
+                                  CustomButton(
+                                    text: 'اختر',
+                                    onPressed: () {
+                                      Get.find<EmpDegreesFindController>()
+                                          .clearControllers();
+                                      Get.dialog(
+                                        EmpDegreesFindPage(
+                                          onRowDoubleTap: (event) {
+                                            Map<String, PlutoCell> cells =
+                                                event.row.cells;
+                                            controller.degreeId.text =
+                                                cells['id']!.value.toString();
+                                            controller.fia.text =
+                                                cells['martaba']!
+                                                    .value
+                                                    .toString();
+                                            controller.salary.text =
+                                                cells['salary']!
+                                                    .value
+                                                    .toString();
+                                            controller.naqlBadal.text =
+                                                cells['naqlBadal']!
+                                                    .value
+                                                    .toString();
+                                            controller.draga.text =
+                                                cells['draga']!
+                                                    .value
+                                                    .toString();
+                                            controller.outEntedabBadal.text =
+                                                cells['outEntedabadal']!
+                                                    .value
+                                                    .toString();
+                                            controller.inEntedabBadal.text =
+                                                cells['inEntedabBadal']!
+                                                    .value
+                                                    .toString();
+                                            controller.elawa.text =
+                                                cells['elawa']!
+                                                    .value
+                                                    .toString();
+                                            Get.back();
+                                          },
+                                        ),
+                                      );
+                                      Get.find<EmpDegreesFindController>()
+                                          .findEmpDegrees();
+                                    },
+                                    height: 25,
+                                    width: 40,
+                                  ).paddingOnly(top: 20),
+                                if (controller.empType.value != "عامل أجنبي" &&
+                                    controller.empType.value !=
+                                        "عامل نظافة - عقد" &&
+                                    controller.empType.value !=
+                                        "مكافأة رئيس البلدية" &&
+                                    controller.empType.value !=
+                                        "مكافأة المجلس البلدي" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور غير سعودى")
+                                  CustomTextField(
+                                    controller: controller.degreeId,
+                                    label: 'بيانات الوظيفة',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                if (controller.empType.value !=
+                                        "مكافأة رئيس البلدية" &&
+                                    controller.empType.value !=
+                                        "مكافأة المجلس البلدي")
+                                  CustomTextField(
+                                    controller: controller.draga,
+                                    label: 'الدرجة',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                CustomTextField(
+                                  controller: controller.draga2,
+                                  label: '',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                              ],
+                            ).scrollDirection(Axis.horizontal),
+                            Row(
+                              children: [
+                                CustomTextField(
+                                  controller: controller.jobNo,
+                                  label: 'رقم الوظيفة',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                CustomTextField(
+                                  controller: controller.jobbadalat,
+                                  label: 'بدلات الوظيفة',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                CustomTextField(
+                                  controller: controller.fia,
+                                  label: controller.empType.value != "مستخدم" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور" &&
+                                          controller.empType.value !=
+                                              "عامل أجنبي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى"
+                                      ? 'المرتبة'
+                                      : 'الفئة',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                CustomTextField(
+                                  controller: controller.salary,
+                                  label: 'الراتب',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                CustomTextField(
+                                  controller: controller.naqlBadal,
+                                  label: 'بدل النقل',
+                                  customHeight: 25,
+                                  customWidth: 100,
+                                ),
+                                if (controller.empType.value != "مستخدم" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور" &&
+                                    controller.empType.value != "عامل أجنبي" &&
+                                    controller.empType.value !=
+                                        "مكافأة رئيس البلدية" &&
+                                    controller.empType.value !=
+                                        "مكافأة المجلس البلدي" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور غير سعودى")
+                                  CustomTextField(
+                                    controller: controller.elawa,
+                                    label: 'العلاوة الدورية',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                if (controller.empType.value != "مستخدم" &&
+                                    controller.empType.value != "عامل أجنبي" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور غير سعودى")
+                                  CustomTextField(
+                                    controller: controller.inEntedabBadal,
+                                    label: controller.empType.value !=
+                                            "عامل بند إجور"
+                                        ? 'بدل انتداب داخلي'
+                                        : '',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                if (controller.empType.value != "مستخدم" &&
+                                    controller.empType.value != "عامل أجنبي" &&
+                                    controller.empType.value !=
+                                        "عامل بند إجور غير سعودى")
+                                  CustomTextField(
+                                    controller: controller.outEntedabBadal,
+                                    label: controller.empType.value !=
+                                            "عامل بند إجور"
+                                        ? 'بدل انتداب خارجي'
+                                        : '',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                              ],
+                            ).scrollDirection(Axis.horizontal),
+                          ],
                         ),
-                        // CustomTextField(
-                        //   onTap: () => {},
-                        //   suffixIcon: const Icon(
-                        //     Icons.edit,
-                        //     size: 15,
-                        //   ),
-                        //   controller: controller.updateEmployeeNumber,
-                        //   label: ' تعديل رقم الموظف',
-                        //   customHeight: 25,
-                        //   customWidth: 100,
-                        // ),
-                        CustomDropdownButton(
-                          label: 'نوع بيانات الوظيفة',
-                          // height: 25,
-                          // width: 100,,
-                          item: controller.empType,
-                          list: controller.jobDataTypes,
-                          onChanged: (value) {
-                            controller.onChangeJobDataType(value);
-                          },
-                        ),
-                        CustomButton(
-                          text: 'اختر',
-                          onPressed: () {
-                            Get.find<EmpDegreesFindController>()
-                                .clearControllers();
-                            Get.dialog(
-                              EmpDegreesFindPage(
-                                onRowDoubleTap: (event) {
-                                  Map<String, PlutoCell> cells =
-                                      event.row.cells;
-                                  controller.fia.text =
-                                      cells['martaba']!.value.toString();
-                                  controller.salary.text =
-                                      cells['salary']!.value.toString();
-                                  controller.naqlBadal.text =
-                                      cells['naqlBadal']!.value.toString();
-                                  controller.draga.text =
-                                      cells['draga']!.value.toString();
-                                  controller.outEntedabBadal.text =
-                                      cells['outEntedabadal']!.value.toString();
-                                  controller.inEntedabBadal.text =
-                                      cells['inEntedabBadal']!.value.toString();
-                                  controller.elawa.text =
-                                      cells['elawa']!.value.toString();
-                                  Get.back();
-                                },
+                        if (controller.empType.value == "عامل أجنبي" ||
+                            controller.empType.value == "مكافأة رئيس البلدية" ||
+                            controller.empType.value ==
+                                "مكافأة المجلس البلدي" ||
+                            controller.empType.value ==
+                                "عامل بند إجور غير سعودى")
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  CustomTextField(
+                                    suffixIcon: const Icon(
+                                      Icons.date_range_sharp,
+                                      size: 15,
+                                    ),
+                                    onTap: () =>
+                                        datAkdBegin.pickHijriDate(context),
+                                    controller: controller.datAkdBegin,
+                                    label: "تاريخ العقد",
+                                    customHeight: 25,
+                                    customWidth: 120,
+                                  ),
+                                  CustomTextField(
+                                    suffixIcon: const Icon(
+                                      Icons.date_range_sharp,
+                                      size: 15,
+                                    ),
+                                    onTap: () =>
+                                        datAkdEnd.pickHijriDate(context),
+                                    controller: controller.datAkdEnd,
+                                    label: "تاريخ نهاية العقد",
+                                    customHeight: 25,
+                                    customWidth: 120,
+                                  ),
+                                ],
                               ),
-                            );
-                            Get.find<EmpDegreesFindController>()
-                                .findEmpDegrees();
-                          },
-                          height: 25,
-                          width: 40,
-                        ).paddingOnly(top: 20),
-                        CustomTextField(
-                          controller: controller.degreeId,
-                          label: 'بيانات الوظيفة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.draga,
-                          label: 'الدرجة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.draga2,
-                          label: '',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
+                              CustomDropdownButton(
+                                label: 'استحقاق نهاية الخدمة',
+                                // height: 25,
+                                // width: 100,,
+                                item: controller.esthqaqEndAkd,
+                                list: controller.esthqaqAkd,
+                                onChanged: controller.onChangeEsthqaqEndAkd,
+                              ),
+                            ],
+                          )
                       ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          controller: controller.jobNo,
-                          label: 'رقم الوظيفة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.jobbadalat,
-                          label: 'بدلات الوظيفة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.fia,
-                          label: 'المرتبة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.salary,
-                          label: 'الراتب',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.naqlBadal,
-                          label: 'بدل النقل',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.elawa,
-                          label: 'العلاوة الدورية',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.inEntedabBadal,
-                          label: 'بدل انتداب داخلي',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.outEntedabBadal,
-                          label: 'بدل انتداب خارجي',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
+                    ),
                     Row(
                       children: [
                         CustomTextField(

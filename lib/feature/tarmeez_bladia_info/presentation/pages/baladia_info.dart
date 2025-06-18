@@ -152,10 +152,7 @@ class BladiaInfo extends StatelessWidget {
                         children: [
                           CustomButton(
                               text: 'حفظ',
-                              onPressed: () {
-                                print(controller.datBegin.text);
-                                print(controller.municipalitySymbol.value);
-                              },
+                              onPressed: () {},
                               height: 40,
                               width: 120),
                         ],
