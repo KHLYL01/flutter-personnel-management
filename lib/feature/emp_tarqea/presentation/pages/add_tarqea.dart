@@ -9,6 +9,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
@@ -593,7 +594,11 @@ class AddTarqea extends StatelessWidget {
                   children: [
                     CustomButton(
                       text: "حفظ",
-                      onPressed: () => controller.save(),
+                      onPressed: () {
+                        if (checkSavePermission()) {
+                          controller.save();
+                        }
+                      },
                       height: 35,
                       width: 120,
                     ),

@@ -5,7 +5,9 @@ import 'package:personnel_management/core/widgets/custom_progress_indicator.dart
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
+import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
@@ -13,6 +15,7 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_mobashra_report_controller.dart';
 
 class AddMobashra extends StatelessWidget {
@@ -271,7 +274,11 @@ class AddMobashra extends StatelessWidget {
                   children: [
                     CustomButton(
                       text: "حفظ",
-                      onPressed: () => controller.save(),
+                      onPressed: () {
+                        if (checkSavePermission()) {
+                          controller.save();
+                        }
+                      },
                       height: 35,
                       width: 120,
                     ),

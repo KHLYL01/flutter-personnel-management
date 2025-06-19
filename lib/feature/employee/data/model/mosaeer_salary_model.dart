@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mosaeer_salary_model.g.dart';
@@ -45,6 +46,7 @@ class MosaeerSalaryModel {
   final int? hasm2;
   final int? isHasm3;
   final double? hasm3;
+  RxBool check = false.obs;
 
   MosaeerSalaryModel({
     this.id,

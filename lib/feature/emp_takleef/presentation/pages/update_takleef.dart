@@ -5,6 +5,7 @@ import 'package:personnel_management/feature/emp_takleef/presentation/controller
 import 'package:personnel_management/feature/emp_takleef/presentation/pages/takleef_det.dart';
 import '../../../../../../core/functions/hijri_picker.dart';
 
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
@@ -271,14 +272,21 @@ class UpdateTakleef extends StatelessWidget {
                         ),
                         CustomButton(
                           text: 'تعديل',
-                          onPressed: () => controller.save(),
+                          onPressed: () {
+                            if (checkUpdatePermission()) {
+                              controller.save();
+                            }
+                          },
                           height: 30,
                           width: 120,
                         ),
                         CustomButton(
                           text: 'حذف',
-                          onPressed: () =>
-                              controller.delete(int.parse(controller.id.text)),
+                          onPressed: () {
+                            if (checkDeletePermission()) {
+                              controller.delete(int.parse(controller.id.text));
+                            }
+                          },
                           height: 30,
                           width: 120,
                         ),

@@ -16,7 +16,12 @@ alertDialog({
     middleText: middleText.tr,
     content: content,
     actions: withoutButton
-        ? []
+        ? [
+            ElevatedButton(
+              onPressed: onPressedConfirm ?? () {},
+              child: const Text('تأكيد'),
+            ),
+          ]
         : [
             ElevatedButton(
               style: ElevatedButton.styleFrom(

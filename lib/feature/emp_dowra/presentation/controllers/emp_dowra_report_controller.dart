@@ -5,9 +5,18 @@ import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+
 class EmpDowraReportController extends GetxController {
+  // todo ================================
   // قرار دورة
   Future<void> createQrarDowraReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String edara = bladiaInfoController.partBoss.text;
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "قرار دورة");
 

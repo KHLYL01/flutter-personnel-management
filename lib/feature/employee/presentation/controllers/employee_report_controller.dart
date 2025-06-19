@@ -1383,48 +1383,49 @@ $edara""",
     double sumNaqlBadal = 0;
     double sumSalary = 0;
     for (MosaeerSalaryModel m in controller.mosaeer) {
-      data.add([
-        m.safy,
-        m.hasmTotal,
-        m.hasm2,
-        m.hasm3,
-        m.sandok,
-        m.zeraee,
-        m.bank,
-        m.taka3odM,
-        m.gza,
-        m.taka3ed,
-        m.mosta7qTotal,
-        m.badal4,
-        m.badal2,
-        m.jobBadalat,
-        m.naqlBadal,
-        m.salary,
-        m.draga,
-        m.fia,
-        m.jobName,
-        m.name,
-        i,
-      ]);
+      if (!m.check.value) {
+        data.add([
+          m.safy,
+          m.hasmTotal,
+          m.hasm2,
+          m.hasm3,
+          m.sandok,
+          m.zeraee,
+          m.bank,
+          m.taka3odM,
+          m.gza,
+          m.taka3ed,
+          m.mosta7qTotal,
+          m.badal4,
+          m.badal2,
+          m.jobBadalat,
+          m.naqlBadal,
+          m.salary,
+          m.draga,
+          m.fia,
+          m.jobName,
+          m.name,
+          i,
+        ]);
 
-      sumSafy += m.safy ?? 0;
-      sumHasmTotal += m.hasmTotal ?? 0;
-      sumHasm2 += m.hasm2 ?? 0;
-      sumHasm3 += m.hasm3 ?? 0;
-      sumSandok += m.sandok ?? 0;
-      sumZeraee += m.zeraee ?? 0;
-      sumBank += m.bank ?? 0;
-      sumTaka3odM += m.taka3odM ?? 0;
-      sumGza += m.gza ?? 0;
-      sumTaka3ed += m.taka3ed ?? 0;
-      sumMosta7qTotal += m.mosta7qTotal ?? 0;
-      sumBadal4 += m.badal4 ?? 0;
-      sumBadal2 += m.badal2 ?? 0;
-      sumJobBadalat += m.jobBadalat ?? 0;
-      sumNaqlBadal += m.naqlBadal ?? 0;
-      sumSalary += m.salary ?? 0;
-
-      i++;
+        sumSafy += m.safy ?? 0;
+        sumHasmTotal += m.hasmTotal ?? 0;
+        sumHasm2 += m.hasm2 ?? 0;
+        sumHasm3 += m.hasm3 ?? 0;
+        sumSandok += m.sandok ?? 0;
+        sumZeraee += m.zeraee ?? 0;
+        sumBank += m.bank ?? 0;
+        sumTaka3odM += m.taka3odM ?? 0;
+        sumGza += m.gza ?? 0;
+        sumTaka3ed += m.taka3ed ?? 0;
+        sumMosta7qTotal += m.mosta7qTotal ?? 0;
+        sumBadal4 += m.badal4 ?? 0;
+        sumBadal2 += m.badal2 ?? 0;
+        sumJobBadalat += m.jobBadalat ?? 0;
+        sumNaqlBadal += m.naqlBadal ?? 0;
+        sumSalary += m.salary ?? 0;
+        i++;
+      }
     }
 
     // إنشاء مستند PDF جديد
@@ -1778,38 +1779,40 @@ $name
     double sumMosta7qSalary = 0;
     double sumSalary = 0;
     for (MosaeerSalaryModel m in controller.mosaeer) {
-      data.add([
-        "",
-        "",
-        m.safy,
-        m.hasmTotal,
-        m.bank,
-        m.gza,
-        m.taka3ed,
-        m.mosta7qTotal,
-        m.ma3esha,
-        m.naqlBadal,
-        m.mosta7qSalary,
-        m.salary,
-        m.cardId,
-        m.fia,
-        m.jobName,
-        m.name,
-        i,
-      ]);
+      if (!m.check.value) {
+        data.add([
+          "",
+          "",
+          m.safy,
+          m.hasmTotal,
+          m.bank,
+          m.gza,
+          m.taka3ed,
+          m.mosta7qTotal,
+          m.ma3esha,
+          m.naqlBadal,
+          m.mosta7qSalary,
+          m.salary,
+          m.cardId,
+          m.fia,
+          m.jobName,
+          m.name,
+          i,
+        ]);
 
-      sumSafy += m.safy ?? 0;
-      sumHasmTotal += m.hasmTotal ?? 0;
-      sumBank += m.bank ?? 0;
-      sumGza += m.gza ?? 0;
-      sumTaka3ed += m.taka3ed ?? 0;
-      sumMosta7qTotal += m.mosta7qTotal ?? 0;
-      sumMaeesha += m.jobBadalat ?? 0;
-      sumNaqlBadal += m.naqlBadal ?? 0;
-      sumMosta7qSalary += m.salary ?? 0;
-      sumSalary += m.salary ?? 0;
+        sumSafy += m.safy ?? 0;
+        sumHasmTotal += m.hasmTotal ?? 0;
+        sumBank += m.bank ?? 0;
+        sumGza += m.gza ?? 0;
+        sumTaka3ed += m.taka3ed ?? 0;
+        sumMosta7qTotal += m.mosta7qTotal ?? 0;
+        sumMaeesha += m.jobBadalat ?? 0;
+        sumNaqlBadal += m.naqlBadal ?? 0;
+        sumMosta7qSalary += m.salary ?? 0;
+        sumSalary += m.salary ?? 0;
 
-      i++;
+        i++;
+      }
     }
 
     // إنشاء مستند PDF جديد

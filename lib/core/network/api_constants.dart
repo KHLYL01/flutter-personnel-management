@@ -13,6 +13,8 @@ const String dissents = "/emp-dissents";
 const String empDegrees = "/emp-degrees";
 const String empDegreesWorker = "/emp-degrees-workers";
 
+const String users = "/users";
+
 const String empDowra = "/emp-dowras";
 const String empEnd = "/emp-ends";
 const String empEntedab = "/emp-entedabs";

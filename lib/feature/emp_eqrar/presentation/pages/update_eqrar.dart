@@ -4,6 +4,7 @@ import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
@@ -113,16 +114,24 @@ class UpdateEqrar extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'تعديل',
-                    onPressed: () => controller.save(),
+                    onPressed: () {
+                      if (checkUpdatePermission()) {
+                        controller.save();
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),
                   CustomButton(
                     text: 'حذف',
-                    onPressed: () => controller.confirmDelete(
-                      int.parse(controller.id.text),
-                      withGoBack: true,
-                    ),
+                    onPressed: () {
+                      if (checkDeletePermission()) {
+                        controller.confirmDelete(
+                          int.parse(controller.id.text),
+                          withGoBack: true,
+                        );
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),

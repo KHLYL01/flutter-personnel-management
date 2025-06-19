@@ -96,6 +96,8 @@ import '../../feature/tarmeez_nations/data/repository/nations_repository.dart';
 import '../../feature/tarmeez_nations/presentation/controllers/nations_controller.dart';
 import '../../feature/tarmeez_parts/data/repository/parts_repository.dart';
 import '../../feature/tarmeez_parts/presentation/controllers/parts_controller.dart';
+import '../../feature/users/data/repository/user_repository.dart';
+import '../../feature/users/presentation/controllers/user_controller.dart';
 import '../network/api_service.dart';
 
 class DependenceInitializer {
@@ -257,5 +259,9 @@ class DependenceInitializer {
     // EmpHolidayType DI
     Get.lazyPut(() => EmpHolidayTypeRepository(Get.find()));
     Get.put(EmpHolidayTypeController(Get.find()));
+
+    // User Pass DI
+    Get.lazyPut(() => UserRepository(Get.find()));
+    Get.put(UserController(Get.find()));
   }
 }

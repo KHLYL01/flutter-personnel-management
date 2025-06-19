@@ -5,6 +5,7 @@ import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
@@ -84,7 +85,11 @@ class EmpDegreesWorkerPage extends StatelessWidget {
                     ),
                     CustomButton(
                       text: 'حفظ',
-                      onPressed: () => controller.save(),
+                      onPressed: () {
+                        if (checkSavePermission()) {
+                          controller.save();
+                        }
+                      },
                       height: 40,
                       width: 80,
                     ),
@@ -121,8 +126,10 @@ class EmpDegreesWorkerPage extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-                                controller
-                                    .confirmDelete(rendererContext.cell.value);
+                                if (checkDeletePermission()) {
+                                  controller.confirmDelete(
+                                      rendererContext.cell.value);
+                                }
                               },
                               icon: const Icon(
                                 Icons.delete,

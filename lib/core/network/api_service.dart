@@ -32,6 +32,7 @@ import '../../feature/tarmeez_emp_degrees_worker/data/model/emp_degrees_worker_m
 import '../../feature/tarmeez_jobs/data/model/jobs_model.dart';
 import '../../feature/tarmeez_nations/data/model/nations_model.dart';
 import '../../feature/tarmeez_parts/data/model/parts_model.dart';
+import '../../feature/users/data/model/user_model.dart';
 import 'api_constants.dart';
 import '../../feature/tarmeez_bladia_info/data/model/bladia_info_model.dart';
 
@@ -731,4 +732,22 @@ abstract class ApiService {
 
   @DELETE("$empHolidayType/{id}")
   Future<HttpResponse<void>> deleteEmpHolidayType(@Path("id") int id);
+
+  // Users
+
+  @GET("$users/nextId")
+  Future<HttpResponse<int>> getNextUserId();
+
+  @GET(users)
+  Future<HttpResponse<List<UserDtoModel>>> findAllUsers();
+
+  @GET("$users/{id}")
+  Future<HttpResponse<List<UserModel>>> findAllByUserId(@Path("id") int id);
+
+  @POST(users)
+  Future<HttpResponse<List<UserModel>>> saveAllForUserId(
+      @Body(nullToAbsent: true) List<UserModel> model);
+
+  @DELETE("$users/{id}")
+  Future<HttpResponse<void>> deleteAllByUserId(@Path("id") int id);
 }

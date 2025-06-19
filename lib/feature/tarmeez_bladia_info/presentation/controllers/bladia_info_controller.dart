@@ -42,6 +42,38 @@ class BladiaInfoController extends GetxController {
     isLoading(false);
   }
 
+  Future<void> save() async {
+    isLoading(true);
+    messageError("");
+    final data = await _repository.save(
+      BladiaInfoModel(
+        bladiaInfo: Bladia(
+          id: 1,
+          amana: amana.text,
+          boss: boss.text,
+          bossAssistant: bossAssistant.text,
+          ipan: ipan.text,
+          nameAr: name.text,
+          datEnd: datEnd.text,
+          datBegin: datBegin.text,
+        ),
+        empPartInfo: EmpPartInfo(
+          id: 1,
+          emp: emp.text,
+          edariaBoss: edariaBoss.text,
+          empHelp: empHelp.text,
+          ma3esha: ma3esha.text == "" ? 0 : int.parse(ma3esha.text),
+          maliaBoss: maliaBoss.text,
+          part2Boss: part2Boss.text,
+          partBoss: partBoss.text,
+          workStationBoss: workStationBoss.text,
+        ),
+      ),
+    );
+    data.fold((l) => messageError(l.eerMessage), (r) => r);
+    isLoading(false);
+  }
+
   void pickImage() async {
     final picker = WebImagePicker();
     final image = await picker.pickImage();
@@ -54,6 +86,12 @@ class BladiaInfoController extends GetxController {
   void fillController() {
     name.text = bladia.value.bladiaInfo?.nameAr ?? '';
     boss.text = bladia.value.bladiaInfo?.boss ?? '';
+    ipan.text = bladia.value.bladiaInfo?.ipan ?? '';
+    amana.text = bladia.value.bladiaInfo?.amana ?? '';
+    datBegin.text = bladia.value.bladiaInfo?.datBegin ?? '';
+    datEnd.text = bladia.value.bladiaInfo?.datEnd ?? '';
+
+    workStationBoss.text = bladia.value.empPartInfo?.workStationBoss ?? '';
     bossAssistant.text = bladia.value.bladiaInfo?.bossAssistant ?? '';
     edariaBoss.text = bladia.value.empPartInfo?.edariaBoss ?? '';
     partBoss.text = bladia.value.empPartInfo?.partBoss ?? '';
@@ -62,13 +100,6 @@ class BladiaInfoController extends GetxController {
     emp.text = bladia.value.empPartInfo?.emp ?? '';
     empHelp.text = bladia.value.empPartInfo?.empHelp ?? '';
     ma3esha.text = bladia.value.empPartInfo?.ma3esha.toString() ?? '';
-    workStationBoss.text = bladia.value.empPartInfo?.workStationBoss ?? '';
-    ipan.text = bladia.value.bladiaInfo?.ipan ?? '';
-
-    amana.text = bladia.value.bladiaInfo?.amana ?? '';
-
-    datBegin.text = bladia.value.bladiaInfo?.datBegin ?? '';
-    datEnd.text = bladia.value.bladiaInfo?.datEnd ?? '';
   }
 
   @override

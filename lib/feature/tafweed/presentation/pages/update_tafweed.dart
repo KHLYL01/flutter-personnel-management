@@ -6,6 +6,7 @@ import 'package:personnel_management/core/widgets/custom_progress_indicator.dart
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
@@ -139,18 +140,24 @@ class UpdateTafweed extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'تعديل',
-                    onPressed: () => controller.save(),
+                    onPressed: () {
+                      if (checkUpdatePermission()) {
+                        controller.save();
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),
                   CustomButton(
                     text: 'حذف',
                     onPressed: () {
-                      if (controller.id.text != "") {
-                        controller.confirmDelete(
-                          int.parse(controller.id.text),
-                          withGoBack: true,
-                        );
+                      if (checkDeletePermission()) {
+                        if (controller.id.text != "") {
+                          controller.confirmDelete(
+                            int.parse(controller.id.text),
+                            withGoBack: true,
+                          );
+                        }
                       }
                     },
                     height: 35,

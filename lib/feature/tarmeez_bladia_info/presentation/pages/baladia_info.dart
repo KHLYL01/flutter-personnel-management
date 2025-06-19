@@ -6,6 +6,7 @@ import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import '../../../../../core/functions/hijri_picker.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
@@ -122,41 +123,49 @@ class BladiaInfo extends StatelessWidget {
               ).scrollDirection(Axis.horizontal).marginOnly(right: 16),
               Row(
                 children: [
+                  // Expanded(
+                  //     flex: 2,
+                  //     child: Column(
+                  //       children: [
+                  //         CustomButton(
+                  //             text: "ضبط التواريخ",
+                  //             onPressed: () {
+                  //               print(controller.workStationBoss.text);
+                  //             },
+                  //             height: 40,
+                  //             width: 120),
+                  //         CustomButton(
+                  //             text: "العلاوات السنوية",
+                  //             onPressed: () {},
+                  //             height: 40,
+                  //             width: 120),
+                  //         CustomButton(
+                  //             text: "تعديل ",
+                  //             onPressed: () {
+                  //               if (checkUpdatePermission()) {}
+                  //             },
+                  //             height: 40,
+                  //             width: 120),
+                  //       ],
+                  //     ).scrollDirection(Axis.vertical)),
                   Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          CustomButton(
-                              text: "ضبط التواريخ",
-                              onPressed: () {
-                                print(controller.workStationBoss.text);
-                              },
-                              height: 40,
-                              width: 120),
-                          CustomButton(
-                              text: "العلاوات السنوية",
-                              onPressed: () {},
-                              height: 40,
-                              width: 120),
-                          CustomButton(
-                              text: "تعديل ",
-                              onPressed: () {},
-                              height: 40,
-                              width: 120),
-                        ],
-                      ).scrollDirection(Axis.vertical)),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CustomButton(
-                              text: 'حفظ',
-                              onPressed: () {},
-                              height: 40,
-                              width: 120),
-                        ],
-                      )),
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomButton(
+                          text: 'حفظ',
+                          onPressed: () {
+                            if (checkSavePermission()) {
+                              controller.save();
+                            }
+                          },
+                          height: 40,
+                          width: 120,
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                       flex: 2,
                       child: Column(

@@ -8,6 +8,7 @@ import 'package:personnel_management/feature/tarmeez_nations/presentation/pages/
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
@@ -91,7 +92,7 @@ class UpdatePassport extends StatelessWidget {
                                       NationsFind(
                                         onRowDoubleTap: (event) {
                                           Map<String, PlutoCell> cells =
-                                              event.row!.cells;
+                                              event.row.cells;
                                           controller.nationalId.text =
                                               cells['id']!.value.toString();
                                           controller.nationalName.text =
@@ -147,14 +148,21 @@ class UpdatePassport extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'تعديل',
-                    onPressed: () => controller.save(),
+                    onPressed: () {
+                      if (checkUpdatePermission()) {
+                        controller.save();
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),
                   CustomButton(
                     text: 'حذف',
-                    onPressed: () =>
-                        controller.delete(int.parse(controller.id.text)),
+                    onPressed: () {
+                      if (checkDeletePermission()) {
+                        controller.delete(int.parse(controller.id.text));
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),

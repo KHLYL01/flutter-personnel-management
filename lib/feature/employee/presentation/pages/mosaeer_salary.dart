@@ -12,6 +12,7 @@ import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../controllers/employee_controller.dart';
 import '../controllers/employee_find_controller.dart';
 import '../controllers/mosaeer_salary_controller.dart';
 
@@ -175,7 +176,7 @@ class MosaeerSalary extends StatelessWidget {
                                       PlutoCell(value: item.isHasm3.getValue()),
                                   "hasm3":
                                       PlutoCell(value: item.hasm3.getValue()),
-                                  "check": PlutoCell(value: false),
+                                  "check": PlutoCell(value: item.id ?? 0),
                                 },
                               ))
                           .toList(),
@@ -339,6 +340,21 @@ class MosaeerSalary extends StatelessWidget {
                           title: 'لا يظهر',
                           field: 'check',
                           type: PlutoColumnType.text(),
+                          renderer: (rendererContext) {
+                            final controller =
+                                Get.find<MosaeerSalaryController>();
+                            final rowIdx = rendererContext.rowIdx;
+                            final employee = controller.mosaeer[rowIdx];
+
+                            return Obx(() {
+                              return Checkbox(
+                                value: employee.check.value,
+                                onChanged: (val) {
+                                  employee.check.value = val ?? false;
+                                },
+                              );
+                            });
+                          },
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,

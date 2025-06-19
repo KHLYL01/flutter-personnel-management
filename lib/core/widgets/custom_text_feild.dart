@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final Function()? onTap;
   final bool enabled;
   final bool withLable;
+  final int? maxLine;
 
   const CustomTextField({
     Key? key,
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.enabled = true,
     this.withLable = true,
+    this.maxLine = null,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,7 @@ class CustomTextField extends StatelessWidget {
               onTap: onTap,
               controller: controller,
               enabled: enabled,
-              maxLines: null,
+              maxLines: maxLine,
               style: const TextStyle(fontSize: 14, color: AppColors.greyDark),
               obscureText: obscureText,
               decoration: InputDecoration(

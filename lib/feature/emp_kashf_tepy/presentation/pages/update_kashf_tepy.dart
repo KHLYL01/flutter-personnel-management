@@ -6,6 +6,7 @@ import 'package:personnel_management/feature/emp_kashf_tepy/presentation/control
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/functions/hijri_picker.dart';
+import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
@@ -165,16 +166,24 @@ class UpdateKashfTepy extends StatelessWidget {
                 children: [
                   CustomButton(
                     text: 'تعديل',
-                    onPressed: () => controller.save(),
+                    onPressed: () {
+                      if (checkUpdatePermission()) {
+                        controller.save();
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),
                   CustomButton(
                     text: 'حذف',
-                    onPressed: () => controller.confirmDelete(
-                      int.parse(controller.id.text),
-                      withGoBack: true,
-                    ),
+                    onPressed: () {
+                      if (checkDeletePermission()) {
+                        controller.confirmDelete(
+                          int.parse(controller.id.text),
+                          withGoBack: true,
+                        );
+                      }
+                    },
                     height: 35,
                     width: 150,
                   ),

@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:personnel_management/feature/users/presentation/pages/login_page.dart';
 
 import '../../feature/emp_dowra/presentation/pages/add_dowra.dart';
 import '../../feature/emp_dowra/presentation/pages/dowra_search.dart';
@@ -40,9 +41,16 @@ import '../../feature/tarmeez_emp_degrees_worker/presentation/pages/emp_degrees_
 import '../../feature/tarmeez_jobs/presentation/pages/jobs_page.dart';
 import '../../feature/tarmeez_nations/presentation/pages/nations_page.dart';
 import '../../feature/tarmeez_parts/presentation/pages/parts_page.dart';
+import '../../feature/users/presentation/pages/home_page.dart';
+import '../../feature/users/presentation/pages/user_page.dart';
+import '../middlewares/auth_middleware.dart';
 
 class AppRoutes {
-  static const String baladiaInfo = '/';
+  static const String login = '/';
+  static const String home = '/home';
+
+  // ترميز
+  static const String baladiaInfo = '/baladiaInfo';
   static const String nations = '/nations';
   static const String dissents = '/dissents';
   static const String jobs = '/jobs';
@@ -51,6 +59,9 @@ class AppRoutes {
   static const String empDegrees = '/emp_degrees';
   static const String empDegreesWorker = '/emp_degrees_worker';
   static const String parts = '/parts';
+
+  // تجهيز و إعداد
+  static const String users = '/users';
 
   // search
   static const String dowraSearch = '/dowra_search';
@@ -89,49 +100,176 @@ class AppRoutes {
   static const String mosaeerSalary = '/mosaeer_salary';
 
   static List<GetPage> routes = [
-    GetPage(name: baladiaInfo, page: () => const BladiaInfo()),
-    GetPage(name: nations, page: () => const NationsPage()),
-    GetPage(name: dissents, page: () => const DissentPage()),
-    GetPage(name: jobs, page: () => const JobsPage()),
-    GetPage(name: badalCountries, page: () => const BadalCountriesPage()),
-    GetPage(name: badal, page: () => const BadalPage()),
-    GetPage(name: empDegrees, page: () => const EmpDegreesPage()),
-    GetPage(name: empDegreesWorker, page: () => const EmpDegreesWorkerPage()),
-    GetPage(name: parts, page: () => const PartsPage()),
+    GetPage(name: login, page: () => const LoginPage()),
+    GetPage(
+        name: home,
+        page: () => const HomePage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: baladiaInfo,
+        page: () => const BladiaInfo(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: nations,
+        page: () => const NationsPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: dissents,
+        page: () => const DissentPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: jobs,
+        page: () => const JobsPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: badalCountries,
+        page: () => const BadalCountriesPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: badal,
+        page: () => const BadalPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: empDegrees,
+        page: () => const EmpDegreesPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: empDegreesWorker,
+        page: () => const EmpDegreesWorkerPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: parts,
+        page: () => const PartsPage(),
+        middlewares: [AuthMiddleware()]),
     // search
-    GetPage(name: AppRoutes.dowraSearch, page: () => const DowraSearch()),
-    GetPage(name: AppRoutes.endSearch, page: () => const EndSearch()),
-    GetPage(name: AppRoutes.entedabSearch, page: () => const EntedabSearch()),
-    GetPage(name: AppRoutes.hasmiatSearch, page: () => const HasmiatSearch()),
-    GetPage(name: AppRoutes.holidaySearch, page: () => const HolidaySearch()),
     GetPage(
-        name: AppRoutes.kashfTepySearch, page: () => const KashfTepySearch()),
-    GetPage(name: AppRoutes.mobashraSearch, page: () => const MobashraSearch()),
+        name: AppRoutes.dowraSearch,
+        page: () => const DowraSearch(),
+        middlewares: [AuthMiddleware()]),
     GetPage(
-        name: AppRoutes.mokhalfatSearch, page: () => const MokhalfatSearch()),
-    GetPage(name: AppRoutes.takleefSearch, page: () => const TakleefSearch()),
-    GetPage(name: AppRoutes.taeenSearch, page: () => const TaeenSearch()),
-    GetPage(name: AppRoutes.tarqeaSearch, page: () => const TarqeaSearch()),
-    GetPage(name: AppRoutes.passportSearch, page: () => const PassportSearch()),
-    GetPage(name: AppRoutes.tafweedSearch, page: () => const TafweedSearch()),
+        name: AppRoutes.endSearch,
+        page: () => const EndSearch(),
+        middlewares: [AuthMiddleware()]),
     GetPage(
-        name: AppRoutes.employeeSearch, page: () => const EmployeesSearch()),
-    GetPage(name: AppRoutes.eqrarSearch, page: () => const EqrarSearch()),
-    GetPage(name: AppRoutes.addTafweed, page: () => const AddTafweed()),
-    GetPage(name: AppRoutes.addDowra, page: () => const AddDowra()),
-    GetPage(name: AppRoutes.addEnd, page: () => const AddEnd()),
-    GetPage(name: AppRoutes.addEntedab, page: () => const AddEntedab()),
-    GetPage(name: AppRoutes.addEqrar, page: () => const AddEqrar()),
-    GetPage(name: AppRoutes.addHasmiat, page: () => const AddHasmiat()),
-    GetPage(name: AppRoutes.addHoliday, page: () => const AddHoliday()),
-    GetPage(name: AppRoutes.addKashfTepy, page: () => const AddKashfTepy()),
-    GetPage(name: AppRoutes.addMobashra, page: () => const AddMobashra()),
-    GetPage(name: AppRoutes.addMokhalfat, page: () => const AddMokhalfat()),
-    GetPage(name: AppRoutes.addTaeen, page: () => const AddTaeen()),
-    GetPage(name: AppRoutes.addTarqea, page: () => const AddTarqea()),
-    GetPage(name: AppRoutes.addPassport, page: () => const AddPassport()),
-    GetPage(name: AppRoutes.addEmployee, page: () => const AddEmployee()),
-    GetPage(name: AppRoutes.addTakleef, page: () => const AddTakleef()),
-    GetPage(name: AppRoutes.mosaeerSalary, page: () => const MosaeerSalary()),
+        name: AppRoutes.entedabSearch,
+        page: () => const EntedabSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.hasmiatSearch,
+        page: () => const HasmiatSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.holidaySearch,
+        page: () => const HolidaySearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.kashfTepySearch,
+        page: () => const KashfTepySearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.mobashraSearch,
+        page: () => const MobashraSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.mokhalfatSearch,
+        page: () => const MokhalfatSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.takleefSearch,
+        page: () => const TakleefSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.taeenSearch,
+        page: () => const TaeenSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.tarqeaSearch,
+        page: () => const TarqeaSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.passportSearch,
+        page: () => const PassportSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.tafweedSearch,
+        page: () => const TafweedSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.employeeSearch,
+        page: () => const EmployeesSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.eqrarSearch,
+        page: () => const EqrarSearch(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addTafweed,
+        page: () => const AddTafweed(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addDowra,
+        page: () => const AddDowra(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addEnd,
+        page: () => const AddEnd(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addEntedab,
+        page: () => const AddEntedab(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addEqrar,
+        page: () => const AddEqrar(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addHasmiat,
+        page: () => const AddHasmiat(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addHoliday,
+        page: () => const AddHoliday(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addKashfTepy,
+        page: () => const AddKashfTepy(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addMobashra,
+        page: () => const AddMobashra(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addMokhalfat,
+        page: () => const AddMokhalfat(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addTaeen,
+        page: () => const AddTaeen(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addTarqea,
+        page: () => const AddTarqea(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addPassport,
+        page: () => const AddPassport(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addEmployee,
+        page: () => const AddEmployee(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.addTakleef,
+        page: () => const AddTakleef(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.mosaeerSalary,
+        page: () => const MosaeerSalary(),
+        middlewares: [AuthMiddleware()]),
+
+    GetPage(
+        name: AppRoutes.users,
+        page: () => const UserPage(),
+        middlewares: [AuthMiddleware()]),
   ];
 }
