@@ -52,13 +52,11 @@ class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     final controller = Get.find<UserController>();
-    log("route $route");
     if (controller.loginUserPermissions.isEmpty) {
       // المستخدم غير مسجل دخول
       return const RouteSettings(name: '/login');
     }
 
-    log("hi ===============================");
     if (route != null &&
         !controller.checkPermission(map[route] ?? "", enter: true) &&
         route != "/home") {

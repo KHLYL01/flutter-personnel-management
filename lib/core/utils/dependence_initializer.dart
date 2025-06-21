@@ -157,7 +157,7 @@ class DependenceInitializer {
     Get.put(EmpDowraController(Get.find()));
     Get.put(EmpDowraDetController(Get.find()));
     Get.put(EmpDowraSearchController(Get.find()));
-    Get.put(EmpDowraReportController());
+    Get.put(EmpDowraReportController(Get.find(), Get.find()));
 
     // EmpEnd DI
     Get.lazyPut(() => EmpEndRepository(Get.find()));

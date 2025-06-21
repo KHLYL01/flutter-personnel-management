@@ -4,11 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
+import 'emp_dowra_controller.dart';
+import 'emp_dowra_det_controller.dart';
 
 class EmpDowraReportController extends GetxController {
-  // todo ================================
+  final JobsRepository _jobsRepository;
+  final EmployeeRepository _employeeRepository;
+
+  EmpDowraReportController(this._jobsRepository, this._employeeRepository);
+
   // قرار دورة
   Future<void> createQrarDowraReport() async {
     BladiaInfoController bladiaInfoController =
@@ -16,6 +25,33 @@ class EmpDowraReportController extends GetxController {
     String name = bladiaInfoController.name.text;
     String bossName = bladiaInfoController.boss.text;
     String edara = bladiaInfoController.partBoss.text;
+
+    final controller = Get.find<EmpDowraController>();
+    String decisionNumber = controller.decisionNumber.text;
+    String decisionDate = controller.decisionDate.text;
+    String startDate = controller.startDate.text;
+    String endDate = controller.endDate.text;
+    String courseDays = controller.courseDays.text;
+
+    final detController = Get.find<EmpDowraDetController>();
+    List<List<dynamic>> data = [];
+
+    for (var e in detController.dowraDets) {
+      int jobId = 0;
+      String jobName = "";
+      (await _employeeRepository.findById(e.empId ?? 0))
+          .fold((l) => l, (r) => jobId = r.jobId ?? 0);
+      (await _jobsRepository.findById(id: jobId))
+          .fold((l) => l, (r) => jobName = r.name ?? "");
+
+      data.add([
+        e.naqlBadal.getValue(),
+        e.salary.getValue(),
+        e.fia.getValue(),
+        jobName,
+        e.empName.getValue()
+      ]);
+    }
 
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: "قرار دورة");
@@ -98,20 +134,12 @@ class EmpDowraReportController extends GetxController {
               'الوظيفة',
               'الاسم',
             ],
-            data: [
-              [
-                "",
-                "",
-                "",
-                "",
-                "",
-              ],
-            ],
+            data: data,
           ),
           pw.SizedBox(height: 10),
           pw.Center(
               child: pw.Text(
-            "قرار إداري رقم (70) وتاريخ 1440/1/13",
+            "قرار إداري رقم ($decisionNumber) وتاريخ $decisionDate",
             style: pw.TextStyle(
               font: arabicFont,
               fontSize: 11,
@@ -121,10 +149,10 @@ class EmpDowraReportController extends GetxController {
           )),
           pw.SizedBox(height: 10),
           pw.Text(
-            """إن رئيس بلدية محافظة تيماء
-بناء على الصلاحيات الممنوحة له و نظرا لالتحاق الموضح اسمه و بياناته أعلاه بدوره تدريبية لمدة (3) أيام / يوم خلال الفترة من 1440/02/05 إلى 1440/02/08 .
+            """إن رئيس بلدية محافظة $name
+بناء على الصلاحيات الممنوحة له و نظرا لالتحاق الموضح اسمه و بياناته أعلاه بدوره تدريبية لمدة ($courseDays) أيام / يوم خلال الفترة من $startDate إلى $endDate .
 واستنادا للمواد (34/26) و (34/26) من لائحه التدريب يقرر ما يلي:
-1:- يصرف للموظف اسمه أعلاه (100%) من راتبه الشهري خلال فتره إلتحاقه بالدورة التدريبية من 1440/02/05 ألى 1440/02/08 ولمدة (3) يوما
+1:- يصرف للموظف اسمه أعلاه (100%) من راتبه الشهري خلال فتره إلتحاقه بالدورة التدريبية من $startDate ألى $endDate ولمدة ($courseDays) يوما
 2:- على الجهة المختصة اعتماد موجبه و انفاذه
 """,
             style: pw.TextStyle(
@@ -169,14 +197,14 @@ class EmpDowraReportController extends GetxController {
               pw.Column(
                 children: [
                   pw.Text(
-                    "رئيس بلدية مجافظة تيماء",
+                    "رئيس بلدية مجافظة $name",
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "المهندس / حسن بن عبدالرحيم الغبان",
+                    bossName,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 10, lineSpacing: 10),
@@ -205,6 +233,58 @@ class EmpDowraReportController extends GetxController {
 
   // بيان دورة
   Future<void> createBeanDowraReport() async {
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+
+    final controller = Get.find<EmpDowraController>();
+    String extraDays = controller.extraDays.text;
+
+    final detController = Get.find<EmpDowraDetController>();
+    List<List<dynamic>> data = [];
+
+    double sumTotal = 0;
+    for (var e in detController.dowraDets) {
+      int jobId = 0;
+      String jobName = "";
+      (await _employeeRepository.findById(e.empId ?? 0))
+          .fold((l) => l, (r) => jobId = r.jobId ?? 0);
+      (await _jobsRepository.findById(id: jobId))
+          .fold((l) => l, (r) => jobName = r.name ?? "");
+
+      double nqalBadalCost = (((e.naqlBadal ?? 0) / 30) *
+              int.parse(extraDays == "" ? "0" : extraDays))
+          .toPrecision(2);
+
+      double total = ((e.mokafaa ?? 0) +
+              nqalBadalCost +
+              (e.badalEntidab ?? 0) +
+              (e.ticketCost ?? 0))
+          .toPrecision(2);
+
+      sumTotal += total;
+
+      data.add([
+        "",
+        total,
+        e.ticketCost.getValue(),
+        nqalBadalCost,
+        e.badalEntidab.getValue(),
+        extraDays,
+        e.mokafaa.getValue(),
+        e.naqlBadal.getValue(),
+        e.salary.getValue(),
+        e.fia.getValue(),
+        jobName,
+        e.empName.getValue()
+      ]);
+    }
+
     // إنشاء مستند PDF جديد
     final pdf = pw.Document(title: 'بيان دورة');
 
@@ -278,19 +358,21 @@ class EmpDowraReportController extends GetxController {
             columnWidths: {
               0: const pw.FixedColumnWidth(200),
               1: const pw.FixedColumnWidth(200),
-              2: const pw.FixedColumnWidth(300),
+              2: const pw.FixedColumnWidth(200),
               3: const pw.FixedColumnWidth(300),
               4: const pw.FixedColumnWidth(300),
-              5: const pw.FixedColumnWidth(250),
-              6: const pw.FixedColumnWidth(300),
-              7: const pw.FixedColumnWidth(250),
+              5: const pw.FixedColumnWidth(300),
+              6: const pw.FixedColumnWidth(250),
+              7: const pw.FixedColumnWidth(300),
               8: const pw.FixedColumnWidth(250),
-              9: const pw.FixedColumnWidth(300),
-              10: const pw.FixedColumnWidth(400),
+              9: const pw.FixedColumnWidth(250),
+              10: const pw.FixedColumnWidth(300),
+              11: const pw.FixedColumnWidth(400),
             },
             headers: [
               'التوقيع',
               'المجموع',
+              'بدل التذاكر',
               'مقدار بدل النقل',
               'مقدار بدل الإنتداب',
               'عدد أيام الإنتداب',
@@ -301,21 +383,7 @@ class EmpDowraReportController extends GetxController {
               'المسمى الوظيفي',
               'الاسم',
             ],
-            data: [
-              [
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-              ],
-            ],
+            data: data,
           ),
 
           pw.TableHelper.fromTextArray(
@@ -340,7 +408,7 @@ class EmpDowraReportController extends GetxController {
             columnWidths: {
               0: const pw.FixedColumnWidth(3050),
             },
-            headers: ['المجموع:   10000'],
+            headers: ['المجموع:   ${sumTotal.toPrecision(2)}'],
             data: [],
           ),
           pw.SizedBox(height: 20),
@@ -374,7 +442,7 @@ class EmpDowraReportController extends GetxController {
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "فهد نايف العنزي",
+                    edara,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -391,7 +459,7 @@ class EmpDowraReportController extends GetxController {
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "حمدان هجيج العنزي",
+                    modaqeq,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -408,7 +476,7 @@ class EmpDowraReportController extends GetxController {
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "عبدالله فهد العيادي",
+                    malia,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
