@@ -50,6 +50,10 @@ class EmpKashfTepyController extends GetxController {
   }
 
   Future<void> save() async {
+    if (empId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(
@@ -57,7 +61,7 @@ class EmpKashfTepyController extends GetxController {
         id: id.text != ''
             ? int.parse(id.text)
             : await Get.find<EmpKashfTepySearchController>().getId(),
-        empId: empId.text == "" ? null : int.parse(empId.text),
+        empId: int.parse(empId.text),
         notes: notes.text,
         employeeStatus: employeeStatus.value,
         wehdaName: wehdaName.text,

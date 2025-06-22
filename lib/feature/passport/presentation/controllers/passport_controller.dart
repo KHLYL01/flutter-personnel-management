@@ -27,6 +27,11 @@ class PassportController extends GetxController {
   final TextEditingController witness = TextEditingController();
 
   Future<void> save() async {
+    if (nationalId.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار الجنسية', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(

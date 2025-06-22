@@ -115,5 +115,6 @@ class PartsController extends GetxController {
   clearControllersForSearch() {
     id.clear();
     name.clear();
+    findParts();
   }
 }

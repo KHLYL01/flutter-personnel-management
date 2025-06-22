@@ -156,7 +156,7 @@ class AddTarqea extends StatelessWidget {
                                 EmployeesFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.empId.text =
                                         cells['id']!.value.toString();
                                     controller.empName.text =
@@ -262,7 +262,7 @@ class AddTarqea extends StatelessWidget {
                                           JobsFind(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.oldJobId.text =
                                                   cells['id']!.value.toString();
                                               controller.oldJobName.text =
@@ -298,7 +298,7 @@ class AddTarqea extends StatelessWidget {
                                           EmpDegreesFindPage(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.oldFia.text =
                                                   cells['martaba']!
                                                       .value
@@ -388,7 +388,7 @@ class AddTarqea extends StatelessWidget {
                                           PartsFind(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.oldPartId.text =
                                                   cells['id']!.value.toString();
                                               controller.oldPartName.text =
@@ -441,7 +441,7 @@ class AddTarqea extends StatelessWidget {
                                           JobsFind(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.newJobId.text =
                                                   cells['id']!.value.toString();
                                               controller.newJobName.text =
@@ -477,7 +477,7 @@ class AddTarqea extends StatelessWidget {
                                           EmpDegreesFindPage(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.newFia.text =
                                                   cells['martaba']!
                                                       .value
@@ -567,7 +567,7 @@ class AddTarqea extends StatelessWidget {
                                           PartsFind(
                                             onRowDoubleTap: (event) {
                                               Map<String, PlutoCell> cells =
-                                                  event.row!.cells;
+                                                  event.row.cells;
                                               controller.newPartId.text =
                                                   cells['id']!.value.toString();
                                               controller.newPartName.text =

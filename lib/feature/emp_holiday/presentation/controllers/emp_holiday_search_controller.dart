@@ -71,6 +71,7 @@ class EmpHolidaySearchController extends GetxController {
     empType('');
     holidayTypeId.clear();
     holidayType.clear();
+    findAll();
   }
 
   // حل مبدأي

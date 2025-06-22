@@ -115,5 +115,6 @@ class NationsController extends GetxController {
   void clearControllersForSearch() {
     id.clear();
     name.clear();
+    findNations();
   }
 }

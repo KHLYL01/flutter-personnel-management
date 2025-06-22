@@ -39,6 +39,7 @@ class EmpDowraSearchController extends GetxController {
   void clearControllers() {
     name.clear();
     cardId.clear();
+    findAll();
   }
 
   // حل مبدأي

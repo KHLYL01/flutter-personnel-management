@@ -3,14 +3,12 @@ import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 
-import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
-import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_eqrar_controller.dart';
 import '../controllers/emp_eqrar_report_controller.dart';
 

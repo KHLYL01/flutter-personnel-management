@@ -105,6 +105,10 @@ class EmpHolidayController extends GetxController {
   }
 
   Future<void> save() async {
+    if (empId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(
@@ -134,7 +138,7 @@ class EmpHolidayController extends GetxController {
         hospital: hospital.text,
         inputDate: inputDate.text,
         separationDate: separationDate.text,
-        empId: empId.text == "" ? null : int.parse(empId.text),
+        empId: int.parse(empId.text),
         salary: salary.text == "" ? 0 : double.parse(salary.text),
         naqlBadal: naqlBadal.text == "" ? 0 : double.parse(naqlBadal.text),
         draga: draga.text == "" ? 0 : double.parse(draga.text),

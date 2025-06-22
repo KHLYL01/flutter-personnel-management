@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_hasmiat_model.dart';
 import '../../data/repository/emp_hasmiat_repository.dart';
 
@@ -42,6 +39,7 @@ class EmpHasmiatSearchController extends GetxController {
   void clearControllers() {
     name.clear();
     cardId.clear();
+    findAll();
   }
 
 //  حل مبدأي

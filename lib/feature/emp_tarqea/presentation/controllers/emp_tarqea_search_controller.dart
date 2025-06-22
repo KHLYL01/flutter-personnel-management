@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_tarqea_model.dart';
 import '../../data/repository/emp_tarqea_repository.dart';
 import 'emp_tarqea_controller.dart';
@@ -42,6 +39,7 @@ class EmpTarqeaSearchController extends GetxController {
   void clearControllers() {
     name.clear();
     qrarId.clear();
+    findAll();
   }
 
   // حل مبدأي

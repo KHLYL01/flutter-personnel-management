@@ -43,6 +43,7 @@ class EmpTakleefSearchController extends GetxController {
     name.clear();
     cardId.clear();
     place.clear();
+    findAll();
   }
 
 //  حل مبدأي

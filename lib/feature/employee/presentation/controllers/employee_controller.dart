@@ -148,6 +148,25 @@ class EmployeeController extends GetxController {
   }
 
   Future<void> save() async {
+    if (degreeId.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار بيانات الوظيفة', isDone: false);
+      return;
+    }
+    if (jobId.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار مسمى الوظيفة', isDone: false);
+      return;
+    }
+    if (partId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار القسم', isDone: false);
+      return;
+    }
+    if (nationId.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار الجنسية', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(

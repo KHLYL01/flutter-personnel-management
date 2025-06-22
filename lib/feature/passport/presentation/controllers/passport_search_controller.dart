@@ -40,6 +40,7 @@ class PassportSearchController extends GetxController {
   void clearControllers() {
     name.clear();
     passportNumber.clear();
+    findAll();
   }
 
   // حل مبدأي

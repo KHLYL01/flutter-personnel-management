@@ -5,7 +5,6 @@ import 'package:personnel_management/core/widgets/custom_progress_indicator.dart
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
@@ -15,7 +14,6 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
-import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_holiday_report_controller.dart';
 import '../controllers/emp_holiday_tamdeed_controller.dart';
 import '../controllers/emp_holiday_type_controller.dart';
@@ -105,7 +103,7 @@ class AddHoliday extends StatelessWidget {
                                   EmployeesFind(
                                     onRowDoubleTap: (event) {
                                       Map<String, PlutoCell> cells =
-                                          event.row!.cells;
+                                          event.row.cells;
                                       controller.empId.text =
                                           cells['id']!.value.toString();
                                       controller.empName.text =
@@ -181,7 +179,7 @@ class AddHoliday extends StatelessWidget {
                                   HolidayTypeFind(
                                     onRowDoubleTap: (event) {
                                       Map<String, PlutoCell> cells =
-                                          event.row!.cells;
+                                          event.row.cells;
                                       controller.holidayType.text =
                                           cells['id']!.value.toString();
                                       controller.holidayTypeName.text =

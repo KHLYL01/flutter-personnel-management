@@ -45,6 +45,10 @@ class EmpTakleefDetController extends GetxController {
   }
 
   Future<void> save() async {
+    if (empId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(

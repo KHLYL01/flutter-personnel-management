@@ -72,12 +72,14 @@ class UpdatePassport extends StatelessWidget {
                       Row(
                         children: [
                           CustomTextField(
+                            enabled: false,
                             controller: controller.nationalId,
                             label: 'الجنسية',
                             customHeight: 35,
                             customWidth: currentWidth * 0.1,
                           ),
                           CustomTextField(
+                            enabled: false,
                             controller: controller.nationalName,
                             label: '',
                             customHeight: 35,

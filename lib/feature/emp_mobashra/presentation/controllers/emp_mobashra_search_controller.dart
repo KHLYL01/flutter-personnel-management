@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_mobashra_model.dart';
 import '../../data/repository/emp_mobashra_repository.dart';
 
@@ -62,6 +59,7 @@ class EmpMobashraSearchController extends GetxController {
     name.clear();
     cardId.clear();
     empType("");
+    findAll();
   }
 
   // حل مبدأي

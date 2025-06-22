@@ -43,6 +43,10 @@ class TafweedController extends GetxController {
   }
 
   Future<void> save() async {
+    if (empId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(
@@ -51,7 +55,7 @@ class TafweedController extends GetxController {
             ? int.parse(id.text)
             : await Get.find<TafweedSearchController>().getId(),
         day: selectedDay.value,
-        empId: empId.text == "" ? null : int.parse(empId.text),
+        empId: int.parse(empId.text),
         endDate: endDate.text,
         note: note.text,
         startDate: startDate.text,

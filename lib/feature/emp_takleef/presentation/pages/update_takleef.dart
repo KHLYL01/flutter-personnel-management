@@ -52,6 +52,7 @@ class UpdateTakleef extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomTextField(
+                        enabled: false,
                         controller: controller.id,
                         label: "مسلسل",
                         customHeight: 25,

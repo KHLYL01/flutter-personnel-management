@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/tafweed_model.dart';
 import '../../data/repository/tafweed_repository.dart';
 import 'tafweed_controller.dart';
@@ -44,6 +42,7 @@ class TafweedSearchController extends GetxController {
   void clearControllers() {
     empId.clear();
     empName.clear();
+    findAll();
   }
 
   //  حل مبدأي

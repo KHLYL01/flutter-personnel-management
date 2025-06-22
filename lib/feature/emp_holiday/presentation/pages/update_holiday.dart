@@ -103,7 +103,7 @@ class UpdateHoliday extends StatelessWidget {
                                 EmployeesFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.empId.text =
                                         cells['id']!.value.toString();
                                     controller.empName.text =
@@ -177,7 +177,7 @@ class UpdateHoliday extends StatelessWidget {
                         Get.dialog(
                           HolidayTypeFind(
                             onRowDoubleTap: (event) {
-                              Map<String, PlutoCell> cells = event.row!.cells;
+                              Map<String, PlutoCell> cells = event.row.cells;
                               controller.holidayType.text =
                                   cells['id']!.value.toString();
                               controller.holidayTypeName.text =

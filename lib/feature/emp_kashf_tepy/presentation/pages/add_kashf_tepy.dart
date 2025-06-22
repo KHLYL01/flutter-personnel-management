@@ -5,7 +5,6 @@ import 'package:personnel_management/core/widgets/custom_progress_indicator.dart
 import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/base_screen.dart';
@@ -14,7 +13,6 @@ import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
-import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_kashf_tepy_report_controller.dart';
 
 class AddKashfTepy extends StatelessWidget {
@@ -55,12 +53,14 @@ class AddKashfTepy extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
+                          enabled: false,
                           controller: controller.empId,
                           label: 'الموظف',
                           customHeight: 35,
                           customWidth: currentWidth * 0.1,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.empName,
                           label: '',
                           customHeight: 35,
@@ -75,7 +75,7 @@ class AddKashfTepy extends StatelessWidget {
                                     EmployeesFind(
                                       onRowDoubleTap: (event) {
                                         Map<String, PlutoCell> cells =
-                                            event.row!.cells;
+                                            event.row.cells;
                                         controller.empId.text =
                                             cells['id']!.value.toString();
                                         controller.empName.text =

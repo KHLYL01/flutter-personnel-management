@@ -87,6 +87,26 @@ class EmpTarqeaController extends GetxController {
   ];
 
   Future<void> save() async {
+    if (empId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
+    if (oldJobId.text == "" || newJobId.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار المسمى الوظيفي', isDone: false);
+      return;
+    }
+
+    if (oldFia.text == "" || newFia.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار المرتبة', isDone: false);
+      return;
+    }
+
+    if (oldPartId.text == "" || newPartId.text == "") {
+      customSnackBar(title: "خطأ", message: 'يرجى اختيار القسم', isDone: false);
+      return;
+    }
     isLoading(true);
     messageError("");
     final data = await _repository.save(

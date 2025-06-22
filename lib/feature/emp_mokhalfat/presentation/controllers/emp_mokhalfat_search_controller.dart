@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_mokhalfat_model.dart';
 import '../../data/repository/emp_mokhalfat_repository.dart';
 
@@ -43,6 +40,7 @@ class EmpMokhalfatSearchController extends GetxController {
   void clearControllers() {
     name.clear();
     cardId.clear();
+    findAll();
   }
 
 //  حل مبدأي

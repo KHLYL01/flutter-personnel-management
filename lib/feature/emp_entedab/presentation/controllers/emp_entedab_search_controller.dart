@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_entedab_model.dart';
 import '../../data/repository/emp_entedab_repository.dart';
 import 'emp_entedab_controller.dart';
@@ -48,6 +45,7 @@ class EmpEntedabSearchController extends GetxController {
     employeeName.clear();
     cardId.clear();
     entedabPlace.clear();
+    findAll();
   }
 
 //  حل مبدأي

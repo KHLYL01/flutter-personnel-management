@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_taeen/presentation/controllers/emp_taeen_controller.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_taeen_model.dart';
 import '../../data/repository/emp_taeen_repository.dart';
 
@@ -40,6 +37,7 @@ class EmpTaeenSearchController extends GetxController {
 
   void clearControllers() {
     name.clear();
+    findAll();
   }
 
   // حل مبدأي

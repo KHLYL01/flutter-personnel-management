@@ -32,7 +32,7 @@ class PartsFind extends StatelessWidget {
             children: [
               CustomTextField(
                 controller: controller.id,
-                label: "رمز الوظيفة",
+                label: "رمز القسم",
                 customHeight: 30,
                 customWidth: currentWidth / 5,
               ),
@@ -42,7 +42,7 @@ class PartsFind extends StatelessWidget {
             children: [
               CustomTextField(
                 controller: controller.name,
-                label: "اسم الوظيفة",
+                label: "اسم القسم",
                 customHeight: 30,
                 customWidth: currentWidth / 3,
               ),
@@ -96,7 +96,7 @@ class PartsFind extends StatelessWidget {
                       type: PlutoColumnType.number(),
                     ),
                     PlutoColumn(
-                      title: 'اسم الوظيفة',
+                      title: 'اسم القسم',
                       field: 'name',
                       type: PlutoColumnType.text(),
                     ),

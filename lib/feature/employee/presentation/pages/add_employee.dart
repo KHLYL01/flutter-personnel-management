@@ -66,10 +66,11 @@ class AddEmployee extends StatelessWidget {
                             Row(
                               children: [
                                 CustomTextField(
+                                  enabled: false,
                                   controller: controller.id,
                                   label: 'رقم الموظف',
                                   customHeight: 25,
-                                  customWidth: 100,
+                                  customWidth: 130,
                                 ),
                                 // CustomTextField(
                                 //   onTap: () => {},
@@ -162,6 +163,7 @@ class AddEmployee extends StatelessWidget {
                                     controller.empType.value !=
                                         "عامل بند إجور غير سعودى")
                                   CustomTextField(
+                                    enabled: false,
                                     controller: controller.degreeId,
                                     label: 'بيانات الوظيفة',
                                     customHeight: 25,
@@ -172,6 +174,7 @@ class AddEmployee extends StatelessWidget {
                                     controller.empType.value !=
                                         "مكافأة المجلس البلدي")
                                   CustomTextField(
+                                    enabled: false,
                                     controller: controller.draga,
                                     label: 'الدرجة',
                                     customHeight: 25,
@@ -200,6 +203,7 @@ class AddEmployee extends StatelessWidget {
                                   customWidth: 100,
                                 ),
                                 CustomTextField(
+                                  enabled: false,
                                   controller: controller.fia,
                                   label: controller.empType.value != "مستخدم" &&
                                           controller.empType.value !=
@@ -214,6 +218,7 @@ class AddEmployee extends StatelessWidget {
                                   customWidth: 100,
                                 ),
                                 CustomTextField(
+                                  enabled: false,
                                   controller: controller.salary,
                                   label: 'الراتب',
                                   customHeight: 25,
@@ -323,12 +328,14 @@ class AddEmployee extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
+                          enabled: false,
                           controller: controller.jobId,
                           label: 'مسمى الوظيفة',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.jobName,
                           label: '',
                           customHeight: 25,
@@ -364,12 +371,14 @@ class AddEmployee extends StatelessWidget {
                           customWidth: 100,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.partId,
                           label: 'القسم',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.partName,
                           label: '',
                           customHeight: 25,
@@ -447,12 +456,14 @@ class AddEmployee extends StatelessWidget {
                           customWidth: 150,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.nationId,
                           label: 'الجنسية',
                           customHeight: 25,
                           customWidth: 100,
                         ),
                         CustomTextField(
+                          enabled: false,
                           controller: controller.nationName,
                           label: '',
                           customHeight: 25,
@@ -761,23 +772,6 @@ class AddEmployee extends StatelessWidget {
                         ).paddingOnly(top: 20),
                       ],
                     ).scrollDirection(Axis.horizontal),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // CustomButton(
-                        //   text: 'حذف',
-                        //   onPressed: () => {},
-                        //   height: 30,
-                        //   width: 80,
-                        // ),
-                        // CustomButton(
-                        //   text: 'عودة',
-                        //   onPressed: () => {},
-                        //   height: 30,
-                        //   width: 80,
-                        // ),
-                      ],
-                    ).scrollDirection(Axis.horizontal).center(),
                   ],
                 ).paddingAll(10).scrollDirection(Axis.vertical),
                 Column(

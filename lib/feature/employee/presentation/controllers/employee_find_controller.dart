@@ -52,5 +52,6 @@ class EmployeeFindController extends GetxController {
     name.clear();
     cardId.clear();
     empType("");
+    findEmployee();
   }
 }

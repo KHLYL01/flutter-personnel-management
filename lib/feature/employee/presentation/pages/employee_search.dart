@@ -65,7 +65,7 @@ class EmployeesSearch extends StatelessWidget {
                                 EmployeesFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.id.text =
                                         cells['id']!.value.toString();
                                     controller.empName.text =
@@ -107,7 +107,7 @@ class EmployeesSearch extends StatelessWidget {
                                 JobsFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.jobId.text =
                                         cells['id']!.value.toString();
                                     controller.jobName.text =
@@ -149,7 +149,7 @@ class EmployeesSearch extends StatelessWidget {
                                 PartsFind(
                                   onRowDoubleTap: (event) {
                                     Map<String, PlutoCell> cells =
-                                        event.row!.cells;
+                                        event.row.cells;
                                     controller.partId.text =
                                         cells['id']!.value.toString();
                                     controller.partName.text =

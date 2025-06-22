@@ -56,12 +56,14 @@ class UpdateKashfTepy extends StatelessWidget {
                       Row(
                         children: [
                           CustomTextField(
+                            enabled: false,
                             controller: controller.empId,
                             label: 'الموظف',
                             customHeight: 35,
                             customWidth: currentWidth * 0.1,
                           ),
                           CustomTextField(
+                            enabled: false,
                             controller: controller.empName,
                             label: '',
                             customHeight: 35,
@@ -76,7 +78,7 @@ class UpdateKashfTepy extends StatelessWidget {
                                       EmployeesFind(
                                         onRowDoubleTap: (event) {
                                           Map<String, PlutoCell> cells =
-                                              event.row!.cells;
+                                              event.row.cells;
                                           controller.empId.text =
                                               cells['id']!.value.toString();
                                           controller.empName.text =

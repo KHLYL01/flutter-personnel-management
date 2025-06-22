@@ -103,7 +103,7 @@ class UpdateTaeen extends StatelessWidget {
                       Get.dialog(
                         EmployeesFind(
                           onRowDoubleTap: (event) {
-                            Map<String, PlutoCell> cells = event.row!.cells;
+                            Map<String, PlutoCell> cells = event.row.cells;
                             controller.empId.text =
                                 cells['id']!.value.toString();
                             controller.empName.text =

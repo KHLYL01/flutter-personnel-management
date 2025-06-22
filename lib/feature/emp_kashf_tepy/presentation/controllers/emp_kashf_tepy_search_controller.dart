@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_kashf_tepy_model.dart';
 import '../../data/repository/emp_kashf_tepy_repository.dart';
 import 'emp_kashf_tepy_controller.dart';
@@ -63,6 +60,7 @@ class EmpKashfTepySearchController extends GetxController {
     name.clear();
     cardId.clear();
     empType("");
+    findAll();
   }
 
   // حل مبدأي

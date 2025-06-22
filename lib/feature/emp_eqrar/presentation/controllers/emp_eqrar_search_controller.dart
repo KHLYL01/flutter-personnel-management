@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pluto_grid/pluto_grid.dart';
-import '../../../../core/functions/alert_dialog.dart';
-import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/emp_eqrar_model.dart';
 import '../../data/repository/emp_eqrar_repository.dart';
 import 'emp_eqrar_controller.dart';
@@ -40,6 +37,7 @@ class EmpEqrarSearchController extends GetxController {
 
   void clearControllers() {
     name.clear();
+    findAll();
   }
 
   // حل مبدأي

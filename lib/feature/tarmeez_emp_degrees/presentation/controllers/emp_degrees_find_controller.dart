@@ -32,5 +32,6 @@ class EmpDegreesFindController extends GetxController {
   void clearControllers() {
     martaba.clear();
     draga.clear();
+    findEmpDegrees();
   }
 }

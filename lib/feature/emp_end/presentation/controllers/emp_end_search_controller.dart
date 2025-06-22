@@ -37,6 +37,7 @@ class EmpEndSearchController extends GetxController {
 
   void clearControllers() {
     name.clear();
+    findAll();
   }
 
   // حل مبدأي
