@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -374,6 +375,28 @@ class UserController extends GetxController {
   }
 
   login() async {
+    // for admin
+    if (name.text.trim() == "administrator" &&
+        pass.text.trim() == "advancedtech1433") {
+      for (var e in permissions) {
+        loginUserPermissions.add(
+          ScreenPermission(
+            group: "",
+            screenName: e.screenName,
+            enter: true,
+            save: true,
+            edit: true,
+            delete: true,
+          ),
+        );
+      }
+      Get.offNamed(AppRoutes.home);
+      name.clear();
+      pass.clear();
+      return;
+    }
+
+    // for users
     for (var e in users) {
       if (name.text.trim() == e.name && pass.text.trim() == e.pass) {
         await findAllByUserId(e.id ?? 00, login: true);

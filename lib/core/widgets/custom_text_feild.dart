@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   final bool enabled;
   final bool withLable;
   final int? maxLine;
+  // final IconData? prefixIcon;
 
   const CustomTextField({
     Key? key,
@@ -29,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.enabled = true,
     this.withLable = true,
-    this.maxLine = null,
+    this.maxLine,
   }) : super(key: key);
 
   @override
@@ -57,6 +58,7 @@ class CustomTextField extends StatelessWidget {
             width: customWidth,
             height: customHeight,
             child: TextField(
+              cursorColor: AppColors.greyDark,
               onTap: onTap,
               controller: controller,
               enabled: enabled,
