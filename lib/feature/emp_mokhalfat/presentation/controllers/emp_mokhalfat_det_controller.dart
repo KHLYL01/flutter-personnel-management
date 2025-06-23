@@ -59,6 +59,7 @@ class EmpMokhalfatDetController extends GetxController {
     if (messageError.isEmpty) {
       getMokhalfatDetByMokhalfatId(int.parse(mokhalfaId.text));
       getMokhalfatDetNextId();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -80,6 +81,7 @@ class EmpMokhalfatDetController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       getMokhalfatDetByMokhalfatId(int.parse(mokhalfaId.text));
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

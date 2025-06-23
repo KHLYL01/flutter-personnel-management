@@ -65,6 +65,7 @@ class EmpEntedabDetController extends GetxController {
     if (messageError.isEmpty) {
       getEntedabDetByEntedabId(int.parse(entedabId.text));
       getEntedabDetNextId();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -86,6 +87,7 @@ class EmpEntedabDetController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       getEntedabDetByEntedabId(int.parse(entedabId.text));
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

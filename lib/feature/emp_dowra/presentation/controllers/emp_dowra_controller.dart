@@ -50,6 +50,7 @@ class EmpDowraController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpDowraSearchController>().findAll();
+      customSnackBar(title: 'تم', message: 'تمت العملية بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -63,6 +64,7 @@ class EmpDowraController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpDowraSearchController>().findAll();
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

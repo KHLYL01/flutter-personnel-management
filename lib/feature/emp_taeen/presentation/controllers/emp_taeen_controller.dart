@@ -99,6 +99,7 @@ class EmpTaeenController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpTaeenSearchController>().findAll();
+      customSnackBar(title: 'تم', message: 'تمت العملية بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -112,6 +113,7 @@ class EmpTaeenController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpTaeenSearchController>().findAll();
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

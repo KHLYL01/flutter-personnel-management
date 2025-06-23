@@ -71,6 +71,7 @@ class EmpDowraDetController extends GetxController {
     if (messageError.isEmpty) {
       getDowraDetByDowraId(int.parse(dowraId.text));
       getDowraDetNextId();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -92,6 +93,7 @@ class EmpDowraDetController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       getDowraDetByDowraId(int.parse(dowraId.text));
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

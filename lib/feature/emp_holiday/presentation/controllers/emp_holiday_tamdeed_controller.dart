@@ -78,6 +78,7 @@ class EmpHolidayTamdeedController extends GetxController {
     if (messageError.isEmpty) {
       findAllByHolidaysId(holidaysId);
       id.text = (await getId()).toString();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -91,6 +92,7 @@ class EmpHolidayTamdeedController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       findAllByHolidaysId(holidaysId);
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

@@ -67,6 +67,7 @@ class EmpTakleefDetController extends GetxController {
     if (messageError.isEmpty) {
       getTakleefDetByTakleefId(int.parse(takleefId.text));
       getTakleefDetNextId();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -88,6 +89,7 @@ class EmpTakleefDetController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       getTakleefDetByTakleefId(int.parse(takleefId.text));
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

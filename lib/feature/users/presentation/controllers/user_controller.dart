@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -289,6 +288,7 @@ class UserController extends GetxController {
       pass.clear();
       empName.clear();
       await findAll();
+      customSnackBar(title: 'تم', message: 'تمت العملية بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -315,6 +315,7 @@ class UserController extends GetxController {
       pass.clear();
       empName.clear();
       findAll();
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

@@ -67,6 +67,7 @@ class EmpHasmiatDetController extends GetxController {
     if (messageError.isEmpty) {
       getHasmiatDetByHasmiatId(int.parse(hasmId.text));
       getHasmiatDetNextId();
+      customSnackBar(title: 'تم', message: 'تمت الإضافة بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -88,6 +89,7 @@ class EmpHasmiatDetController extends GetxController {
     isLoading(false);
     if (messageError.isEmpty) {
       getHasmiatDetByHasmiatId(int.parse(hasmId.text));
+      customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

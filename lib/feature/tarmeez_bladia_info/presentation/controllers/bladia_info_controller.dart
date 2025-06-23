@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:personnel_management/feature/tarmeez_bladia_info/data/model/bladia_info_model.dart';
 import 'package:personnel_management/feature/tarmeez_bladia_info/data/repository/bladia_info_repository.dart';
 import '../../../../../core/functions/image_picker.dart';
+import '../../../../core/functions/custom_snack_bar.dart';
 
 class BladiaInfoController extends GetxController {
   final BladiaInfoRepository _repository;
@@ -71,6 +72,9 @@ class BladiaInfoController extends GetxController {
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) => r);
+    if (messageError.isEmpty) {
+      customSnackBar(title: 'تم', message: 'تمت العملية بنجاح');
+    }
     isLoading(false);
   }
 
