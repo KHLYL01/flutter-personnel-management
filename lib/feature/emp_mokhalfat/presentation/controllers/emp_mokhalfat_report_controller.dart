@@ -115,14 +115,14 @@ class EmpMokhalfatReportController extends GetxController {
               font: arabicFont,
               fontWeight: pw.FontWeight.bold,
               color: PdfColors.white,
-              fontSize: 11,
+              fontSize: 8,
             ),
             headerDecoration: const pw.BoxDecoration(
               color: PdfColors.grey600,
             ),
             cellStyle: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 8,
             ),
             cellAlignment: pw.Alignment.center,
             headerAlignment: pw.Alignment.center,

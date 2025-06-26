@@ -71,12 +71,6 @@ class AddDowra extends StatelessWidget {
                         customHeight: 60,
                         customWidth: 300,
                       ),
-                      CustomTextField(
-                        controller: controller.footer,
-                        label: 'بيان قرار دورة',
-                        customHeight: 60,
-                        customWidth: 300,
-                      ),
                     ],
                   ).scrollDirection(Axis.horizontal),
                   const SizedBox(width: 16),
@@ -125,6 +119,13 @@ class AddDowra extends StatelessWidget {
                   ),
                 ],
               ).scrollDirection(Axis.horizontal),
+              CustomTextField(
+                controller: controller.footer,
+                label: 'بيان قرار دورة',
+                customHeight: 60,
+                customWidth: 620,
+              ),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   CustomButton(

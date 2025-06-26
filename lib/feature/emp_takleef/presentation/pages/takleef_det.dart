@@ -141,7 +141,7 @@ class TakleefDet extends StatelessWidget {
                   controller: controller.empWork,
                   label: 'العمل المكلف به',
                   customHeight: 25,
-                  customWidth: 400,
+                  customWidth: 610,
                 ),
                 const SizedBox(height: 10),
                 Row(

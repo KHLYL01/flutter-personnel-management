@@ -134,7 +134,7 @@ class UpdateTakleef extends StatelessWidget {
                         controller: controller.task,
                         label: "اسم المهمة ",
                         customHeight: 25,
-                        customWidth: 400,
+                        customWidth: 500,
                       ).scrollDirection(
                         Axis.horizontal,
                       ),

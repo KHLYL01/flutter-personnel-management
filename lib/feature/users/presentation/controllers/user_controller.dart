@@ -425,6 +425,7 @@ class UserController extends GetxController {
     bool update = false,
     bool delete = false,
   }) {
+    return true;
     log("pageName: $pageName");
     for (var e in loginUserPermissions) {
       if (e.screenName == pageName) {

@@ -27,14 +27,14 @@ class EmpEndController extends GetxController {
   final TextEditingController empId = TextEditingController();
   final TextEditingController empName = TextEditingController();
   final TextEditingController draga = TextEditingController();
-  final TextEditingController salary = TextEditingController();
+  final TextEditingController salary = TextEditingController(text: "0");
   final TextEditingController job = TextEditingController();
   final TextEditingController jobNumber = TextEditingController();
   final TextEditingController fia = TextEditingController();
   final TextEditingController cardId = TextEditingController();
   final TextEditingController empType = TextEditingController();
   final TextEditingController endDate = TextEditingController();
-  final TextEditingController days = TextEditingController();
+  final TextEditingController days = TextEditingController(text: "0");
   final TextEditingController birthDate = TextEditingController();
   final TextEditingController age = TextEditingController(text: 0.toString());
 
@@ -180,13 +180,13 @@ class EmpEndController extends GetxController {
     empId.clear();
     empName.clear();
     draga.clear();
-    salary.clear();
+    salary.text = "0";
     cardId.clear();
     job.clear();
     fia.clear();
     empType.clear();
     endDate.text = nowHijriDate();
-    days.clear();
+    days.text = "0";
     birthDate.text = nowHijriDate();
     age.text = 0.toString();
     selectedRadioListTileValue("تقاعد نظامي");

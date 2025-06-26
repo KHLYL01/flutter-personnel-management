@@ -146,7 +146,7 @@ class EmpTarqeaReportController extends GetxController {
 بشأن ترقية الموظف الموضح اسمه أدناه و بناء على لائحة الترقيات بنظام الخدمة المدنية و تنفيذ المادة /18ب من النظام المتعلقة بالعلاوة الضافية و المادة 17/27 التي تشير لبدل طبيعة عليه يقرر ما يلي: """,
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -156,7 +156,7 @@ class EmpTarqeaReportController extends GetxController {
             "(1) ترقية  $employeeName   برقم بطاقة  $cardId  وفقاً للبيانات الموضحة",
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -166,7 +166,7 @@ class EmpTarqeaReportController extends GetxController {
             "الوظيفة التي يشغلها:",
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -215,7 +215,7 @@ class EmpTarqeaReportController extends GetxController {
             "الوظيفة المرقى إليها:",
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -268,7 +268,7 @@ class EmpTarqeaReportController extends GetxController {
 (5) يبلغ هذا القرار للجهات المختصة و على شؤون الموظفين إنفاذه بموجب النظام .""",
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -279,7 +279,7 @@ class EmpTarqeaReportController extends GetxController {
 (4) يبلغ هذا القرار للجهات المختصة و على شؤون الموظفين إنفاذه بموجب النظام .""",
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -291,7 +291,7 @@ class EmpTarqeaReportController extends GetxController {
               textAlign: pw.TextAlign.center,
               style: pw.TextStyle(
                 font: arabicFont,
-                fontSize: 11,
+                fontSize: 9,
                 lineSpacing: 10,
                 fontWeight: pw.FontWeight.bold,
               ),
@@ -307,7 +307,7 @@ class EmpTarqeaReportController extends GetxController {
 $bossName""",
                 textAlign: pw.TextAlign.center,
                 style: pw.TextStyle(
-                    font: arabicFont, fontSize: 11, lineSpacing: 10),
+                    font: arabicFont, fontSize: 9, lineSpacing: 10),
               ),
             ],
           ),

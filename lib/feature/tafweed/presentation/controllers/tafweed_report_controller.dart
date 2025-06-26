@@ -34,14 +34,15 @@ class TafweedReportController extends GetxController {
 
     String employeeName = controller.empName.text;
 
-    late int jobId;
-    late int nationId;
+    late int jobId = 0;
+    late int nationId = 0;
 
-    late String jobName;
-    late String cardId;
-    late String nationName;
+    late String jobName = "";
+    late String cardId = "";
+    late String nationName = "";
 
-    (await _empRepository.findById(int.parse(controller.empId.text)))
+    (await _empRepository.findById(int.parse(
+            controller.empId.text == "" ? "0" : controller.empId.text)))
         .fold((l) => l, (r) {
       jobId = r.jobId ?? 0;
       nationId = r.nationId ?? 0;

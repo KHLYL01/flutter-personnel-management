@@ -73,6 +73,9 @@ flutter:
     - family: Tajawal
       fonts:
         - asset: assets/fonts/tajawal.ttf
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

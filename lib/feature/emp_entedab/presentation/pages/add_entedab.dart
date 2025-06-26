@@ -82,8 +82,12 @@ class AddEntedab extends StatelessWidget {
                       controller: controller.task,
                       label: 'المهمة',
                       customHeight: 25,
-                      customWidth: 200,
+                      customWidth: 410,
                     ),
+                  ],
+                ).scrollDirection(Axis.horizontal),
+                Row(
+                  children: [
                     CustomTextField(
                       controller: controller.khetabId,
                       label: 'رقم الخطاب',
@@ -96,97 +100,105 @@ class AddEntedab extends StatelessWidget {
                       customHeight: 25,
                       customWidth: 200,
                     ),
-                    Obx(
-                      () => CustomCheckbox(
-                        label: "صورة",
-                        value: controller.isPicture.value,
-                        onChanged: (value) {
-                          controller.onChangedPicture();
-                        },
-                      ).paddingOnly(top: 20),
+                    // Obx(
+                    //   () => CustomCheckbox(
+                    //     label: "صورة",
+                    //     value: controller.isPicture.value,
+                    //     onChanged: (value) {
+                    //       controller.onChangedPicture();
+                    //     },
+                    //   ).paddingOnly(top: 20),
+                    // ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            CustomTextField(
+                              suffixIcon: const Icon(
+                                Icons.date_range_sharp,
+                                size: 15,
+                              ),
+                              onTap: () =>
+                                  hijriDecisionDate.pickHijriDate(context),
+                              controller: controller.datQrar,
+                              label: 'تاريخ القرار',
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              suffixIcon: const Icon(
+                                Icons.date_range_sharp,
+                                size: 15,
+                              ),
+                              onTap: () =>
+                                  hijriStartIntedabDate.pickHijriDate(context),
+                              controller: controller.datBegin,
+                              label: 'تاريخ بداية الانتداب',
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              suffixIcon: const Icon(
+                                Icons.date_range_sharp,
+                                size: 15,
+                              ),
+                              onTap: () =>
+                                  hijriEndIntedabDate.pickHijriDate(context),
+                              controller: controller.datEnd,
+                              label: 'تاريخ نهاية الانتداب',
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              suffixIcon: const Icon(
+                                Icons.date_range_sharp,
+                                size: 15,
+                              ),
+                              onTap: () =>
+                                  hijriLitterDate.pickHijriDate(context),
+                              controller: controller.datKhrtab,
+                              label: 'تاريخ الخطاب',
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                          ],
+                        ).scrollDirection(Axis.horizontal),
+                        Row(
+                          children: [
+                            CustomTextField(
+                              controller: controller.datQrarGo,
+                              label: '',
+                              withLable: false,
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              controller: controller.datBeginGo,
+                              label: '',
+                              withLable: false,
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              controller: controller.datEndGo,
+                              label: '',
+                              withLable: false,
+                              customHeight: 25,
+                              customWidth: 200,
+                            ),
+                            CustomTextField(
+                              label: '',
+                              withLable: false,
+                              controller: controller.datKhetabGo,
+                              customHeight: 25,
+                              customWidth: 200,
+                            )
+                          ],
+                        ).scrollDirection(Axis.horizontal),
+                      ],
                     ),
                   ],
-                ).scrollDirection(Axis.horizontal),
-                Row(
-                  children: [
-                    CustomTextField(
-                      suffixIcon: const Icon(
-                        Icons.date_range_sharp,
-                        size: 15,
-                      ),
-                      onTap: () => hijriDecisionDate.pickHijriDate(context),
-                      controller: controller.datQrar,
-                      label: 'تاريخ القرار',
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      suffixIcon: const Icon(
-                        Icons.date_range_sharp,
-                        size: 15,
-                      ),
-                      onTap: () => hijriStartIntedabDate.pickHijriDate(context),
-                      controller: controller.datBegin,
-                      label: 'تاريخ بداية الانتداب',
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      suffixIcon: const Icon(
-                        Icons.date_range_sharp,
-                        size: 15,
-                      ),
-                      onTap: () => hijriEndIntedabDate.pickHijriDate(context),
-                      controller: controller.datEnd,
-                      label: 'تاريخ نهاية الانتداب',
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      suffixIcon: const Icon(
-                        Icons.date_range_sharp,
-                        size: 15,
-                      ),
-                      onTap: () => hijriLitterDate.pickHijriDate(context),
-                      controller: controller.datKhrtab,
-                      label: 'تاريخ الخطاب',
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                  ],
-                ).scrollDirection(Axis.horizontal),
-                Row(
-                  children: [
-                    CustomTextField(
-                      controller: controller.datQrarGo,
-                      label: '',
-                      withLable: false,
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      controller: controller.datBeginGo,
-                      label: '',
-                      withLable: false,
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      controller: controller.datEndGo,
-                      label: '',
-                      withLable: false,
-                      customHeight: 25,
-                      customWidth: 200,
-                    ),
-                    CustomTextField(
-                      label: '',
-                      withLable: false,
-                      controller: controller.datKhetabGo,
-                      customHeight: 25,
-                      customWidth: 200,
-                    )
-                  ],
-                ).scrollDirection(Axis.horizontal),
+                ),
                 Row(
                   children: [
                     CustomTextField(

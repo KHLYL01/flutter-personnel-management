@@ -13,8 +13,15 @@ import 'package:personnel_management/feature/tarmeez_bladia_info/presentation/co
 class EmployeeReportController extends GetxController {
   // عقد عامل
   Future<void> createAkdEmployeeReport() async {
-    String bossName = Get.find<BladiaInfoController>().boss.text;
-    String ma3esha = Get.find<BladiaInfoController>().ma3esha.text;
+    BladiaInfoController bladiaInfoController =
+        Get.find<BladiaInfoController>();
+    String name = bladiaInfoController.name.text;
+    String bossName = bladiaInfoController.boss.text;
+    String empName = bladiaInfoController.emp.text;
+    String edara = bladiaInfoController.partBoss.text;
+    String modaqeq = bladiaInfoController.part2Boss.text;
+    String malia = bladiaInfoController.maliaBoss.text;
+    String ma3esha = bladiaInfoController.ma3esha.text;
 
     EmployeeController controller = Get.find<EmployeeController>();
 
@@ -58,7 +65,7 @@ class EmployeeReportController extends GetxController {
                   'عقد توظيف عامل',
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: pw.FontWeight.bold,
                     decoration: pw.TextDecoration.underline,
                   ),
@@ -67,7 +74,7 @@ class EmployeeReportController extends GetxController {
                   'عقد توظيف عامل',
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: pw.FontWeight.bold,
                     decoration: pw.TextDecoration.underline,
                   ),
@@ -80,7 +87,7 @@ class EmployeeReportController extends GetxController {
             'طرف أول : بلدية محافظة تيماء ويمثلها رئيسها $bossName',
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               fontWeight: pw.FontWeight.bold,
               decoration: pw.TextDecoration.underline,
             ),
@@ -93,7 +100,7 @@ class EmployeeReportController extends GetxController {
                 'طرف ثاني : $employeeName',
                 style: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: pw.FontWeight.bold,
                   decoration: pw.TextDecoration.underline,
                 ),
@@ -102,7 +109,7 @@ class EmployeeReportController extends GetxController {
                 'الجنسية : $employeeNation',
                 style: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: pw.FontWeight.bold,
                   decoration: pw.TextDecoration.underline,
                 ),
@@ -111,7 +118,7 @@ class EmployeeReportController extends GetxController {
                 'رقم القامة : $employeeCardId',
                 style: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: pw.FontWeight.bold,
                   decoration: pw.TextDecoration.underline,
                 ),
@@ -120,7 +127,7 @@ class EmployeeReportController extends GetxController {
                 'تاريخه: ',
                 style: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: pw.FontWeight.bold,
                   decoration: pw.TextDecoration.underline,
                 ),
@@ -130,29 +137,23 @@ class EmployeeReportController extends GetxController {
           pw.SizedBox(height: 10),
           pw.Text(
             """تم الأتفاق على هذا العقد بين الطرفين بالشروط الآتية :
-1:- يباشر الطرف الثاني واجبات الوظيفة المعين عليها $employeeJobName رقم : $employeeJobId
-اعتبارا من تاريخ $employeeJobDate هـ ويلتزم بما يوجه له الطرف الأول من أعمال على أن يكون العمل اليومي 8 سـاعات والعطلة السبوعية يوم
-الجمعة فقط إلا إذا رأى الطرف الأول غير ذلك .
-2:- يدفع الطرف الأول للطرف الثاني راتبا شهريا وقدره : $totalSalary ريال
-الراتب مقداره : $employeeSalary ريال . وبدل نقل شهري وقدره : $employeeNaqlBadal ريال .وبدل اعاشة $ma3esha في نهاية كل شهر هجري .
-3:- عطلة الأعياد يوم قبل العيد ويوم العيد ويوم بعده فقط ثلاثة أيام .
-والإجازة السنوية إحدى وعشرون يوما عن كل سنة من تاريخ بداية هذا العقد .
+1:- يباشر الطرف الثاني واجبات الوظيفة المعين عليها $employeeJobName رقم : $employeeJobIdاعتبارا من تاريخ $employeeJobDate هـ ويلتزم بما يوجه له الطرف الأول من أعمال على أن يكون العمل اليومي 8 سـاعات والعطلة السبوعية يوم الجمعة فقط إلا إذا رأى الطرف الأول غير ذلك .
+2:- يدفع الطرف الأول للطرف الثاني راتبا شهريا وقدره : $totalSalary ريال الراتب مقداره : $employeeSalary ريال . وبدل نقل شهري وقدره : $employeeNaqlBadal ريال .وبدل اعاشة $ma3esha في نهاية كل شهر هجري .
+3:- عطلة الأعياد يوم قبل العيد ويوم العيد ويوم بعده فقط ثلاثة أيام .والإجازة السنوية إحدى وعشرون يوما عن كل سنة من تاريخ بداية هذا العقد .
 4:- لا يتحمل الطرف الأول تكاليف السفر والإقامة أو تجديدها .
 5:- يتحمل الطرف الأول سكن الطرف الثاني حسب المتاح وإلا فالطرف الثاني يتحمل سكنه .
 6:- يلتزم الطرف الثاني بالعادات والتقاليد المعمول بها في المملكة العربية السعودية ويبتعد عن المشاكل وكل ما يخل بالشرف والأمانة وإلا سوف يتحمل عواقب الخلل بهذه الفقرة .
 7:- الطرف الأول غير ملزم بدفع مبالغ عند نهاية الخدمة .
-8:- يجدد هذا العقد تلقائيا كل سنتين وفي حالة الطرف الثاني في إنهاء عقده يتقدم بطلب رسمي إلى الطرف الأول قبل ذلك بثلاثين يوما .
-تم الأتفاق على هذا العقد بين الطرفين بالشروط الآتية: 
+8:- يجدد هذا العقد تلقائيا كل سنتين وفي حالة الطرف الثاني في إنهاء عقده يتقدم بطلب رسمي إلى الطرف الأول قبل ذلك بثلاثين يوما .تم الأتفاق على هذا العقد بين الطرفين بالشروط الآتية: 
 """,
-            style:
-                pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 16),
+            style: pw.TextStyle(font: arabicFont, fontSize: 8, lineSpacing: 16),
           ),
           pw.SizedBox(height: 16),
           pw.Center(
             child: pw.Text(
               "والله الموفق ,,,,,",
               style:
-                  pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 16),
+                  pw.TextStyle(font: arabicFont, fontSize: 9, lineSpacing: 16),
             ),
           ),
           pw.SizedBox(height: 16),
@@ -162,12 +163,12 @@ class EmployeeReportController extends GetxController {
                 pw.Text(
                   "     طرف ثاني",
                   style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 16),
+                      font: arabicFont, fontSize: 9, lineSpacing: 16),
                 ),
                 pw.Text(
-                  "طرف أول : بلدية محافظة تيماء   ",
+                  "طرف أول :  $name   ",
                   style: pw.TextStyle(
-                      font: arabicFont, fontSize: 11, lineSpacing: 16),
+                      font: arabicFont, fontSize: 9, lineSpacing: 16),
                 )
               ]),
           pw.SizedBox(height: 16),
@@ -175,7 +176,7 @@ class EmployeeReportController extends GetxController {
             child: pw.Text(
               "الختم الرسمي",
               style:
-                  pw.TextStyle(font: arabicFont, fontSize: 11, lineSpacing: 16),
+                  pw.TextStyle(font: arabicFont, fontSize: 9, lineSpacing: 16),
             ),
           ),
           pw.SizedBox(height: 16),
@@ -185,12 +186,12 @@ class EmployeeReportController extends GetxController {
               pw.Text(
                 employeeName,
                 style: pw.TextStyle(
-                    font: arabicFont, fontSize: 11, lineSpacing: 16),
+                    font: arabicFont, fontSize: 9, lineSpacing: 16),
               ),
               pw.Text(
                 bossName,
                 style: pw.TextStyle(
-                    font: arabicFont, fontSize: 11, lineSpacing: 16),
+                    font: arabicFont, fontSize: 9, lineSpacing: 16),
               )
             ],
           ),
@@ -607,7 +608,7 @@ $name
               pw.Column(
                 children: [
                   pw.Text(
-                    "رئيس بلدية مجافظة تيماء",
+                    "رئيس $name",
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -756,7 +757,7 @@ $name
                   textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -766,7 +767,7 @@ $name
                   textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -811,7 +812,7 @@ $name
             textAlign: pw.TextAlign.center,
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -969,7 +970,7 @@ $bossName""",
                   textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -979,7 +980,7 @@ $bossName""",
                   textAlign: pw.TextAlign.center,
                   style: pw.TextStyle(
                     font: arabicFont,
-                    fontSize: 11,
+                    fontSize: 9,
                     lineSpacing: 10,
                     fontWeight: pw.FontWeight.bold,
                   ),
@@ -1025,7 +1026,7 @@ $bossName""",
             textAlign: pw.TextAlign.center,
             style: pw.TextStyle(
               font: arabicFont,
-              fontSize: 11,
+              fontSize: 9,
               lineSpacing: 10,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -1141,15 +1142,12 @@ $edara""",
                             pw.SizedBox(height: 6),
                             pw.Text(
                               """اسم الموظف: $employeeName
-
 رقم الهوية: $employeeCardId
-
 القسم: $employeePartName
-
 تاريخ انتهاء البطاقة: $employeeCardEndDate""",
                               style: pw.TextStyle(
                                 font: arabicFont,
-                                fontSize: 9,
+                                fontSize: 8,
                                 height: 16,
                                 fontWeight: pw.FontWeight.bold,
                               ),
@@ -1165,7 +1163,7 @@ $edara""",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                             font: arabicFont,
-                            fontSize: 7,
+                            fontSize: 6,
                             height: 16,
                             fontWeight: pw.FontWeight.bold,
                           ),
@@ -1249,7 +1247,7 @@ $edara""",
 2- في حال العثور عليها يرجى تسليمها إلى بلدية محافظة دومة الجندل.""",
                                     style: pw.TextStyle(
                                       font: arabicFont,
-                                      fontSize: 9,
+                                      fontSize: 7,
                                       height: 20,
                                       fontWeight: pw.FontWeight.bold,
                                     ),
@@ -1275,7 +1273,7 @@ $edara""",
                               'تعليمات هامة',
                               style: pw.TextStyle(
                                 font: arabicFont,
-                                fontSize: 11,
+                                fontSize: 7,
                                 fontWeight: pw.FontWeight.bold,
                               ),
                             ),
@@ -1290,7 +1288,7 @@ $edara""",
                             'تليفون: 6221                          ص.ب: 33',
                             style: pw.TextStyle(
                               font: arabicFont,
-                              fontSize: 8,
+                              fontSize: 6,
                               fontWeight: pw.FontWeight.bold,
                             ),
                           ),
@@ -1436,7 +1434,7 @@ $edara""",
       await rootBundle.load("assets/fonts/tajawal.ttf"),
     );
 
-    final chunks = chunkList(data, 15);
+    final chunks = chunkList(data, 11);
 
     //إضافة صفحة إلى المستند
     int start = 1;
@@ -1522,14 +1520,14 @@ $name
                 font: arabicFont,
                 fontWeight: pw.FontWeight.bold,
                 color: PdfColors.white,
-                fontSize: 6,
+                fontSize: 5,
               ),
               headerDecoration: const pw.BoxDecoration(
                 color: PdfColors.grey600,
               ),
               cellStyle: pw.TextStyle(
                 font: arabicFont,
-                fontSize: 6,
+                fontSize: 5,
               ),
               cellAlignment: pw.Alignment.center,
               headerAlignment: pw.Alignment.center,
@@ -1552,8 +1550,8 @@ $name
                 15: const pw.FixedColumnWidth(2),
                 16: const pw.FixedColumnWidth(1.2),
                 17: const pw.FixedColumnWidth(1.3),
-                18: const pw.FixedColumnWidth(2.2),
-                19: const pw.FixedColumnWidth(3),
+                18: const pw.FixedColumnWidth(2.5),
+                19: const pw.FixedColumnWidth(3.5),
                 20: const pw.FixedColumnWidth(1),
               },
               headers: [
@@ -1590,14 +1588,14 @@ $name
                   font: arabicFont,
                   fontWeight: pw.FontWeight.bold,
                   color: PdfColors.white,
-                  fontSize: 6,
+                  fontSize: 5,
                 ),
                 headerDecoration: const pw.BoxDecoration(
                   color: PdfColors.grey600,
                 ),
                 cellStyle: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 6,
+                  fontSize: 5,
                 ),
                 cellAlignment: pw.Alignment.center,
                 headerAlignment: pw.Alignment.center,
@@ -1618,7 +1616,7 @@ $name
                   13: const pw.FixedColumnWidth(1.5),
                   14: const pw.FixedColumnWidth(1.5),
                   15: const pw.FixedColumnWidth(2),
-                  16: const pw.FixedColumnWidth(8.7),
+                  16: const pw.FixedColumnWidth(9.4),
                 },
                 headers: [
                   sumSafy.toPrecision(2),
@@ -1823,7 +1821,7 @@ $name
       await rootBundle.load("assets/fonts/tajawal.ttf"),
     );
 
-    final chunks = chunkList(data, 15);
+    final chunks = chunkList(data, 11);
 
     //إضافة صفحة إلى المستند
     int start = 1;
@@ -1909,14 +1907,14 @@ $name
                 font: arabicFont,
                 fontWeight: pw.FontWeight.bold,
                 color: PdfColors.white,
-                fontSize: 6,
+                fontSize: 5,
               ),
               headerDecoration: const pw.BoxDecoration(
                 color: PdfColors.grey600,
               ),
               cellStyle: pw.TextStyle(
                 font: arabicFont,
-                fontSize: 6,
+                fontSize: 5,
               ),
               cellAlignment: pw.Alignment.center,
               headerAlignment: pw.Alignment.center,
@@ -1935,8 +1933,8 @@ $name
                 11: const pw.FixedColumnWidth(1.5),
                 12: const pw.FixedColumnWidth(2),
                 13: const pw.FixedColumnWidth(1.2),
-                14: const pw.FixedColumnWidth(2),
-                15: const pw.FixedColumnWidth(3),
+                14: const pw.FixedColumnWidth(2.3),
+                15: const pw.FixedColumnWidth(3.5),
                 16: const pw.FixedColumnWidth(1.2),
               },
               headers: [
@@ -1969,14 +1967,14 @@ $name
                   font: arabicFont,
                   fontWeight: pw.FontWeight.bold,
                   color: PdfColors.white,
-                  fontSize: 6,
+                  fontSize: 5,
                 ),
                 headerDecoration: const pw.BoxDecoration(
                   color: PdfColors.grey600,
                 ),
                 cellStyle: pw.TextStyle(
                   font: arabicFont,
-                  fontSize: 6,
+                  fontSize: 5,
                 ),
                 cellAlignment: pw.Alignment.center,
                 headerAlignment: pw.Alignment.center,
@@ -1993,7 +1991,7 @@ $name
                   9: const pw.FixedColumnWidth(1.5),
                   10: const pw.FixedColumnWidth(1.5),
                   11: const pw.FixedColumnWidth(1.5),
-                  12: const pw.FixedColumnWidth(9.4),
+                  12: const pw.FixedColumnWidth(10.2),
                 },
                 headers: [
                   "",

@@ -339,7 +339,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.jobName,
                           label: '',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 200,
                         ),
                         CustomButton(
                           text: 'اختر',
@@ -382,7 +382,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.partName,
                           label: '',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 200,
                         ),
                         CustomButton(
                           text: 'اختر',
@@ -433,15 +433,11 @@ class AddEmployee extends StatelessWidget {
                             controller.onChangeJobDataStatu(value);
                           },
                         ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
                         CustomTextField(
                           controller: controller.name,
                           label: 'اسم الموظف ',
                           customHeight: 25,
-                          customWidth: 150,
+                          customWidth: 300,
                         ),
                         CustomTextField(
                           controller: controller.cardId,
@@ -449,6 +445,10 @@ class AddEmployee extends StatelessWidget {
                           customHeight: 25,
                           customWidth: 150,
                         ),
+                      ],
+                    ).scrollDirection(Axis.horizontal),
+                    Row(
+                      children: [
                         CustomTextField(
                           controller: controller.takenHolidays,
                           label: 'الإجازات المسجلة حتى الأن',
@@ -467,7 +467,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.nationName,
                           label: '',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 200,
                         ),
                         CustomButton(
                           text: 'اختر',
@@ -506,7 +506,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.makanAlsodor,
                           label: 'مكان الصدور',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 150,
                         ),
                         CustomTextField(
                           suffixIcon: const Icon(
@@ -523,7 +523,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.birthPlace,
                           label: ' مكان الميلاد',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 150,
                         ),
                         CustomTextField(
                           suffixIcon: const Icon(
@@ -555,12 +555,12 @@ class AddEmployee extends StatelessWidget {
                             controller: controller.education,
                             label: 'اسم المؤهل العلمي',
                             customHeight: 25,
-                            customWidth: 150),
+                            customWidth: 200),
                         CustomTextField(
                             controller: controller.educationName,
                             label: 'اسم المؤسسة العلمية',
                             customHeight: 25,
-                            customWidth: 150),
+                            customWidth: 250),
                         CustomTextField(
                           suffixIcon: const Icon(
                             Icons.date_range_sharp,
@@ -576,7 +576,7 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.address,
                           label: 'العنوان',
                           customHeight: 25,
-                          customWidth: 150,
+                          customWidth: 250,
                         ),
                         CustomTextField(
                           controller: controller.phone,
@@ -592,13 +592,13 @@ class AddEmployee extends StatelessWidget {
                           controller: controller.workJob,
                           label: 'العمل المكلف به',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 400,
                         ),
                         CustomTextField(
                           controller: controller.cardNo,
                           label: 'رقم بطاقة العمل',
                           customHeight: 25,
-                          customWidth: 100,
+                          customWidth: 150,
                         ),
                         CustomTextField(
                           suffixIcon: const Icon(
@@ -611,6 +611,10 @@ class AddEmployee extends StatelessWidget {
                           customHeight: 25,
                           customWidth: 150,
                         ),
+                      ],
+                    ).scrollDirection(Axis.horizontal),
+                    Row(
+                      children: [
                         CustomTextField(
                           suffixIcon: const Icon(
                             Icons.date_range_sharp,
@@ -651,6 +655,26 @@ class AddEmployee extends StatelessWidget {
                           customHeight: 25,
                           customWidth: 100,
                         ),
+                        CustomRadioListTile<String>(
+                          value: "سعودي",
+                          groupValue:
+                              controller.nationalityRadoiListTileValue.value,
+                          title: "سعودي",
+                          onChanged: (value) {
+                            controller
+                                .onChangeNationalityRadoiListTileValue(value);
+                          },
+                        ),
+                        CustomRadioListTile<String>(
+                          value: "أجنبي",
+                          groupValue:
+                              controller.nationalityRadoiListTileValue.value,
+                          title: "أجنبي",
+                          onChanged: (value) {
+                            controller
+                                .onChangeNationalityRadoiListTileValue(value);
+                          },
+                        ),
                       ],
                     ).scrollDirection(Axis.horizontal),
                     Row(
@@ -661,64 +685,26 @@ class AddEmployee extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('مسير الرواتب'),
-                              CustomTextField(
-                                controller: controller.badal2,
-                                label: 'ضرر/عدوى',
-                                customHeight: 25,
-                                customWidth: 100,
-                              ),
-                              CustomTextField(
-                                controller: controller.badal4,
-                                label: 'أخرى',
-                                customHeight: 25,
-                                customWidth: 100,
+                              Row(
+                                children: [
+                                  CustomTextField(
+                                    controller: controller.badal2,
+                                    label: 'ضرر/عدوى',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                  CustomTextField(
+                                    controller: controller.badal4,
+                                    label: 'أخرى',
+                                    customHeight: 25,
+                                    customWidth: 100,
+                                  ),
+                                ],
                               ),
                             ],
                           ).paddingAll(10),
                         ).paddingOnly(top: 10, right: 10),
-                        Obx(
-                          () => SizedBox(
-                            width: 100,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomRadioListTile<String>(
-                                  value: "سعودي",
-                                  groupValue: controller
-                                      .nationalityRadoiListTileValue.value,
-                                  title: "سعودي",
-                                  onChanged: (value) {
-                                    controller
-                                        .onChangeNationalityRadoiListTileValue(
-                                            value);
-                                  },
-                                ),
-                                CustomRadioListTile<String>(
-                                  value: "أجنبي",
-                                  groupValue: controller
-                                      .nationalityRadoiListTileValue.value,
-                                  title: "أجنبي",
-                                  onChanged: (value) {
-                                    controller
-                                        .onChangeNationalityRadoiListTileValue(
-                                            value);
-                                  },
-                                ),
-                                CustomRadioListTile<String>(
-                                  value: "أجنبي",
-                                  groupValue: controller
-                                      .nationalityRadoiListTileValue.value,
-                                  title: "أجنبي",
-                                  onChanged: (value) {
-                                    controller
-                                        .onChangeNationalityRadoiListTileValue(
-                                            value);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ).paddingAll(15),
-                        ),
+                        const SizedBox(width: 20),
                         CustomTextField(
                           controller: controller.dissent,
                           label: 'بنك التسليف',
