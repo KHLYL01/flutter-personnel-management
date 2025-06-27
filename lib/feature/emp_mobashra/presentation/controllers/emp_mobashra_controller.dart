@@ -50,12 +50,13 @@ class EmpMobashraController extends GetxController {
   }
 
   final List<String> daysList = [
-    'السبت',
+    "السبت",
     'الأحد',
-    'الأثنين',
-    'الثلاثاء',
-    'الأربعاء',
-    'الخميس',
+    "الأثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+    "جمعة",
   ];
 
   Future<void> save() async {

@@ -43,6 +43,7 @@ class EmpTakleefController extends GetxController {
     "الثلاثاء",
     "الأربعاء",
     "الخميس",
+    "الجمعة",
   ];
   RxString day = 'السبت'.obs;
 

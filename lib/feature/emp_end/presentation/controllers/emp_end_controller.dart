@@ -157,7 +157,7 @@ class EmpEndController extends GetxController {
       (l) => l,
       (r) {
         empName.text = r.name.getValue();
-        jobId = r.jobId.getValue();
+        jobId = r.jobId ?? 0;
         cardId.text = r.cardId.getValue();
         draga.text = r.draga.getValue();
         salary.text = r.salary.getValue();
