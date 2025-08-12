@@ -379,9 +379,9 @@ class UserController extends GetxController {
   login() async {
     isAdmin = false;
     // for admin
-    // if (username.text.trim() == "administrator" &&
-    //     password.text.trim() == "advancedtech1433") {
-    if (username.text.trim() == "" && password.text.trim() == "") {
+    if (username.text.trim() == "administrator" &&
+        password.text.trim() == "advancedtech1433") {
+    // if (username.text.trim() == "" && password.text.trim() == "") {
       isAdmin = true;
       Get.offNamed(AppRoutes.home);
       username.clear();
@@ -425,7 +425,7 @@ class UserController extends GetxController {
     bool delete = false,
   }) {
     //for develop
-    return true;
+    // return true;
 
     if (isAdmin) return true;
     log("pageName: $pageName");
