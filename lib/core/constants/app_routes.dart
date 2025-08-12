@@ -30,6 +30,7 @@ import '../../feature/employee/presentation/pages/employee_search.dart';
 import '../../feature/employee/presentation/pages/mosaeer_salary.dart';
 import '../../feature/passport/presentation/pages/add_passport.dart';
 import '../../feature/passport/presentation/pages/passport_search.dart';
+import '../../feature/pdf_viewer/presentation/pages/pdf_viewer_page.dart';
 import '../../feature/tafweed/presentation/pages/add_tafweed.dart';
 import '../../feature/tafweed/presentation/pages/tafweed_search.dart';
 import '../../feature/tarmeez_badal/presentation/pages/badal_page.dart';
@@ -41,6 +42,7 @@ import '../../feature/tarmeez_emp_degrees_worker/presentation/pages/emp_degrees_
 import '../../feature/tarmeez_jobs/presentation/pages/jobs_page.dart';
 import '../../feature/tarmeez_nations/presentation/pages/nations_page.dart';
 import '../../feature/tarmeez_parts/presentation/pages/parts_page.dart';
+import '../../feature/user_signature/presentation/pages/signature_page.dart';
 import '../../feature/users/presentation/pages/home_page.dart';
 import '../../feature/users/presentation/pages/user_page.dart';
 import '../middlewares/auth_middleware.dart';
@@ -62,6 +64,7 @@ class AppRoutes {
 
   // تجهيز و إعداد
   static const String users = '/users';
+  static const String signatures = '/signatures';
 
   // search
   static const String dowraSearch = '/dowra_search';
@@ -98,6 +101,8 @@ class AppRoutes {
   static const String addEmployee = '/add_employee';
 
   static const String mosaeerSalary = '/mosaeer_salary';
+
+  static const String pdfViewer = '/pdfViewer';
 
   static List<GetPage> routes = [
     GetPage(name: login, page: () => const LoginPage()),
@@ -268,8 +273,21 @@ class AppRoutes {
         middlewares: [AuthMiddleware()]),
 
     GetPage(
-        name: AppRoutes.users,
-        page: () => const UserPage(),
-        middlewares: [AuthMiddleware()]),
+      name: AppRoutes.users,
+      page: () => const UserPage(),
+      middlewares: [AuthMiddleware()],
+    ),
+
+    GetPage(
+      name: AppRoutes.pdfViewer,
+      page: () => PdfViewerPage(),
+      middlewares: [AuthMiddleware()],
+    ),
+
+    GetPage(
+      name: AppRoutes.signatures,
+      page: () => const SignaturePage(),
+      // middlewares: [AuthMiddleware()],
+    ),
   ];
 }

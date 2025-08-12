@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
 
                   CustomTextField(
                     label: "اسم المستخدم",
-                    controller: controller.name,
+                    controller: controller.username,
                     prefixIcon: const Icon(
                       Icons.person_outline,
                       color: AppColors.blackDark,
@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   CustomTextField(
                     label: "كلمة المرور",
-                    controller: controller.pass,
+                    controller: controller.password,
                     obscureText: true,
                     maxLine: 1,
                     prefixIcon: const Icon(

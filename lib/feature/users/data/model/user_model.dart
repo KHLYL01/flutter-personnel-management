@@ -4,32 +4,18 @@ part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel {
-  final KeyModel? key;
-  final String? name;
-  final String? pass;
+  final int? id;
+  final String? username;
+  final String? password;
   final String? empName;
-  final int? save;
-  final int? edit;
-  final int? del;
-  final int? mostahaka;
-  final int? directBoss;
-  final int? salahea;
-  final int? empId;
-  final int? majless;
+  final List<UserPermissionModel>? userPermissions;
 
   UserModel({
-    this.key,
-    this.name,
-    this.pass,
+    this.id,
+    this.username,
+    this.password,
     this.empName,
-    this.save,
-    this.edit,
-    this.del,
-    this.mostahaka,
-    this.directBoss,
-    this.salahea,
-    this.empId,
-    this.majless,
+    this.userPermissions,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -39,36 +25,23 @@ class UserModel {
 }
 
 @JsonSerializable()
-class KeyModel {
+class UserPermissionModel {
   final int? id;
-  final String? menus;
+  final String? permission;
+  final bool? save;
+  final bool? edit;
+  final bool? del;
 
-  KeyModel({
+  UserPermissionModel({
     this.id,
-    this.menus,
+    this.permission,
+    this.save,
+    this.edit,
+    this.del,
   });
 
-  factory KeyModel.fromJson(Map<String, dynamic> json) =>
-      _$KeyModelFromJson(json);
+  factory UserPermissionModel.fromJson(Map<String, dynamic> json) =>
+      _$UserPermissionModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$KeyModelToJson(this);
-}
-
-@JsonSerializable()
-class UserDtoModel {
-  final int? id;
-  final String? name;
-  final String? pass;
-  final String? empName;
-  UserDtoModel({
-    this.id,
-    this.name,
-    this.pass,
-    this.empName,
-  });
-
-  factory UserDtoModel.fromJson(Map<String, dynamic> json) =>
-      _$UserDtoModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserDtoModelToJson(this);
+  Map<String, dynamic> toJson() => _$UserPermissionModelToJson(this);
 }

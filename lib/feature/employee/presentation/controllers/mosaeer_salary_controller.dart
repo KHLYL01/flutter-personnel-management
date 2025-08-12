@@ -27,6 +27,7 @@ class MosaeerSalaryController extends GetxController {
     "",
     "موظف",
     "مستخدم",
+    "موظف | مستخدم",
     "عامل بند إجور",
     "موظف | مستخدم | عامل بند إجور",
     "عامل أجنبي",

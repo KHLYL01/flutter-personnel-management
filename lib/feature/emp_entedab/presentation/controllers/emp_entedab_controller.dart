@@ -97,11 +97,12 @@ class EmpEntedabController extends GetxController {
   }
 
   final List<String> days = [
+    'السبت',
     'الأحد',
     'الأثنين',
     'الثلاثاء',
     'الأربعاء',
-    'الخميس'
+    'الخميس',
   ];
   final List<String> types = ['داخلي', 'خارجي'];
   final List<String> categories = ['أ', 'ب', 'ج'];

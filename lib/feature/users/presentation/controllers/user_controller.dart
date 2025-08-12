@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:personnel_management/core/constants/app_routes.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/core/widgets/base_screen.dart';
+import 'package:personnel_management/feature/user_signature/presentation/controllers/signature_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../data/model/screen_permission.dart';
@@ -19,12 +20,17 @@ class UserController extends GetxController {
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
 
+  bool isAdmin = false;
+  int userId = 0;
+  String userEmpName = "";
+  String userPassword = "";
+
   final TextEditingController id = TextEditingController();
-  final TextEditingController name = TextEditingController();
-  final TextEditingController pass = TextEditingController();
+  final TextEditingController username = TextEditingController();
+  final TextEditingController password = TextEditingController();
   final TextEditingController empName = TextEditingController();
 
-  RxList<UserDtoModel> users = <UserDtoModel>[].obs;
+  RxList<UserModel> users = <UserModel>[].obs;
 
   RxString userName = ''.obs;
   List<String> usersName = [''];
@@ -39,8 +45,8 @@ class UserController extends GetxController {
     for (var e in users) {
       if (e.empName == userName.value) {
         id.text = e.id.getValue();
-        name.text = e.name.getValue();
-        pass.text = e.pass.getValue();
+        username.text = e.username.getValue();
+        password.text = e.password.getValue();
         empName.text = e.empName.getValue();
         findAllByUserId(e.id ?? 0);
         canEnter.value = false;
@@ -172,66 +178,69 @@ class UserController extends GetxController {
         usersName.add(e.empName ?? "");
       }
       users.value = r;
+      Get.find<SignatureController>().users = users;
+      Get.find<SignatureController>().usersEmpName
+        ..clear()
+        ..add("الكل");
+      Get.find<SignatureController>()
+          .usersEmpName
+          .addAll(users.map((e) => e.empName).cast<String>().toList());
     });
     isLoading(false);
     if (messageError.isEmpty) {
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
-  }
-
-  Future<void> getNext() async {
-    final data = await _repository.getNext();
-    data.fold((l) => messageError(l.eerMessage), (r) {
-      id.text = r.getValue();
-    });
   }
 
   Future<void> findAllByUserId(int id, {bool login = false}) async {
-    isLoading(true);
-    messageError("");
-    final data = await _repository.findAllById(id);
-    data.fold((l) => messageError(l.eerMessage), (r) {
-      if (login) {
-        for (var e in r) {
-          loginUserPermissions.add(
-            ScreenPermission(
-              group: "",
-              screenName: e.key?.menus ?? "",
-              enter: true,
-              save: (e.save ?? 0) == 1,
-              edit: (e.edit ?? 0) == 1,
-              delete: (e.del ?? 0) == 1,
-            ),
-          );
-        }
-        return;
-      }
+    UserModel? userModel;
 
-      // for users page
-      for (var p in permissions) {
-        p.canEnter.value = false;
-        p.canSave.value = false;
-        p.canEdit.value = false;
-        p.canDelete.value = false;
-      }
-      for (var e in r) {
-        for (var p in permissions) {
-          if (e.key?.menus == p.screenName) {
-            p.canEnter.value = true;
-            p.canSave.value = (e.save ?? 0) == 1;
-            p.canEdit.value = (e.edit ?? 0) == 1;
-            p.canDelete.value = (e.del ?? 0) == 1;
-            break;
-          }
-        }
-      }
-    });
-    isLoading(false);
-    if (messageError.isEmpty) {
+    final data = await _repository.findById(id);
+    data.fold((l) => messageError(l.eerMessage), (r) => userModel = r);
+
+    if (userModel == null) {
+      customSnackBar(
+          title: 'خطأ', message: "المستخدم غير موجود", isDone: false);
       return;
     }
-    customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
+
+    if (login) {
+      loginUserPermissions.clear();
+
+      for (UserPermissionModel e in userModel?.userPermissions ?? []) {
+        loginUserPermissions.add(
+          ScreenPermission(
+            group: "",
+            screenName: e.permission ?? "",
+            enter: true,
+            save: e.save ?? false,
+            edit: e.edit ?? false,
+            delete: e.del ?? false,
+          ),
+        );
+      }
+      return;
+    }
+
+    // for users page
+    for (var p in permissions) {
+      p.canEnter.value = false;
+      p.canSave.value = false;
+      p.canEdit.value = false;
+      p.canDelete.value = false;
+    }
+    for (UserPermissionModel e in userModel?.userPermissions ?? []) {
+      for (var p in permissions) {
+        if (e.permission == p.screenName) {
+          p.canEnter.value = true;
+          p.canSave.value = e.save ?? false;
+          p.canEdit.value = e.edit ?? false;
+          p.canDelete.value = e.del ?? false;
+          break;
+        }
+      }
+    }
   }
 
   Future<void> save() async {
@@ -247,10 +256,7 @@ class UserController extends GetxController {
       return;
     }
 
-    if (id.text == "" ||
-        name.text == "" ||
-        empName.text == "" ||
-        pass.text == "") {
+    if (username.text == "" || empName.text == "" || password.text == "") {
       customSnackBar(
           title: 'خطأ', message: "يرجى إعادة المحاولة لاحقا", isDone: false);
       return;
@@ -258,35 +264,34 @@ class UserController extends GetxController {
     isLoading(true);
     messageError("");
 
-    List<UserModel> permUser = [];
+    List<UserPermissionModel> userPermissions = [];
+
     for (var element in permissions) {
       if (element.canEnter.value) {
-        permUser.add(
-          UserModel(
-            key: KeyModel(
-              id: int.parse(id.text),
-              menus: element.screenName,
-            ),
-            name: name.text,
-            pass: pass.text,
-            empName: empName.text,
-            save: element.canSave.value ? 1 : 0,
-            edit: element.canEdit.value ? 1 : 0,
-            del: element.canDelete.value ? 1 : 0,
+        userPermissions.add(
+          UserPermissionModel(
+            permission: element.screenName,
+            save: element.canSave.value,
+            edit: element.canEdit.value,
+            del: element.canDelete.value,
           ),
         );
       }
     }
 
-    final data = await _repository.saveAllForUserId(permUser);
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    UserModel model = UserModel(
+      id: id.text.isEmpty ? null : int.parse(id.text),
+      username: username.text,
+      password: password.text,
+      empName: empName.text,
+      userPermissions: userPermissions,
+    );
+
+    final data = await _repository.save(model);
+    data.fold((l) => messageError(l.eerMessage),
+        (r) => id.text = (r.id ?? 0).toString());
     isLoading(false);
     if (messageError.isEmpty) {
-      userName.value = '';
-      await getNext();
-      name.clear();
-      pass.clear();
-      empName.clear();
       await findAll();
       customSnackBar(title: 'تم', message: 'تمت العملية بنجاح');
       return;
@@ -305,14 +310,14 @@ class UserController extends GetxController {
 
     isLoading(true);
     messageError("");
-    final data = await _repository.deleteAllByUserId(int.parse(id.text));
+    final data = await _repository.delete(int.parse(id.text));
     data.fold((l) => messageError(l.eerMessage), (r) => r);
     isLoading(false);
     if (messageError.isEmpty) {
       userName.value = '';
-      await getNext();
-      name.clear();
-      pass.clear();
+      id.clear();
+      username.clear();
+      password.clear();
       empName.clear();
       findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
@@ -343,10 +348,6 @@ class UserController extends GetxController {
     );
   }
 
-  void fillControllers(List<UserModel> list) {}
-
-  clearControllers() async {}
-
   onSaveAll(bool val) {
     canSave(val);
     for (var element in permissions) {
@@ -376,34 +377,32 @@ class UserController extends GetxController {
   }
 
   login() async {
+    isAdmin = false;
     // for admin
-    if (name.text.trim() == "administrator" &&
-        pass.text.trim() == "advancedtech1433") {
-      for (var e in permissions) {
-        loginUserPermissions.add(
-          ScreenPermission(
-            group: "",
-            screenName: e.screenName,
-            enter: true,
-            save: true,
-            edit: true,
-            delete: true,
-          ),
-        );
-      }
+    // if (username.text.trim() == "administrator" &&
+    //     password.text.trim() == "advancedtech1433") {
+    if (username.text.trim() == "" && password.text.trim() == "") {
+      isAdmin = true;
       Get.offNamed(AppRoutes.home);
-      name.clear();
-      pass.clear();
+      username.clear();
+      password.clear();
+      Get.find<SignatureController>().findAll();
       return;
     }
 
     // for users
     for (var e in users) {
-      if (name.text.trim() == e.name && pass.text.trim() == e.pass) {
+      if (username.text.trim() == e.username &&
+          password.text.trim() == e.password) {
+        userId = e.id ?? 0;
+        userEmpName = e.empName ?? "";
+        userPassword = e.password ?? "";
+
         await findAllByUserId(e.id ?? 00, login: true);
         Get.offNamed(AppRoutes.home);
-        name.clear();
-        pass.clear();
+        username.clear();
+        password.clear();
+        Get.find<SignatureController>().findByUserId(userId);
         return;
       }
     }
@@ -425,7 +424,10 @@ class UserController extends GetxController {
     bool update = false,
     bool delete = false,
   }) {
-    // return true;
+    //for develop
+    return true;
+
+    if (isAdmin) return true;
     log("pageName: $pageName");
     for (var e in loginUserPermissions) {
       if (e.screenName == pageName) {
@@ -436,5 +438,26 @@ class UserController extends GetxController {
       }
     }
     return false;
+  }
+
+  clearController() {
+    id.clear();
+    username.clear();
+    password.clear();
+    empName.clear();
+
+    userName.value = '';
+
+    canEnter.value = false;
+    canSave.value = false;
+    canEdit.value = false;
+    canDelete.value = false;
+
+    for (var p in permissions) {
+      p.canEnter.value = false;
+      p.canSave.value = false;
+      p.canEdit.value = false;
+      p.canDelete.value = false;
+    }
   }
 }

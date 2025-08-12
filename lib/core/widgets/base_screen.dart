@@ -24,6 +24,7 @@ import 'package:personnel_management/feature/passport/presentation/controllers/p
 import 'package:personnel_management/feature/passport/presentation/controllers/passport_search_controller.dart';
 import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_controller.dart';
 import 'package:personnel_management/feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
+import 'package:personnel_management/feature/user_signature/presentation/controllers/signature_controller.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_routes.dart';
@@ -64,6 +65,7 @@ class BaseScreen extends StatelessWidget {
       "/emp_degrees_worker": "سلم درجات العمال",
       "/parts": "أنواع الأقسام",
       "/users": "المستخدمين",
+      "/signatures": "إدارة التوقيعات",
       "/dowra_search": "الإستعلام عن الدورات",
       "/end_search": "الاستعلام عن إنهاء خدمة",
       "/entedab_search": "الإستعلام عن إنتداب",
@@ -120,10 +122,6 @@ class BaseScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // ClickableText(
-                        //   text: 'التجهيز و الإعداد',
-                        //   onTap: () {},
-                        // ),
                         CustomPopupMenuButton(
                           buttonText: 'التجهيز و الإعداد',
                           items: [
@@ -131,18 +129,28 @@ class BaseScreen extends StatelessWidget {
                               value: AppRoutes.users,
                               child: Text(map[AppRoutes.users] ?? ""),
                             ),
+                            if (Get.find<UserController>().isAdmin)
+                              PopupMenuItem(
+                                value: AppRoutes.signatures,
+                                child: Text(map[AppRoutes.signatures] ?? ""),
+                              ),
                           ],
                           onSelected: (page) async {
                             switch (page) {
                               case AppRoutes.users:
                                 await Get.find<UserController>().findAll();
-                                await Get.find<UserController>().getNext();
                                 controller.setPage(map[AppRoutes.users] ?? "");
+                                break;
+                              case AppRoutes.signatures:
+                                await Get.find<SignatureController>().findAll();
+                                controller
+                                    .setPage(map[AppRoutes.signatures] ?? "");
                                 break;
                             }
                             if (userController.checkPermission(
-                                controller.page.value,
-                                enter: true)) {
+                                    controller.page.value,
+                                    enter: true) ||
+                                userController.isAdmin) {
                               Get.toNamed(page);
                             } else {
                               alertDialog(

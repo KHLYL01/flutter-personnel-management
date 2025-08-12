@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../../core/constants/app_routes.dart';
 import '../../../employee/data/repository/employee_repository.dart';
+import '../../../pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 import 'emp_tarqea_controller.dart';
 
@@ -318,15 +320,17 @@ $bossName""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'قرار حسم.pdf',
     // );
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // قرار مباشرة
@@ -491,14 +495,16 @@ $bossName""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'قرار حسم.pdf',
     // );
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 }

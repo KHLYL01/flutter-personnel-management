@@ -57,13 +57,13 @@ class UserPage extends StatelessWidget {
                     Row(
                       children: [
                         CustomTextField(
-                          controller: controller.name,
+                          controller: controller.username,
                           label: "رمز المستخدم",
                           customHeight: 30,
                           customWidth: currentWidth / 6,
                         ).marginOnly(right: 20),
                         CustomTextField(
-                          controller: controller.pass,
+                          controller: controller.password,
                           label: "كلمة المرور",
                           customHeight: 30,
                           customWidth: currentWidth / 6,
@@ -80,6 +80,12 @@ class UserPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        CustomButton(
+                          text: 'إضافة جديدة',
+                          onPressed: () => controller.clearController(),
+                          height: 40,
+                          width: 80,
+                        ),
                         CustomButton(
                           text: 'حفظ',
                           onPressed: () => controller.save(),

@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../feature/emp_dowra/data/model/emp_dowra_det_model.dart';
@@ -32,6 +32,7 @@ import '../../feature/tarmeez_emp_degrees_worker/data/model/emp_degrees_worker_m
 import '../../feature/tarmeez_jobs/data/model/jobs_model.dart';
 import '../../feature/tarmeez_nations/data/model/nations_model.dart';
 import '../../feature/tarmeez_parts/data/model/parts_model.dart';
+import '../../feature/user_signature/data/model/signature_model.dart';
 import '../../feature/users/data/model/user_model.dart';
 import 'api_constants.dart';
 import '../../feature/tarmeez_bladia_info/data/model/bladia_info_model.dart';
@@ -734,20 +735,42 @@ abstract class ApiService {
   Future<HttpResponse<void>> deleteEmpHolidayType(@Path("id") int id);
 
   // Users
-
-  @GET("$users/nextId")
-  Future<HttpResponse<int>> getNextUserId();
-
   @GET(users)
-  Future<HttpResponse<List<UserDtoModel>>> findAllUsers();
+  Future<HttpResponse<List<UserModel>>> findAllUsers();
 
   @GET("$users/{id}")
-  Future<HttpResponse<List<UserModel>>> findAllByUserId(@Path("id") int id);
+  Future<HttpResponse<UserModel>> findByUserId(@Path("id") int id);
 
   @POST(users)
-  Future<HttpResponse<List<UserModel>>> saveAllForUserId(
-      @Body(nullToAbsent: true) List<UserModel> model);
+  Future<HttpResponse<UserModel>> saveUser(
+      @Body(nullToAbsent: true) UserModel model);
 
   @DELETE("$users/{id}")
-  Future<HttpResponse<void>> deleteAllByUserId(@Path("id") int id);
+  Future<HttpResponse<void>> deleteUser(@Path("id") int id);
+
+  // Users Signature
+  @GET(signatures)
+  Future<HttpResponse<List<SignatureModel>>> findAllSignatures();
+
+  @GET("$signatures/user/{userId}")
+  Future<HttpResponse<List<SignatureModel>>> findAllSignaturesByUserId(
+      @Path("userId") int userId);
+
+  @GET("$signatures/{id}")
+  Future<HttpResponse<SignatureModel>> findBySignatureId(@Path("id") int id);
+
+  // @POST(signatures)
+  // @MultiPart()
+  // @Headers(<String, dynamic>{
+  //   "Content-Type": "multipart/form-data",
+  // })
+  // Future<HttpResponse<SignatureModel>> saveSignature(
+  //     @Part(name: "image") MultipartFile image,
+  //     @Part(name: "content") String content,
+  //     @Part(name: "password") String password,
+  //     @Part(name: "userId") int userId
+  //     );
+
+  @DELETE("$signatures/{id}")
+  Future<HttpResponse<void>> deleteSignature(@Path("id") int id);
 }

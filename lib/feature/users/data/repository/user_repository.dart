@@ -10,18 +10,7 @@ class UserRepository {
 
   UserRepository(this._apiService);
 
-  Future<Either<Failure, int>> getNext() async {
-    try {
-      final httpResponse = await _apiService.getNextUserId();
-      return Right(httpResponse.data);
-    } on DioException catch (e) {
-      return Left(ServerFailure.fromDioError(e));
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  Future<Either<Failure, List<UserDtoModel>>> findAllUsers() async {
+  Future<Either<Failure, List<UserModel>>> findAllUsers() async {
     try {
       final httpResponse = await _apiService.findAllUsers();
       return Right(httpResponse.data);
@@ -32,9 +21,9 @@ class UserRepository {
     }
   }
 
-  Future<Either<Failure, List<UserModel>>> findAllById(int id) async {
+  Future<Either<Failure, UserModel>> findById(int id) async {
     try {
-      final httpResponse = await _apiService.findAllByUserId(id);
+      final httpResponse = await _apiService.findByUserId(id);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -43,10 +32,9 @@ class UserRepository {
     }
   }
 
-  Future<Either<Failure, List<UserModel>>> saveAllForUserId(
-      List<UserModel> list) async {
+  Future<Either<Failure, UserModel>> save(UserModel model) async {
     try {
-      final httpResponse = await _apiService.saveAllForUserId(list);
+      final httpResponse = await _apiService.saveUser(model);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -55,9 +43,9 @@ class UserRepository {
     }
   }
 
-  Future<Either<Failure, void>> deleteAllByUserId(int id) async {
+  Future<Either<Failure, void>> delete(int id) async {
     try {
-      final httpResponse = await _apiService.deleteAllByUserId(id);
+      final httpResponse = await _apiService.deleteUser(id);
       return Right(httpResponse.data);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));

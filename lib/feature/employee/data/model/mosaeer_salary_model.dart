@@ -46,6 +46,8 @@ class MosaeerSalaryModel {
   final int? hasm2;
   final int? isHasm3;
   final double? hasm3;
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
   RxBool check = false.obs;
 
   MosaeerSalaryModel({

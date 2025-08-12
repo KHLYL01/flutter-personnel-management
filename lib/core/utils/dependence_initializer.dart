@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
+import 'package:personnel_management/feature/pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 
 import '../../feature/emp_dowra/data/repository/emp_dowra_det_repository.dart';
 import '../../feature/emp_dowra/data/repository/emp_dowra_repository.dart';
@@ -96,6 +97,8 @@ import '../../feature/tarmeez_nations/data/repository/nations_repository.dart';
 import '../../feature/tarmeez_nations/presentation/controllers/nations_controller.dart';
 import '../../feature/tarmeez_parts/data/repository/parts_repository.dart';
 import '../../feature/tarmeez_parts/presentation/controllers/parts_controller.dart';
+import '../../feature/user_signature/data/repository/signature_repository.dart';
+import '../../feature/user_signature/presentation/controllers/signature_controller.dart';
 import '../../feature/users/data/repository/user_repository.dart';
 import '../../feature/users/presentation/controllers/user_controller.dart';
 import '../network/api_service.dart';
@@ -260,8 +263,15 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpHolidayTypeRepository(Get.find()));
     Get.put(EmpHolidayTypeController(Get.find()));
 
-    // User Pass DI
+    // User DI
     Get.lazyPut(() => UserRepository(Get.find()));
     Get.put(UserController(Get.find()));
+
+    // User Signature DI
+    Get.lazyPut(() => SignatureRepository(Get.find(), Get.find()));
+    Get.put(SignatureController(Get.find()));
+
+    // Pdf Viewer Controller DI
+    Get.put(CustomPdfViewerController());
   }
 }

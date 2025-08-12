@@ -9,6 +9,8 @@ import 'package:personnel_management/feature/emp_entedab/presentation/controller
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
 import 'package:personnel_management/feature/tarmeez_jobs/data/repository/jobs_repository.dart';
 
+import '../../../../core/constants/app_routes.dart';
+import '../../../pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 import 'emp_entedab_det_controller.dart';
 
@@ -51,9 +53,9 @@ class EmpEntedabReportController extends GetxController {
       late int jobId;
       late String jobName;
       (await _employeeRepository.findById(item.empId!))
-          .fold((l) => l, (r) => jobId = r.jobId!);
+          .fold((l) => l, (r) => jobId = r.jobId ?? 0);
       (await _jobsRepository.findById(id: jobId))
-          .fold((l) => l, (r) => jobName = r.name!);
+          .fold((l) => l, (r) => jobName = r.name ?? "");
 
       data.add(
         [
@@ -560,19 +562,22 @@ $bossName""",
       ),
     );
 
-    // Generate the PDF bytes
+    // // Generate the PDF bytes
     final pdfBytes = await pdf.save();
 
-    // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // // Open in new tab
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'اركاب موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // انتداب موظف
@@ -758,15 +763,17 @@ $bossName""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'انتداب موظف.pdf',
     // );
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // قرار إنتداب
@@ -1055,15 +1062,17 @@ $bossName""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'قرار انتداب موظف.pdf',
     // );
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // استحقاق راتب
@@ -1407,9 +1416,9 @@ $name
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // await Printing.layoutPdf(
     //   onLayout: (PdfPageFormat format) => pdfBytes,
@@ -1423,5 +1432,8 @@ $name
     //   bytes: await pdf.save(),
     //   filename: 'استحقاق راتب.pdf',
     // );
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.find<CustomPdfViewerController>().rotatePdf();
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 }

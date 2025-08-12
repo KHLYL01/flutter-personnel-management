@@ -10,6 +10,9 @@ import 'package:personnel_management/feature/employee/presentation/controllers/e
 import 'package:personnel_management/feature/employee/presentation/controllers/mosaeer_salary_controller.dart';
 import 'package:personnel_management/feature/tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 
+import '../../../../core/constants/app_routes.dart';
+import '../../../pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
+
 class EmployeeReportController extends GetxController {
   // عقد عامل
   Future<void> createAkdEmployeeReport() async {
@@ -202,15 +205,18 @@ class EmployeeReportController extends GetxController {
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'عقد عامل.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // مكافأة عن الإجازات
@@ -421,15 +427,18 @@ $name
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'مكافأة عن الإجازات.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // بيان خدمة موظف
@@ -631,15 +640,19 @@ $name
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'بيان خدمة موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.find<CustomPdfViewerController>().rotatePdf();
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // شهادة تعريف
@@ -856,15 +869,18 @@ $bossName""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'انتداب موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // مشهد بالراتب
@@ -1069,15 +1085,18 @@ $edara""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'انتداب موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // كارت تعريفي
@@ -1183,15 +1202,18 @@ $edara""",
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'انتداب موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
 
     // إنشاء مستند PDF جديد
     final pdf1 = pw.Document(title: "كارت تعريفي الخلفية");
@@ -1317,6 +1339,9 @@ $edara""",
     //   bytes: await pdf1.save(),
     //   filename: 'انتداب موظف.pdf1',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // مسير الروتب
@@ -1434,7 +1459,7 @@ $edara""",
       await rootBundle.load("assets/fonts/tajawal.ttf"),
     );
 
-    final chunks = chunkList(data, 11);
+    final chunks = chunkList(data, 14);
 
     //إضافة صفحة إلى المستند
     int start = 1;
@@ -1550,8 +1575,8 @@ $name
                 15: const pw.FixedColumnWidth(2),
                 16: const pw.FixedColumnWidth(1.2),
                 17: const pw.FixedColumnWidth(1.3),
-                18: const pw.FixedColumnWidth(2.5),
-                19: const pw.FixedColumnWidth(3.5),
+                18: const pw.FixedColumnWidth(3.5),
+                19: const pw.FixedColumnWidth(5),
                 20: const pw.FixedColumnWidth(1),
               },
               headers: [
@@ -1616,7 +1641,7 @@ $name
                   13: const pw.FixedColumnWidth(1.5),
                   14: const pw.FixedColumnWidth(1.5),
                   15: const pw.FixedColumnWidth(2),
-                  16: const pw.FixedColumnWidth(9.4),
+                  16: const pw.FixedColumnWidth(12),
                 },
                 headers: [
                   sumSafy.toPrecision(2),
@@ -1723,15 +1748,19 @@ $name
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'بيان خدمة موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.find<CustomPdfViewerController>().rotatePdf();
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   // مسير الروتب لعمال النظافة
@@ -1821,7 +1850,7 @@ $name
       await rootBundle.load("assets/fonts/tajawal.ttf"),
     );
 
-    final chunks = chunkList(data, 11);
+    final chunks = chunkList(data, 14);
 
     //إضافة صفحة إلى المستند
     int start = 1;
@@ -1933,8 +1962,8 @@ $name
                 11: const pw.FixedColumnWidth(1.5),
                 12: const pw.FixedColumnWidth(2),
                 13: const pw.FixedColumnWidth(1.2),
-                14: const pw.FixedColumnWidth(2.3),
-                15: const pw.FixedColumnWidth(3.5),
+                14: const pw.FixedColumnWidth(3.5),
+                15: const pw.FixedColumnWidth(5),
                 16: const pw.FixedColumnWidth(1.2),
               },
               headers: [
@@ -1991,7 +2020,7 @@ $name
                   9: const pw.FixedColumnWidth(1.5),
                   10: const pw.FixedColumnWidth(1.5),
                   11: const pw.FixedColumnWidth(1.5),
-                  12: const pw.FixedColumnWidth(10.2),
+                  12: const pw.FixedColumnWidth(12.9),
                 },
                 headers: [
                   "",
@@ -2111,15 +2140,19 @@ $name
     final pdfBytes = await pdf.save();
 
     // Open in new tab
-    final blob = html.Blob([pdfBytes], 'application/pdf');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    html.window.open(url, '_blank');
+    // final blob = html.Blob([pdfBytes], 'application/pdf');
+    // final url = html.Url.createObjectUrlFromBlob(blob);
+    // html.window.open(url, '_blank');
 
     // // حفظ أو مشاركة الملف
     // await Printing.sharePdf(
     //   bytes: await pdf.save(),
     //   filename: 'بيان خدمة موظف.pdf',
     // );
+
+    Get.find<CustomPdfViewerController>().pdfData(pdfBytes);
+    Get.find<CustomPdfViewerController>().rotatePdf();
+    Get.toNamed(AppRoutes.pdfViewer);
   }
 
   List<List<T>> chunkList<T>(List<T> list, int chunkSize) {

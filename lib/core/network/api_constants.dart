@@ -14,6 +14,7 @@ const String empDegrees = "/emp-degrees";
 const String empDegreesWorker = "/emp-degrees-workers";
 
 const String users = "/users";
+const String signatures = "/signatures";
 
 const String empDowra = "/emp-dowras";
 const String empEnd = "/emp-ends";

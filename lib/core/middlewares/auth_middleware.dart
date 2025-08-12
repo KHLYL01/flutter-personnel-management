@@ -52,7 +52,7 @@ class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     final controller = Get.find<UserController>();
-    if (controller.loginUserPermissions.isEmpty) {
+    if (controller.loginUserPermissions.isEmpty && !controller.isAdmin) {
       // المستخدم غير مسجل دخول
       return const RouteSettings(name: '/login');
     }
@@ -66,4 +66,10 @@ class AuthMiddleware extends GetMiddleware {
 
     return null; // كل شيء تمام
   }
+
+  //for develop mode
+  // @override
+  // RouteSettings? redirect(String? route) {
+  //   return null; // كل شيء تمام
+  // }
 }

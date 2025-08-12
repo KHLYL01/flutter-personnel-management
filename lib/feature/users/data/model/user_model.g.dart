@@ -7,58 +7,38 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      key: json['key'] == null
-          ? null
-          : KeyModel.fromJson(json['key'] as Map<String, dynamic>),
-      name: json['name'] as String?,
-      pass: json['pass'] as String?,
+      id: (json['id'] as num?)?.toInt(),
+      username: json['username'] as String?,
+      password: json['password'] as String?,
       empName: json['empName'] as String?,
-      save: (json['save'] as num?)?.toInt(),
-      edit: (json['edit'] as num?)?.toInt(),
-      del: (json['del'] as num?)?.toInt(),
-      mostahaka: (json['mostahaka'] as num?)?.toInt(),
-      directBoss: (json['directBoss'] as num?)?.toInt(),
-      salahea: (json['salahea'] as num?)?.toInt(),
-      empId: (json['empId'] as num?)?.toInt(),
-      majless: (json['majless'] as num?)?.toInt(),
+      userPermissions: (json['userPermissions'] as List<dynamic>?)
+          ?.map((e) => UserPermissionModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-      'key': instance.key,
-      'name': instance.name,
-      'pass': instance.pass,
+      'id': instance.id,
+      'username': instance.username,
+      'password': instance.password,
       'empName': instance.empName,
+      'userPermissions': instance.userPermissions,
+    };
+
+UserPermissionModel _$UserPermissionModelFromJson(Map<String, dynamic> json) =>
+    UserPermissionModel(
+      id: (json['id'] as num?)?.toInt(),
+      permission: json['permission'] as String?,
+      save: json['save'] as bool?,
+      edit: json['edit'] as bool?,
+      del: json['del'] as bool?,
+    );
+
+Map<String, dynamic> _$UserPermissionModelToJson(
+        UserPermissionModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'permission': instance.permission,
       'save': instance.save,
       'edit': instance.edit,
       'del': instance.del,
-      'mostahaka': instance.mostahaka,
-      'directBoss': instance.directBoss,
-      'salahea': instance.salahea,
-      'empId': instance.empId,
-      'majless': instance.majless,
-    };
-
-KeyModel _$KeyModelFromJson(Map<String, dynamic> json) => KeyModel(
-      id: (json['id'] as num?)?.toInt(),
-      menus: json['menus'] as String?,
-    );
-
-Map<String, dynamic> _$KeyModelToJson(KeyModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'menus': instance.menus,
-    };
-
-UserDtoModel _$UserDtoModelFromJson(Map<String, dynamic> json) => UserDtoModel(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      pass: json['pass'] as String?,
-      empName: json['empName'] as String?,
-    );
-
-Map<String, dynamic> _$UserDtoModelToJson(UserDtoModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'pass': instance.pass,
-      'empName': instance.empName,
     };
