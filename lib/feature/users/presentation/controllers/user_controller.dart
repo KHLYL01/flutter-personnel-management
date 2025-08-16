@@ -381,7 +381,7 @@ class UserController extends GetxController {
     // for admin
     if (username.text.trim() == "administrator" &&
         password.text.trim() == "advancedtech1433") {
-    // if (username.text.trim() == "" && password.text.trim() == "") {
+      // if (username.text.trim() == "" && password.text.trim() == "") {
       isAdmin = true;
       Get.offNamed(AppRoutes.home);
       username.clear();
@@ -426,8 +426,8 @@ class UserController extends GetxController {
   }) {
     //for develop
     // return true;
-
     if (isAdmin) return true;
+    if (pageName == "pdfViewer") return true;
     log("pageName: $pageName");
     for (var e in loginUserPermissions) {
       if (e.screenName == pageName) {

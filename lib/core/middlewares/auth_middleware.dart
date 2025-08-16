@@ -47,6 +47,7 @@ class AuthMiddleware extends GetMiddleware {
     "/add_takleef": "بيانات خارح دوام",
     "/add_employee": "بيانات الوظائف الأساسية",
     "/mosaeer_salary": "مسير الرواتب",
+    "/pdfViewer": "pdfViewer",
   };
 
   @override
