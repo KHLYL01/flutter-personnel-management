@@ -13,6 +13,7 @@ import '../../feature/emp_hasmiat/presentation/pages/add_hasmiat.dart';
 import '../../feature/emp_hasmiat/presentation/pages/hasmiat_search.dart';
 import '../../feature/emp_holiday/presentation/pages/add_holiday.dart';
 import '../../feature/emp_holiday/presentation/pages/holiday_search.dart';
+import '../../feature/emp_holiday/presentation/pages/holiday_type.dart';
 import '../../feature/emp_kashf_tepy/presentation/pages/add_kashf_tepy.dart';
 import '../../feature/emp_kashf_tepy/presentation/pages/kashf_tepy_search.dart';
 import '../../feature/emp_mobashra/presentation/pages/add_mobashra.dart';
@@ -61,6 +62,7 @@ class AppRoutes {
   static const String empDegrees = '/emp_degrees';
   static const String empDegreesWorker = '/emp_degrees_worker';
   static const String parts = '/parts';
+  static const String holidayType = '/holiday_type';
 
   // تجهيز و إعداد
   static const String users = '/users';
@@ -145,6 +147,10 @@ class AppRoutes {
     GetPage(
         name: parts,
         page: () => const PartsPage(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: holidayType,
+        page: () => const HolidayTypePage(),
         middlewares: [AuthMiddleware()]),
     // search
     GetPage(

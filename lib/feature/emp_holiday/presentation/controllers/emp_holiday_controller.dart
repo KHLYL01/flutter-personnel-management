@@ -26,9 +26,8 @@ class EmpHolidayController extends GetxController {
   final TextEditingController draga = TextEditingController();
   final TextEditingController salary = TextEditingController();
   final TextEditingController naqlBadal = TextEditingController();
-  final TextEditingController holidayType = TextEditingController(text: "0");
-  final TextEditingController holidayTypeName =
-      TextEditingController(text: "إعتيادية سنوى");
+  final TextEditingController holidayType = TextEditingController();
+  final TextEditingController holidayTypeName = TextEditingController();
   final TextEditingController startDate = TextEditingController();
   final TextEditingController endDate = TextEditingController();
   final TextEditingController requestDate = TextEditingController();
@@ -107,6 +106,11 @@ class EmpHolidayController extends GetxController {
   Future<void> save() async {
     if (empId.text == "") {
       customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
+      return;
+    }
+    if (holidayType.text == "") {
+      customSnackBar(
+          title: "خطأ", message: 'يرجى اختيار نوع الإجازة', isDone: false);
       return;
     }
     isLoading(true);
@@ -237,8 +241,8 @@ class EmpHolidayController extends GetxController {
     draga.clear();
     salary.clear();
     naqlBadal.clear();
-    holidayType.text = "0";
-    holidayTypeName.text = 'إعتيادية سنوى';
+    holidayType.clear();
+    holidayTypeName.clear();
     startDate.text = nowHijriDate();
     endDate.text = nowHijriDate();
     requestDate.text = nowHijriDate();

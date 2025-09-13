@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/feature/users/presentation/controllers/user_controller.dart';
@@ -15,6 +13,7 @@ class AuthMiddleware extends GetMiddleware {
     "/emp_degrees": "سلم درجات الموظفين",
     "/emp_degrees_worker": "سلم درجات العمال",
     "/parts": "أنواع الأقسام",
+    "/holiday_type": "أنواع الإجازات",
     "/users": "المستخدمين",
     "/dowra_search": "الإستعلام عن الدورات",
     "/end_search": "الاستعلام عن إنهاء خدمة",

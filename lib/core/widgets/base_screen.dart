@@ -64,6 +64,7 @@ class BaseScreen extends StatelessWidget {
       "/emp_degrees": "سلم درجات الموظفين",
       "/emp_degrees_worker": "سلم درجات العمال",
       "/parts": "أنواع الأقسام",
+      "/holiday_type": "أنواع الإجازات",
       "/users": "المستخدمين",
       "/signatures": "إدارة التوقيعات",
       "/dowra_search": "الإستعلام عن الدورات",
@@ -205,6 +206,10 @@ class BaseScreen extends StatelessWidget {
                                 value: AppRoutes.empDegreesWorker,
                                 child:
                                     Text(map[AppRoutes.empDegreesWorker] ?? ""),
+                              ),
+                              PopupMenuItem(
+                                value: AppRoutes.holidayType,
+                                child: Text(map[AppRoutes.holidayType] ?? ""),
                               ),
                             ],
                             onSelected: (page) {

@@ -79,6 +79,7 @@ class UserController extends GetxController {
     ScreenPermission(group: "الترميز", screenName: "سلم درجات العمال"),
     ScreenPermission(
         group: "الترميز", screenName: "تصنيف الدول حسب فئات البدل"),
+    ScreenPermission(group: "الترميز", screenName: "أنواع الإجازات"),
 
     // الموظفين / العاملين
     ScreenPermission(
