@@ -66,3 +66,25 @@ class EmpEndSearchModel {
 
   Map<String, dynamic> toJson() => _$EmpEndSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpEndReportModel {
+  final int? id; // EMP_ENDEMP.ID
+  final String? qrarId; // رقم القرار
+  final String? qrarDate; // تاريخ القرار
+  final String? employeeName; // اسم الموظف
+  final String? terminationDate; // تاريخ الإنهاء
+
+  EmpEndReportModel({
+    this.id,
+    this.qrarId,
+    this.qrarDate,
+    this.employeeName,
+    this.terminationDate,
+  });
+
+  factory EmpEndReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpEndReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpEndReportModelToJson(this);
+}

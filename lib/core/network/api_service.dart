@@ -20,6 +20,7 @@ import '../../feature/emp_taeen/data/model/emp_taeen_model.dart';
 import '../../feature/emp_takleef/data/model/emp_takleef_det_model.dart';
 import '../../feature/emp_takleef/data/model/emp_takleef_model.dart';
 import '../../feature/emp_tarqea/data/model/emp_tarqea_model.dart';
+import '../../feature/employee/data/model/emp_services_model.dart';
 import '../../feature/employee/data/model/employee_model.dart';
 import '../../feature/employee/data/model/mosaeer_salary_model.dart';
 import '../../feature/passport/data/model/passport_model.dart';
@@ -277,6 +278,10 @@ abstract class ApiService {
   Future<HttpResponse<List<EmpEndSearchModel>>> searchEmpEnd(
       @Query("name") String? name);
 
+  @GET("$empEnd/report")
+  Future<HttpResponse<List<EmpEndReportModel>>> reportEmpEnd(
+      @Query("name") String? name);
+
   @GET("$empEnd/{id}")
   Future<HttpResponse<EmpEndModel>> findEmpEndById(@Path("id") int id);
 
@@ -299,6 +304,13 @@ abstract class ApiService {
     @Query("employeeName") String? employeeName,
     @Query("cardId") String? cardId,
     @Query("entedabPlace") String? entedabPlace,
+  );
+
+  @GET("$empEntedab/report")
+  Future<HttpResponse<List<EmpEntedabReportModel>>> reportEmpEntedab(
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
   );
 
   @GET("$empEntedab/{id}")
@@ -343,6 +355,14 @@ abstract class ApiService {
     @Query("cardId") String? cardId,
   );
 
+  @GET("$empHasmiat/report")
+  Future<HttpResponse<List<EmpHasmiatReportModel>>> reportEmpHasmiat(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
   @GET("$empHasmiat/{id}")
   Future<HttpResponse<EmpHasmiatModel>> findEmpHasmiatById(@Path("id") int id);
 
@@ -384,6 +404,18 @@ abstract class ApiService {
     @Query("name") String? name,
     @Query("cardId") String? cardId,
     @Query("empType") String? empType,
+    @Query("holidayType") int? holidayType,
+  );
+
+  // TODO =================================
+  @GET("$empHoliday/report")
+  Future<HttpResponse<List<EmpHolidayReportModel>>> reportEmpHoliday(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+    @Query("fromPeriod") int? fromPeriod,
+    @Query("toPeriod") int? toPeriod,
     @Query("holidayType") int? holidayType,
   );
 
@@ -433,6 +465,14 @@ abstract class ApiService {
     @Query("empType") String? empType,
   );
 
+  @GET("$empKashfTepy/report")
+  Future<HttpResponse<List<EmpKashfTepyReportModel>>> reportEmpKashfTepy(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
   @GET("$empKashfTepy/{id}")
   Future<HttpResponse<EmpKashfTepyModel>> findEmpKashfTepyById(
       @Path("id") int id);
@@ -458,6 +498,14 @@ abstract class ApiService {
     @Query("empType") String? empType,
   );
 
+  @GET("$empMobashra/report")
+  Future<HttpResponse<List<EmpMobashraReportModel>>> reportEmpMobashra(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
   @GET("$empMobashra/{id}")
   Future<HttpResponse<EmpMobashraModel>> findEmpMobashraById(
       @Path("id") int id);
@@ -480,6 +528,14 @@ abstract class ApiService {
   Future<HttpResponse<List<EmpMokhalfatSearchModel>>> searchEmpMokhalfat(
     @Query("name") String? name,
     @Query("cardId") String? cardId,
+  );
+
+  @GET("$empMokhalfat/report")
+  Future<HttpResponse<List<EmpMokhalfatReportModel>>> reportEmpMokhalfat(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
   );
 
   @GET("$empMokhalfat/{id}")
@@ -523,6 +579,14 @@ abstract class ApiService {
     @Query("name") String? name,
     @Query("cardId") String? cardId,
     @Query("place") String? place,
+  );
+
+  @GET("$empTakleef/report")
+  Future<HttpResponse<List<EmpTakleefReportModel>>> reportEmpTakleef(
+    @Query("all") bool? all,
+    @Query("empId") int? empId,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
   );
 
   @GET("$empTakleef/{id}")
@@ -633,6 +697,11 @@ abstract class ApiService {
     @Query("empId") int? empId,
   );
 
+  @GET("$tafweed/report")
+  Future<HttpResponse<List<TafweedReportModel>>> reportTafweed(
+    @Query("empId") int? empId,
+  );
+
   @GET("$tafweed/{id}")
   Future<HttpResponse<TafweedModel>> findTafweedById(@Path("id") int id);
 
@@ -659,6 +728,13 @@ abstract class ApiService {
     @Query("partId") int? partId,
     @Query("fia") String? fia,
     @Query("draga") double? draga,
+    @Query("jobState") String? jobState,
+    @Query("empType") String? empType,
+  );
+
+  @GET("$employee/report")
+  Future<HttpResponse<List<EmployeeReportModel>>> reportEmployee(
+    @Query("partId") int? partId,
     @Query("jobState") String? jobState,
     @Query("empType") String? empType,
   );
@@ -697,6 +773,10 @@ abstract class ApiService {
   //*
   @GET("$empEqrar/search")
   Future<HttpResponse<List<EmpEqrarSearchModel>>> searchEmpEqrar(
+      @Query("name") String? name);
+
+  @GET("$empEqrar/report")
+  Future<HttpResponse<List<EmpEqrarReportModel>>> reportEmpEqrar(
       @Query("name") String? name);
 
   @GET("$empEqrar/{id}")
@@ -773,4 +853,42 @@ abstract class ApiService {
 
   @DELETE("$signatures/{id}")
   Future<HttpResponse<void>> deleteSignature(@Path("id") int id);
+
+  //*
+  //* Emp Services api
+  //*
+  @GET("$empServices/search")
+  Future<HttpResponse<List<EmpServicesModel>>> searchEmpServices(
+    @Query("empId") int? empId,
+  );
+
+  @GET("$empServices/{id}")
+  Future<HttpResponse<EmpServicesModel>> findEmpServicesById(
+      @Path("id") int id);
+
+  @POST(empServices)
+  Future<HttpResponse<EmpServicesModel>> saveEmpServices(
+      @Body(nullToAbsent: true) EmpServicesModel model);
+
+  @DELETE("$empServices/{id}")
+  Future<HttpResponse<void>> deleteEmpServices(@Path("id") int id);
+
+  //*
+  //* Actions api
+  //*
+  // @GET("$actions/search")
+  // Future<HttpResponse<List<ActionsModel>>> searchEmpServices(
+  //   @Query("empId") int? empId,
+  // );
+  //
+  // @GET("$actions/{id}")
+  // Future<HttpResponse<EmpServicesModel>> findEmpServicesById(
+  //     @Path("id") int id);
+  //
+  // @POST(actions)
+  // Future<HttpResponse<EmpServicesModel>> saveEmpServices(
+  //     @Body(nullToAbsent: true) EmpServicesModel model);
+  //
+  // @DELETE("$actions/{id}")
+  // Future<HttpResponse<void>> deleteEmpServices(@Path("id") int id);
 }

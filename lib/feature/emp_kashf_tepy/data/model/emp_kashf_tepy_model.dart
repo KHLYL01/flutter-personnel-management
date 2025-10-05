@@ -68,3 +68,31 @@ class EmpKashfTepySearchModel {
 
   Map<String, dynamic> toJson() => _$EmpKashfTepySearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpKashfTepyReportModel {
+  final int? id;
+  final String? employeeName;
+  final String? jobName;
+  final String? requestDate;
+  final String? medicalUnitType;
+  final String? medicalUnitName;
+  final String? employeeStatus;
+  final String? datEnketa3;
+
+  EmpKashfTepyReportModel({
+    this.id,
+    this.employeeName,
+    this.jobName,
+    this.requestDate,
+    this.medicalUnitType,
+    this.medicalUnitName,
+    this.employeeStatus,
+    this.datEnketa3,
+  });
+
+  factory EmpKashfTepyReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpKashfTepyReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpKashfTepyReportModelToJson(this);
+}

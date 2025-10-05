@@ -63,3 +63,31 @@ Map<String, dynamic> _$EmpMokhalfatSearchModelToJson(
       'periodTo': instance.periodTo,
       'mokhalfaType': instance.mokhalfaType,
     };
+
+EmpMokhalfatReportModel _$EmpMokhalfatReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpMokhalfatReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      cardId: json['cardId'] as String?,
+      jobName: json['jobName'] as String?,
+      fia: json['fia'] as String?,
+      periodFrom: json['periodFrom'] as String?,
+      periodTo: json['periodTo'] as String?,
+      mokhalfaType: json['mokhalfaType'] as String?,
+      gza: (json['gza'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$EmpMokhalfatReportModelToJson(
+        EmpMokhalfatReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'cardId': instance.cardId,
+      'jobName': instance.jobName,
+      'fia': instance.fia,
+      'periodFrom': instance.periodFrom,
+      'periodTo': instance.periodTo,
+      'mokhalfaType': instance.mokhalfaType,
+      'gza': instance.gza,
+    };

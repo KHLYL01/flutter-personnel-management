@@ -26,6 +26,23 @@ class EmpKashfTepyRepository {
     }
   }
 
+  Future<Either<Failure, List<EmpKashfTepyReportModel>>> report({
+    required bool? all,
+    required int? empId,
+    required String? fromDate,
+    required String? toDate,
+  }) async {
+    try {
+      final httpResponse =
+          await _apiService.reportEmpKashfTepy(all, empId, fromDate, toDate);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, EmpKashfTepyModel>> findById(int id) async {
     try {
       final httpResponse = await _apiService.findEmpKashfTepyById(id);

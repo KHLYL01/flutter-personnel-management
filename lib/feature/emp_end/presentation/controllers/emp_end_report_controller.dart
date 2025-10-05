@@ -8,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../../core/constants/app_routes.dart';
 import '../../../pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
+import '../../../users/presentation/controllers/user_controller.dart';
 import 'emp_end_controller.dart';
 
 class EmpEndReportController extends GetxController {
@@ -187,7 +188,7 @@ $bossName""",
         Get.find<BladiaInfoController>();
     String name = bladiaInfoController.name.text;
     String bossName = bladiaInfoController.boss.text;
-    String empName = bladiaInfoController.emp.text;
+    String empName = Get.find<UserController>().userEmpName;
     String edara = bladiaInfoController.partBoss.text;
     String modaqeq = bladiaInfoController.part2Boss.text;
     String malia = bladiaInfoController.maliaBoss.text;
@@ -383,7 +384,7 @@ $bossName""",
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "مدير النظام",
+                    empName,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),
@@ -473,6 +474,7 @@ $bossName""",
     Get.toNamed(AppRoutes.pdfViewer);
   }
 
+  // TODO completer this report
   // مكافأة نهاية خدمة
   Future<void> createMokafaaEndReport() async {
     // إنشاء مستند PDF جديد

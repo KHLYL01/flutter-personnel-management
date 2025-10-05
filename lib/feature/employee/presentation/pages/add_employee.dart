@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
+import 'package:personnel_management/feature/employee/presentation/controllers/emp_services_controller.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_controller.dart';
+import 'package:personnel_management/feature/employee/presentation/pages/emp_services.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -791,8 +793,14 @@ class AddEmployee extends StatelessWidget {
                       children: [
                         CustomButton(
                           text: 'بيان خدمات موظف',
-                          onPressed: () =>
-                              controllerReport.createBeanKhedmhEmployeeReport(),
+                          onPressed: () {
+                            Get.find<EmpServicesController>().empId.text =
+                                controller.id.text;
+                            Get.find<EmpServicesController>()
+                                .findAllByEmployeeId();
+                            Get.dialog(const EmpServicesPage());
+                          },
+                          // controllerReport.createBeanKhedmhEmployeeReport(),
                           height: 30,
                           width: 120,
                         ),

@@ -65,3 +65,29 @@ Map<String, dynamic> _$EmpKashfTepySearchModelToJson(
       'employeeStatus': instance.employeeStatus,
       'medicalUnitName': instance.medicalUnitName,
     };
+
+EmpKashfTepyReportModel _$EmpKashfTepyReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpKashfTepyReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobName: json['jobName'] as String?,
+      requestDate: json['requestDate'] as String?,
+      medicalUnitType: json['medicalUnitType'] as String?,
+      medicalUnitName: json['medicalUnitName'] as String?,
+      employeeStatus: json['employeeStatus'] as String?,
+      datEnketa3: json['datEnketa3'] as String?,
+    );
+
+Map<String, dynamic> _$EmpKashfTepyReportModelToJson(
+        EmpKashfTepyReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobName': instance.jobName,
+      'requestDate': instance.requestDate,
+      'medicalUnitType': instance.medicalUnitType,
+      'medicalUnitName': instance.medicalUnitName,
+      'employeeStatus': instance.employeeStatus,
+      'datEnketa3': instance.datEnketa3,
+    };

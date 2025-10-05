@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
-import 'package:personnel_management/feature/pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 
 import '../../feature/emp_dowra/data/repository/emp_dowra_det_repository.dart';
 import '../../feature/emp_dowra/data/repository/emp_dowra_repository.dart';
@@ -13,43 +11,52 @@ import '../../feature/emp_end/data/repository/emp_end_repository.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_controller.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_report_controller.dart';
 import '../../feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
+import '../../feature/emp_end/presentation/controllers/emp_end_search_report_controller.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_det_repository.dart';
 import '../../feature/emp_entedab/data/repository/emp_entedab_repository.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_report_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
+import '../../feature/emp_entedab/presentation/controllers/emp_entedab_search_report_controller.dart';
 import '../../feature/emp_eqrar/data/repository/emp_eqrar_repository.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_report_controller.dart';
 import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_controller.dart';
+import '../../feature/emp_eqrar/presentation/controllers/emp_eqrar_search_report_controller.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_det_repository.dart';
 import '../../feature/emp_hasmiat/data/repository/emp_hasmiat_repository.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_report_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_det_controller.dart';
 import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
+import '../../feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_report_controller.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_tamdeed_repository.dart';
 import '../../feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_report_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
+import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_report_controller.dart';
+import '../../feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
 import '../../feature/emp_kashf_tepy/data/repository/emp_kashf_tepy_repository.dart';
 import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
 import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_report_controller.dart';
 import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
+import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_report_controller.dart';
 import '../../feature/emp_mobashra/data/repository/emp_mobashra_repository.dart';
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_controller.dart';
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_report_controller.dart';
 import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_search_controller.dart';
+import '../../feature/emp_mobashra/presentation/controllers/emp_mobashra_search_report_controller.dart';
 import '../../feature/emp_mokhalfat/data/repository/emp_mokhalfat_det_repository.dart';
 import '../../feature/emp_mokhalfat/data/repository/emp_mokhalfat_repository.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_det_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_report_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_controller.dart';
 import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_controller.dart';
+import '../../feature/emp_mokhalfat/presentation/controllers/emp_mokhalfat_search_report_controller.dart';
 import '../../feature/emp_taeen/data/repository/emp_taeen_repository.dart';
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_controller.dart';
 import '../../feature/emp_taeen/presentation/controllers/emp_taeen_report_controller.dart';
@@ -60,24 +67,30 @@ import '../../feature/emp_takleef/presentation/controllers/emp_takleef_report_co
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_det_controller.dart';
 import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_controller.dart';
+import '../../feature/emp_takleef/presentation/controllers/emp_takleef_search_report_controller.dart';
 import '../../feature/emp_tarqea/data/repository/emp_tarqea_repository.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_controller.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_report_controller.dart';
 import '../../feature/emp_tarqea/presentation/controllers/emp_tarqea_search_controller.dart';
+import '../../feature/employee/data/repository/emp_services_repository.dart';
 import '../../feature/employee/data/repository/employee_repository.dart';
+import '../../feature/employee/presentation/controllers/emp_services_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_report_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_find_controller.dart';
 import '../../feature/employee/presentation/controllers/employee_search_controller.dart';
+import '../../feature/employee/presentation/controllers/employee_search_report_controller.dart';
 import '../../feature/employee/presentation/controllers/mosaeer_salary_controller.dart';
 import '../../feature/passport/data/repository/passport_repository.dart';
 import '../../feature/passport/presentation/controllers/passport_controller.dart';
 import '../../feature/passport/presentation/controllers/passport_report_controller.dart';
 import '../../feature/passport/presentation/controllers/passport_search_controller.dart';
+import '../../feature/pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 import '../../feature/tafweed/data/repository/tafweed_repository.dart';
 import '../../feature/tafweed/presentation/controllers/tafweed_controller.dart';
 import '../../feature/tafweed/presentation/controllers/tafweed_report_controller.dart';
 import '../../feature/tafweed/presentation/controllers/tafweed_search_controller.dart';
+import '../../feature/tafweed/presentation/controllers/tafweed_search_report_controller.dart';
 import '../../feature/tarmeez_badal/data/repository/badal_repository.dart';
 import '../../feature/tarmeez_badal/presentation/controllers/badal_controller.dart';
 import '../../feature/tarmeez_badal_countries/data/repository/badal_countries_repository.dart';
@@ -153,6 +166,11 @@ class DependenceInitializer {
     Get.put(EmployeeFindController(Get.find()));
     Get.put(MosaeerSalaryController(Get.find()));
     Get.put(EmployeeReportController());
+    Get.put(EmployeeSearchReportController(Get.find()));
+
+    // Emp Services DI
+    Get.lazyPut(() => EmpServicesRepository(Get.find()));
+    Get.put(EmpServicesController(Get.find()));
 
     // EmpDowra DI
     Get.lazyPut(() => EmpDowraRepository(Get.find()));
@@ -167,12 +185,14 @@ class DependenceInitializer {
     Get.put(EmpEndController(Get.find(), Get.find(), Get.find()));
     Get.put(EmpEndSearchController(Get.find()));
     Get.put(EmpEndReportController());
+    Get.put(EmpEndSearchReportController(Get.find()));
 
     // EmpEntedab DI
     Get.lazyPut(() => EmpEntedabRepository(Get.find()));
     Get.put(EmpEntedabController(Get.find()));
     Get.put(EmpEntedabSearchController(Get.find()));
     Get.put(EmpEntedabReportController(Get.find(), Get.find()));
+    Get.put(EmpEntedabSearchReportController(Get.find()));
 
     Get.lazyPut(() => EmpEntedabDetRepository(Get.find()));
     Get.put(EmpEntedabDetController(Get.find()));
@@ -181,6 +201,7 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpHasmiatRepository(Get.find()));
     Get.put(EmpHasmiatController(Get.find()));
     Get.put(EmpHasmiatSearchController(Get.find()));
+    Get.put(EmpHasmiatSearchReportController(Get.find()));
 
     Get.lazyPut(() => EmpHasmiatDetRepository(Get.find()));
     Get.put(EmpHasmiatDetController(Get.find()));
@@ -193,6 +214,7 @@ class DependenceInitializer {
     Get.put(EmpHolidayController(Get.find(), Get.find()));
     Get.put(EmpHolidaySearchController(Get.find()));
     Get.put(EmpHolidayReportController(Get.find(), Get.find()));
+    Get.put(EmpHolidaySearchReportController(Get.find()));
 
     Get.lazyPut(() => EmpHolidayTamdeedRepository(Get.find()));
     Get.put(EmpHolidayTamdeedController(Get.find(), Get.find()));
@@ -202,17 +224,20 @@ class DependenceInitializer {
     Get.put(EmpKashfTepyController(Get.find(), Get.find()));
     Get.put(EmpKashfTepySearchController(Get.find()));
     Get.put(EmpKashfTepyReportController());
+    Get.put(EmpKashfTepySearchReportController(Get.find()));
 
     // EmpMobashra DI
     Get.lazyPut(() => EmpMobashraRepository(Get.find()));
     Get.put(EmpMobashraController(Get.find()));
     Get.put(EmpMobashraSearchController(Get.find()));
     Get.put(EmpMobashraReportController(Get.find(), Get.find()));
+    Get.put(EmpMobashraSearchReportController(Get.find()));
 
     // EmpMokhalfat DI
     Get.lazyPut(() => EmpMokhalfatRepository(Get.find()));
     Get.put(EmpMokhalfatController(Get.find()));
     Get.put(EmpMokhalfatSearchController(Get.find()));
+    Get.put(EmpMokhalfatSearchReportController(Get.find()));
 
     Get.lazyPut(() => EmpMokhalfatDetRepository(Get.find()));
     Get.put(EmpMokhalfatDetController(Get.find()));
@@ -223,6 +248,7 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpTakleefRepository(Get.find()));
     Get.put(EmpTakleefController(Get.find()));
     Get.put(EmpTakleefSearchController(Get.find()));
+    Get.put(EmpTakleefSearchReportController(Get.find()));
 
     Get.lazyPut(() => EmpTakleefDetRepository(Get.find()));
     Get.put(EmpTakleefDetController(Get.find()));
@@ -252,16 +278,19 @@ class DependenceInitializer {
     Get.put(TafweedController(Get.find(), Get.find()));
     Get.put(TafweedSearchController(Get.find()));
     Get.put(TafweedReportController(Get.find(), Get.find(), Get.find()));
+    Get.put(TafweedSearchReportController(Get.find()));
 
     // EmpEqrar DI
     Get.lazyPut(() => EmpEqrarRepository(Get.find()));
     Get.put(EmpEqrarController(Get.find()));
     Get.put(EmpEqrarSearchController(Get.find()));
     Get.put(EmpEqrarReportController());
+    Get.put(EmpEqrarSearchReportController(Get.find()));
 
     // EmpHolidayType DI
     Get.lazyPut(() => EmpHolidayTypeRepository(Get.find()));
-    Get.put(EmpHolidayTypeController(Get.find()));
+    // Get.put(EmpHolidayTypeController(Get.find()));
+    Get.put(EmpHolidayTypeController());
 
     // User DI
     Get.lazyPut(() => UserRepository(Get.find()));

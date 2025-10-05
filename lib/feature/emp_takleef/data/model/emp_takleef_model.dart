@@ -95,3 +95,35 @@ class EmpTakleefSearchModel {
 
   Map<String, dynamic> toJson() => _$EmpTakleefSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpTakleefReportModel {
+  final int? id;
+  final String? employeeName; // الاسم
+  final String? jobName; // مسمى الوظيفة
+  final String? fia;
+  final String? place; // مكان العمل (added for filtering)
+  final String? task;
+  final int? period; // عدد أيام الخارج الدوام
+  final double? hoursAvg; // معدل عدد ساعات
+  final double? hoursPeriodTotal; // معدل عدد ساعات
+  final String? dateBegin; // تاريخ بداية الخارج الدوام
+
+  EmpTakleefReportModel({
+    this.id,
+    this.employeeName,
+    this.jobName,
+    this.fia,
+    this.place,
+    this.task,
+    this.period,
+    this.hoursAvg,
+    this.hoursPeriodTotal,
+    this.dateBegin,
+  });
+
+  factory EmpTakleefReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpTakleefReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpTakleefReportModelToJson(this);
+}

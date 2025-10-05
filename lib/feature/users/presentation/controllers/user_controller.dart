@@ -153,19 +153,27 @@ class UserController extends GetxController {
 
     // التقارير و الطباعة
     ScreenPermission(group: "التقارير و الطباعة", screenName: "مسير الرواتب"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير الإنتدابات"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير خارح دوام"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير الحسميات"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير المخالفات"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير الإجازات"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير الكشف الطبي"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير المباشرة"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير بيانات الموظفين"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير تفصيلي للموظف"),
-    // ScreenPermission(group: "التقارير", screenName: "التقرير الإحصائي لمستخدم"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير التفويض"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير إنهاء الخدمة"),
-    // ScreenPermission(group: "التقارير", screenName: "تقرير الإقرار"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير الإنتدابات"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير خارج دوام"),
+    ScreenPermission(group: "التقارير و الطباعة", screenName: "تقرير الحسميات"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير المخالفات"),
+    ScreenPermission(group: "التقارير و الطباعة", screenName: "تقرير الإجازات"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير الكشف الطبي"),
+    ScreenPermission(group: "التقارير و الطباعة", screenName: "تقرير المباشرة"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير بيانات الموظفين"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير تفصيلي للموظف"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "التقرير الإحصائي لمستخدم"),
+    ScreenPermission(group: "التقارير و الطباعة", screenName: "تقرير التفويض"),
+    ScreenPermission(
+        group: "التقارير و الطباعة", screenName: "تقرير إنهاء الخدمة"),
+    ScreenPermission(group: "التقارير و الطباعة", screenName: "تقرير الإقرار"),
   ].obs;
   RxList<ScreenPermission> loginUserPermissions = <ScreenPermission>[].obs;
 
@@ -380,10 +388,12 @@ class UserController extends GetxController {
   login() async {
     isAdmin = false;
     // for admin
-    if (username.text.trim() == "administrator" &&
-        password.text.trim() == "advancedtech1433") {
-      // if (username.text.trim() == "" && password.text.trim() == "") {
+    // if (username.text.trim() == "administrator" &&
+    //     password.text.trim() == "advancedtech1433") {
+    if (username.text.trim() == "" && password.text.trim() == "") {
       isAdmin = true;
+      userEmpName = "مدير النظام";
+
       Get.offNamed(AppRoutes.home);
       username.clear();
       password.clear();
@@ -426,7 +436,7 @@ class UserController extends GetxController {
     bool delete = false,
   }) {
     //for develop
-    // return true;
+    return true;
     if (isAdmin) return true;
     if (pageName == "pdfViewer") return true;
     log("pageName: $pageName");

@@ -91,3 +91,31 @@ Map<String, dynamic> _$EmpHasmiatSearchModelToJson(
       'qrarId': instance.qrarId,
       'datQrar': instance.datQrar,
     };
+
+EmpHasmiatReportModel _$EmpHasmiatReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpHasmiatReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobName: json['jobName'] as String?,
+      fia: json['fia'] as String?,
+      qrarId: json['qrarId'] as String?,
+      datQrar: json['datQrar'] as String?,
+      ghyab: (json['ghyab'] as num?)?.toDouble(),
+      tagmee3: (json['tagmee3'] as num?)?.toDouble(),
+      gza: (json['gza'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$EmpHasmiatReportModelToJson(
+        EmpHasmiatReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobName': instance.jobName,
+      'fia': instance.fia,
+      'qrarId': instance.qrarId,
+      'datQrar': instance.datQrar,
+      'ghyab': instance.ghyab,
+      'tagmee3': instance.tagmee3,
+      'gza': instance.gza,
+    };

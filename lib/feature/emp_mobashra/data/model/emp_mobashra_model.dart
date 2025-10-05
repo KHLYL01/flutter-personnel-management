@@ -89,3 +89,33 @@ class EmpMobashraSearchModel {
 
   Map<String, dynamic> toJson() => _$EmpMobashraSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpMobashraReportModel {
+  final int? id;
+  final String? employeeName;
+  final String? jobName;
+  final String? cardId;
+  final String? fia;
+  final double? draga;
+  final double? salary;
+  final double? naqlBadal;
+  final String? datMobashra;
+
+  EmpMobashraReportModel({
+    this.id,
+    this.employeeName,
+    this.jobName,
+    this.cardId,
+    this.fia,
+    this.draga,
+    this.salary,
+    this.naqlBadal,
+    this.datMobashra,
+  });
+
+  factory EmpMobashraReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpMobashraReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpMobashraReportModelToJson(this);
+}

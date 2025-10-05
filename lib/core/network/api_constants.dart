@@ -33,3 +33,5 @@ const String employee = "/employees";
 const String empEqrar = "/emp-eqrars";
 const String empHolidayType = "/emp-holidays-type";
 const String empTakleef = "/emp-takleefs";
+const String empServices = "/emp-services";
+const String actions = "/actions";

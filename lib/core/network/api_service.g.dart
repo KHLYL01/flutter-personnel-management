@@ -1833,6 +1833,46 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<EmpEndReportModel>>> reportEmpEnd(
+      String? name) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'name': name};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpEndReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-ends/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpEndReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpEndReportModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<EmpEndModel>> findEmpEndById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2006,6 +2046,53 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmpEntedabSearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpEntedabReportModel>>> reportEmpEntedab(
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpEntedabReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-entedabs/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpEntedabReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpEntedabReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -2327,6 +2414,55 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<EmpHasmiatReportModel>>> reportEmpHasmiat(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpHasmiatReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-hasmiats/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpHasmiatReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpHasmiatReportModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<EmpHasmiatModel>> findEmpHasmiatById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2634,6 +2770,61 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmpHolidaySearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpHolidayReportModel>>> reportEmpHoliday(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+    int? fromPeriod,
+    int? toPeriod,
+    int? holidayType,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+      r'fromPeriod': fromPeriod,
+      r'toPeriod': toPeriod,
+      r'holidayType': holidayType,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpHolidayReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-holidays/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpHolidayReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpHolidayReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -2971,6 +3162,55 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<EmpKashfTepyReportModel>>> reportEmpKashfTepy(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpKashfTepyReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-kashf-tepy/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpKashfTepyReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpKashfTepyReportModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<EmpKashfTepyModel>> findEmpKashfTepyById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -3155,6 +3395,55 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<EmpMobashraReportModel>>> reportEmpMobashra(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpMobashraReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-mobashra/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpMobashraReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpMobashraReportModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<EmpMobashraModel>> findEmpMobashraById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -3327,6 +3616,55 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmpMokhalfatSearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpMokhalfatReportModel>>> reportEmpMokhalfat(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpMokhalfatReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-mokhalfats/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpMokhalfatReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpMokhalfatReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -3641,6 +3979,55 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmpTakleefSearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpTakleefReportModel>>> reportEmpTakleef(
+    bool? all,
+    int? empId,
+    String? fromDate,
+    String? toDate,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'all': all,
+      r'empId': empId,
+      r'fromDate': fromDate,
+      r'toDate': toDate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpTakleefReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-takleefs/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpTakleefReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpTakleefReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -4496,6 +4883,46 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<HttpResponse<List<TafweedReportModel>>> reportTafweed(
+      int? empId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'empId': empId};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<TafweedReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/tafweeds/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<TafweedReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              TafweedReportModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<TafweedModel>> findTafweedById(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -4681,6 +5108,53 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmployeeSearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmployeeReportModel>>> reportEmployee(
+    int? partId,
+    String? jobState,
+    String? empType,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'partId': partId,
+      r'jobState': jobState,
+      r'empType': empType,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmployeeReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/employees/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmployeeReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmployeeReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -4953,6 +5427,46 @@ class _ApiService implements ApiService {
       _value = _result.data!
           .map((dynamic i) =>
               EmpEqrarSearchModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpEqrarReportModel>>> reportEmpEqrar(
+      String? name) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'name': name};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpEqrarReportModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-eqrars/report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpEqrarReportModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpEqrarReportModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -5531,6 +6045,144 @@ class _ApiService implements ApiService {
         .compose(
           _dio.options,
           '/signatures/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<void>(_options);
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<EmpServicesModel>>> searchEmpServices(
+      int? empId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'empId': empId};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<List<EmpServicesModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/emp-services/search',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<EmpServicesModel> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              EmpServicesModel.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<EmpServicesModel>> findEmpServicesById(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<EmpServicesModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-services/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EmpServicesModel _value;
+    try {
+      _value = EmpServicesModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<EmpServicesModel>> saveEmpServices(
+      EmpServicesModel model) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(model.toJson());
+    _data.removeWhere((k, v) => v == null);
+    final _options = _setStreamType<HttpResponse<EmpServicesModel>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-services',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EmpServicesModel _value;
+    try {
+      _value = EmpServicesModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<void>> deleteEmpServices(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<void>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/emp-services/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

@@ -33,6 +33,26 @@ class EmpHolidayRepository {
     }
   }
 
+  Future<Either<Failure, List<EmpHolidayReportModel>>> report({
+    required bool? all,
+    required int? empId,
+    required String? fromDate,
+    required String? toDate,
+    required int? fromPeriod,
+    required int? toPeriod,
+    required int? holidayType,
+  }) async {
+    try {
+      final httpResponse = await _apiService.reportEmpHoliday(
+          all, empId, fromDate, toDate, fromPeriod, toPeriod, holidayType);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, EmpHolidayModel>> findById(int id) async {
     try {
       final httpResponse = await _apiService.findEmpHolidayById(id);

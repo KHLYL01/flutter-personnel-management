@@ -21,7 +21,9 @@ import '../../../tarmeez_nations/presentation/controllers/nations_controller.dar
 import '../../../tarmeez_nations/presentation/pages/nations_find.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
+import '../controllers/emp_services_controller.dart';
 import '../controllers/employee_report_controller.dart';
+import 'emp_services.dart';
 
 class UpdateEmployee extends StatelessWidget {
   const UpdateEmployee({super.key});
@@ -792,8 +794,14 @@ class UpdateEmployee extends StatelessWidget {
                       children: [
                         CustomButton(
                           text: 'بيان خدمات موظف',
-                          onPressed: () =>
-                              controllerReport.createBeanKhedmhEmployeeReport(),
+                          onPressed: () {
+                            Get.find<EmpServicesController>().empId.text =
+                                controller.id.text;
+                            Get.find<EmpServicesController>()
+                                .findAllByEmployeeId();
+                            Get.dialog(const EmpServicesPage());
+                          },
+                          // controllerReport.createBeanKhedmhEmployeeReport(),
                           height: 30,
                           width: 120,
                         ),

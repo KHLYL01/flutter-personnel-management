@@ -139,3 +139,39 @@ class EmpEntedabSearchModel {
 
   Map<String, dynamic> toJson() => _$EmpEntedabSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpEntedabReportModel {
+  final int? id; // EMP_ENTEDAB.ID
+  final String? employeeName; // الاسم
+  final String? jobTitle; // مسمى الوظيفة
+  final String? fia;
+  final String? entedabPlace; // جهة الإنتداب
+  final String? task;
+  final int? period; // المدة
+  final String? assignmentStartDate; // تاريخ بداية الإنتداب
+  final int? prevPeriod;
+  final int? sumPeriod;
+  final int? empId;
+  final String? dateBeginGo;
+
+  EmpEntedabReportModel({
+    this.id,
+    this.employeeName,
+    this.jobTitle,
+    this.fia,
+    this.entedabPlace,
+    this.task,
+    this.period,
+    this.assignmentStartDate,
+    this.prevPeriod,
+    this.sumPeriod,
+    this.empId,
+    this.dateBeginGo,
+  });
+
+  factory EmpEntedabReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpEntedabReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpEntedabReportModelToJson(this);
+}

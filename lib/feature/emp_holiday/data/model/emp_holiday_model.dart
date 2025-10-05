@@ -166,3 +166,43 @@ class EmpHolidaySearchModel {
 
   Map<String, dynamic> toJson() => _$EmpHolidaySearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpHolidayReportModel {
+  final int? id; // EMP_HOLIDAYS.ID
+  final String? employeeName; // الاسم
+  final String? jobName; // مسمى الوظيفة
+  final String? startDate; // EMP_HOLIDAYS.DATBEGINGO
+  final String? fia;
+  final double? draga;
+  final int? holidayTypeId; // نوع الإجازة
+  final String? holidayType; // نوع الإجازة
+  final double? period; // مدة الإجازة
+  final int? tamdeedPeriod;
+  final String? tamdeedStartDate;
+  final String? tamdeedEndDate;
+  final String? holidayStartDate; // تاريخ بداية الإجازة
+  final String? holidayEndDate; // تاريخ انتهاء الاجازة
+
+  EmpHolidayReportModel({
+    this.id,
+    this.employeeName,
+    this.jobName,
+    this.startDate,
+    this.fia,
+    this.draga,
+    this.holidayTypeId,
+    this.holidayType,
+    this.period,
+    this.tamdeedPeriod,
+    this.tamdeedStartDate,
+    this.tamdeedEndDate,
+    this.holidayStartDate,
+    this.holidayEndDate,
+  });
+
+  factory EmpHolidayReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpHolidayReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpHolidayReportModelToJson(this);
+}

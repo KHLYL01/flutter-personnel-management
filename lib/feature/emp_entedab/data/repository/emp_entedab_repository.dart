@@ -26,6 +26,22 @@ class EmpEntedabRepository {
     }
   }
 
+  Future<Either<Failure, List<EmpEntedabReportModel>>> report({
+    required int? empId,
+    required String? fromDate,
+    required String? toDate,
+  }) async {
+    try {
+      final httpResponse =
+          await _apiService.reportEmpEntedab(empId, fromDate, toDate);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, EmpEntedabModel>> findById(int id) async {
     try {
       final httpResponse = await _apiService.findEmpEntedabById(id);

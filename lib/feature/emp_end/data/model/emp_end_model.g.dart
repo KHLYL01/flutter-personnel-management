@@ -60,3 +60,21 @@ Map<String, dynamic> _$EmpEndSearchModelToJson(EmpEndSearchModel instance) =>
       'employeeName': instance.employeeName,
       'terminationDate': instance.terminationDate,
     };
+
+EmpEndReportModel _$EmpEndReportModelFromJson(Map<String, dynamic> json) =>
+    EmpEndReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      qrarId: json['qrarId'] as String?,
+      qrarDate: json['qrarDate'] as String?,
+      employeeName: json['employeeName'] as String?,
+      terminationDate: json['terminationDate'] as String?,
+    );
+
+Map<String, dynamic> _$EmpEndReportModelToJson(EmpEndReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'qrarId': instance.qrarId,
+      'qrarDate': instance.qrarDate,
+      'employeeName': instance.employeeName,
+      'terminationDate': instance.terminationDate,
+    };

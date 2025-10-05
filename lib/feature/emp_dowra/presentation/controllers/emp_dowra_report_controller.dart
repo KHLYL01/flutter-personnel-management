@@ -11,6 +11,7 @@ import '../../../../core/constants/app_routes.dart';
 import '../../../pdf_viewer/presentation/controllers/pdf_viewer_controller.dart';
 import '../../../tarmeez_bladia_info/presentation/controllers/bladia_info_controller.dart';
 import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
+import '../../../users/presentation/controllers/user_controller.dart';
 import 'emp_dowra_controller.dart';
 import 'emp_dowra_det_controller.dart';
 
@@ -242,7 +243,7 @@ class EmpDowraReportController extends GetxController {
         Get.find<BladiaInfoController>();
     String name = bladiaInfoController.name.text;
     String bossName = bladiaInfoController.boss.text;
-    String empName = bladiaInfoController.emp.text;
+    String empName = Get.find<UserController>().userEmpName;
     String edara = bladiaInfoController.partBoss.text;
     String modaqeq = bladiaInfoController.part2Boss.text;
     String malia = bladiaInfoController.maliaBoss.text;
@@ -430,7 +431,7 @@ class EmpDowraReportController extends GetxController {
                   ),
                   pw.SizedBox(height: 20),
                   pw.Text(
-                    "مدير النظام",
+                    empName,
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
                         font: arabicFont, fontSize: 8, lineSpacing: 10),

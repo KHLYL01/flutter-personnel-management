@@ -211,6 +211,32 @@ class EmployeeSearchModel {
 }
 
 @JsonSerializable()
+class EmployeeReportModel {
+  final int? id;
+  final String? name;
+  final String? partName;
+  final String? fia;
+  final int? jobNo;
+  final double? draga;
+  final String? jobName;
+  final String? jobState;
+  final String? cardId;
+  final String? bok; // رقم الحفيظة
+  final String? datBok; //تاريخ الحفيظة
+  final String? datWork;
+  final String? datJob;
+  final String? education;
+  final double? salary;
+
+  EmployeeReportModel({this.id, this.name, this.partName, this.fia, this.jobNo, this.draga, this.jobName, this.jobState, this.cardId, this.bok, this.datBok, this.datWork, this.datJob, this.education, this.salary,});
+
+  factory EmployeeReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmployeeReportModelToJson(this);
+}
+
+@JsonSerializable()
 class EmployeeFindModel {
   final int? id; // رقم الموظف
   final String? name; // اسم الموظف

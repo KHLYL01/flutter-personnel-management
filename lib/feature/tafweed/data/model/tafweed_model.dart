@@ -57,3 +57,25 @@ class TafweedSearchModel {
 
   Map<String, dynamic> toJson() => _$TafweedSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class TafweedReportModel {
+  final int? id; // رقم التفويض
+  final String? employeeName; // الاسم
+  final String? startDate; // تاريخ البداية
+  final String? endDate; // تاريخ النهاية
+  final String? subject; // الموضوع
+
+  TafweedReportModel({
+    this.id,
+    this.employeeName,
+    this.startDate,
+    this.endDate,
+    this.subject,
+  });
+
+  factory TafweedReportModel.fromJson(Map<String, dynamic> json) =>
+      _$TafweedReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TafweedReportModelToJson(this);
+}

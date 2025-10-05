@@ -33,6 +33,21 @@ class EmployeeRepository {
     }
   }
 
+  Future<Either<Failure, List<EmployeeReportModel>>> report(
+      {required int? partId,
+      required String? jobState,
+      required String? empType}) async {
+    try {
+      final httpResponse =
+          await _apiService.reportEmployee(partId, jobState, empType);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, List<EmployeeFindModel>>> find({
     required int? id,
     required String? name,

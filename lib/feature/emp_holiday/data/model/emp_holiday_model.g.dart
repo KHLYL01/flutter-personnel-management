@@ -164,3 +164,41 @@ Map<String, dynamic> _$EmpHolidaySearchModelToJson(
       'employmentType': instance.employmentType,
       'etemad': instance.etemad,
     };
+
+EmpHolidayReportModel _$EmpHolidayReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpHolidayReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobName: json['jobName'] as String?,
+      startDate: json['startDate'] as String?,
+      fia: json['fia'] as String?,
+      draga: (json['draga'] as num?)?.toDouble(),
+      holidayTypeId: (json['holidayTypeId'] as num?)?.toInt(),
+      holidayType: json['holidayType'] as String?,
+      period: (json['period'] as num?)?.toDouble(),
+      tamdeedPeriod: (json['tamdeedPeriod'] as num?)?.toInt(),
+      tamdeedStartDate: json['tamdeedStartDate'] as String?,
+      tamdeedEndDate: json['tamdeedEndDate'] as String?,
+      holidayStartDate: json['holidayStartDate'] as String?,
+      holidayEndDate: json['holidayEndDate'] as String?,
+    );
+
+Map<String, dynamic> _$EmpHolidayReportModelToJson(
+        EmpHolidayReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobName': instance.jobName,
+      'startDate': instance.startDate,
+      'fia': instance.fia,
+      'draga': instance.draga,
+      'holidayTypeId': instance.holidayTypeId,
+      'holidayType': instance.holidayType,
+      'period': instance.period,
+      'tamdeedPeriod': instance.tamdeedPeriod,
+      'tamdeedStartDate': instance.tamdeedStartDate,
+      'tamdeedEndDate': instance.tamdeedEndDate,
+      'holidayStartDate': instance.holidayStartDate,
+      'holidayEndDate': instance.holidayEndDate,
+    };

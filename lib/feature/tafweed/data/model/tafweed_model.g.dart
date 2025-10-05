@@ -52,3 +52,21 @@ Map<String, dynamic> _$TafweedSearchModelToJson(TafweedSearchModel instance) =>
       'endDate': instance.endDate,
       'subject': instance.subject,
     };
+
+TafweedReportModel _$TafweedReportModelFromJson(Map<String, dynamic> json) =>
+    TafweedReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      startDate: json['startDate'] as String?,
+      endDate: json['endDate'] as String?,
+      subject: json['subject'] as String?,
+    );
+
+Map<String, dynamic> _$TafweedReportModelToJson(TafweedReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'startDate': instance.startDate,
+      'endDate': instance.endDate,
+      'subject': instance.subject,
+    };

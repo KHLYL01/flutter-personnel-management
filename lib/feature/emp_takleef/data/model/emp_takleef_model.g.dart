@@ -93,3 +93,33 @@ Map<String, dynamic> _$EmpTakleefSearchModelToJson(
       'dateBegin': instance.dateBegin,
       'place': instance.place,
     };
+
+EmpTakleefReportModel _$EmpTakleefReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpTakleefReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobName: json['jobName'] as String?,
+      fia: json['fia'] as String?,
+      place: json['place'] as String?,
+      task: json['task'] as String?,
+      period: (json['period'] as num?)?.toInt(),
+      hoursAvg: (json['hoursAvg'] as num?)?.toDouble(),
+      hoursPeriodTotal: (json['hoursPeriodTotal'] as num?)?.toDouble(),
+      dateBegin: json['dateBegin'] as String?,
+    );
+
+Map<String, dynamic> _$EmpTakleefReportModelToJson(
+        EmpTakleefReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobName': instance.jobName,
+      'fia': instance.fia,
+      'place': instance.place,
+      'task': instance.task,
+      'period': instance.period,
+      'hoursAvg': instance.hoursAvg,
+      'hoursPeriodTotal': instance.hoursPeriodTotal,
+      'dateBegin': instance.dateBegin,
+    };

@@ -42,7 +42,7 @@ class CustomTextField extends StatelessWidget {
         children: [
           if (withLable)
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 label,
                 style: const TextStyle(

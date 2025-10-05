@@ -61,3 +61,29 @@ class EmpEqrarSearchModel {
 
   Map<String, dynamic> toJson() => _$EmpEqrarSearchModelToJson(this);
 }
+
+@JsonSerializable()
+class EmpEqrarReportModel {
+  final int? id; //رقم الإقرار
+  final String? eqrarName; //اسم المقر
+  final String? eqrarDate; //تاريخ الإقرار
+  final String? eqrarPlace; //مكان الحضور
+  final int? khetabNumber; //رقم الخطاب
+  final String? khetabName; //مرسل الخطاب
+  final String? khetabDate; //تاريخ الخطاب
+
+  EmpEqrarReportModel({
+    this.id,
+    this.eqrarName,
+    this.eqrarDate,
+    this.eqrarPlace,
+    this.khetabNumber,
+    this.khetabName,
+    this.khetabDate,
+  });
+
+  factory EmpEqrarReportModel.fromJson(Map<String, dynamic> json) =>
+      _$EmpEqrarReportModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmpEqrarReportModelToJson(this);
+}

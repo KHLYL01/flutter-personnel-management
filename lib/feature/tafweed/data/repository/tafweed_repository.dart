@@ -23,6 +23,19 @@ class TafweedRepository {
     }
   }
 
+  Future<Either<Failure, List<TafweedReportModel>>> report({
+    required int? empId,
+  }) async {
+    try {
+      final httpResponse = await _apiService.reportTafweed(empId);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, TafweedModel>> findById(int id) async {
     try {
       final httpResponse = await _apiService.findTafweedById(id);

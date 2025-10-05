@@ -111,7 +111,7 @@ class HolidaySearch extends StatelessWidget {
                                   },
                                 ),
                               );
-                              Get.find<EmpHolidayTypeController>().findAll();
+                              // Get.find<EmpHolidayTypeController>().findAll();
                             },
                             height: 25,
                             width: 100,

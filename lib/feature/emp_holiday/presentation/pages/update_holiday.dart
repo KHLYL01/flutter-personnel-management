@@ -186,7 +186,7 @@ class UpdateHoliday extends StatelessWidget {
                             },
                           ),
                         );
-                        Get.find<EmpHolidayTypeController>().findAll();
+                        // Get.find<EmpHolidayTypeController>().findAll();
                       },
                       height: 35,
                       width: 75,

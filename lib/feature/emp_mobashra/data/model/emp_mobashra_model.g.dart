@@ -87,3 +87,31 @@ Map<String, dynamic> _$EmpMobashraSearchModelToJson(
       'salary': instance.salary,
       'naqlBadal': instance.naqlBadal,
     };
+
+EmpMobashraReportModel _$EmpMobashraReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpMobashraReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobName: json['jobName'] as String?,
+      cardId: json['cardId'] as String?,
+      fia: json['fia'] as String?,
+      draga: (json['draga'] as num?)?.toDouble(),
+      salary: (json['salary'] as num?)?.toDouble(),
+      naqlBadal: (json['naqlBadal'] as num?)?.toDouble(),
+      datMobashra: json['datMobashra'] as String?,
+    );
+
+Map<String, dynamic> _$EmpMobashraReportModelToJson(
+        EmpMobashraReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobName': instance.jobName,
+      'cardId': instance.cardId,
+      'fia': instance.fia,
+      'draga': instance.draga,
+      'salary': instance.salary,
+      'naqlBadal': instance.naqlBadal,
+      'datMobashra': instance.datMobashra,
+    };

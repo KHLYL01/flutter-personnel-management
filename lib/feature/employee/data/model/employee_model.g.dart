@@ -207,6 +207,45 @@ Map<String, dynamic> _$EmployeeSearchModelToJson(
       'workJob': instance.workJob,
     };
 
+EmployeeReportModel _$EmployeeReportModelFromJson(Map<String, dynamic> json) =>
+    EmployeeReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      partName: json['partName'] as String?,
+      fia: json['fia'] as String?,
+      jobNo: (json['jobNo'] as num?)?.toInt(),
+      draga: (json['draga'] as num?)?.toDouble(),
+      jobName: json['jobName'] as String?,
+      jobState: json['jobState'] as String?,
+      cardId: json['cardId'] as String?,
+      bok: json['bok'] as String?,
+      datBok: json['datBok'] as String?,
+      datWork: json['datWork'] as String?,
+      datJob: json['datJob'] as String?,
+      education: json['education'] as String?,
+      salary: (json['salary'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$EmployeeReportModelToJson(
+        EmployeeReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'partName': instance.partName,
+      'fia': instance.fia,
+      'jobNo': instance.jobNo,
+      'draga': instance.draga,
+      'jobName': instance.jobName,
+      'jobState': instance.jobState,
+      'cardId': instance.cardId,
+      'bok': instance.bok,
+      'datBok': instance.datBok,
+      'datWork': instance.datWork,
+      'datJob': instance.datJob,
+      'education': instance.education,
+      'salary': instance.salary,
+    };
+
 EmployeeFindModel _$EmployeeFindModelFromJson(Map<String, dynamic> json) =>
     EmployeeFindModel(
       id: (json['id'] as num?)?.toInt(),

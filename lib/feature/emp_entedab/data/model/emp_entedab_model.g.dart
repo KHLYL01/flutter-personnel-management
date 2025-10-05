@@ -137,3 +137,37 @@ Map<String, dynamic> _$EmpEntedabSearchModelToJson(
       'period': instance.period,
       'assignmentStartDate': instance.assignmentStartDate,
     };
+
+EmpEntedabReportModel _$EmpEntedabReportModelFromJson(
+        Map<String, dynamic> json) =>
+    EmpEntedabReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      employeeName: json['employeeName'] as String?,
+      jobTitle: json['jobTitle'] as String?,
+      fia: json['fia'] as String?,
+      entedabPlace: json['entedabPlace'] as String?,
+      task: json['task'] as String?,
+      period: (json['period'] as num?)?.toInt(),
+      assignmentStartDate: json['assignmentStartDate'] as String?,
+      prevPeriod: (json['prevPeriod'] as num?)?.toInt(),
+      sumPeriod: (json['sumPeriod'] as num?)?.toInt(),
+      empId: (json['empId'] as num?)?.toInt(),
+      dateBeginGo: json['dateBeginGo'] as String?,
+    );
+
+Map<String, dynamic> _$EmpEntedabReportModelToJson(
+        EmpEntedabReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'employeeName': instance.employeeName,
+      'jobTitle': instance.jobTitle,
+      'fia': instance.fia,
+      'entedabPlace': instance.entedabPlace,
+      'task': instance.task,
+      'period': instance.period,
+      'assignmentStartDate': instance.assignmentStartDate,
+      'prevPeriod': instance.prevPeriod,
+      'sumPeriod': instance.sumPeriod,
+      'empId': instance.empId,
+      'dateBeginGo': instance.dateBeginGo,
+    };

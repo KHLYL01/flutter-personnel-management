@@ -23,6 +23,19 @@ class EmpEqrarRepository {
     }
   }
 
+  Future<Either<Failure, List<EmpEqrarReportModel>>> report({
+    required String? name,
+  }) async {
+    try {
+      final httpResponse = await _apiService.reportEmpEqrar(name);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, EmpEqrarModel>> findById(int id) async {
     try {
       final httpResponse = await _apiService.findEmpEqrarById(id);

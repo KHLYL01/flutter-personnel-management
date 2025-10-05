@@ -333,13 +333,13 @@ class AddEnd extends StatelessWidget {
                     //     },
                     //   ).paddingOnly(top: 20),
                     // ),
-                    CustomButton(
-                      text: "طباعة مكافأة إنهاء خدمة",
-                      onPressed: () =>
-                          controllerReport.createMokafaaEndReport(),
-                      height: 35,
-                      width: 200,
-                    ),
+                    // CustomButton(
+                    //   text: "طباعة مكافأة إنهاء خدمة",
+                    //   onPressed: () =>
+                    //       controllerReport.createMokafaaEndReport(),
+                    //   height: 35,
+                    //   width: 200,
+                    // ),
                   ],
                 ).scrollDirection(Axis.horizontal).center(),
               ],

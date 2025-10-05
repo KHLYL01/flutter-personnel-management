@@ -58,3 +58,26 @@ Map<String, dynamic> _$EmpEqrarSearchModelToJson(
       'khetabName': instance.khetabName,
       'khetabDate': instance.khetabDate,
     };
+
+EmpEqrarReportModel _$EmpEqrarReportModelFromJson(Map<String, dynamic> json) =>
+    EmpEqrarReportModel(
+      id: (json['id'] as num?)?.toInt(),
+      eqrarName: json['eqrarName'] as String?,
+      eqrarDate: json['eqrarDate'] as String?,
+      eqrarPlace: json['eqrarPlace'] as String?,
+      khetabNumber: (json['khetabNumber'] as num?)?.toInt(),
+      khetabName: json['khetabName'] as String?,
+      khetabDate: json['khetabDate'] as String?,
+    );
+
+Map<String, dynamic> _$EmpEqrarReportModelToJson(
+        EmpEqrarReportModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'eqrarName': instance.eqrarName,
+      'eqrarDate': instance.eqrarDate,
+      'eqrarPlace': instance.eqrarPlace,
+      'khetabNumber': instance.khetabNumber,
+      'khetabName': instance.khetabName,
+      'khetabDate': instance.khetabDate,
+    };

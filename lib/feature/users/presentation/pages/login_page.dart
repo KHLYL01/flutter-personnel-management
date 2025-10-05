@@ -104,7 +104,7 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 32),
                     child: Text(
-                      "جميع الحقوق محفوظة - حوران الشامل التجارية 2025 ©",
+                      "© جميع الحقوق محفوظة - حوران الشامل التجارية 2025",
                       style: TextStyle(
                         fontSize: 12,
                         color: AppColors.greyDark.withOpacity(0.7),
