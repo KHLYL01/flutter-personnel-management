@@ -40,6 +40,7 @@ import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_co
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_search_report_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
 import '../../feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
+import '../../feature/emp_holiday/presentation/controllers/emp_request_holiday_report_controller.dart';
 import '../../feature/emp_kashf_tepy/data/repository/emp_kashf_tepy_repository.dart';
 import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_controller.dart';
 import '../../feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_report_controller.dart';
@@ -215,6 +216,7 @@ class DependenceInitializer {
     Get.put(EmpHolidaySearchController(Get.find()));
     Get.put(EmpHolidayReportController(Get.find(), Get.find()));
     Get.put(EmpHolidaySearchReportController(Get.find()));
+    Get.put(EmpRequestHolidayReportController());
 
     Get.lazyPut(() => EmpHolidayTamdeedRepository(Get.find()));
     Get.put(EmpHolidayTamdeedController(Get.find(), Get.find()));

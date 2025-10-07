@@ -17,6 +17,7 @@ import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/emp_holiday_report_controller.dart';
 import '../controllers/emp_holiday_tamdeed_controller.dart';
 import '../controllers/emp_holiday_type_controller.dart';
+import '../controllers/emp_request_holiday_report_controller.dart';
 import 'holiday_tamdeed.dart';
 import 'holiday_type_find.dart';
 
@@ -27,6 +28,8 @@ class AddHoliday extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHolidayController>();
     final controllerReport = Get.find<EmpHolidayReportController>();
+    final controllerRequestHolidayReport =
+        Get.find<EmpRequestHolidayReportController>();
 
     double currentWidth = Get.width;
     double currentHeight = Get.height;
@@ -518,12 +521,14 @@ class AddHoliday extends StatelessWidget {
                         height: 35,
                         width: 120,
                       ),
-                      // CustomButton(
-                      //   text: "طلب إجازة",
-                      //   onPressed: () {},
-                      //   height: 35,
-                      //   width: 150,
-                      // ),
+                      CustomButton(
+                        text: "طلب إجازة",
+                        onPressed: () {
+                          controllerRequestHolidayReport.generatePdf();
+                        },
+                        height: 35,
+                        width: 150,
+                      ),
                       CustomButton(
                         text: "طباعة مسير",
                         onPressed: () =>

@@ -25,6 +25,7 @@ class EmpHolidayReportController extends GetxController {
     BladiaInfoController bladiaInfoController =
         Get.find<BladiaInfoController>();
     String name = bladiaInfoController.name.text;
+    String boss = bladiaInfoController.boss.text;
     String bossAssistant = bladiaInfoController.bossAssistant.text;
 
     EmpHolidayController controller = Get.find<EmpHolidayController>();
@@ -155,7 +156,7 @@ class EmpHolidayReportController extends GetxController {
 
           // نص ختامي
           pw.Text(
-            """إن مساعد رئيس $name
+            """إن رئيس $name
 بناءً على الصلاحيات الممنوحة لة بالقرار الاداري رقم ($holidayQrarId) وتاريخ $holidayQrarDate هـ .
 و إشارة إلى طلب الإجازة المرفق من الموضح اسمه و بياناته أعلاه وبناء على
 المادة (130) من اللائحة التنفيذية للموارد البشرية بنظام الخدمة المدنية, يقرر ما يلي:
@@ -163,7 +164,8 @@ class EmpHolidayReportController extends GetxController {
 1- الموافقة على تمتع الموظف أعلاه منحة إجازة $holidayType لمدة ($holidayDay)  يوماً / أيام
 اعتباراً من: $holidayStartDate هـ إلى $holidayEndDate هـ
 2- $holidaySarfيصرف راتبه/ها مقدما
-3- يبلغ هذا القرار لمن يلزم لإنفاذه
+3- يكلف الموظف /  $empName للقيام بعمله لحين الانتهاء من الإجازة. 
+4- يبلغ هذا القرار لمن يلزم لإنفاذه
 
 """,
             style:
@@ -182,9 +184,9 @@ class EmpHolidayReportController extends GetxController {
             mainAxisAlignment: pw.MainAxisAlignment.end,
             children: [
               pw.Text(
-                """مساعد رئيس $name
+                """رئيس $name
 
-$bossAssistant""",
+$boss""",
                 textAlign: pw.TextAlign.center,
                 style: pw.TextStyle(
                     font: arabicFont, fontSize: 11, lineSpacing: 10),

@@ -118,6 +118,8 @@ class EmpHolidaySearchReportController extends GetxController {
         haveHave = 0,
         remainRemain = 0;
 
+    if (empId.text.isNotEmpty) {}
+
     List<List<dynamic>> data = [];
 
     for (EmpHolidayReportModel m in empHolidays) {

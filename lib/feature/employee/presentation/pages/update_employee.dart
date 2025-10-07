@@ -61,706 +61,766 @@ class UpdateEmployee extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                CustomTextField(
-                                  enabled: false,
-                                  controller: controller.id,
-                                  label: 'رقم الموظف',
-                                  customHeight: 25,
-                                  customWidth: 130,
-                                ),
-                                // CustomTextField(
-                                //   onTap: () => {},
-                                //   suffixIcon: const Icon(
-                                //     Icons.edit,
-                                //     size: 15,
-                                //   ),
-                                //   controller: controller.updateEmployeeNumber,
-                                //   label: ' تعديل رقم الموظف',
-                                //   customHeight: 25,
-                                //   customWidth: 100,
-                                // ),
-                                CustomDropdownButton(
-                                  label: 'نوع بيانات الوظيفة ',
-                                  // height: 25,
-                                  // width: 100,,
-                                  item: controller.empType,
-                                  list: controller.jobDataTypes,
-                                  onChanged: (value) {
-                                    controller.onChangeJobDataType(value);
-                                  },
-                                ),
-                                if (controller.empType.value != "عامل أجنبي" &&
-                                    controller.empType.value !=
-                                        "عامل نظافة - عقد" &&
-                                    controller.empType.value !=
-                                        "مكافأة رئيس البلدية" &&
-                                    controller.empType.value !=
-                                        "مكافأة المجلس البلدي" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور غير سعودى")
-                                  CustomButton(
-                                    text: 'اختر',
-                                    onPressed: () {
-                                      Get.find<EmpDegreesFindController>()
-                                          .clearControllers();
-                                      Get.dialog(
-                                        EmpDegreesFindPage(
-                                          onRowDoubleTap: (event) {
-                                            Map<String, PlutoCell> cells =
-                                                event.row.cells;
-                                            controller.degreeId.text =
-                                                cells['id']!.value.toString();
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CustomTextField(
+                                        enabled: false,
+                                        controller: controller.id,
+                                        label: 'رقم الموظف',
+                                        customHeight: 25,
+                                        customWidth: 130,
+                                      ),
+                                      // CustomTextField(
+                                      //   onTap: () => {},
+                                      //   suffixIcon: const Icon(
+                                      //     Icons.edit,
+                                      //     size: 15,
+                                      //   ),
+                                      //   controller: controller.updateEmployeeNumber,
+                                      //   label: ' تعديل رقم الموظف',
+                                      //   customHeight: 25,
+                                      //   customWidth: 100,
+                                      // ),
+                                      CustomDropdownButton(
+                                        label: 'نوع بيانات الوظيفة ',
+                                        // height: 25,
+                                        // width: 100,,
+                                        item: controller.empType,
+                                        list: controller.jobDataTypes,
+                                        onChanged: (value) {
+                                          controller.onChangeJobDataType(value);
+                                        },
+                                      ),
+                                      if (controller.empType.value !=
+                                              "عامل أجنبي" &&
+                                          controller.empType.value !=
+                                              "عامل نظافة - عقد" &&
+                                          controller.empType.value !=
+                                              "مكافأة رئيس البلدية" &&
+                                          controller.empType.value !=
+                                              "مكافأة المجلس البلدي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى")
+                                        CustomButton(
+                                          text: 'اختر',
+                                          onPressed: () {
+                                            Get.find<EmpDegreesFindController>()
+                                                .clearControllers();
+                                            Get.dialog(
+                                              EmpDegreesFindPage(
+                                                onRowDoubleTap: (event) {
+                                                  Map<String, PlutoCell> cells =
+                                                      event.row.cells;
+                                                  controller.degreeId.text =
+                                                      cells['id']!
+                                                          .value
+                                                          .toString();
 
-                                            controller.fia.text =
-                                                cells['martaba']!
-                                                    .value
-                                                    .toString();
-                                            controller.salary.text =
-                                                cells['salary']!
-                                                    .value
-                                                    .toString();
-                                            controller.naqlBadal.text =
-                                                cells['naqlBadal']!
-                                                    .value
-                                                    .toString();
-                                            controller.draga.text =
-                                                cells['draga']!
-                                                    .value
-                                                    .toString();
-                                            controller.outEntedabBadal.text =
-                                                cells['outEntedabadal']!
-                                                    .value
-                                                    .toString();
-                                            controller.inEntedabBadal.text =
-                                                cells['inEntedabBadal']!
-                                                    .value
-                                                    .toString();
-                                            controller.elawa.text =
-                                                cells['elawa']!
-                                                    .value
-                                                    .toString();
-                                            Get.back();
+                                                  controller.fia.text =
+                                                      cells['martaba']!
+                                                          .value
+                                                          .toString();
+                                                  controller.salary.text =
+                                                      cells['salary']!
+                                                          .value
+                                                          .toString();
+                                                  controller.naqlBadal.text =
+                                                      cells['naqlBadal']!
+                                                          .value
+                                                          .toString();
+                                                  controller.draga.text =
+                                                      cells['draga']!
+                                                          .value
+                                                          .toString();
+                                                  controller.outEntedabBadal
+                                                          .text =
+                                                      cells['outEntedabadal']!
+                                                          .value
+                                                          .toString();
+                                                  controller
+                                                          .inEntedabBadal.text =
+                                                      cells['inEntedabBadal']!
+                                                          .value
+                                                          .toString();
+                                                  controller.elawa.text =
+                                                      cells['elawa']!
+                                                          .value
+                                                          .toString();
+                                                  Get.back();
+                                                },
+                                              ),
+                                            );
+                                            Get.find<EmpDegreesFindController>()
+                                                .findEmpDegrees();
                                           },
+                                          height: 25,
+                                          width: 40,
+                                        ).paddingOnly(top: 20),
+                                      if (controller.empType.value !=
+                                              "عامل أجنبي" &&
+                                          controller.empType.value !=
+                                              "عامل نظافة - عقد" &&
+                                          controller.empType.value !=
+                                              "مكافأة رئيس البلدية" &&
+                                          controller.empType.value !=
+                                              "مكافأة المجلس البلدي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى")
+                                        CustomTextField(
+                                          enabled: false,
+                                          controller: controller.degreeId,
+                                          label: 'بيانات الوظيفة',
+                                          customHeight: 25,
+                                          customWidth: 100,
                                         ),
-                                      );
-                                      Get.find<EmpDegreesFindController>()
-                                          .findEmpDegrees();
-                                    },
-                                    height: 25,
-                                    width: 40,
-                                  ).paddingOnly(top: 20),
-                                if (controller.empType.value != "عامل أجنبي" &&
-                                    controller.empType.value !=
-                                        "عامل نظافة - عقد" &&
-                                    controller.empType.value !=
-                                        "مكافأة رئيس البلدية" &&
-                                    controller.empType.value !=
-                                        "مكافأة المجلس البلدي" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور غير سعودى")
-                                  CustomTextField(
-                                    enabled: false,
-                                    controller: controller.degreeId,
-                                    label: 'بيانات الوظيفة',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                if (controller.empType.value !=
-                                        "مكافأة رئيس البلدية" &&
-                                    controller.empType.value !=
-                                        "مكافأة المجلس البلدي")
-                                  CustomTextField(
-                                    enabled: false,
-                                    controller: controller.draga,
-                                    label: 'الدرجة',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                CustomTextField(
-                                  controller: controller.draga2,
-                                  label: '',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                              ],
-                            ).scrollDirection(Axis.horizontal),
-                            Row(
-                              children: [
-                                CustomTextField(
-                                  controller: controller.jobNo,
-                                  label: 'رقم الوظيفة',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                                CustomTextField(
-                                  controller: controller.jobbadalat,
-                                  label: 'بدلات الوظيفة',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                                CustomTextField(
-                                  enabled: false,
-                                  controller: controller.fia,
-                                  label: controller.empType.value != "مستخدم" &&
+                                      if (controller.empType.value !=
+                                              "مكافأة رئيس البلدية" &&
+                                          controller.empType.value !=
+                                              "مكافأة المجلس البلدي")
+                                        CustomTextField(
+                                          enabled: false,
+                                          controller: controller.draga,
+                                          label: 'الدرجة',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                      CustomTextField(
+                                        controller: controller.draga2,
+                                        label: '',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                    ],
+                                  ).scrollDirection(Axis.horizontal),
+                                  Row(
+                                    children: [
+                                      CustomTextField(
+                                        controller: controller.jobNo,
+                                        label: 'رقم الوظيفة',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      CustomTextField(
+                                        controller: controller.jobbadalat,
+                                        label: 'بدلات الوظيفة',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        controller: controller.fia,
+                                        label: controller.empType.value !=
+                                                    "مستخدم" &&
+                                                controller.empType.value !=
+                                                    "عامل بند إجور" &&
+                                                controller.empType.value !=
+                                                    "عامل أجنبي" &&
+                                                controller.empType.value !=
+                                                    "عامل بند إجور غير سعودى"
+                                            ? 'المرتبة'
+                                            : 'الفئة',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      CustomTextField(
+                                        enabled: false,
+                                        controller: controller.salary,
+                                        label: 'الراتب',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      CustomTextField(
+                                        controller: controller.naqlBadal,
+                                        label: 'بدل النقل',
+                                        customHeight: 25,
+                                        customWidth: 100,
+                                      ),
+                                      if (controller.empType.value !=
+                                              "مستخدم" &&
                                           controller.empType.value !=
                                               "عامل بند إجور" &&
                                           controller.empType.value !=
                                               "عامل أجنبي" &&
                                           controller.empType.value !=
-                                              "عامل بند إجور غير سعودى"
-                                      ? 'المرتبة'
-                                      : 'الفئة',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                                CustomTextField(
-                                  enabled: false,
-                                  controller: controller.salary,
-                                  label: 'الراتب',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                                CustomTextField(
-                                  controller: controller.naqlBadal,
-                                  label: 'بدل النقل',
-                                  customHeight: 25,
-                                  customWidth: 100,
-                                ),
-                                if (controller.empType.value != "مستخدم" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور" &&
-                                    controller.empType.value != "عامل أجنبي" &&
-                                    controller.empType.value !=
-                                        "مكافأة رئيس البلدية" &&
-                                    controller.empType.value !=
-                                        "مكافأة المجلس البلدي" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور غير سعودى")
-                                  CustomTextField(
-                                    controller: controller.elawa,
-                                    label: 'العلاوة الدورية',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                if (controller.empType.value != "مستخدم" &&
-                                    controller.empType.value != "عامل أجنبي" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور غير سعودى")
-                                  CustomTextField(
-                                    controller: controller.inEntedabBadal,
-                                    label: controller.empType.value !=
-                                            "عامل بند إجور"
-                                        ? 'بدل انتداب داخلي'
-                                        : '',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                if (controller.empType.value != "مستخدم" &&
-                                    controller.empType.value != "عامل أجنبي" &&
-                                    controller.empType.value !=
-                                        "عامل بند إجور غير سعودى")
-                                  CustomTextField(
-                                    controller: controller.outEntedabBadal,
-                                    label: controller.empType.value !=
-                                            "عامل بند إجور"
-                                        ? 'بدل انتداب خارجي'
-                                        : '',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                              ],
-                            ).scrollDirection(Axis.horizontal),
-                          ],
-                        ),
-                        if (controller.empType.value == "عامل أجنبي" ||
-                            controller.empType.value == "مكافأة رئيس البلدية" ||
-                            controller.empType.value ==
-                                "مكافأة المجلس البلدي" ||
-                            controller.empType.value ==
-                                "عامل بند إجور غير سعودى")
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  CustomTextField(
-                                    suffixIcon: const Icon(
-                                      Icons.date_range_sharp,
-                                      size: 15,
-                                    ),
-                                    onTap: () =>
-                                        datAkdBegin.pickHijriDate(context),
-                                    controller: controller.datAkdBegin,
-                                    label: "تاريخ العقد",
-                                    customHeight: 25,
-                                    customWidth: 120,
-                                  ),
-                                  CustomTextField(
-                                    suffixIcon: const Icon(
-                                      Icons.date_range_sharp,
-                                      size: 15,
-                                    ),
-                                    onTap: () =>
-                                        datAkdEnd.pickHijriDate(context),
-                                    controller: controller.datAkdEnd,
-                                    label: "تاريخ نهاية العقد",
-                                    customHeight: 25,
-                                    customWidth: 120,
-                                  ),
+                                              "مكافأة رئيس البلدية" &&
+                                          controller.empType.value !=
+                                              "مكافأة المجلس البلدي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى")
+                                        CustomTextField(
+                                          controller: controller.elawa,
+                                          label: 'العلاوة الدورية',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                      if (controller.empType.value !=
+                                              "مستخدم" &&
+                                          controller.empType.value !=
+                                              "عامل أجنبي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى")
+                                        CustomTextField(
+                                          controller: controller.inEntedabBadal,
+                                          label: controller.empType.value !=
+                                                  "عامل بند إجور"
+                                              ? 'بدل انتداب داخلي'
+                                              : '',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                      if (controller.empType.value !=
+                                              "مستخدم" &&
+                                          controller.empType.value !=
+                                              "عامل أجنبي" &&
+                                          controller.empType.value !=
+                                              "عامل بند إجور غير سعودى")
+                                        CustomTextField(
+                                          controller:
+                                              controller.outEntedabBadal,
+                                          label: controller.empType.value !=
+                                                  "عامل بند إجور"
+                                              ? 'بدل انتداب خارجي'
+                                              : '',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                    ],
+                                  ).scrollDirection(Axis.horizontal),
                                 ],
+                              ),
+                              if (controller.empType.value == "عامل أجنبي" ||
+                                  controller.empType.value ==
+                                      "مكافأة رئيس البلدية" ||
+                                  controller.empType.value ==
+                                      "مكافأة المجلس البلدي" ||
+                                  controller.empType.value ==
+                                      "عامل بند إجور غير سعودى")
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CustomTextField(
+                                          suffixIcon: const Icon(
+                                            Icons.date_range_sharp,
+                                            size: 15,
+                                          ),
+                                          onTap: () => datAkdBegin
+                                              .pickHijriDate(context),
+                                          controller: controller.datAkdBegin,
+                                          label: "تاريخ العقد",
+                                          customHeight: 25,
+                                          customWidth: 120,
+                                        ),
+                                        CustomTextField(
+                                          suffixIcon: const Icon(
+                                            Icons.date_range_sharp,
+                                            size: 15,
+                                          ),
+                                          onTap: () =>
+                                              datAkdEnd.pickHijriDate(context),
+                                          controller: controller.datAkdEnd,
+                                          label: "تاريخ نهاية العقد",
+                                          customHeight: 25,
+                                          customWidth: 120,
+                                        ),
+                                      ],
+                                    ),
+                                    CustomDropdownButton(
+                                      label: 'استحقاق نهاية الخدمة',
+                                      // height: 25,
+                                      // width: 100,,
+                                      item: controller.esthqaqEndAkd,
+                                      list: controller.esthqaqAkd,
+                                      onChanged:
+                                          controller.onChangeEsthqaqEndAkd,
+                                    ),
+                                  ],
+                                )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.jobId,
+                                label: 'مسمى الوظيفة',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.jobName,
+                                label: '',
+                                customHeight: 25,
+                                customWidth: 200,
+                              ),
+                              CustomButton(
+                                text: 'اختر',
+                                onPressed: () {
+                                  Get.find<JobsController>()
+                                      .clearControllersForSearch();
+                                  Get.dialog(
+                                    JobsFind(
+                                      onRowDoubleTap: (event) {
+                                        Map<String, PlutoCell> cells =
+                                            event.row.cells;
+                                        controller.jobId.text =
+                                            cells['id']!.value.toString();
+                                        controller.jobName.text =
+                                            cells['name']!.value.toString();
+                                        Get.back();
+                                      },
+                                    ),
+                                  );
+                                  Get.find<JobsController>().findJobs();
+                                },
+                                height: 25,
+                                width: 40,
+                              ).paddingOnly(top: 20),
+                              CustomTextField(
+                                label: 'الرمز التصنيفي',
+                                controller: controller.symble,
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.partId,
+                                label: 'القسم',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.partName,
+                                label: '',
+                                customHeight: 25,
+                                customWidth: 200,
+                              ),
+                              CustomButton(
+                                text: 'اختر',
+                                onPressed: () {
+                                  Get.find<PartsController>()
+                                      .clearControllersForSearch();
+                                  Get.dialog(
+                                    PartsFind(
+                                      onRowDoubleTap: (event) {
+                                        Map<String, PlutoCell> cells =
+                                            event.row.cells;
+                                        controller.partId.text =
+                                            cells['id']!.value.toString();
+                                        controller.partName.text =
+                                            cells['name']!.value.toString();
+                                        Get.back();
+                                      },
+                                    ),
+                                  );
+                                  Get.find<PartsController>().findParts();
+                                },
+                                height: 25,
+                                width: 40,
+                              ).paddingOnly(top: 20)
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () =>
+                                    shaghlWazefaDate.pickHijriDate(context),
+                                controller: controller.datJob,
+                                label: "تاريخ شغل الوظيفة",
+                                customHeight: 25,
+                                customWidth: 150,
                               ),
                               CustomDropdownButton(
-                                label: 'استحقاق نهاية الخدمة',
+                                label: ' حالة الوظيفة ',
                                 // height: 25,
                                 // width: 100,,
-                                item: controller.esthqaqEndAkd,
-                                list: controller.esthqaqAkd,
-                                onChanged: controller.onChangeEsthqaqEndAkd,
+                                item: controller.jobState,
+                                list: controller.jobStatus,
+                                onChanged: (value) {
+                                  controller.onChangeJobDataStatu(value);
+                                },
+                              ),
+                              CustomTextField(
+                                controller: controller.name,
+                                label: 'اسم الموظف ',
+                                customHeight: 25,
+                                customWidth: 300,
+                              ),
+                              CustomTextField(
+                                controller: controller.cardId,
+                                label: 'رقم السجل المدني/الإقامة',
+                                customHeight: 25,
+                                customWidth: 150,
                               ),
                             ],
-                          )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.jobId,
-                          label: 'مسمى الوظيفة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.jobName,
-                          label: '',
-                          customHeight: 25,
-                          customWidth: 200,
-                        ),
-                        CustomButton(
-                          text: 'اختر',
-                          onPressed: () {
-                            Get.find<JobsController>()
-                                .clearControllersForSearch();
-                            Get.dialog(
-                              JobsFind(
-                                onRowDoubleTap: (event) {
-                                  Map<String, PlutoCell> cells =
-                                      event.row.cells;
-                                  controller.jobId.text =
-                                      cells['id']!.value.toString();
-                                  controller.jobName.text =
-                                      cells['name']!.value.toString();
-                                  Get.back();
-                                },
-                              ),
-                            );
-                            Get.find<JobsController>().findJobs();
-                          },
-                          height: 25,
-                          width: 40,
-                        ).paddingOnly(top: 20),
-                        CustomTextField(
-                          label: 'الرمز التصنيفي',
-                          controller: controller.symble,
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.partId,
-                          label: 'القسم',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.partName,
-                          label: '',
-                          customHeight: 25,
-                          customWidth: 200,
-                        ),
-                        CustomButton(
-                          text: 'اختر',
-                          onPressed: () {
-                            Get.find<PartsController>()
-                                .clearControllersForSearch();
-                            Get.dialog(
-                              PartsFind(
-                                onRowDoubleTap: (event) {
-                                  Map<String, PlutoCell> cells =
-                                      event.row.cells;
-                                  controller.partId.text =
-                                      cells['id']!.value.toString();
-                                  controller.partName.text =
-                                      cells['name']!.value.toString();
-                                  Get.back();
-                                },
-                              ),
-                            );
-                            Get.find<PartsController>().findParts();
-                          },
-                          height: 25,
-                          width: 40,
-                        ).paddingOnly(top: 20)
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => shaghlWazefaDate.pickHijriDate(context),
-                          controller: controller.datJob,
-                          label: "تاريخ شغل الوظيفة",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomDropdownButton(
-                          label: ' حالة الوظيفة ',
-                          // height: 25,
-                          // width: 100,,
-                          item: controller.jobState,
-                          list: controller.jobStatus,
-                          onChanged: (value) {
-                            controller.onChangeJobDataStatu(value);
-                          },
-                        ),
-                        CustomTextField(
-                          controller: controller.name,
-                          label: 'اسم الموظف ',
-                          customHeight: 25,
-                          customWidth: 300,
-                        ),
-                        CustomTextField(
-                          controller: controller.cardId,
-                          label: 'رقم السجل المدني/الإقامة',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          controller: controller.takenHolidays,
-                          label: 'الإجازات المسجلة حتى الأن',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.nationId,
-                          label: 'الجنسية',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          enabled: false,
-                          controller: controller.nationName,
-                          label: '',
-                          customHeight: 25,
-                          customWidth: 200,
-                        ),
-                        CustomButton(
-                          text: 'اختر',
-                          onPressed: () {
-                            Get.find<NationsController>()
-                                .clearControllersForSearch();
-                            Get.dialog(
-                              NationsFind(
-                                onRowDoubleTap: (event) {
-                                  Map<String, PlutoCell> cells =
-                                      event.row.cells;
-                                  controller.nationId.text =
-                                      cells['id']!.value.toString();
-                                  controller.nationName.text =
-                                      cells['name']!.value.toString();
-                                  Get.back();
-                                },
-                              ),
-                            );
-                            Get.find<NationsController>().findNations();
-                          },
-                          height: 25,
-                          width: 40,
-                        ).paddingOnly(top: 20),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          controller: controller.bok,
-                          label: 'رقم الحفيظة',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.makanAlsodor,
-                          label: 'مكان الصدور',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => sodorDate.pickHijriDate(context),
-                          controller: controller.sodorDate,
-                          label: "تاريخ الصدور",
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.birthPlace,
-                          label: ' مكان الميلاد',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => dateOfBirth.pickHijriDate(context),
-                          controller: controller.datBirth,
-                          label: "تاريخ الميلاد",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => serviceStartDate.pickHijriDate(context),
-                          controller: controller.datWork,
-                          label: "تاريخ بداية الخدمة",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                            controller: controller.education,
-                            label: 'اسم المؤهل العلمي',
-                            customHeight: 25,
-                            customWidth: 200),
-                        CustomTextField(
-                            controller: controller.educationName,
-                            label: 'اسم المؤسسة العلمية',
-                            customHeight: 25,
-                            customWidth: 250),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => graduationDate.pickHijriDate(context),
-                          controller: controller.datEducation,
-                          label: "تاريخ التخرج",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          controller: controller.address,
-                          label: 'العنوان',
-                          customHeight: 25,
-                          customWidth: 250,
-                        ),
-                        CustomTextField(
-                          controller: controller.phone,
-                          label: 'الهاتف',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          controller: controller.workJob,
-                          label: 'العمل المكلف به',
-                          customHeight: 25,
-                          customWidth: 400,
-                        ),
-                        CustomTextField(
-                          controller: controller.cardNo,
-                          label: 'رقم بطاقة العمل',
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => cardSodorDate.pickHijriDate(context),
-                          controller: controller.cardStart,
-                          label: "تاريخ صدور البطاقة",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => loanStartDate.pickHijriDate(context),
-                          controller: controller.datAkdBegin,
-                          label: "تاريخ بداية القرض",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          suffixIcon: const Icon(
-                            Icons.date_range_sharp,
-                            size: 15,
-                          ),
-                          onTap: () => loanEndDate.pickHijriDate(context),
-                          controller: controller.datAkdEnd,
-                          label: "تاريخ نهاية القرض",
-                          customHeight: 25,
-                          customWidth: 150,
-                        ),
-                        CustomTextField(
-                          controller: controller.qardMony,
-                          label: 'المبلغ ',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.qardQest,
-                          label: 'القسط',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.taka3odM,
-                          label: 'تقاعد معاد',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomRadioListTile<String>(
-                          value: "سعودي",
-                          groupValue:
-                              controller.nationalityRadoiListTileValue.value,
-                          title: "سعودي",
-                          onChanged: (value) {
-                            controller
-                                .onChangeNationalityRadoiListTileValue(value);
-                          },
-                        ),
-                        CustomRadioListTile<String>(
-                          value: "أجنبي",
-                          groupValue:
-                              controller.nationalityRadoiListTileValue.value,
-                          title: "أجنبي",
-                          onChanged: (value) {
-                            controller
-                                .onChangeNationalityRadoiListTileValue(value);
-                          },
-                        ),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.grey.shade200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
                             children: [
-                              const Text('مسير الرواتب'),
-                              Row(
-                                children: [
-                                  CustomTextField(
-                                    controller: controller.badal2,
-                                    label: 'ضرر/عدوى',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                  CustomTextField(
-                                    controller: controller.badal4,
-                                    label: 'أخرى',
-                                    customHeight: 25,
-                                    customWidth: 100,
-                                  ),
-                                ],
+                              CustomTextField(
+                                controller: controller.takenHolidays,
+                                label: 'الإجازات المسجلة حتى الأن',
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.nationId,
+                                label: 'الجنسية',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                enabled: false,
+                                controller: controller.nationName,
+                                label: '',
+                                customHeight: 25,
+                                customWidth: 200,
+                              ),
+                              CustomButton(
+                                text: 'اختر',
+                                onPressed: () {
+                                  Get.find<NationsController>()
+                                      .clearControllersForSearch();
+                                  Get.dialog(
+                                    NationsFind(
+                                      onRowDoubleTap: (event) {
+                                        Map<String, PlutoCell> cells =
+                                            event.row.cells;
+                                        controller.nationId.text =
+                                            cells['id']!.value.toString();
+                                        controller.nationName.text =
+                                            cells['name']!.value.toString();
+                                        Get.back();
+                                      },
+                                    ),
+                                  );
+                                  Get.find<NationsController>().findNations();
+                                },
+                                height: 25,
+                                width: 40,
+                              ).paddingOnly(top: 20),
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                controller: controller.bok,
+                                label: 'رقم الحفيظة',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                controller: controller.makanAlsodor,
+                                label: 'مكان الصدور',
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () => sodorDate.pickHijriDate(context),
+                                controller: controller.sodorDate,
+                                label: "تاريخ الصدور",
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                controller: controller.birthPlace,
+                                label: ' مكان الميلاد',
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () => dateOfBirth.pickHijriDate(context),
+                                controller: controller.datBirth,
+                                label: "تاريخ الميلاد",
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () =>
+                                    serviceStartDate.pickHijriDate(context),
+                                controller: controller.datWork,
+                                label: "تاريخ بداية الخدمة",
+                                customHeight: 25,
+                                customWidth: 150,
                               ),
                             ],
-                          ).paddingAll(10),
-                        ).paddingOnly(top: 10, right: 10),
-                        const SizedBox(width: 20),
-                        CustomTextField(
-                          controller: controller.dissent,
-                          label: 'بنك التسليف',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.akdNoTasleef,
-                          label: 'رقم العقد',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.sandok,
-                          label: 'عقاري',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.contractOfrealEstateBank,
-                          label: 'رقم العقد',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.zeraee,
-                          label: 'البنك الزراعي ',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.hasm1,
-                          label: 'التأمين الصحي',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        CustomTextField(
-                          controller: controller.hasm2,
-                          label: 'أخرى',
-                          customHeight: 25,
-                          customWidth: 100,
-                        ),
-                        Obx(
-                          () => CustomCheckbox(
-                            label: 'ساند',
-                            value: controller.isHasm3.value,
-                            onChanged: (value) {
-                              controller.onChangeSaned();
-                            },
-                          ),
-                        ).paddingOnly(top: 20),
-                      ],
-                    ).scrollDirection(Axis.horizontal),
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                  controller: controller.education,
+                                  label: 'اسم المؤهل العلمي',
+                                  customHeight: 25,
+                                  customWidth: 200),
+                              CustomTextField(
+                                  controller: controller.educationName,
+                                  label: 'اسم المؤسسة العلمية',
+                                  customHeight: 25,
+                                  customWidth: 250),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () =>
+                                    graduationDate.pickHijriDate(context),
+                                controller: controller.datEducation,
+                                label: "تاريخ التخرج",
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                controller: controller.address,
+                                label: 'العنوان',
+                                customHeight: 25,
+                                customWidth: 250,
+                              ),
+                              CustomTextField(
+                                controller: controller.phone,
+                                label: 'الهاتف',
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                controller: controller.workJob,
+                                label: 'العمل المكلف به',
+                                customHeight: 25,
+                                customWidth: 400,
+                              ),
+                              CustomTextField(
+                                controller: controller.cardNo,
+                                label: 'رقم بطاقة العمل',
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () =>
+                                    cardSodorDate.pickHijriDate(context),
+                                controller: controller.cardStart,
+                                label: "تاريخ صدور البطاقة",
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                          Row(
+                            children: [
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () =>
+                                    loanStartDate.pickHijriDate(context),
+                                controller: controller.datAkdBegin,
+                                label: "تاريخ بداية القرض",
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                suffixIcon: const Icon(
+                                  Icons.date_range_sharp,
+                                  size: 15,
+                                ),
+                                onTap: () => loanEndDate.pickHijriDate(context),
+                                controller: controller.datAkdEnd,
+                                label: "تاريخ نهاية القرض",
+                                customHeight: 25,
+                                customWidth: 150,
+                              ),
+                              CustomTextField(
+                                controller: controller.qardMony,
+                                label: 'المبلغ ',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                controller: controller.qardQest,
+                                label: 'القسط',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomTextField(
+                                controller: controller.taka3odM,
+                                label: 'تقاعد معاد',
+                                customHeight: 25,
+                                customWidth: 100,
+                              ),
+                              CustomRadioListTile<String>(
+                                value: "سعودي",
+                                groupValue: controller
+                                    .nationalityRadoiListTileValue.value,
+                                title: "سعودي",
+                                onChanged: (value) {
+                                  controller
+                                      .onChangeNationalityRadoiListTileValue(
+                                          value);
+                                },
+                              ),
+                              CustomRadioListTile<String>(
+                                value: "أجنبي",
+                                groupValue: controller
+                                    .nationalityRadoiListTileValue.value,
+                                title: "أجنبي",
+                                onChanged: (value) {
+                                  controller
+                                      .onChangeNationalityRadoiListTileValue(
+                                          value);
+                                },
+                              ),
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 1)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('مسير الرواتب'),
+                          Row(
+                            children: [
+                              Container(
+                                color: Colors.grey.shade200,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('البدلات'),
+                                    Row(
+                                      children: [
+                                        CustomTextField(
+                                          controller: controller.badal2,
+                                          label: 'ضرر/عدوى',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.badal4,
+                                          label: 'أخرى',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ).paddingAll(10),
+                              ).paddingOnly(top: 10, right: 10),
+                              const SizedBox(width: 20),
+                              Container(
+                                color: Colors.grey.shade200,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('الحسميات'),
+                                    Row(
+                                      children: [
+                                        CustomTextField(
+                                          controller: controller.dissent,
+                                          label: 'بنك التسليف',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.akdNoTasleef,
+                                          label: 'رقم العقد',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.sandok,
+                                          label: 'عقاري',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller
+                                              .contractOfrealEstateBank,
+                                          label: 'رقم العقد',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.zeraee,
+                                          label: 'البنك الزراعي ',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.hasm1,
+                                          label: 'التأمين الصحي',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        CustomTextField(
+                                          controller: controller.hasm2,
+                                          label: 'أخرى',
+                                          customHeight: 25,
+                                          customWidth: 100,
+                                        ),
+                                        Obx(
+                                          () => CustomCheckbox(
+                                            label: 'ساند',
+                                            value: controller.isHasm3.value,
+                                            onChanged: (value) {
+                                              controller.onChangeSaned();
+                                            },
+                                          ),
+                                        ).paddingOnly(top: 20),
+                                      ],
+                                    ),
+                                  ],
+                                ).paddingAll(10),
+                              ).paddingOnly(top: 10, right: 10),
+                            ],
+                          ).scrollDirection(Axis.horizontal),
+                        ],
+                      ),
+                    )
                   ],
                 ).paddingAll(10).scrollDirection(Axis.vertical),
                 Column(
