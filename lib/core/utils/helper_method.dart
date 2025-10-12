@@ -24,6 +24,17 @@ DateTime convertToDateTime(String hijriDate) {
   return HijriCalendar().hijriToGregorian(year, month, day);
 }
 
+DateTime hijriToGreg(String hijri) {
+  List<String> str = hijri.split("/");
+
+  int year = int.parse(str[0]);
+  int month = int.parse(str[1]);
+  int day = int.parse(str[2]);
+
+  HijriCalendar hijriDate = HijriCalendar();
+  return hijriDate.hijriToGregorian(year, month, day);
+}
+
 bool checkSavePermission() {
   if (!Get.find<UserController>()
       .checkPermission(Get.find<BaseController>().page.value, save: true)) {
@@ -70,4 +81,63 @@ bool checkDeletePermission() {
     return false;
   }
   return true;
+}
+
+int dateCompare(String str1, String str2) {
+  List<String> s1 = str1.split("/");
+  List<String> s2 = str2.split("/");
+
+  int years = int.parse(s1[0]) - int.parse(s2[0]);
+  int months = int.parse(str1[1]) - int.parse(str2[1]);
+  int days = int.parse(str1[2]) - int.parse(str2[2]);
+
+  if (years > 0) {
+    return 1;
+  } else if (years < 0) {
+    return 0;
+  } else if (years == 0) {
+    if (months > 0) {
+      return 1;
+    } else if (months < 0) {
+      return 0;
+    } else if (months == 0) {
+      if (days >= 0) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+int daysbett(String str1, String str2) {
+  int years = 0, days = 0, x1 = 0, x2 = 0;
+  while (dateCompare(datePlusY(str1, 1), str2) == 0) {
+    years = years + 1;
+    str1 = datePlusY(str1, 1);
+    //MessageBox.Show(years.ToString() + " " + str1);
+  }
+
+  List<String> s1 = str1.split("/");
+  List<String> s2 = str2.split("/");
+
+  x1 = int.parse(s1[1]) * 30 + int.parse(s1[2]);
+  x2 = int.parse(s2[1]) * 30 + int.parse(s2[2]);
+  //MessageBox.Show(x1.ToString() + " " + x2.ToString());
+  if (int.parse(s1[0]) != int.parse(s2[0])) {
+    days = years * 360 + (360 - (x1 - x2).abs());
+  } else {
+    days = years * 360 + (x1 - x2).abs();
+  }
+  return days;
+}
+
+String datePlusY(String str, int x) {
+  List<String> s = str.split("/");
+
+  int year = int.parse(s[0]) + x;
+  int month = int.parse(s[1]);
+  int day = int.parse(s[2]);
+  return "$year/$month/$day";
 }

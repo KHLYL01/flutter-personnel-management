@@ -84,6 +84,7 @@ class EmployeeModel {
   final int? machineNumber;
   final String? dmobashrag;
   final String? dmobashrah;
+  final String? ibanNum;
 
   EmployeeModel({
     this.id,
@@ -166,6 +167,7 @@ class EmployeeModel {
     this.machineNumber,
     this.dmobashrag,
     this.dmobashrah,
+    this.ibanNum,
   });
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) =>
@@ -228,7 +230,23 @@ class EmployeeReportModel {
   final String? education;
   final double? salary;
 
-  EmployeeReportModel({this.id, this.name, this.partName, this.fia, this.jobNo, this.draga, this.jobName, this.jobState, this.cardId, this.bok, this.datBok, this.datWork, this.datJob, this.education, this.salary,});
+  EmployeeReportModel({
+    this.id,
+    this.name,
+    this.partName,
+    this.fia,
+    this.jobNo,
+    this.draga,
+    this.jobName,
+    this.jobState,
+    this.cardId,
+    this.bok,
+    this.datBok,
+    this.datWork,
+    this.datJob,
+    this.education,
+    this.salary,
+  });
 
   factory EmployeeReportModel.fromJson(Map<String, dynamic> json) =>
       _$EmployeeReportModelFromJson(json);

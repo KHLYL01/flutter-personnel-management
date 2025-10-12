@@ -88,6 +88,7 @@ EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
       machineNumber: (json['machineNumber'] as num?)?.toInt(),
       dmobashrag: json['dmobashrag'] as String?,
       dmobashrah: json['dmobashrah'] as String?,
+      ibanNum: json['ibanNum'] as String?,
     );
 
 Map<String, dynamic> _$EmployeeModelToJson(EmployeeModel instance) =>
@@ -172,6 +173,7 @@ Map<String, dynamic> _$EmployeeModelToJson(EmployeeModel instance) =>
       'machineNumber': instance.machineNumber,
       'dmobashrag': instance.dmobashrag,
       'dmobashrah': instance.dmobashrah,
+      'ibanNum': instance.ibanNum,
     };
 
 EmployeeSearchModel _$EmployeeSearchModelFromJson(Map<String, dynamic> json) =>

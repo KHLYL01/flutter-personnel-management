@@ -6,6 +6,7 @@ import 'package:personnel_management/feature/employee/presentation/controllers/e
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -13,6 +14,8 @@ import '../../../../core/widgets/custom_check_box.dart';
 import '../../../../core/widgets/custom_dropdown_button.dart';
 import '../../../../core/widgets/custom_radio_list_tile.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
+import '../../../banks/presentation/controllers/banks_controller.dart';
+import '../../../banks/presentation/pages/banks_find.dart';
 import '../../../tarmeez_emp_degrees/presentation/controllers/emp_degrees_find_controller.dart';
 import '../../../tarmeez_emp_degrees/presentation/pages/emp_degrees_find_page.dart';
 import '../../../tarmeez_jobs/presentation/controllers/jobs_controller.dart';
@@ -21,6 +24,7 @@ import '../../../tarmeez_nations/presentation/controllers/nations_controller.dar
 import '../../../tarmeez_nations/presentation/pages/nations_find.dart';
 import '../../../tarmeez_parts/presentation/controllers/parts_controller.dart';
 import '../../../tarmeez_parts/presentation/pages/parts_find.dart';
+import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_services_controller.dart';
 import '../controllers/employee_report_controller.dart';
 import 'emp_services.dart';
@@ -721,10 +725,156 @@ class UpdateEmployee extends StatelessWidget {
                           border: Border.all(color: Colors.black, width: 1)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text('مسير الرواتب'),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    color: Colors.grey.shade200,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('البنك'),
+                                        Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                CustomTextField(
+                                                  enabled: false,
+                                                  controller: controller.bankId,
+                                                  label: 'اسم البنك',
+                                                  customHeight: 25,
+                                                  customWidth: 100,
+                                                ),
+                                                CustomTextField(
+                                                  enabled: false,
+                                                  controller:
+                                                      controller.bankName,
+                                                  label: '',
+                                                  customHeight: 25,
+                                                  customWidth: 200,
+                                                ),
+                                                CustomButton(
+                                                  text: 'اختر',
+                                                  onPressed: () {
+                                                    Get.find<BanksController>()
+                                                        .clearControllersForSearch();
+                                                    Get.dialog(
+                                                      BanksFind(
+                                                        onRowDoubleTap:
+                                                            (event) {
+                                                          Map<String, PlutoCell>
+                                                              cells =
+                                                              event.row.cells;
+                                                          controller
+                                                                  .bankId.text =
+                                                              cells['id']!
+                                                                  .value
+                                                                  .toString();
+                                                          controller.bankName
+                                                                  .text =
+                                                              cells['name']!
+                                                                  .value
+                                                                  .toString();
+                                                          Get.back();
+                                                        },
+                                                      ),
+                                                    );
+                                                    Get.find<BanksController>()
+                                                        .findBanks();
+                                                  },
+                                                  height: 25,
+                                                  width: 40,
+                                                ).paddingOnly(top: 20),
+                                              ],
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.ibanNum,
+                                              label: 'رقم الآيبان',
+                                              customHeight: 25,
+                                              customWidth: 250,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ).paddingAll(10),
+                                  ).paddingOnly(top: 10, right: 10),
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    color: Colors.grey.shade200,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('الحسميات'),
+                                        Row(
+                                          children: [
+                                            CustomTextField(
+                                              controller: controller.dissent,
+                                              label: 'بنك التسليف',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.akdNoTasleef,
+                                              label: 'رقم العقد',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.sandok,
+                                              label: 'عقاري',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller
+                                                  .contractOfrealEstateBank,
+                                              label: 'رقم العقد',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.zeraee,
+                                              label: 'البنك الزراعي ',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.hasm1,
+                                              label: 'التأمين الصحي',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.hasm2,
+                                              label: 'أخرى',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            Obx(
+                                              () => CustomCheckbox(
+                                                label: 'ساند',
+                                                value: controller.isHasm3.value,
+                                                onChanged: (value) {
+                                                  controller.onChangeSaned();
+                                                },
+                                              ),
+                                            ).paddingOnly(top: 20),
+                                          ],
+                                        ),
+                                      ],
+                                    ).paddingAll(10),
+                                  ).paddingOnly(top: 10, right: 10),
+                                ],
+                              ),
                               Container(
                                 color: Colors.grey.shade200,
                                 child: Column(
@@ -750,77 +900,11 @@ class UpdateEmployee extends StatelessWidget {
                                   ],
                                 ).paddingAll(10),
                               ).paddingOnly(top: 10, right: 10),
-                              const SizedBox(width: 20),
-                              Container(
-                                color: Colors.grey.shade200,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text('الحسميات'),
-                                    Row(
-                                      children: [
-                                        CustomTextField(
-                                          controller: controller.dissent,
-                                          label: 'بنك التسليف',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller.akdNoTasleef,
-                                          label: 'رقم العقد',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller.sandok,
-                                          label: 'عقاري',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller
-                                              .contractOfrealEstateBank,
-                                          label: 'رقم العقد',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller.zeraee,
-                                          label: 'البنك الزراعي ',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller.hasm1,
-                                          label: 'التأمين الصحي',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        CustomTextField(
-                                          controller: controller.hasm2,
-                                          label: 'أخرى',
-                                          customHeight: 25,
-                                          customWidth: 100,
-                                        ),
-                                        Obx(
-                                          () => CustomCheckbox(
-                                            label: 'ساند',
-                                            value: controller.isHasm3.value,
-                                            onChanged: (value) {
-                                              controller.onChangeSaned();
-                                            },
-                                          ),
-                                        ).paddingOnly(top: 20),
-                                      ],
-                                    ),
-                                  ],
-                                ).paddingAll(10),
-                              ).paddingOnly(top: 10, right: 10),
                             ],
                           ).scrollDirection(Axis.horizontal),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ).paddingAll(10).scrollDirection(Axis.vertical),
                 Column(
@@ -855,12 +939,28 @@ class UpdateEmployee extends StatelessWidget {
                         CustomButton(
                           text: 'بيان خدمات موظف',
                           onPressed: () {
-                            Get.find<EmpServicesController>().empId.text =
-                                controller.id.text;
-                            Get.find<EmpServicesController>()
-                                .findAllByEmployeeId();
-                            Get.dialog(const EmpServicesPage());
+                            if (Get.find<UserController>().checkPermission(
+                                    "بيان خدمات موظف",
+                                    enter: true) ||
+                                Get.find<UserController>().isAdmin) {
+                              Get.find<EmpServicesController>().empId.text =
+                                  controller.id.text;
+                              Get.find<EmpServicesController>()
+                                  .findAllByEmployeeId();
+                              Get.dialog(const EmpServicesPage());
+                            } else {
+                              alertDialog(
+                                title: 'تنبيه',
+                                middleText:
+                                    "       ليس لديك صلاحية لفتح هذة النافذة       ",
+                                withoutButton: true,
+                                onPressedConfirm: () {
+                                  Get.back();
+                                },
+                              );
+                            }
                           },
+
                           // controllerReport.createBeanKhedmhEmployeeReport(),
                           height: 30,
                           width: 120,

@@ -28,7 +28,7 @@ class EmpMobashraReportController extends GetxController {
 
     EmpMobashraController controller = Get.find<EmpMobashraController>();
     String holidayStartDate = controller.holidayStartDate.text;
-    String holidayEndDate = controller.endDate.text;
+    String holidayEndDate = controller.holidayEndDate.text;
     String mobashraQrarId = controller.qrarId.text;
     String mobashraQrarDate = controller.qrarDate.text;
     String mobashraDay = controller.day.value;
@@ -214,7 +214,7 @@ $bossName""",
 
     EmpMobashraController controller = Get.find<EmpMobashraController>();
     String holidayStartDate = controller.holidayStartDate.text;
-    String holidayEndDate = controller.endDate.text;
+    String holidayEndDate = controller.holidayEndDate.text;
     String mobashraQrarId = controller.qrarId.text;
     String mobashraQrarDate = controller.qrarDate.text;
     String mobashraDay = controller.day.value;

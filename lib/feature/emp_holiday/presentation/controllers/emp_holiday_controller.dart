@@ -4,9 +4,11 @@ import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_holiday/data/repository/emp_holiday_type_repository.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_search_controller.dart';
 import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_tamdeed_controller.dart';
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_type_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/utils/helper_method.dart';
+import '../../../actions/presentation/controllers/actions_controller.dart';
 import '../../data/model/emp_holiday_model.dart';
 import '../../data/repository/emp_holiday_repository.dart';
 
@@ -103,6 +105,26 @@ class EmpHolidayController extends GetxController {
     sarf(value);
   }
 
+  final TextEditingController dayDate =
+      TextEditingController(text: nowHijriDate());
+  final TextEditingController startWorkDate =
+      TextEditingController(text: nowHijriDate());
+  String empType = "";
+  int takenHoliday = 0;
+  int lblall = 0,
+      lblhave = 0,
+      lblremain = 0,
+      lblallNew = 0,
+      lblhaveNew = 0,
+      lblremainNew = 0,
+      lblallall = 0,
+      lblhavehave = 0,
+      lblremainremain = 0,
+      lblmorahalhave = 0,
+      lblmorahalremain = 0,
+      lblMofaraqHave = 0,
+      lblMofaraqRemain = 0;
+
   Future<void> save() async {
     if (empId.text == "") {
       customSnackBar(title: "خطأ", message: 'يرجى اختيار موظف', isDone: false);
@@ -156,7 +178,17 @@ class EmpHolidayController extends GetxController {
         prev: tamdeedIgazahAccept.value ? 1 : 0,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ إجازة بإسم ${empName.text} نوع الإجازة ${holidayType.text} المدة ${period.text} تاريخ بداية الإجازة ${startDate.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل إجازة بإسم ${empName.text} نوع الإجازة ${holidayType.text} المدة ${period.text} تاريخ بداية الإجازة ${startDate.text}");
+      }
+
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpHolidaySearchController>().findAll();
@@ -175,6 +207,8 @@ class EmpHolidayController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpHolidaySearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف إجازة بإسم ${empName.text} نوع الإجازة ${holidayType.text} المدة ${period.text} تاريخ بداية الإجازة ${startDate.text}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -230,8 +264,11 @@ class EmpHolidayController extends GetxController {
     directBoss(r.directBoss == 1);
     tamdeedIgazahAccept(r.prev == 1);
 
-    (await _typeRepository.findById(int.parse(holidayType.text)))
-        .fold((l) => l, (r) => holidayTypeName.text = (r.name ?? ""));
+    // (await _typeRepository.findById(int.parse(holidayType.text)))
+    //     .fold((l) => l, (r) => holidayTypeName.text = (r.name ?? ""));
+
+    holidayTypeName.text = Get.find<EmpHolidayTypeController>()
+        .getName(int.parse(holidayType.text));
   }
 
   clearControllers() async {
@@ -275,5 +312,245 @@ class EmpHolidayController extends GetxController {
     Get.find<EmpHolidayTamdeedController>().clearAllData();
     id.text = (await Get.find<EmpHolidaySearchController>().getId()).toString();
     // Get.find<EmpHolidayTamdeedController>().holidaysId.text = id.text;
+
+    lblall = 0;
+    lblhave = 0;
+    lblremain = 0;
+    lblallNew = 0;
+    lblhaveNew = 0;
+    lblremainNew = 0;
+    lblallall = 0;
+    lblhavehave = 0;
+    lblremainremain = 0;
+    lblmorahalhave = 0;
+    lblmorahalremain = 0;
+    lblMofaraqHave = 0;
+    lblMofaraqRemain = 0;
+  }
+
+  Future<double> countHoliday(int empId, List<int> holidaysType,
+      DateTime? fromDate, DateTime? toDate) async {
+    String? fDate =
+        fromDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+    String? tDate =
+        toDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+
+    messageError('');
+    double result = 0;
+    final data = await _repository.count(empId, holidaysType, fDate, tDate);
+    data.fold((l) => messageError(l.eerMessage), (r) => result = r);
+    return result;
+  }
+
+  Future<double> countHolidayTamdeed(int empId, List<int> holidaysType,
+      DateTime? fromDate, DateTime? toDate) async {
+    String? fDate =
+        fromDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+    String? tDate =
+        toDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+    messageError('');
+    double result = 0;
+    final data =
+        await _repository.countTamdeed(empId, holidaysType, tDate, fDate);
+    data.fold((l) => messageError(l.eerMessage), (r) => result = r);
+    return result;
+  }
+
+  Future<double> countHolidayMotfareqa(int empId, List<int> holidaysType,
+      DateTime? fromDate, DateTime? toDate) async {
+    String? fDate =
+        fromDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+    String? tDate =
+        toDate?.toIso8601String().substring(0, 10).replaceAll("/", "-");
+    messageError('');
+    double result = 0;
+    final data =
+        await _repository.countMotfareqa(empId, holidaysType, tDate, fDate);
+    data.fold((l) => messageError(l.eerMessage), (r) => result = r);
+    return result;
+  }
+
+  Future<double> countHolidayMorahal(
+      int empId, List<int> holidaysType, String year) async {
+    messageError('');
+    double result = 0;
+    final data = await _repository.countMorahal(empId, holidaysType, year);
+    data.fold((l) => messageError(l.eerMessage), (r) => result = r);
+    return result;
+  }
+
+  Future<void> calculateRaseed() async {
+    if (empId.text.isNotEmpty) {
+      lblall = 0;
+      lblhave = 0;
+      lblremain = 0;
+      lblallNew = 0;
+      lblhaveNew = 0;
+      lblremainNew = 0;
+      lblallall = 0;
+      lblhavehave = 0;
+      lblremainremain = 0;
+      lblmorahalhave = 0;
+      lblmorahalremain = 0;
+      lblMofaraqHave = 0;
+      lblMofaraqRemain = 0;
+
+      int daysd = 0, daysb = 0, daysa = 0;
+      double all1 = 0, all2 = 0, all3 = 0;
+      double all = 0;
+
+      //تاريخ بداية العمل قبل 1426/05/15
+      if (dateCompare(startWorkDate.text, "1426/05/14") == 0) {
+        daysd = daysbett(startWorkDate.text, "1426/05/14");
+        daysb = daysbett("1426/05/15", "1429/03/14");
+        daysa = daysbett("1429/03/15", "1439/12/30");
+        all1 = ((daysa / 12) / 30) * 36;
+        all2 = ((daysb / 12) / 30) * 35;
+        all3 = ((daysd / 12) / 30) * 30;
+        all = all1 + all2 + all3;
+        all = all.roundToDouble();
+        lblall = all.toInt();
+      }
+      if (dateCompare(startWorkDate.text, "1426/05/15") == 1 &&
+          dateCompare(startWorkDate.text, "1429/03/14") ==
+              0) //تاريخ بداية العمل من 1426/05/15 إلى ما قبل 1429/03/15
+      {
+        daysb = daysbett(startWorkDate.text, "1429/03/14");
+        daysa = daysbett("1429/03/15", "1439/12/30");
+        all1 = (daysa / 12 / 30) * 36;
+        all2 = (daysb / 12 / 30) * 35;
+        all = all1 + all2;
+        all = all.roundToDouble();
+        lblall = all.toInt();
+      }
+      if (dateCompare(startWorkDate.text, "1429/03/15") ==
+          1) //تاريخ بداية العمل من 1429/03/15 و ما بعد
+      {
+        daysa = daysbett(startWorkDate.text, "1439/12/30");
+        all1 = (daysa / 12 / 30) * 36;
+        all = all1;
+        all = all.roundToDouble();
+        lblall = all.toInt();
+
+        //تعديل بتاريخ 10/10/2023 من محمد الضاهر بتصفير رصيد الاجازات القديم للموظفين الجدد بعد تاريخ 17/7/1439 أو 1/1/1440 لا يطبق عليهم نظام الأجازات القديم
+        if (dateCompare(startWorkDate.text, "1440/01/01") == 1) {
+          lblall = 0;
+        }
+      }
+      //ابتداء من 1439
+      //تعديل يوم 29-12-2022 الحساب يكون قبل السنة الحالية بسنتين
+      //تعديل يوم 12-2-2023 الحساب يكون قبل السنة الحالية بثلاث سنين
+      //int beginyear = 1439;
+      int beginyear = int.parse(dayDate.text.split("/")[0]) - 4;
+      int datworkbeginYear = int.parse(startWorkDate.text.split("/")[0]);
+      int endyear = int.parse(dayDate.text.split("/")[0]);
+      int maxholidaydays = 36 * (endyear - beginyear);
+      int maxholidaydaysworkbegin = 36 * (endyear - datworkbeginYear);
+
+      if (maxholidaydaysworkbegin < maxholidaydays) {
+        lblallNew = maxholidaydaysworkbegin;
+      } else {
+        lblallNew = maxholidaydays;
+      }
+      //المتمتع القديم
+      double period1 =
+          await countHoliday(int.parse(empId.text), [10], null, null);
+      double tamdeedHave =
+          await countHolidayTamdeed(int.parse(empId.text), [10], null, null);
+      double period2 = await countHoliday(int.parse(empId.text), [0, 6, 9],
+          hijriToGreg(startWorkDate.text), hijriToGreg("1439/07/03"));
+      lblhave = (period1 + period2 + tamdeedHave + takenHoliday).toInt();
+      lblremain = lblall - lblhave;
+      if (lblremain < 0) {
+        lblremain = 0;
+      }
+      //المتمتع بعد 1439
+      beginyear += 1;
+
+      double periodNew1 = await countHoliday(int.parse(empId.text), [0, 6, 9],
+          hijriToGreg("$beginyear/01/01"), hijriToGreg(dayDate.text));
+      double tamdeedHaveNew = await countHolidayTamdeed(
+          int.parse(empId.text),
+          [0, 6, 9],
+          hijriToGreg("$beginyear/01/01"),
+          hijriToGreg(dayDate.text));
+
+      lblhaveNew = (periodNew1 + tamdeedHaveNew).toInt();
+      lblremainNew = lblallNew - lblhaveNew;
+      if (lblremainNew < 0) {
+        lblremainNew = 0;
+      }
+
+      //حساب الاعتيادي السنوي الباقي بناءا على كل السنين السابقة من سنة 1440 إلى تاريخ اليوم كي يضاف جميع الأجازات القديمة قبل 4 سنوات
+      double periodBefore4Years = await countHoliday(int.parse(empId.text),
+          [0, 6, 9], hijriToGreg("1440/01/01"), hijriToGreg(dayDate.text));
+      lblremainNew = (36 * (endyear - 1439) - periodBefore4Years).toInt();
+      if (lblremainNew > 144) {
+        lblremainNew = 144;
+      }
+      if (maxholidaydaysworkbegin < maxholidaydays) {
+        lblremainNew = lblallNew - lblhaveNew;
+      }
+
+      lblallall = lblall + lblallNew;
+      lblhavehave = lblhave + lblhaveNew;
+      lblremainremain = lblremain + lblremainNew;
+      if (lblremainremain < 0) {
+        lblremainremain = 0;
+      }
+
+      //المتفرقة أقل من 5 أيام
+      // DataTable dt3 = new DataTable();
+      // DataTable dtMotfareqaTamded = new DataTable();
+      endyear = int.parse(dayDate.text.split("/")[0]);
+      double motfareqa = await countHolidayMotfareqa(int.parse(empId.text), [6],
+          hijriToGreg("$endyear/01/01"), hijriToGreg(dayDate.text));
+
+      int baqy = (10 - motfareqa).toInt();
+
+      lblMofaraqHave = motfareqa.toInt();
+      lblMofaraqRemain = baqy;
+
+      if (empType != "عامل أجنبي") {
+        if (motfareqa <= 10) {
+          customSnackBar(
+              title: "تنبيه",
+              message:
+                  "الإجازات المتفرقة للسنة الحالية : $motfareqa المتبقي: $baqy",
+              isDone: false);
+        } else {
+          customSnackBar(
+            title: "تنبيه",
+            message:
+                "تجاوزت الحد المسموح به للإجازات الاعتيادية المتفرقة لهذه السنة",
+            isDone: false,
+          );
+        }
+      }
+      if (empType == "عامل أجنبي") {
+        double dt1 =
+            await countHoliday(int.parse(empId.text), [10], null, null);
+        lblhave = (dt1 + takenHoliday).toInt();
+        daysa = daysbett(startWorkDate.text, dayDate.text);
+        all = (daysa / 12 / 30) * 30;
+        all = all.roundToDouble();
+        lblall = all.toInt();
+        lblremain = lblall - lblhave;
+        // panel4.Visible = false;
+        // panel5.Visible = false;
+      }
+
+      //المرحل - قبل 3 سنوات
+      int yearmorahal = int.parse(dayDate.text.split("/")[0]) - 3;
+      int yearmorahal1 = int.parse(dayDate.text.split("/")[0]) - 2;
+
+      double dt1 = await countHolidayMorahal(
+          int.parse(empId.text), [0, 6], yearmorahal.toString());
+      double dt2 = await countHolidayMorahal(
+          int.parse(empId.text), [9], yearmorahal1.toString());
+
+      lblmorahalhave = dt1.toInt();
+      lblmorahalremain = (36 - lblmorahalhave + dt2).toInt();
+    }
   }
 }

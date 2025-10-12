@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:personnel_management/feature/emp_holiday/presentation/controllers/emp_holiday_controller.dart';
 import 'package:personnel_management/feature/users/presentation/controllers/user_controller.dart';
 
 import '../../../../core/constants/app_routes.dart';
@@ -106,19 +107,21 @@ class EmpHolidaySearchReportController extends GetxController {
 
     double sum = 0; // مجموع الإجازات
 
-    int all = 0,
-        have = 0,
-        remain = 0,
-        lblAllNew = 0,
-        lblHaveNew = 0,
-        lblRemainNew = 0,
-        mofarareqHave = 0,
-        mofarareqRemain = 0,
-        allAll = 0,
-        haveHave = 0,
-        remainRemain = 0;
+    final holidayController = Get.find<EmpHolidayController>();
 
-    if (empId.text.isNotEmpty) {}
+    await holidayController.calculateRaseed();
+
+    int all = holidayController.lblall,
+        have = holidayController.lblhave,
+        remain = holidayController.lblremain,
+        lblAllNew = holidayController.lblallNew,
+        lblHaveNew = holidayController.lblhaveNew,
+        lblRemainNew = holidayController.lblremainNew,
+        mofarareqHave = holidayController.lblMofaraqHave,
+        mofarareqRemain = holidayController.lblMofaraqRemain,
+        allAll = holidayController.lblallall,
+        haveHave = holidayController.lblhavehave,
+        remainRemain = holidayController.lblremainremain;
 
     List<List<dynamic>> data = [];
 

@@ -16,6 +16,7 @@ import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
 import '../../../employee/presentation/controllers/employee_find_controller.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
+import '../controllers/emp_holiday_controller.dart';
 import '../controllers/emp_holiday_search_report_controller.dart';
 
 class HolidayReport extends StatelessWidget {
@@ -24,6 +25,7 @@ class HolidayReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHolidaySearchReportController>();
+    final controllerHoliday = Get.find<EmpHolidayController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -82,6 +84,12 @@ class HolidayReport extends StatelessWidget {
                           controller.empType = r.empType ?? "";
                           controller.takenHoliday = r.takenHolidays ?? 0;
                           controller.startWorkDate.text = r.datWork ?? "";
+
+                          controllerHoliday.empId.text = controller.empId.text;
+                          controllerHoliday.empType = r.empType ?? "";
+                          controllerHoliday.takenHoliday = r.takenHolidays ?? 0;
+                          controllerHoliday.startWorkDate.text =
+                              r.datWork ?? "";
                         },
                       );
                     },

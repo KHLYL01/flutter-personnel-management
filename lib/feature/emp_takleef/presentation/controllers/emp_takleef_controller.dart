@@ -7,6 +7,7 @@ import 'package:personnel_management/feature/emp_takleef/presentation/controller
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 
+import '../../../actions/presentation/controllers/actions_controller.dart';
 import '../../data/model/emp_takleef_model.dart';
 import '../../data/repository/emp_takleef_repository.dart';
 import 'emp_takleef_search_controller.dart';
@@ -32,8 +33,7 @@ class EmpTakleefController extends GetxController {
   final TextEditingController datBeginGo = TextEditingController();
   final TextEditingController datEnd = TextEditingController();
   final TextEditingController datEndGo = TextEditingController();
-  final TextEditingController periodOthersDay =
-      TextEditingController(text: "0");
+  final TextEditingController period = TextEditingController(text: "0");
   final TextEditingController hoursAvg = TextEditingController();
 
   final List<String> days = [
@@ -86,7 +86,7 @@ class EmpTakleefController extends GetxController {
         datQrarGo: datQrarGo.text.replaceAll("/", "-"),
         place: place.text,
         task: task.text,
-        periodOthersDay: int.parse(periodOthersDay.text),
+        periodOthersDay: int.parse(period.text),
         khetabId: khetabId.text,
         datKhetab: datKhetab.text,
         datKhetabGo: datKhetabGo.text.replaceAll("/", "-"),
@@ -99,7 +99,16 @@ class EmpTakleefController extends GetxController {
         inDate: DateTime.now().toIso8601String(),
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ خارج الدوام بإسم ${task.text} القسم ${place.text} المدة ${period.text} معدل الساعات ${hoursAvg.text} تاريخ البداية ${datBegin.text} تاريخ النهاية ${datEnd.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل خارج الدوام بإسم ${task.text} القسم ${place.text} المدة ${period.text} معدل الساعات ${hoursAvg.text} تاريخ البداية ${datBegin.text} تاريخ النهاية ${datEnd.text}");
+      }
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpTakleefSearchController>().findAll();
@@ -118,6 +127,8 @@ class EmpTakleefController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpTakleefSearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف خارج الدوام بإسم ${task.text} القسم ${place.text} المدة ${period.text} معدل الساعات ${hoursAvg.text} تاريخ البداية ${datBegin.text} تاريخ النهاية ${datEnd.text}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -153,7 +164,7 @@ class EmpTakleefController extends GetxController {
         r.datBeginGo.getValue().substring(0, 10).replaceAll("-", "/");
     datEnd.text = r.datEnd.getValue();
     datEndGo.text = r.datEndGo.getValue().substring(0, 10).replaceAll("-", "/");
-    periodOthersDay.text = r.periodOthersDay.getValue();
+    period.text = r.periodOthersDay.getValue();
     hoursAvg.text = r.hoursAvg.getValue();
     day(r.day);
   }
@@ -171,7 +182,7 @@ class EmpTakleefController extends GetxController {
     datBeginGo.text = nowDate();
     datEnd.text = nowHijriDate();
     datEndGo.text = nowDate();
-    periodOthersDay.clear();
+    period.clear();
     hoursAvg.clear();
     day('السبت');
     isEidFutur(false);

@@ -26,12 +26,13 @@ class UpdateMobashra extends StatelessWidget {
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
-    HijriPicker decisionDate = HijriPicker(controller.qrarDate);
-    HijriPicker mobasharahDate = HijriPicker(controller.date);
-    HijriPicker startLeaveDate = HijriPicker(controller.holidayStartDate);
-    HijriPicker workMobasharahDate = HijriPicker(controller.mobashraDate);
-    HijriPicker litterDate = HijriPicker(controller.khetabDate);
-    HijriPicker mobasharahDateUntilEndMonth = HijriPicker(controller.endDate);
+    HijriPicker qrarDate = HijriPicker(controller.qrarDate);
+    HijriPicker date = HijriPicker(controller.date);
+    HijriPicker holidayStartDate = HijriPicker(controller.holidayStartDate);
+    HijriPicker holidayEndDate = HijriPicker(controller.holidayEndDate);
+    HijriPicker mobashraDate = HijriPicker(controller.mobashraDate);
+    HijriPicker khetabDate = HijriPicker(controller.khetabDate);
+    // HijriPicker endDate = HijriPicker(controller.endDate);
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -167,7 +168,7 @@ class UpdateMobashra extends StatelessWidget {
                       size: 15,
                     ),
                     controller: controller.qrarDate,
-                    onTap: () => decisionDate.pickHijriDate(context),
+                    onTap: () => qrarDate.pickHijriDate(context),
                     label: 'تاريخ القرار',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
@@ -178,7 +179,7 @@ class UpdateMobashra extends StatelessWidget {
                       size: 15,
                     ),
                     controller: controller.date,
-                    onTap: () => mobasharahDate.pickHijriDate(context),
+                    onTap: () => date.pickHijriDate(context),
                     label: 'تاريخ المباشرة',
                     customHeight: 35,
                     customWidth: currentWidth * 0.22,
@@ -188,15 +189,15 @@ class UpdateMobashra extends StatelessWidget {
                       Icons.date_range_sharp,
                       size: 15,
                     ),
-                    onTap: () => startLeaveDate.pickHijriDate(context),
+                    onTap: () => holidayStartDate.pickHijriDate(context),
                     controller: controller.holidayStartDate,
                     label: 'تاريخ بداية الإجازة',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
                   ),
                   CustomTextField(
-                    onTap: () => workMobasharahDate.pickHijriDate(context),
-                    controller: controller.mobashraDate,
+                    onTap: () => holidayEndDate.pickHijriDate(context),
+                    controller: controller.holidayEndDate,
                     label: 'تاريخ مباشرة العمل',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
@@ -229,7 +230,8 @@ class UpdateMobashra extends StatelessWidget {
               Row(
                 children: [
                   CustomTextField(
-                    controller: controller.endDate,
+                    onTap: () => mobashraDate.pickHijriDate(context),
+                    controller: controller.mobashraDate,
                     label: 'تاريخ المباشرة',
                     customHeight: 35,
                     customWidth: currentWidth * 0.2,
@@ -245,7 +247,7 @@ class UpdateMobashra extends StatelessWidget {
                       size: 15,
                     ),
                     controller: controller.khetabDate,
-                    onTap: () => litterDate.pickHijriDate(context),
+                    onTap: () => khetabDate.pickHijriDate(context),
                     label: 'تاريخ الخطاب',
                     customHeight: 35,
                     customWidth: currentWidth * 0.22,

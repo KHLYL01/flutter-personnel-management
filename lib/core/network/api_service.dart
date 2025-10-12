@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
+import '../../feature/actions/data/model/actions_model.dart';
+import '../../feature/banks/data/model/banks_model.dart';
 import '../../feature/emp_dowra/data/model/emp_dowra_det_model.dart';
 import '../../feature/emp_dowra/data/model/emp_dowra_model.dart';
 import '../../feature/emp_end/data/model/emp_end_model.dart';
@@ -231,6 +233,34 @@ abstract class ApiService {
   Future<HttpResponse<void>> deleteDissent(@Path("id") int id);
 
   //*
+  //* Nations api
+  //*
+  @GET(banks)
+  Future<HttpResponse<List<BanksModel>>> findAllBanks();
+
+  @GET("$banks/find")
+  Future<HttpResponse<List<BanksModel>>> findBanks(
+    @Query("id") String? id,
+    @Query("name") String? name,
+  );
+
+  @GET("$banks/{id}")
+  Future<HttpResponse<BanksModel>> findBankById(
+    @Path("id") String? id,
+  );
+
+  @POST(banks)
+  Future<HttpResponse<BanksModel>> saveBanks(
+      @Body(nullToAbsent: true) BanksModel model);
+
+  @PUT("$banks/{id}")
+  Future<HttpResponse<BanksModel>> updateBanks(
+      @Path("id") String id, @Body(nullToAbsent: true) BanksModel model);
+
+  @DELETE("$banks/{id}")
+  Future<HttpResponse<void>> deleteBanks(@Path("id") String id);
+
+  //*
   //* Emp Dowra api
   //*
   @GET("$empDowra/search")
@@ -407,7 +437,6 @@ abstract class ApiService {
     @Query("holidayType") int? holidayType,
   );
 
-  // TODO =================================
   @GET("$empHoliday/report")
   Future<HttpResponse<List<EmpHolidayReportModel>>> reportEmpHoliday(
     @Query("all") bool? all,
@@ -432,6 +461,37 @@ abstract class ApiService {
 
   @DELETE("$empHoliday/{id}")
   Future<HttpResponse<void>> deleteEmpHoliday(@Path("id") int id);
+
+  @GET("$empHoliday/count")
+  Future<HttpResponse<double>> countEmpHoliday(
+    @Query("empId") int empId,
+    @Query("holidaysType") List<int> holidaysType,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
+  @GET("$empHoliday/count-tamdeed")
+  Future<HttpResponse<double>> countEmpHolidayTamdeed(
+    @Query("empId") int empId,
+    @Query("holidaysType") List<int> holidaysType,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
+  @GET("$empHoliday/count-motfareqa")
+  Future<HttpResponse<double>> countEmpHolidayMotfareqa(
+    @Query("empId") int empId,
+    @Query("holidaysType") List<int> holidaysType,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
+  @GET("$empHoliday/count-morahal")
+  Future<HttpResponse<double>> countEmpHolidayMorahal(
+    @Query("empId") int empId,
+    @Query("holidaysType") List<int> holidaysType,
+    @Query("year") String year,
+  );
 
   //*
   //* Emp Holiday Tamdeed api
@@ -876,19 +936,18 @@ abstract class ApiService {
   //*
   //* Actions api
   //*
-  // @GET("$actions/search")
-  // Future<HttpResponse<List<ActionsModel>>> searchEmpServices(
-  //   @Query("empId") int? empId,
-  // );
-  //
-  // @GET("$actions/{id}")
-  // Future<HttpResponse<EmpServicesModel>> findEmpServicesById(
-  //     @Path("id") int id);
-  //
-  // @POST(actions)
-  // Future<HttpResponse<EmpServicesModel>> saveEmpServices(
-  //     @Body(nullToAbsent: true) EmpServicesModel model);
-  //
-  // @DELETE("$actions/{id}")
-  // Future<HttpResponse<void>> deleteEmpServices(@Path("id") int id);
+  @GET("$actions/search")
+  Future<HttpResponse<List<ActionsModel>>> searchActions(
+    @Query("id") int? id,
+    @Query("username") String? username,
+    @Query("type") String? type,
+    @Query("action") String? action,
+    @Query("all") bool? all,
+    @Query("fromDate") String? fromDate,
+    @Query("toDate") String? toDate,
+  );
+
+  @POST(actions)
+  Future<HttpResponse<ActionsModel>> saveActions(
+      @Body(nullToAbsent: true) ActionsModel model);
 }

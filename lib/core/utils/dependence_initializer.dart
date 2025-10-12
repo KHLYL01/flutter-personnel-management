@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
+import '../../feature/actions/data/repository/actions_repository.dart';
+import '../../feature/actions/presentation/controllers/actions_controller.dart';
+import '../../feature/banks/data/repository/banks_repository.dart';
+import '../../feature/banks/presentation/controllers/banks_controller.dart';
 import '../../feature/emp_dowra/data/repository/emp_dowra_det_repository.dart';
 import '../../feature/emp_dowra/data/repository/emp_dowra_repository.dart';
 import '../../feature/emp_dowra/presentation/controllers/emp_dowra_controller.dart';
@@ -123,6 +127,14 @@ class DependenceInitializer {
     Get.lazyPut<Dio>(() => Dio(), fenix: true);
     Get.lazyPut<ApiService>(() => ApiService(Get.find()));
 
+    // User DI
+    Get.lazyPut(() => UserRepository(Get.find()));
+    Get.put(UserController(Get.find()));
+
+    // Actions DI
+    Get.lazyPut(() => ActionsRepository(Get.find()));
+    Get.put(ActionsController(Get.find()));
+
     // Bladia Info DI
     Get.lazyPut(() => BladiaInfoRepository(Get.find()));
     Get.put(BladiaInfoController(Get.find()));
@@ -130,6 +142,10 @@ class DependenceInitializer {
     // Nations DI
     Get.lazyPut(() => NationsRepository(Get.find()));
     Get.put(NationsController(Get.find()));
+
+    // BankS DI
+    Get.lazyPut(() => BanksRepository(Get.find()));
+    Get.put(BanksController(Get.find()));
 
     // Badal DI
     Get.lazyPut(() => BadalRepository(Get.find()));
@@ -162,7 +178,8 @@ class DependenceInitializer {
 
     // Employee DI
     Get.lazyPut(() => EmployeeRepository(Get.find()));
-    Get.put(EmployeeController(Get.find(), Get.find(), Get.find(), Get.find()));
+    Get.put(EmployeeController(
+        Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
     Get.put(EmployeeSearchController(Get.find()));
     Get.put(EmployeeFindController(Get.find()));
     Get.put(MosaeerSalaryController(Get.find()));
@@ -293,10 +310,6 @@ class DependenceInitializer {
     Get.lazyPut(() => EmpHolidayTypeRepository(Get.find()));
     // Get.put(EmpHolidayTypeController(Get.find()));
     Get.put(EmpHolidayTypeController());
-
-    // User DI
-    Get.lazyPut(() => UserRepository(Get.find()));
-    Get.put(UserController(Get.find()));
 
     // User Signature DI
     Get.lazyPut(() => SignatureRepository(Get.find(), Get.find()));

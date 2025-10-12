@@ -4,6 +4,7 @@ import 'package:personnel_management/core/extensions/int_extension.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/utils/helper_method.dart';
+import '../../../actions/presentation/controllers/actions_controller.dart';
 import '../../data/model/emp_mobashra_model.dart';
 import '../../data/repository/emp_mobashra_repository.dart';
 import 'emp_mobashra_search_controller.dart';
@@ -28,6 +29,7 @@ class EmpMobashraController extends GetxController {
   final TextEditingController no = TextEditingController();
   final TextEditingController date = TextEditingController();
   final TextEditingController holidayStartDate = TextEditingController();
+  final TextEditingController holidayEndDate = TextEditingController();
   final TextEditingController mobashraDate = TextEditingController();
   final TextEditingController period =
       TextEditingController(text: 0.toString());
@@ -79,6 +81,7 @@ class EmpMobashraController extends GetxController {
         qrarId: qrarId.text,
         qrarDateString: qrarDate.text,
         holidayStartDate: holidayStartDate.text,
+        holidayEndDate: holidayEndDate.text,
         period: double.parse(period.text),
         day: day.value,
         days: double.parse(days.text),
@@ -88,7 +91,16 @@ class EmpMobashraController extends GetxController {
         notes: notes.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ مباشرة بإسم ${empName.text} مدة الإجازة ${period.text} تاريخ بداية الإجازة ${holidayStartDate.text} تاريخ مباشرة العمل ${holidayEndDate.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل مباشرة بإسم ${empName.text} مدة الإجازة ${period.text} تاريخ بداية الإجازة ${holidayStartDate.text} تاريخ مباشرة العمل ${holidayEndDate.text}");
+      }
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpMobashraSearchController>().findAll();
@@ -107,6 +119,8 @@ class EmpMobashraController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpMobashraSearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف مباشرة بإسم ${empName.text} مدة الإجازة ${period.text} تاريخ بداية الإجازة ${holidayStartDate.text} تاريخ مباشرة العمل ${holidayEndDate.text}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -133,6 +147,7 @@ class EmpMobashraController extends GetxController {
     no.text = r.no.getValue();
     date.text = r.date.getValue();
     holidayStartDate.text = r.holidayStartDate.getValue();
+    holidayEndDate.text = r.holidayEndDate.getValue();
     mobashraDate.text = r.mobashraDate.getValue();
     khetabDate.text = r.khetabDate.getValue();
     partBoss.text = r.partBoss.getValue();
@@ -157,6 +172,7 @@ class EmpMobashraController extends GetxController {
     no.clear();
     date.text = nowHijriDate();
     holidayStartDate.text = nowHijriDate();
+    holidayEndDate.text = nowHijriDate();
     mobashraDate.text = nowHijriDate();
     khetabDate.text = nowHijriDate();
     partBoss.clear();

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
@@ -17,6 +15,7 @@ import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../../../employee/data/repository/employee_repository.dart';
 import '../../../employee/presentation/pages/employee_find.dart';
 import '../controllers/emp_holiday_search_controller.dart';
 
@@ -26,6 +25,7 @@ class HolidaySearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EmpHolidaySearchController>();
+    final controllerHoliday = Get.find<EmpHolidayController>();
     double currentWidth = Get.width;
     double currentHeight = Get.height;
 
@@ -188,7 +188,11 @@ class HolidaySearch extends StatelessWidget {
                                 "jobName":
                                     PlutoCell(value: item.jobName.getValue()),
                                 "holidayType": PlutoCell(
-                                    value: item.holidayType.getValue()),
+                                  value: Get.find<EmpHolidayTypeController>()
+                                      .getName(
+                                    item.holidayType ?? -1,
+                                  ),
+                                ),
                                 "holidayStartDate": PlutoCell(
                                     value: item.holidayStartDate.getValue()),
                                 "holidayEndDate": PlutoCell(
@@ -255,12 +259,28 @@ class HolidaySearch extends StatelessWidget {
                         ),
                       ],
                       mode: PlutoGridMode.selectWithOneTap,
-                      onRowDoubleTap: (event) {
-                        controller.findById(event.row.cells['id']!.value);
+                      onRowDoubleTap: (event) async {
+                        await controller.findById(event.row.cells['id']!.value);
                         Get.find<EmpHolidayController>().empName.text =
                             event.row.cells['employeeName']!.value.toString();
                         Get.find<EmpHolidayController>().holidayTypeName.text =
                             event.row.cells['holidayType']!.value.toString();
+
+                        final empRepoController =
+                            Get.find<EmployeeRepository>();
+                        (await empRepoController.findById(
+                                int.parse(controllerHoliday.empId.text)))
+                            .fold(
+                          (l) => l,
+                          (r) {
+                            controllerHoliday.empType = r.empType ?? "";
+                            controllerHoliday.takenHoliday =
+                                r.takenHolidays ?? 0;
+                            controllerHoliday.startWorkDate.text =
+                                r.datWork ?? "";
+                          },
+                        );
+                        await controllerHoliday.calculateRaseed();
                         Get.dialog(const UpdateHoliday());
                       },
                     );

@@ -22,6 +22,15 @@ class EmpHolidayTypeController extends GetxController {
     EmpHolidayTypeModel(id: 16, name: "وقوع الكارثة"),
   ];
 
+  String getName(int id) {
+    for (EmpHolidayTypeModel model in empHolidaysType) {
+      if (model.id == id) {
+        return model.name ?? "";
+      }
+    }
+    return "";
+  }
+
   // final EmpHolidayTypeRepository _repository;
 
   // EmpHolidayTypeController(this._repository);

@@ -97,4 +97,56 @@ class EmpHolidayRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  Future<Either<Failure, double>> count(int empId, List<int> holidaysType,
+      String? fromDate, String? toDate) async {
+    try {
+      final httpResponse = await _apiService.countEmpHoliday(
+          empId, holidaysType, fromDate, toDate);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, double>> countTamdeed(int empId,
+      List<int> holidaysType, String? fromDate, String? toDate) async {
+    try {
+      final httpResponse = await _apiService.countEmpHolidayTamdeed(
+          empId, holidaysType, fromDate, toDate);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, double>> countMotfareqa(int empId,
+      List<int> holidaysType, String? fromDate, String? toDate) async {
+    try {
+      final httpResponse = await _apiService.countEmpHolidayMotfareqa(
+          empId, holidaysType, fromDate, toDate);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, double>> countMorahal(
+      int empId, List<int> holidaysType, String year) async {
+    try {
+      final httpResponse =
+          await _apiService.countEmpHolidayMorahal(empId, holidaysType, year);
+      return Right(httpResponse.data);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

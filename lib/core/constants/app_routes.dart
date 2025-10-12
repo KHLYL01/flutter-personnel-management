@@ -1,5 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import '../../feature/actions/presentation/pages/actions_page.dart';
+import '../../feature/banks/presentation/pages/banks_page.dart';
 import '../../feature/emp_dowra/presentation/pages/add_dowra.dart';
 import '../../feature/emp_dowra/presentation/pages/dowra_search.dart';
 import '../../feature/emp_end/presentation/pages/add_end.dart';
@@ -73,11 +75,13 @@ class AppRoutes {
   static const String empDegrees = '/emp_degrees';
   static const String empDegreesWorker = '/emp_degrees_worker';
   static const String parts = '/parts';
+  static const String banks = '/banks';
   // static const String holidayType = '/holiday_type';
 
   // تجهيز و إعداد
   static const String users = '/users';
   static const String signatures = '/signatures';
+  static const String actions = '/actions';
 
   // search
   static const String dowraSearch = '/dowra_search';
@@ -142,6 +146,12 @@ class AppRoutes {
         name: nations,
         page: () => const NationsPage(),
         middlewares: [AuthMiddleware()]),
+
+    GetPage(
+        name: banks,
+        page: () => const BanksPage(),
+        middlewares: [AuthMiddleware()]),
+
     GetPage(
         name: dissents,
         page: () => const DissentPage(),
@@ -383,6 +393,12 @@ class AppRoutes {
       name: AppRoutes.signatures,
       page: () => const SignaturePage(),
       // middlewares: [AuthMiddleware()],
+    ),
+
+    GetPage(
+      name: AppRoutes.actions,
+      page: () => const ActionsPage(),
+      middlewares: [AuthMiddleware()],
     ),
   ];
 }

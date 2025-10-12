@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:personnel_management/feature/actions/presentation/controllers/actions_controller.dart';
 import 'package:personnel_management/feature/employee/presentation/controllers/employee_search_controller.dart';
 import 'package:personnel_management/feature/tarmeez_nations/data/repository/nations_repository.dart';
 import 'package:personnel_management/feature/tarmeez_parts/data/repository/parts_repository.dart';
@@ -8,6 +9,7 @@ import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/functions/image_picker.dart';
 import '../../../../core/utils/helper_method.dart';
+import '../../../banks/data/repository/banks_repository.dart';
 import '../../../tarmeez_jobs/data/repository/jobs_repository.dart';
 import '../../data/model/employee_model.dart';
 import '../../data/repository/employee_repository.dart';
@@ -17,9 +19,10 @@ class EmployeeController extends GetxController {
   final JobsRepository _jobsRepository;
   final PartsRepository _partsRepository;
   final NationsRepository _nationsRepository;
+  final BanksRepository _banksRepository;
 
   EmployeeController(this._repository, this._jobsRepository,
-      this._partsRepository, this._nationsRepository);
+      this._partsRepository, this._nationsRepository, this._banksRepository);
 
   RxString messageError = "".obs;
   RxBool isLoading = false.obs;
@@ -90,6 +93,10 @@ class EmployeeController extends GetxController {
   final TextEditingController badal2 = TextEditingController(text: "0");
   final TextEditingController badal4 = TextEditingController(text: "0");
   final TextEditingController zeraee = TextEditingController(text: "0");
+
+  final TextEditingController bankId = TextEditingController();
+  final TextEditingController bankName = TextEditingController();
+  final TextEditingController ibanNum = TextEditingController();
 
   onChangeNationalityRadoiListTileValue(value) {
     nationalityRadoiListTileValue.value = value;
@@ -240,9 +247,21 @@ class EmployeeController extends GetxController {
         badal4: int.parse(badal4.text),
         zeraee: double.parse(zeraee.text),
         isHasm3: isHasm3.value ? 1 : 0,
+
+        bankId: bankId.text,
+        ibanNum: ibanNum.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ موظف باسم ${name.text} القسم ${partName.text} المسمى الوظيفي ${jobName.text} نوع الوظيفة ${empType.value}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل موظف باسم ${name.text} القسم ${partName.text} المسمى الوظيفي ${jobName.text} نوع الوظيفة ${empType.value}");
+      }
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmployeeSearchController>().findAll();
@@ -261,6 +280,8 @@ class EmployeeController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmployeeSearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف موظف باسم ${name.text} القسم ${partName.text} المسمى الوظيفي ${jobName.text} نوع الوظيفة ${empType.value}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
@@ -286,6 +307,8 @@ class EmployeeController extends GetxController {
         .fold((l) => l, (r) => nationName.text = r.name.getValue());
     (await _partsRepository.findById(id: r.partId))
         .fold((l) => l, (r) => partName.text = r.name.getValue());
+    (await _banksRepository.findById(id: r.bankId))
+        .fold((l) => l, (r) => bankName.text = r.name.getValue());
 
     jobId.text = r.jobId.getValue();
     id.text = r.id.getValue();

@@ -143,7 +143,7 @@ class UpdateTakleef extends StatelessWidget {
                   Row(
                     children: [
                       CustomTextField(
-                        controller: controller.periodOthersDay,
+                        controller: controller.period,
                         label: "عدد الايام",
                         customHeight: 25,
                         customWidth: 200,
@@ -264,8 +264,7 @@ class UpdateTakleef extends StatelessWidget {
                             controllerDet.datBegin.text =
                                 controller.datBegin.text;
                             controllerDet.datEnd.text = controller.datEnd.text;
-                            controllerDet.period.text =
-                                controller.periodOthersDay.text;
+                            controllerDet.period.text = controller.period.text;
                             Get.dialog(const TakleefDet());
                           },
                           height: 30,

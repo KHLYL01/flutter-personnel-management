@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
 import 'package:personnel_management/feature/emp_kashf_tepy/presentation/controllers/emp_kashf_tepy_search_controller.dart';
 import 'package:personnel_management/feature/employee/data/repository/employee_repository.dart';
-import 'package:pluto_grid/pluto_grid.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
 import '../../../../core/utils/helper_method.dart';
+import '../../../actions/presentation/controllers/actions_controller.dart';
 import '../../data/model/emp_kashf_tepy_model.dart';
 import '../../data/repository/emp_kashf_tepy_repository.dart';
 
@@ -70,7 +70,16 @@ class EmpKashfTepyController extends GetxController {
         endDateString: endDate.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ كشف طبي بإسم ${empName.text} بتاريخ ${requestDate.text} اسم الوحدة ${wehdaName.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل كشف طبي بإسم ${empName.text} بتاريخ ${requestDate.text} اسم الوحدة ${wehdaName.text}");
+      }
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpKashfTepySearchController>().findAll();
@@ -89,6 +98,9 @@ class EmpKashfTepyController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpKashfTepySearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف كشف طبي بإسم ${empName.text} بتاريخ ${requestDate.text} اسم الوحدة ${wehdaName.text}");
+
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

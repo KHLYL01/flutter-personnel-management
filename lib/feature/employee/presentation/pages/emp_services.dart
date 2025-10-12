@@ -5,11 +5,13 @@ import 'package:personnel_management/core/extensions/widget_extension.dart';
 import 'package:personnel_management/core/widgets/custom_progress_indicator.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
+import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/hijri_picker.dart';
 import '../../../../core/utils/helper_method.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
+import '../../../users/presentation/controllers/user_controller.dart';
 import '../controllers/emp_services_controller.dart';
 
 class EmpServicesPage extends StatelessWidget {
@@ -46,6 +48,18 @@ class EmpServicesPage extends StatelessWidget {
                 CustomButton(
                   text: "إضافة خدمة",
                   onPressed: () {
+                    if (!Get.find<UserController>()
+                        .checkPermission("بيان خدمات موظف", save: true)) {
+                      alertDialog(
+                        title: 'تنبيه',
+                        middleText: "       ليس لديك صلاحية الإضافة       ",
+                        withoutButton: true,
+                        onPressedConfirm: () {
+                          Get.back();
+                        },
+                      );
+                      return;
+                    }
                     controller.clearControllers();
                     Get.dialog(Dialog(
                       child: Container(
@@ -238,6 +252,20 @@ class EmpServicesPage extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
+                                if (!Get.find<UserController>().checkPermission(
+                                    "بيان خدمات موظف",
+                                    delete: true)) {
+                                  alertDialog(
+                                    title: 'تنبيه',
+                                    middleText:
+                                        "       ليس لديك صلاحية الحذف       ",
+                                    withoutButton: true,
+                                    onPressedConfirm: () {
+                                      Get.back();
+                                    },
+                                  );
+                                  return;
+                                }
                                 if (checkDeletePermission()) {
                                   controller.confirmDelete(
                                       rendererContext.cell.value);

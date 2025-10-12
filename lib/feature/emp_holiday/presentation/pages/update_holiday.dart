@@ -365,28 +365,31 @@ class UpdateHoliday extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Row(
+                        Row(
                           children: [
-                            Text(' رصيد الإجازات القديم :   '),
-                            Text('رصيد كلي :   .............................'),
-                            Text('متمتع : ...................'),
-                            Text('باقي : ...................'),
+                            const Text(' رصيد الإجازات القديم :   '),
+                            Text('رصيد كلي :   ${controller.lblall}         '),
+                            Text('متمتع : ${controller.lblhave}         '),
+                            Text('باقي : ${controller.lblremain}         '),
                           ],
                         ).paddingAll(10).scrollDirection(Axis.horizontal),
-                        const Row(
+                        Row(
                           children: [
-                            Text(' رصيد الإجازات القديم :   '),
-                            Text('رصيد كلي :   .............................'),
-                            Text('متمتع : ...................'),
-                            Text('باقي : ...................'),
+                            const Text(' رصيد الإجازات الاعتيادي :   '),
+                            Text(
+                                'رصيد كلي :   ${controller.lblallNew}         '),
+                            Text('متمتع : ${controller.lblhaveNew}         '),
+                            Text('باقي : ${controller.lblremainNew}         '),
                           ],
                         ).paddingAll(10).scrollDirection(Axis.horizontal),
-                        const Row(
+                        Row(
                           children: [
-                            Text(' رصيد الإجازات القديم :   '),
-                            Text('رصيد كلي :   .............................'),
-                            Text('متمتع : ...................'),
-                            Text('باقي : ...................'),
+                            const Text(' رصيد الإجازات الكلي :   '),
+                            Text(
+                                'رصيد كلي :   ${controller.lblallall}         '),
+                            Text('متمتع : ${controller.lblhavehave}         '),
+                            Text(
+                                'باقي : ${controller.lblremainremain}         '),
                           ],
                         ).paddingAll(10).scrollDirection(Axis.horizontal),
                       ],

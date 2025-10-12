@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/widget_extension.dart';
+import 'package:personnel_management/feature/actions/presentation/controllers/actions_controller.dart';
 import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_controller.dart';
 import 'package:personnel_management/feature/emp_dowra/presentation/controllers/emp_dowra_search_controller.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_controller.dart';
@@ -91,6 +92,11 @@ class BaseScreen extends StatelessWidget {
                                 child: Text(
                                     AppStatic.map[AppRoutes.signatures] ?? ""),
                               ),
+                            PopupMenuItem(
+                              value: AppRoutes.actions,
+                              child:
+                                  Text(AppStatic.map[AppRoutes.actions] ?? ""),
+                            ),
                           ],
                           onSelected: (page) async {
                             switch (page) {
@@ -103,6 +109,17 @@ class BaseScreen extends StatelessWidget {
                                 await Get.find<SignatureController>().findAll();
                                 controller.setPage(
                                     AppStatic.map[AppRoutes.signatures] ?? "");
+                                break;
+
+                              case AppRoutes.actions:
+                                Get.find<ActionsController>().usernames.addAll(
+                                    Get.find<UserController>().usersName);
+                                Get.find<ActionsController>()
+                                    .usernames
+                                    .add("مدير النظام");
+                                await Get.find<ActionsController>().findAll();
+                                controller.setPage(
+                                    AppStatic.map[AppRoutes.actions] ?? "");
                                 break;
                             }
                             if (userController.checkPermission(
@@ -172,6 +189,11 @@ class BaseScreen extends StatelessWidget {
                                 child: Text(
                                     AppStatic.map[AppRoutes.empDegreesWorker] ??
                                         ""),
+                              ),
+                              PopupMenuItem(
+                                value: AppRoutes.banks,
+                                child:
+                                    Text(AppStatic.map[AppRoutes.banks] ?? ""),
                               ),
                               // PopupMenuItem(
                               //   value: AppRoutes.holidayType,

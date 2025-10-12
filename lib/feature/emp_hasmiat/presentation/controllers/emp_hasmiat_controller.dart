@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:personnel_management/feature/actions/presentation/controllers/actions_controller.dart';
 import 'package:personnel_management/feature/emp_hasmiat/presentation/controllers/emp_hasmiat_search_controller.dart';
 import '../../../../core/functions/alert_dialog.dart';
 import '../../../../core/functions/custom_snack_bar.dart';
@@ -57,7 +58,17 @@ class EmpHasmiatController extends GetxController {
         dependOn: dependOn.text,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ حسمية برقم قرار ${qrarId.text} تاريخ القرار ${datQrar.text} تاريخ بداية الحسم ${datBegin.text} تاريخ نهاية الحسم ${datEnd.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل حسمية برقم قرار ${qrarId.text} تاريخ القرار ${datQrar.text} تاريخ بداية الحسم ${datBegin.text} تاريخ نهاية الحسم ${datEnd.text}");
+      }
+
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpHasmiatSearchController>().findAll();
@@ -76,6 +87,8 @@ class EmpHasmiatController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpHasmiatSearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف حسمية برقم قرار ${qrarId.text} تاريخ القرار ${datQrar.text} تاريخ بداية الحسم ${datBegin.text} تاريخ نهاية الحسم ${datEnd.text}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);

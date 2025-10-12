@@ -48,6 +48,7 @@ class UserController extends GetxController {
         username.text = e.username.getValue();
         password.text = e.password.getValue();
         empName.text = e.empName.getValue();
+
         findAllByUserId(e.id ?? 0);
         canEnter.value = false;
         canSave.value = false;
@@ -61,7 +62,7 @@ class UserController extends GetxController {
     // الإعداد والتجهيز
     // ScreenPermission(group: "الإعداد والتجهيز", screenName: "شكل البرنامج"),
     ScreenPermission(group: "الإعداد والتجهيز", screenName: "المستخدمين"),
-    // ScreenPermission(group: "الإعداد والتجهيز", screenName: "شاشة المراقبة"),
+    ScreenPermission(group: "الإعداد والتجهيز", screenName: "شاشة المراقبة"),
     // ScreenPermission(group: "الإعداد والتجهيز", screenName: "عمل نسخة إحتياطية"),
     // ScreenPermission(group: "الإعداد والتجهيز", screenName: "إسترجاع نسخة إحتياطية"),
     // ScreenPermission(group: "الإعداد والتجهيز", screenName: "اخلاء النظام"),
@@ -79,11 +80,13 @@ class UserController extends GetxController {
     ScreenPermission(group: "الترميز", screenName: "سلم درجات العمال"),
     ScreenPermission(
         group: "الترميز", screenName: "تصنيف الدول حسب فئات البدل"),
-    ScreenPermission(group: "الترميز", screenName: "أنواع الإجازات"),
+    ScreenPermission(group: "الترميز", screenName: "البنوك"),
 
     // الموظفين / العاملين
     ScreenPermission(
         group: "الموظفين / العاملين", screenName: "بيانات الوظائف الأساسية"),
+    ScreenPermission(
+        group: "الموظفين / العاملين", screenName: "بيان خدمات موظف"),
     ScreenPermission(
         group: "الموظفين / العاملين", screenName: "بيانات الإنتداب"),
     ScreenPermission(
@@ -388,9 +391,9 @@ class UserController extends GetxController {
   login() async {
     isAdmin = false;
     // for admin
-    // if (username.text.trim() == "administrator" &&
-    //     password.text.trim() == "advancedtech1433") {
-    if (username.text.trim() == "" && password.text.trim() == "") {
+    if (username.text.trim() == "administrator" &&
+        password.text.trim() == "advancedtech1433") {
+      // if (username.text.trim() == "" && password.text.trim() == "") {
       isAdmin = true;
       userEmpName = "مدير النظام";
 
@@ -436,7 +439,7 @@ class UserController extends GetxController {
     bool delete = false,
   }) {
     //for develop
-    return true;
+    // return true;
     if (isAdmin) return true;
     if (pageName == "pdfViewer") return true;
     log("pageName: $pageName");

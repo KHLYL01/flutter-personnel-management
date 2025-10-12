@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personnel_management/core/extensions/int_extension.dart';
+import 'package:personnel_management/feature/actions/presentation/controllers/actions_controller.dart';
+import 'package:personnel_management/feature/actions/presentation/controllers/actions_controller.dart';
 import 'package:personnel_management/feature/emp_end/presentation/controllers/emp_end_search_controller.dart';
 import 'package:personnel_management/feature/emp_entedab/presentation/controllers/emp_entedab_det_controller.dart';
 import 'package:personnel_management/feature/emp_entedab/presentation/controllers/emp_entedab_search_controller.dart';
@@ -168,7 +170,16 @@ class EmpEntedabController extends GetxController {
                 : 1,
       ),
     );
-    data.fold((l) => messageError(l.eerMessage), (r) => fillControllers(r));
+    data.fold((l) => messageError(l.eerMessage), (r) {
+      if (id.text.isEmpty) {
+        Get.find<ActionsController>().save(
+            "حفظ انتداب باسم ${task.text} جهة الانتداب ${place.text} المدة ${period.text} تاريخ بداية الانتداب ${datBegin.text}");
+      } else {
+        Get.find<ActionsController>().save(
+            "تعديل انتداب باسم ${task.text} جهة الانتداب ${place.text} المدة ${period.text} تاريخ بداية الانتداب ${datBegin.text}");
+      }
+      fillControllers(r);
+    });
     isLoading(false);
     if (messageError.isEmpty) {
       Get.find<EmpEndSearchController>().findAll();
@@ -187,6 +198,8 @@ class EmpEntedabController extends GetxController {
     if (messageError.isEmpty) {
       Get.find<EmpEndSearchController>().findAll();
       customSnackBar(title: 'تم', message: 'تم الحذف بنجاح');
+      Get.find<ActionsController>().save(
+          "حذف انتداب باسم ${task.text} جهة الانتداب ${place.text} المدة ${period.text} تاريخ بداية الانتداب ${datBegin.text}");
       return;
     }
     customSnackBar(title: 'خطأ', message: messageError.value, isDone: false);
