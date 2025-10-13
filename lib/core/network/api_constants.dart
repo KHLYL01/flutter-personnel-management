@@ -1,7 +1,12 @@
 // Api
-const String baseURL = "http://localhost:8080/api/v1";
-// Local device
-// const String baseURL = "http://192.168.1.11:8080/api/v1";
+//const String baseURL = "http://localhost:8080/api/v1";//flutter
+
+//const String baseURL = "http://192.168.0.109:8080/api/v1";//جهاز لابتوب المبرمج
+
+//const String baseURL = "http://10.22.129.2:8080/api/v1";//سيرفر بلدية الحايط
+
+const String baseURL = "http://10.22.160.3:8080/api/v1";//سيرفر بلدية جبة
+
 
 const String bladias = "/bladias";
 const String nations = "/emp-nations";

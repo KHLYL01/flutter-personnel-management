@@ -44,9 +44,9 @@ class ActionsController extends GetxController {
   final TextEditingController id = TextEditingController();
   final TextEditingController action = TextEditingController();
   final TextEditingController fromDate =
-      TextEditingController(text: nowHijriDate());
+  TextEditingController(text: nowHijriDate());
   final TextEditingController toDate =
-      TextEditingController(text: nowHijriDate());
+  TextEditingController(text: nowHijriDate());
 
   RxBool all = true.obs;
 
