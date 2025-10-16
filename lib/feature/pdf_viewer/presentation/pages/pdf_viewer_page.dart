@@ -69,6 +69,16 @@ class PdfViewerPage extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
           ),
+          const SizedBox(width: 8),
+          TextButton(
+            onPressed: () {
+              controller.printPdfFile();
+            },
+            child: const Text(
+              "طباعة",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ],
       ),
     );

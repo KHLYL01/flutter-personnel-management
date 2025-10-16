@@ -248,4 +248,10 @@ class CustomPdfViewerController extends GetxController {
   void sharePdfFile() async {
     await Printing.sharePdf(bytes: pdfData.value!);
   }
+
+  void printPdfFile() async {
+    await Printing.layoutPdf(
+      onLayout: (format) => pdfData.value!,
+    );
+  }
 }
