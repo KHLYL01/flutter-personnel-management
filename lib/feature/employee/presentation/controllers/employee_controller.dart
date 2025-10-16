@@ -112,6 +112,7 @@ class EmployeeController extends GetxController {
     'مكافأة رئيس البلدية',
     'مكافأة المجلس البلدي',
     'عامل بند إجور غير سعودى',
+    'متعاقد غير سعودي',
   ];
 
   final List<String> jobStatus = [
@@ -309,6 +310,9 @@ class EmployeeController extends GetxController {
         .fold((l) => l, (r) => partName.text = r.name.getValue());
     (await _banksRepository.findById(id: r.bankId))
         .fold((l) => l, (r) => bankName.text = r.name.getValue());
+
+    bankId.text = r.bankId ?? "";
+    ibanNum.text = r.ibanNum ?? "";
 
     jobId.text = r.jobId.getValue();
     id.text = r.id.getValue();

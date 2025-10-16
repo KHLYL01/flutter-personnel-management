@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.enabled = true,
     this.withLable = true,
-    this.maxLine,
+    this.maxLine = 1,
   }) : super(key: key);
 
   @override
