@@ -61,8 +61,7 @@ class EmployeeController extends GetxController {
   final TextEditingController workJob = TextEditingController();
   final TextEditingController datAkdBegin = TextEditingController();
   final TextEditingController datAkdEnd = TextEditingController();
-  final TextEditingController contractOfrealEstateBank =
-      TextEditingController();
+
   final TextEditingController datBok = TextEditingController();
   final TextEditingController bokPlace = TextEditingController();
   final TextEditingController birthPlace = TextEditingController();
@@ -79,10 +78,29 @@ class EmployeeController extends GetxController {
   final TextEditingController datWork = TextEditingController();
   final TextEditingController educationName = TextEditingController();
   final TextEditingController datEducation = TextEditingController();
+
   final TextEditingController dissent = TextEditingController(text: "0");
   final TextEditingController akdNoTasleef = TextEditingController();
-  final TextEditingController takenHolidays = TextEditingController(text: "0");
+  final TextEditingController datStartTasleef = TextEditingController();
+  final TextEditingController datEndTasleef = TextEditingController();
+  final TextEditingController qestTasleef = TextEditingController();
+  final TextEditingController moneyTasleef = TextEditingController();
+
   final TextEditingController sandok = TextEditingController(text: "0");
+  final TextEditingController akdNoSandok = TextEditingController();
+  final TextEditingController datStartSandok = TextEditingController();
+  final TextEditingController datEndSandok = TextEditingController();
+  final TextEditingController qestSandok = TextEditingController();
+  final TextEditingController moneySandok = TextEditingController();
+
+  final TextEditingController zeraee = TextEditingController(text: "0");
+  final TextEditingController akdNoZeraee = TextEditingController();
+  final TextEditingController datStartZeraee = TextEditingController();
+  final TextEditingController datEndZeraee = TextEditingController();
+  final TextEditingController qestZeraee = TextEditingController();
+  final TextEditingController moneyZeraee = TextEditingController();
+
+  final TextEditingController takenHolidays = TextEditingController(text: "0");
   final TextEditingController cardNo = TextEditingController(text: "0");
   final TextEditingController cardStart = TextEditingController();
   final TextEditingController qardQest = TextEditingController(text: "0");
@@ -92,7 +110,6 @@ class EmployeeController extends GetxController {
   final TextEditingController hasm2 = TextEditingController(text: "0");
   final TextEditingController badal2 = TextEditingController(text: "0");
   final TextEditingController badal4 = TextEditingController(text: "0");
-  final TextEditingController zeraee = TextEditingController(text: "0");
 
   final TextEditingController bankId = TextEditingController();
   final TextEditingController bankName = TextEditingController();
@@ -237,17 +254,35 @@ class EmployeeController extends GetxController {
         empType: empType.value,
         jobState: jobState.value,
         workJob: workJob.text, // العمل المكلف به
-        dissent: double.parse(dissent.text),
-        akdNoTasleef: akdNoTasleef.text,
         takenHolidays:
             int.parse(takenHolidays.text), // الاجازات المسجلة حتى الان
-        sandok: double.parse(sandok.text),
         hasm1: int.parse(hasm1.text),
         hasm2: int.parse(hasm2.text),
         badal2: int.parse(badal2.text),
         badal4: int.parse(badal4.text),
-        zeraee: double.parse(zeraee.text),
         isHasm3: isHasm3.value ? 1 : 0,
+
+        dissent: double.parse(dissent.text),
+        akdNoTasleef: akdNoTasleef.text,
+        datStartTasleef: datStartTasleef.text,
+        datEndTasleef: datEndTasleef.text,
+        qestTasleef: qestTasleef.text.isEmpty ? 0 : int.parse(qestTasleef.text),
+        moneyTasleef:
+            moneyTasleef.text.isEmpty ? 0 : int.parse(moneyTasleef.text),
+
+        sandok: double.parse(sandok.text),
+        akdNoSandok: akdNoSandok.text,
+        datStartSandok: datStartSandok.text,
+        datEndSandok: datEndSandok.text,
+        qestSandok: qestSandok.text.isEmpty ? 0 : int.parse(qestSandok.text),
+        moneySandok: moneySandok.text.isEmpty ? 0 : int.parse(moneySandok.text),
+
+        zeraee: double.parse(zeraee.text),
+        akdNoZeraee: akdNoZeraee.text,
+        datStartZeraee: datStartZeraee.text,
+        datEndZeraee: datEndZeraee.text,
+        qestZeraee: qestZeraee.text.isEmpty ? 0 : int.parse(qestZeraee.text),
+        moneyZeraee: moneyZeraee.text.isEmpty ? 0 : int.parse(moneyZeraee.text),
 
         bankId: bankId.text,
         ibanNum: ibanNum.text,
@@ -311,8 +346,8 @@ class EmployeeController extends GetxController {
     (await _banksRepository.findById(id: r.bankId))
         .fold((l) => l, (r) => bankName.text = r.name.getValue());
 
-    bankId.text = r.bankId ?? "";
-    ibanNum.text = r.ibanNum ?? "";
+    bankId.text = r.bankId.getValue();
+    ibanNum.text = r.ibanNum.getValue();
 
     jobId.text = r.jobId.getValue();
     id.text = r.id.getValue();
@@ -342,26 +377,45 @@ class EmployeeController extends GetxController {
     workJob.text = r.workJob.getValue();
     cardNo.text = r.cardNo.getValue();
     cardStart.text = r.cardStart.getValue();
+
     datAkdBegin.text = r.datAkdBegin.getValue();
     datAkdEnd.text = r.datAkdEnd.getValue();
+
+    taka3odM.text = r.taka3odM.getValue();
+
     qardMony.text = r.qardMony.getValue();
     qardQest.text = r.qardQest.getValue();
-    taka3odM.text = r.taka3odM.getValue();
-    dissent.text = r.dissent.getValue();
-    akdNoTasleef.text = r.akdNoTasleef.getValue();
+
     datBok.text = r.datBok.getValue();
     bokPlace.text = r.bokPlace.getValue();
     bok.text = r.bok.getValue();
 
     degreeId.text = r.degreeId.getValue();
     takenHolidays.text = r.takenHolidays.getValue();
-    sandok.text = r.sandok.getValue();
     hasm1.text = r.hasm1.getValue();
     hasm2.text = r.hasm2.getValue();
     badal2.text = r.badal2.getValue();
     badal4.text = r.badal4.getValue();
-    zeraee.text = r.zeraee.getValue();
     isHasm3.value = r.isHasm3 == 1;
+
+    dissent.text = r.dissent.getValue();
+    akdNoTasleef.text = r.akdNoTasleef.getValue();
+    datStartTasleef.text = r.datStartTasleef.getValue();
+    datEndTasleef.text = r.datEndTasleef.getValue();
+    qestTasleef.text = r.qestTasleef.getValue();
+    moneyTasleef.text = r.moneyTasleef.getValue();
+    sandok.text = r.sandok.getValue();
+    akdNoSandok.text = r.akdNoSandok.getValue();
+    datStartSandok.text = r.datStartSandok.getValue();
+    datEndSandok.text = r.datEndSandok.getValue();
+    qestSandok.text = r.qestSandok.getValue();
+    moneySandok.text = r.moneySandok.getValue();
+    zeraee.text = r.zeraee.getValue();
+    akdNoZeraee.text = r.akdNoZeraee.getValue();
+    datStartZeraee.text = r.datStartZeraee.getValue();
+    datEndZeraee.text = r.datEndZeraee.getValue();
+    qestZeraee.text = r.qestZeraee.getValue();
+    moneyZeraee.text = r.moneyZeraee.getValue();
 
     empType(r.empType ?? "موظف");
     jobState(r.jobState ?? "مشغولة");
@@ -412,13 +466,8 @@ class EmployeeController extends GetxController {
     qardQest.text = "0";
     qardMony.text = "0";
     taka3odM.text = "0";
-    zeraee.text = "0";
     badal2.text = "0";
-    dissent.text = "0";
-    akdNoTasleef.clear();
     badal4.text = "0";
-    sandok.text = "0";
-    contractOfrealEstateBank.clear();
     hasm2.text = "0";
     datBok.text = nowHijriDate();
     bokPlace.clear();
@@ -428,6 +477,24 @@ class EmployeeController extends GetxController {
     empType("موظف");
     jobState("مشغولة");
     esthqaqEndAkd("غير ملزم بدفع المبالغ عند نهاية الخدمة");
+
+    dissent.text = "0";
+    akdNoTasleef.clear();
+    datStartTasleef.clear();
+    datEndTasleef.clear();
+    qestTasleef.clear();
+    moneyTasleef.clear();
+    sandok.text = "0";
+    akdNoSandok.clear();
+    datStartSandok.clear();
+    datEndSandok.clear();
+    qestSandok.clear();
+    moneySandok.clear();
+    zeraee.text = "0";
+    datStartZeraee.clear();
+    datEndZeraee.clear();
+    qestZeraee.clear();
+    moneyZeraee.clear();
 
     id.text = (await Get.find<EmployeeSearchController>().getId()).toString();
   }

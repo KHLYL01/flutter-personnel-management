@@ -46,6 +46,7 @@ class MosaeerSalaryModel {
   final int? hasm2;
   final int? isHasm3;
   final double? hasm3;
+  final String? ibanNum;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   RxBool check = false.obs;
@@ -92,6 +93,7 @@ class MosaeerSalaryModel {
     this.hasm2,
     this.isHasm3,
     this.hasm3,
+    this.ibanNum,
   });
 
   factory MosaeerSalaryModel.fromJson(Map<String, dynamic> json) =>

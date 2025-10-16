@@ -50,6 +50,16 @@ class UpdateEmployee extends StatelessWidget {
     HijriPicker shaghlWazefaDate = HijriPicker(controller.datJob);
     HijriPicker datAkdBegin = HijriPicker(controller.datAkdBegin);
     HijriPicker datAkdEnd = HijriPicker(controller.datAkdEnd);
+
+    HijriPicker datStartTasleef = HijriPicker(controller.datStartTasleef);
+    HijriPicker datEndTasleef = HijriPicker(controller.datEndTasleef);
+
+    HijriPicker datStartSandok = HijriPicker(controller.datStartSandok);
+    HijriPicker datEndSandok = HijriPicker(controller.datEndSandok);
+
+    HijriPicker datStartZeraee = HijriPicker(controller.datStartZeraee);
+    HijriPicker datEndZeraee = HijriPicker(controller.datEndZeraee);
+
     return Dialog(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
@@ -829,24 +839,137 @@ class UpdateEmployee extends StatelessWidget {
                                               customWidth: 100,
                                             ),
                                             CustomTextField(
+                                              onTap: () => datStartTasleef
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datStartTasleef,
+                                              label: 'تاريخ بداية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              onTap: () => datEndTasleef
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datEndTasleef,
+                                              label: 'تاريخ نهاية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.qestTasleef,
+                                              label: 'القسط',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.moneyTasleef,
+                                              label: 'المبلغ',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            CustomTextField(
                                               controller: controller.sandok,
                                               label: 'عقاري',
                                               customHeight: 25,
                                               customWidth: 100,
                                             ),
                                             CustomTextField(
-                                              controller: controller
-                                                  .contractOfrealEstateBank,
+                                              controller:
+                                                  controller.akdNoSandok,
                                               label: 'رقم العقد',
                                               customHeight: 25,
                                               customWidth: 100,
                                             ),
+                                            CustomTextField(
+                                              onTap: () => datStartSandok
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datStartSandok,
+                                              label: 'تاريخ بداية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              onTap: () => datEndSandok
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datEndSandok,
+                                              label: 'تاريخ نهاية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.qestSandok,
+                                              label: 'القسط',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.moneySandok,
+                                              label: 'المبلغ',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
                                             CustomTextField(
                                               controller: controller.zeraee,
                                               label: 'البنك الزراعي ',
                                               customHeight: 25,
                                               customWidth: 100,
                                             ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.akdNoZeraee,
+                                              label: 'رقم العقد',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              onTap: () => datStartZeraee
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datStartZeraee,
+                                              label: 'تاريخ بداية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              onTap: () => datEndZeraee
+                                                  .pickHijriDate(context),
+                                              controller:
+                                                  controller.datEndZeraee,
+                                              label: 'تاريخ نهاية القرض',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller: controller.qestZeraee,
+                                              label: 'القسط',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                            CustomTextField(
+                                              controller:
+                                                  controller.moneyZeraee,
+                                              label: 'المبلغ',
+                                              customHeight: 25,
+                                              customWidth: 100,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
                                             CustomTextField(
                                               controller: controller.hasm1,
                                               label: 'التأمين الصحي',
@@ -869,7 +992,7 @@ class UpdateEmployee extends StatelessWidget {
                                               ),
                                             ).paddingOnly(top: 20),
                                           ],
-                                        ),
+                                        )
                                       ],
                                     ).paddingAll(10),
                                   ).paddingOnly(top: 10, right: 10),

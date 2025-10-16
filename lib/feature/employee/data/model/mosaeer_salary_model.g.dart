@@ -49,6 +49,7 @@ MosaeerSalaryModel _$MosaeerSalaryModelFromJson(Map<String, dynamic> json) =>
       hasm2: (json['hasm2'] as num?)?.toInt(),
       isHasm3: (json['isHasm3'] as num?)?.toInt(),
       hasm3: (json['hasm3'] as num?)?.toDouble(),
+      ibanNum: json['ibanNum'] as String?,
     );
 
 Map<String, dynamic> _$MosaeerSalaryModelToJson(MosaeerSalaryModel instance) =>
@@ -94,4 +95,5 @@ Map<String, dynamic> _$MosaeerSalaryModelToJson(MosaeerSalaryModel instance) =>
       'hasm2': instance.hasm2,
       'isHasm3': instance.isHasm3,
       'hasm3': instance.hasm3,
+      'ibanNum': instance.ibanNum,
     };

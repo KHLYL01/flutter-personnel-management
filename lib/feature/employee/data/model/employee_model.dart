@@ -31,7 +31,6 @@ class EmployeeModel {
   final String? address;
   final String? phone;
   final String? workJob;
-  final double? dissent;
   final String? empType;
   final String? fia;
   final double? draga;
@@ -47,8 +46,6 @@ class EmployeeModel {
   final String? datAkdBegin;
   final String? datAkdEnd;
   final String? akdEndService;
-  final String? akdNoTasleef;
-  final double? sandok;
   final int? cardNo;
   final String? cardStart;
   final String? cardJob;
@@ -70,7 +67,6 @@ class EmployeeModel {
   final double? cardCount;
   final String? passportId;
   final double? nadafa;
-  final double? zeraee;
   final String? datTykeed;
   final String? datEndGo;
   final int? badal1;
@@ -85,6 +81,25 @@ class EmployeeModel {
   final String? dmobashrag;
   final String? dmobashrah;
   final String? ibanNum;
+
+  final double? dissent;
+  final String? akdNoTasleef;
+  final String? datStartTasleef;
+  final String? datEndTasleef;
+  final int? qestTasleef;
+  final int? moneyTasleef;
+  final double? sandok;
+  final String? akdNoSandok;
+  final String? datStartSandok;
+  final String? datEndSandok;
+  final int? qestSandok;
+  final int? moneySandok;
+  final double? zeraee;
+  final String? akdNoZeraee;
+  final String? datStartZeraee;
+  final String? datEndZeraee;
+  final int? qestZeraee;
+  final int? moneyZeraee;
 
   EmployeeModel({
     this.id,
@@ -114,7 +129,6 @@ class EmployeeModel {
     this.address,
     this.phone,
     this.workJob,
-    this.dissent,
     this.empType,
     this.fia,
     this.draga,
@@ -130,8 +144,6 @@ class EmployeeModel {
     this.datAkdBegin,
     this.datAkdEnd,
     this.akdEndService,
-    this.akdNoTasleef,
-    this.sandok,
     this.cardNo,
     this.cardStart,
     this.cardJob,
@@ -153,7 +165,6 @@ class EmployeeModel {
     this.cardCount,
     this.passportId,
     this.nadafa,
-    this.zeraee,
     this.datTykeed,
     this.datEndGo,
     this.badal1,
@@ -168,6 +179,24 @@ class EmployeeModel {
     this.dmobashrag,
     this.dmobashrah,
     this.ibanNum,
+    this.dissent,
+    this.akdNoTasleef,
+    this.datStartTasleef,
+    this.datEndTasleef,
+    this.qestTasleef,
+    this.moneyTasleef,
+    this.sandok,
+    this.akdNoSandok,
+    this.datStartSandok,
+    this.datEndSandok,
+    this.qestSandok,
+    this.moneySandok,
+    this.zeraee,
+    this.akdNoZeraee,
+    this.datStartZeraee,
+    this.datEndZeraee,
+    this.qestZeraee,
+    this.moneyZeraee,
   });
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) =>
