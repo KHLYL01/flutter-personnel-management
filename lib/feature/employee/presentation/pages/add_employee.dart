@@ -802,7 +802,7 @@ class AddEmployee extends StatelessWidget {
                                               ],
                                             ),
                                             CustomTextField(
-                                              controller: controller.ibanNum,
+                                              controller: controller.accountNo,
                                               label: 'رقم الآيبان',
                                               customHeight: 25,
                                               customWidth: 250,

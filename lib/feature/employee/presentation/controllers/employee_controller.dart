@@ -113,7 +113,7 @@ class EmployeeController extends GetxController {
 
   final TextEditingController bankId = TextEditingController();
   final TextEditingController bankName = TextEditingController();
-  final TextEditingController ibanNum = TextEditingController();
+  final TextEditingController accountNo = TextEditingController();
 
   onChangeNationalityRadoiListTileValue(value) {
     nationalityRadoiListTileValue.value = value;
@@ -125,11 +125,15 @@ class EmployeeController extends GetxController {
     'عامل بند إجور',
     'عامل أجنبي',
     'عامل نظافة - عقد',
-    'ندب',
+    'منتدب',
     'مكافأة رئيس البلدية',
     'مكافأة المجلس البلدي',
+    'مكافأة المجلس المحلي',
+    'مكافأة مراقب التعديات',
     'عامل بند إجور غير سعودى',
     'متعاقد غير سعودي',
+    'فنيين غير سعوديين',
+    'مهندسين',
   ];
 
   final List<String> jobStatus = [
@@ -285,7 +289,7 @@ class EmployeeController extends GetxController {
         moneyZeraee: moneyZeraee.text.isEmpty ? 0 : int.parse(moneyZeraee.text),
 
         bankId: bankId.text,
-        ibanNum: ibanNum.text,
+        accountNo: accountNo.text,
       ),
     );
     data.fold((l) => messageError(l.eerMessage), (r) {
@@ -347,7 +351,7 @@ class EmployeeController extends GetxController {
         .fold((l) => l, (r) => bankName.text = r.name.getValue());
 
     bankId.text = r.bankId.getValue();
-    ibanNum.text = r.ibanNum.getValue();
+    accountNo.text = r.accountNo.getValue();
 
     jobId.text = r.jobId.getValue();
     id.text = r.id.getValue();
