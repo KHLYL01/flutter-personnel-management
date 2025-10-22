@@ -42,6 +42,8 @@ class CustomPdfViewerController extends GetxController {
 
   TextEditingController password = TextEditingController();
 
+  RxBool isSelectedImage = false.obs;
+
   void setPdfx(Uint8List pdfBytes) {
     // pdfController(null);
     // pdfController(pdfx.PdfController(

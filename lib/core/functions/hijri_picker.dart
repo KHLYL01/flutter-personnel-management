@@ -14,6 +14,10 @@ class HijriPicker {
     return "${date.hYear.toString().padLeft(4, "0")}/${date.hMonth.toString().padLeft(2, "0")}/${date.hDay.toString().padLeft(2, "0")}";
   }
 
+  String _formatGregDate(DateTime date) {
+    return "${date.year}/${date.month.toString().padLeft(2, "0")}/${date.day.toString().padLeft(2, "0")}";
+  }
+
   void pickHijriDate(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -106,8 +110,7 @@ class HijriPicker {
                           hijriDate.hijriToGregorian(year, month, day);
 
                       final formattedHijri = _formatHijriDate(hijriDate);
-                      final formattedGregorian =
-                          "${gregorianDate.year}/${gregorianDate.month.toString().padLeft(2, "0")}/${gregorianDate.day.toString().padLeft(2, "0")}";
+                      final formattedGregorian = _formatGregDate(gregorianDate);
 
                       pickedDate.text = formattedHijri;
 
@@ -128,5 +131,27 @@ class HijriPicker {
         ),
       ),
     );
+  }
+
+  void pickGregDate(BuildContext context) async {
+    DateTime initialDate =
+        DateTime.parse(pickedGregorianDate!.text.replaceAll("/", "-"));
+
+    DateTime? dateTime = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime.now().subtract(const Duration(days: 75 * 365)),
+      lastDate: DateTime.now(),
+    );
+
+    if (dateTime != null) {
+      pickedGregorianDate!.text = _formatGregDate(dateTime);
+
+      List<String> hijri = hijriDate
+          .gregorianToHijri(dateTime.year, dateTime.month, dateTime.day)
+          .split("/");
+
+      pickedDate.text = "${hijri[2]}/${hijri[1]}/${hijri[0]}";
+    }
   }
 }

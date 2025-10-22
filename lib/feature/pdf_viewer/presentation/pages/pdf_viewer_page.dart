@@ -12,6 +12,7 @@ import '../../../../core/network/api_constants.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../user_signature/presentation/controllers/signature_controller.dart';
 import '../../../user_signature/presentation/pages/add_signature_page.dart';
+import '../widgets/resize_handler_widget.dart';
 
 class PdfViewerPage extends StatelessWidget {
   PdfViewerPage({Key? key}) : super(key: key);
@@ -117,6 +118,7 @@ class PdfViewerPage extends StatelessWidget {
               onPressed: () {
                 controller.selectedImage.value = null;
                 controller.placedSignature.value = null;
+                controller.password.clear();
               },
               child: const Text(
                 "إلغاء",
@@ -131,6 +133,7 @@ class PdfViewerPage extends StatelessWidget {
                   await controller.saveSignatureOnPdf();
                   controller.selectedImage.value = null;
                   controller.placedSignature.value = null;
+                  controller.password.clear();
                 },
                 child: const Text(
                   "حفظ",
@@ -212,6 +215,10 @@ class PdfViewerPage extends StatelessWidget {
             if (controller.selectedImage.value == null) {
               return;
             }
+            if (Get.find<SignatureController>().checkPassword(
+                controller.selectedImage.value!, controller.password.text)) {
+              return;
+            }
             controller.password.clear();
             Get.dialog(
               Dialog(
@@ -252,6 +259,7 @@ class PdfViewerPage extends StatelessWidget {
                                   controller.selectedImage.value!,
                                   controller.password.text)) {
                                 controller.addSignature(details.globalPosition);
+                                controller.isSelectedImage.value = true;
                                 Get.back();
                                 return;
                               }
@@ -383,6 +391,10 @@ class PdfViewerPage extends StatelessWidget {
           left: item.offset.value.dx,
           top: item.offset.value.dy,
           child: GestureDetector(
+            onTap: () {
+              controller.isSelectedImage.value =
+                  !controller.isSelectedImage.value;
+            },
             onPanUpdate: (details) =>
                 controller.updateSignatureOffset(details.globalPosition),
             child: Column(
@@ -390,11 +402,20 @@ class PdfViewerPage extends StatelessWidget {
                 SizedBox(
                   width: item.width.value,
                   height: item.height.value,
-                  child: Column(
+                  child: Stack(
+                    clipBehavior: Clip.none,
                     children: [
                       Image.memory(
                         item.image,
+                        width: controller.placedSignature.value!.width.value,
+                        height: controller.placedSignature.value!.height.value,
+                        // 2. أخبر الصورة أن تملأ هذا الحيز
+                        fit: BoxFit.fill,
+                        // 3. (نصيحة إضافية) لمنع الوميض (flicker) أثناء التحجيم
+                        gaplessPlayback: true,
                       ),
+                      if (controller.isSelectedImage.value)
+                        ..._buildResizeImage(),
                     ],
                   ),
                 ),
@@ -404,5 +425,155 @@ class PdfViewerPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<Widget> _buildResizeImage() {
+    return [
+      // المقبض السفلي الأيمن (Bottom-Right)
+      buildResizeHandle(
+        alignment: Alignment.bottomRight,
+        onDrag: (details) {
+          // هذا هو المنطق الأهم
+
+          controller.placedSignature.value!.width.value =
+              (controller.placedSignature.value!.width.value + details.delta.dx)
+                  .clamp(50, double.infinity); // تحديث العرض
+          controller.placedSignature.value!.height.value =
+              (controller.placedSignature.value!.height.value +
+                      details.delta.dy)
+                  .clamp(50, double.infinity); // تحديث الطول
+        },
+      ),
+
+      // المقبض العلوي الأيسر (Top-Left)
+      buildResizeHandle(
+        alignment: Alignment.topLeft,
+        onDrag: (details) {
+          // العرض والطول يزدادان بالعكس
+          double newWidth =
+              (controller.placedSignature.value!.width.value - details.delta.dx)
+                  .clamp(50, double.infinity);
+          double newHeight = (controller.placedSignature.value!.height.value -
+                  details.delta.dy)
+              .clamp(50, double.infinity);
+
+          // يجب أيضاً تحريك الصندوق ليبقى ثابتاً من الزاوية
+          controller.placedSignature.value!.offset.value = Offset(
+            controller.placedSignature.value!.offset.value.dx +
+                (controller.placedSignature.value!.width.value - newWidth),
+            controller.placedSignature.value!.offset.value.dy +
+                (controller.placedSignature.value!.height.value - newHeight),
+          );
+
+          controller.placedSignature.value!.width.value = newWidth;
+          controller.placedSignature.value!.height.value = newHeight;
+        },
+      ),
+
+      // المقبض الأيمن فقط (للتحكم بالعرض)
+      buildResizeHandle(
+        alignment: Alignment.centerRight,
+        onDrag: (details) {
+          controller.placedSignature.value!.width.value =
+              (controller.placedSignature.value!.width.value + details.delta.dx)
+                  .clamp(50, double.infinity);
+        },
+      ),
+
+      // المقبض السفلي فقط (للتحكم بالطول)
+      buildResizeHandle(
+        alignment: Alignment.bottomCenter,
+        onDrag: (details) {
+          controller.placedSignature.value!.height.value =
+              (controller.placedSignature.value!.height.value +
+                      details.delta.dy)
+                  .clamp(50, double.infinity);
+        },
+      ),
+
+      // المقبض العلوي الأيمن (Top-Right)
+      buildResizeHandle(
+        alignment: Alignment.topRight,
+        onDrag: (details) {
+          double newWidth =
+              (controller.placedSignature.value!.width.value + details.delta.dx)
+                  .clamp(50, double.infinity);
+          double newHeight = (controller.placedSignature.value!.height.value -
+                  details.delta.dy)
+              .clamp(50, double.infinity);
+
+          // تحريك الصندوق عمودياً ليبقى ثابتاً من الأعلى
+          controller.placedSignature.value!.offset.value = Offset(
+            controller.placedSignature.value!.offset.value.dx,
+            controller.placedSignature.value!.offset.value.dy +
+                (controller.placedSignature.value!.height.value - newHeight),
+          );
+
+          controller.placedSignature.value!.width.value = newWidth;
+          controller.placedSignature.value!.height.value = newHeight;
+        },
+      ),
+
+      // المقبض السفلي الأيسر (Bottom-Left)
+      buildResizeHandle(
+        alignment: Alignment.bottomLeft,
+        onDrag: (details) {
+          double newWidth =
+              (controller.placedSignature.value!.width.value - details.delta.dx)
+                  .clamp(50, double.infinity);
+          double newHeight = (controller.placedSignature.value!.height.value +
+                  details.delta.dy)
+              .clamp(50, double.infinity);
+
+          // تحريك الصندوق أفقياً ليبقى ثابتاً من اليسار
+          controller.placedSignature.value!.offset.value = Offset(
+            controller.placedSignature.value!.offset.value.dx +
+                (controller.placedSignature.value!.width.value - newWidth),
+            controller.placedSignature.value!.offset.value.dy,
+          );
+
+          controller.placedSignature.value!.width.value = newWidth;
+          controller.placedSignature.value!.height.value = newHeight;
+        },
+      ),
+
+      // المقبض الأيسر فقط (للتحكم بالعرض)
+      buildResizeHandle(
+        alignment: Alignment.centerLeft,
+        onDrag: (details) {
+          double newWidth =
+              (controller.placedSignature.value!.width.value - details.delta.dx)
+                  .clamp(50, double.infinity);
+
+          // تحريك الصندوق أفقياً ليبقى ثابتاً من اليسار
+          controller.placedSignature.value!.offset.value = Offset(
+            controller.placedSignature.value!.offset.value.dx +
+                (controller.placedSignature.value!.width.value - newWidth),
+            controller.placedSignature.value!.offset.value.dy,
+          );
+
+          controller.placedSignature.value!.width.value = newWidth;
+        },
+      ),
+
+      // المقبض العلوي فقط (للتحكم بالطول)
+      buildResizeHandle(
+        alignment: Alignment.topCenter,
+        onDrag: (details) {
+          double newHeight = (controller.placedSignature.value!.height.value -
+                  details.delta.dy)
+              .clamp(50, double.infinity);
+
+          // تحريك الصندوق عمودياً ليبقى ثابتاً من الأعلى
+          controller.placedSignature.value!.offset.value = Offset(
+            controller.placedSignature.value!.offset.value.dx,
+            controller.placedSignature.value!.offset.value.dy +
+                (controller.placedSignature.value!.height.value - newHeight),
+          );
+
+          controller.placedSignature.value!.height.value = newHeight;
+        },
+      ),
+    ];
   }
 }

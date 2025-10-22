@@ -21,6 +21,11 @@ class MosaeerSalaryController extends GetxController {
   final TextEditingController endDate =
       TextEditingController(text: nowHijriDate());
 
+  final TextEditingController startDateGreg =
+      TextEditingController(text: nowDate());
+  final TextEditingController endDateGreg =
+      TextEditingController(text: nowDate());
+
   RxString empType = "".obs;
 
   final List<String> empTypeList = [
@@ -54,6 +59,8 @@ class MosaeerSalaryController extends GetxController {
   void clearControllers() {
     startDate.text = nowHijriDate();
     endDate.text = nowHijriDate();
+    startDateGreg.text = nowDate();
+    endDateGreg.text = nowDate();
     empType("");
   }
 }

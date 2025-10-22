@@ -12,8 +12,6 @@ import '../../../../core/widgets/base_screen.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_feild.dart';
 import '../../../../core/widgets/pluto_config.dart';
-import '../controllers/employee_controller.dart';
-import '../controllers/employee_find_controller.dart';
 import '../controllers/mosaeer_salary_controller.dart';
 
 class MosaeerSalary extends StatelessWidget {
@@ -27,8 +25,10 @@ class MosaeerSalary extends StatelessWidget {
     double currentHeight = Get.height;
     double currentWidth = Get.width;
 
-    HijriPicker startDate = HijriPicker(controller.startDate);
-    HijriPicker endDate = HijriPicker(controller.endDate);
+    HijriPicker startDate =
+        HijriPicker(controller.startDate, controller.startDateGreg);
+    HijriPicker endDate =
+        HijriPicker(controller.endDate, controller.endDateGreg);
 
     return Scaffold(
       body: BaseScreen(
@@ -53,12 +53,49 @@ class MosaeerSalary extends StatelessWidget {
                       Icons.date_range_sharp,
                       size: 15,
                     ),
+                    onTap: () => startDate.pickGregDate(context),
+                    controller: controller.startDateGreg,
+                    label: "",
+                    customHeight: 25,
+                    customWidth: 150,
+                  ),
+                  const SizedBox(width: 4),
+                  const Text(" م"),
+                  const SizedBox(width: 8),
+                  const Text("إلى: ").paddingOnly(bottom: 6),
+                  CustomTextField(
+                    suffixIcon: const Icon(
+                      Icons.date_range_sharp,
+                      size: 15,
+                    ),
+                    onTap: () => endDate.pickGregDate(context),
+                    controller: controller.endDateGreg,
+                    label: "",
+                    customHeight: 25,
+                    customWidth: 150,
+                  ),
+                  const SizedBox(width: 4),
+                  const Text(" م"),
+                ],
+              ).paddingSymmetric(horizontal: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text("الفترة من: ").paddingOnly(bottom: 6),
+                  CustomTextField(
+                    suffixIcon: const Icon(
+                      Icons.date_range_sharp,
+                      size: 15,
+                    ),
                     onTap: () => startDate.pickHijriDate(context),
                     controller: controller.startDate,
                     label: "",
                     customHeight: 25,
                     customWidth: 150,
                   ),
+                  const SizedBox(width: 4),
+                  const Text("هـ"),
                   const SizedBox(width: 8),
                   const Text("إلى: ").paddingOnly(bottom: 6),
                   CustomTextField(
@@ -72,9 +109,11 @@ class MosaeerSalary extends StatelessWidget {
                     customHeight: 25,
                     customWidth: 150,
                   ),
-                  const SizedBox(width: 24),
+                  const SizedBox(width: 4),
+                  const Text("هـ"),
                 ],
               ).paddingSymmetric(horizontal: 40),
+
               const SizedBox(height: 20), // Add spacing
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
